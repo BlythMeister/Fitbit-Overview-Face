@@ -1,0 +1,23 @@
+Based on the ANDv2 clock face with some customisations.
+
+* 12/24 hour clock support
+* AM/PM optional display on 12 hour clock
+* Optional show/hide of seconds
+* Date with day name
+* Heartrate with optional animation & zone display
+* Steps
+* Distance
+* Calories
+* Floors
+* Active Minutes
+* BMI & BMR
+* Progress bars for activity goals
+* Battery bar along the top
+
+Supported languages:
+* English
+
+To add support for your language, please provider translation here: https://translate.zanata.org/project/view/Overview-Fitbit?dswid=9047
+
+
+Open sourced on GitHub: https://github.com/BlythMeister/FitBit-Overview-Face
