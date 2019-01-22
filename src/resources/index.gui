@@ -1,0 +1,72 @@
+<svg id="root">
+  <rect id="background" /> 
+  
+  <g>
+    <rect id="battery-line-back" x="0%" y="0%" width="100%" height="2%" fill="fb-white" />
+    <rect id="battery-line" x="0%" y="0%" width="100%" height="2%" fill="fb-white" />    
+  </g>
+  
+  <g id="calendar">
+    <text id="day"/>
+    <text id="date"/>
+  </g>
+  
+  <g id="hr"> 
+    <text id="hr-count" class="count sideCount">56</text>
+    <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
+    <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
+    <g>
+      <text id="hr-resting" class="count sideCount">56</text>
+       <text id="hr-zone" class="count sideCount">56</text>
+    </g>
+  </g> 
+  
+  <g id="clock">
+    <text id="ionic-time"/>
+    <text id="versa-time"/>
+    <text id="ionic-am-pm"/>
+    <text id="versa-am-pm"/>
+    <text id="ionic-second"/>
+    <text id="versa-second"/>
+  </g>
+  
+  <g id="bm">
+    <text id="bmr-zone">259</text>
+    <text id="bmi-zone">259</text>   
+  </g>
+ 
+  <g id="steps">
+    <text id="steps-count" class="count">777</text>
+    <image id="steps-icon" class="icon" href="stat_steps_solid_24px.png" />
+    <rect id="steps-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
+    <rect id="steps-line" x="0" y="20" width="50" height="5" fill="gold" />
+  </g>
+  
+  <g id="distance">   
+    <text id="distance-count" class="count">777</text>
+    <image id="distance-icon" class="icon" href="stat_dist_solid_24px.png" />
+    <rect id="distance-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
+    <rect id="distance-line" x="0" y="20" width="50" height="5" fill="olive" />
+  </g>
+  
+  <g id="calories">  
+    <text id="calories-count" class="count">777</text>
+    <image id="calories-icon" class="icon" href="stat_cals_solid_24px.png" />
+    <rect id="calories-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
+    <rect id="calories-line" x="0" y="20" width="50" height="5" fill="darkorange" />
+  </g> 
+  
+  <g id="elevationGain">  
+    <text id="elevationGain-count" class="count">777</text>
+    <image id="elevationGain-icon" class="icon" href="stat_floors_solid_24px.png" />
+    <rect id="elevationGain-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
+    <rect id="elevationGain-line" x="0" y="20" width="50" height="5" fill="skyblue" />
+  </g>
+  
+  <g id="activeMinutes">   
+    <text id="activeMinutes-count" class="count">777</text>
+    <image id="activeMinutes-icon" class="icon" href="stat_am_solid_24px.png" />
+    <rect id="activeMinutes-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
+    <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="lightseagreen" />
+  </g>
+</svg>

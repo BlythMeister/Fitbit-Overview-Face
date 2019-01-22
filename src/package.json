@@ -1,0 +1,32 @@
+{
+  "fitbit": {
+    "appUUID": "7c4f7506-8ed8-4eb9-84e3-28b85671f26b",
+    "appType": "clockface",
+    "appDisplayName": "Overview",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_heart_rate"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Overview"
+      },
+      "de": {
+        "name": "Overview"
+      },
+      "es": {
+        "name": "Overview"
+      }
+    }
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.0.0"
+  }
+}

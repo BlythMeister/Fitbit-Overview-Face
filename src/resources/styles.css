@@ -1,0 +1,222 @@
+#root {
+  viewport-fill: black;
+  fill: palegoldenrod;
+}
+
+#background {
+  x: 0;
+  y: 0;
+  width:100%;
+  height:100%;
+  fill:black;
+}
+
+#ionic-time {
+  font-size: 110;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  fill: white;
+  x: 100%-55;
+  y: 165;    
+}
+
+#ionic-am-pm {
+  font-size: 38;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  x: 100%-5;
+  y: 120;
+  fill: white;
+}
+
+#ionic-second {
+  font-size: 38;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  x: 100%-5;
+  y:160;
+  fill: white;
+}
+
+#versa-time {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  fill: white;
+  x: 100%-15;
+  y: 175;    
+}
+
+#versa-am-pm {
+  font-size: 40;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: middle;
+  x: 100%-140;
+  y: 220;
+  fill: white;
+}
+
+#versa-second {
+  font-size: 40;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  x: 100%-5;
+  y:220;
+  fill: white;
+}
+
+#calendar {
+  transform: translate(100%-5%,25); 
+}
+
+#day {
+  x: 0;
+  y: 5;
+  font-size: 24;
+  text-anchor: end;
+  font-family: Seville-Bold-Condensed;
+  text-length: 120;
+  fill: steelblue;
+}
+
+#date {
+  x: 0;
+  y: 28;
+  font-size: 24;
+  text-anchor: end;
+  font-family: Seville-Bold-Condensed;
+  text-length: 120;
+  fill: steelblue;
+}
+
+#hr {
+  transform: translate(5%,25)
+}
+
+#hr-count {
+  text-anchor: start;
+  font-size: 22;
+  font-family: Seville-Bold-Condensed;
+  fill: crimson;
+  x: 6;
+  y: 0;
+}
+
+#hr-resting {
+  text-anchor: start;
+  font-size: 22;
+  font-family: Seville-Bold-Condensed;
+  fill: crimson;
+  x: 0;
+  y: 22;
+}
+
+#hr-zone {
+  text-anchor: start;
+  font-size: 22;
+  font-family: Seville-Bold-Condensed;
+  fill: crimson;
+  x: 0;
+  y: 44;
+}
+
+#hr-icon-systole {
+  fill: crimson;
+  width: 30;
+  height: 30;
+  x:47;
+  y:-10;
+}
+
+#hr-icon-diastole {
+  fill: crimson;
+  width: 36;
+  height: 36;
+  x:45;
+  y:-12;
+}
+
+#steps {
+  transform: translate(3%,100%-60);  
+}
+
+#distance {
+  transform: translate(3%,100%-30)
+}
+
+#bm  {
+  transform: translate(36%,100%-60)
+}
+
+#calories  {
+  transform: translate(36%,100%-30)
+}
+
+#elevationGain  {
+  transform: translate(69%,100%-60)
+}
+
+#activeMinutes {
+  transform: translate(69%,100%-30)
+}
+
+#bmr-zone {
+  text-anchor: start;
+  font-size: 18;
+  font-family: Seville-Bold-Condensed;
+  text-length: 120;
+  fill: palegoldenrod;
+  x:5;
+  y:8;
+}
+
+#bmi-zone {
+  text-anchor: start;
+  font-size: 18;
+  font-family: Seville-Bold-Condensed;
+  text-length: 120;
+  fill: palegoldenrod;
+  x:5;
+  y:25;
+}
+
+#steps {  
+  fill: gold;
+}
+
+#distance {
+  fill: olive;
+}
+
+#elevationGain {
+  fill: skyblue;
+}
+
+#calories {
+  fill: darkorange;
+}
+
+#activeMinutes {
+  fill: lightseagreen;
+}
+
+.icon {
+  width: 20;
+  height: 20;
+  x:0;
+  y:0;
+}
+
+.count {
+  font-size: 22;
+  x: 26;
+  y: 15;
+  text-length: 10; 
+  font-family: Seville-Bold-Condensed;
+}
