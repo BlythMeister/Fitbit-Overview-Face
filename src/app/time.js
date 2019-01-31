@@ -1,13 +1,13 @@
 import document from "document";
 import * as util from "../common/utils";
 import { preferences } from "user-settings";
+import { me as device } from "device";
 
 export let root = document.getElementById('root')
-export const screenHeight = root.height //250 - Ionic, 300 - Versa
-export const screenWidth = root.width
-export let timedeviceType = (screenHeight === 300) ? 'versa-time' : 'ionic-time'
-export let seconddeviceType = (screenHeight === 300) ? 'versa-second' : 'ionic-second'
-export let amPmdeviceType = (screenHeight === 300) ? 'versa-am-pm' : 'ionic-am-pm'
+export const deviceType = device.modelName.toLowerCase()
+export let timedeviceType = deviceType + '-time'
+export let seconddeviceType = deviceType + '-second'
+export let amPmdeviceType = deviceType + '-am-pm'
 export let timeEl = document.getElementById(timedeviceType);
 export let secEl = document.getElementById(seconddeviceType);
 export let amPmEl = document.getElementById(amPmdeviceType);

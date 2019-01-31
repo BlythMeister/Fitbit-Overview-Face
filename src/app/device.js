@@ -1,15 +1,14 @@
 import document from "document";
+import { me as device } from "device";
 
 export function deviceSetup() {
   let root = document.getElementById('root');
-  const screenHeight = root.height //250 - Ionic, 300 - Versa
-  if (screenHeight === 300) {
-    console.log("Versa");
+  console.log(device.modelName);
+  
+  if (device.modelName === 'Versa') {    
     setIonicTimes('none');
     setVersaTimes('inline');  
-  }
-  else {
-    console.log("Ionic");
+  } else {
     setIonicTimes('inline');
     setVersaTimes('none');  
   }
