@@ -60,7 +60,10 @@ export function setHours(now) {
       amPmEl.style.display= 'none';
     }
     
-    if (hours > 12) {
+    if (hours === 0)
+    {
+      hours = 12;  
+    } else if (hours > 12) {
       hours = hours - 12;
     }
   } else {
