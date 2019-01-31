@@ -82,7 +82,7 @@
   text-anchor: end;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
-  fill: steelblue;
+  fill: white;
 }
 
 #date {
@@ -103,7 +103,7 @@
   text-anchor: start;
   font-size: 22;
   font-family: Seville-Bold-Condensed;
-  fill: crimson;
+  fill: white;
   x: 6;
   y: 0;
 }
@@ -112,7 +112,7 @@
   text-anchor: start;
   font-size: 22;
   font-family: Seville-Bold-Condensed;
-  fill: crimson;
+  fill: white;
   x: 0;
   y: 22;
 }
@@ -121,7 +121,7 @@
   text-anchor: start;
   font-size: 22;
   font-family: Seville-Bold-Condensed;
-  fill: crimson;
+  fill: white;
   x: 0;
   y: 44;
 }
