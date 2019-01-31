@@ -41,6 +41,10 @@ export function applySettings() {
     if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"].values) {
       date.setDateFormat(settings["dateFormat"].values[0].value); 
     } 
+            
+    if (settings.hasOwnProperty("timeFormat") && settings["timeFormat"].values) {
+      time.setTimeFormat(settings["timeFormat"].values[0].value); 
+    } 
     
     if (settings.hasOwnProperty("isAmPm")) {
       time.setIsAmPm(!!settings["isAmPm"]); 

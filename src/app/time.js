@@ -14,9 +14,11 @@ export let amPmEl = document.getElementById(amPmdeviceType);
 export let isAmPm = false;
 export let showSeconds = true;
 export let showLeadingZero = true;
+export let timeFormat = 'auto'
 export function setIsAmPm(val) { isAmPm = val}
 export function setShowSeconds(val) { showSeconds = val }
 export function setShowLeadingZero(val) { showLeadingZero = val }
+export function setTimeFormat(val) { timeFormat = val }
 
 //Time Draw - START
 export function drawTime(now) {
@@ -45,7 +47,13 @@ export function setMinutes(now){
 
 export function setHours(now) {
   var hours = now.getHours();
-  if (preferences.clockDisplay === "12h") {
+  let clockFormat = timeFormat;
+  if(timeFormat === "auto")
+  {
+    clockFormat = preferences.clockDisplay;    
+  }
+  
+  if (clockFormat === "12h") {
     // 12h format    
     if (isAmPm) {
       if (hours < 12) {
