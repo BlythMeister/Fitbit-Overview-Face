@@ -28,7 +28,7 @@ Or scan this QR Code
 
 * English
 
-To add support for your language, please provide translation here: (https://translate.zanata.org/project/view/Overview-Fitbit?dswid=9047)
+To add support for your language, please provide translations to the file in the [translations folder](https://github.com/BlythMeister/Fitbit-Overview-Face/tree/master/translations) and create a GitHub issues with them attached.
 
 # Screenshots
 
