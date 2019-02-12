@@ -6,11 +6,6 @@
     <rect id="battery-line" x="0%" y="0%" width="100%" height="2%" fill="fb-white" />    
   </g>
   
-  <g id="calendar">
-    <text id="day"/>
-    <text id="date"/>
-  </g>
-  
   <g id="hr"> 
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
@@ -20,6 +15,17 @@
        <text id="hr-zone" class="count sideCount" />
     </g>
   </g> 
+  
+  <g id="battery">  
+    <text id="battery-percent" class="count" />
+    <image id="battery-icon" class="icon" href="battery_solid_24px.png" />
+    <image id="battery-icon-charge" class="icon" href="battery_charge_solid_24px.png" />
+  </g>
+  
+  <g id="calendar">
+    <text id="day"/>
+    <text id="date"/>
+  </g>
   
   <g id="clock">
     <text id="ionic-time"/>

@@ -105,7 +105,26 @@ export function applySettings() {
       bm.bmiZoneEl.style.fill = settings["bmColour"];
     }
     
-    
+    if (settings.hasOwnProperty("showBatteryPercent")) {
+      battery.setShowBatteryPercent(!!settings["showBatteryPercent"]); 
+    } 
+        
+    if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
+        battery.setColour0(settings["battery0Colour"]);
+    }
+        
+    if (settings.hasOwnProperty("battery25Colour") && settings["battery25Colour"]) {
+        battery.setColour25(settings["battery25Colour"]);
+    }
+        
+    if (settings.hasOwnProperty("battery50Colour") && settings["battery50Colour"]) {
+        battery.setColour50(settings["battery50Colour"]);
+    }
+        
+    if (settings.hasOwnProperty("battery75Colour") && settings["battery75Colour"]) {
+        battery.setColour75(settings["battery75Colour"]);
+    }
+        
     if (settings.hasOwnProperty("batteryBackgroundColour") && settings["batteryBackgroundColour"]) {
         battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
     }

@@ -73,6 +73,10 @@ function mySettings(props) {
       <Section title="BMR/BMI">
         <Toggle settingsKey="BMRVis" label="BMR Visibility" />
         <Toggle settingsKey="BMIVis" label="BMI Visibility" />
+      </Section>      
+      
+      <Section title="Battery">
+        <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
       </Section>
       
       <Section title="Time colour">
@@ -119,9 +123,25 @@ function mySettings(props) {
         <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
       </Section>  
       
+      <Section title="Battery 0% - 25% colour">
+        <ColorSelect settingsKey="battery0Colour" colors={colourSet} />
+      </Section>  
+      
+      <Section title="Battery 25% - 50% colour">
+        <ColorSelect settingsKey="battery25Colour" colors={colourSet} />
+      </Section>  
+      
+      <Section title="Battery 50% - 75% colour">
+        <ColorSelect settingsKey="battery50Colour" colors={colourSet} />
+      </Section>  
+      
+      <Section title="Battery 75% - 100% colour">
+        <ColorSelect settingsKey="battery75Colour" colors={colourSet} />
+      </Section>  
+      
       <Section title="Battery bar background colour">
         <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
-      </Section>  
+      </Section> 
       
       <Section title="Background colour">
         <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
