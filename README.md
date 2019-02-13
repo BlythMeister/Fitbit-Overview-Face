@@ -27,8 +27,16 @@ Or scan this QR Code
 # Language Support
 
 * English
+* French
+* Italian
+* German
+* Spanish
+* Japanese
+* Korean
+* Chinese (Simplified)
+* Chinese (Traditional)
 
-To add support for your language, please provide translations to the file in the [translations folder](https://github.com/BlythMeister/Fitbit-Overview-Face/tree/master/translations) and create a GitHub issues with them attached.
+To add support for additional languages, or update existing, please create a GitHub issue.
 
 # Screenshots
 

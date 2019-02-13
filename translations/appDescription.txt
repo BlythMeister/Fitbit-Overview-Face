@@ -17,9 +17,17 @@ Based on the ANDv2 clock face with some customisations.
 
 Supported languages:
 * English
+* French
+* Italian
+* German
+* Spanish
+* Japanese
+* Korean
+* Chinese (Simplified)
+* Chinese (Traditional)
 
-To add support for your language, please provide translations to these files and email them or create a GitHub issues with them attached.
-https://github.com/BlythMeister/Fitbit-Overview-Face/tree/master/translations
+All required translatable text can be found here: https://github.com/BlythMeister/Fitbit-Overview-Face/tree/master/translations
 
+To add support for additional languages, or update existing, please email them to the support contact or create a GitHub issue.
 
 Open sourced on GitHub: https://github.com/BlythMeister/FitBit-Overview-Face

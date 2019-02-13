@@ -1,6 +1,5 @@
 import document from "document"; 
-import * as weekday from "../common/weekday"
-import * as monthname from "../common/monthname"
+import * as dateToString from "../common/dateToString"
 import * as util from "../common/utils";
 //Date - START
 
@@ -18,7 +17,7 @@ export function setLanguage(val) {
 
 export function drawDate(now) {
   let date = getDateInFormat(now, language);
-  let dayName = weekday.getWeekdayName(language, now.getDay());
+  let dayName = dateToString.getWeekdayName(language, now.getDay());
 
   dayEl.text = `${dayName}`;
   dateEl.text =  `${date}`;
@@ -26,8 +25,8 @@ export function drawDate(now) {
 
 export function getDateInFormat(now){
   let day = now.getDate();
-  let monthName = monthname.getMonthName(language, now.getMonth());
-  let monthAbrv = monthname.getMonthAbrv(language, now.getMonth());
+  let monthName = dateToString.getMonthName(language, now.getMonth());
+  let monthAbrv = dateToString.getMonthAbrv(language, now.getMonth());
   let monthIndex = now.getMonth() + 1;
   let year = now.getYear() % 100;  
 

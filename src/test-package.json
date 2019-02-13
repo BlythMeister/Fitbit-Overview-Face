@@ -1,0 +1,56 @@
+{
+  "fitbit": {
+    "appUUID": "6d80c169-94c5-4105-b9dc-98df99b798cd",
+    "appType": "clockface",
+    "appDisplayName": "Overview-Test",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_heart_rate"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Overview-Test"
+      },
+      "de": {
+        "name": "Overview-Test"
+      },
+      "es": {
+        "name": "Overview-Test"
+      },
+      "fr": {
+        "name": "Overview-Test"
+      },
+      "it": {
+        "name": "Overview-Test"
+      },
+      "ja": {
+        "name": "Overview-Test"
+      },
+      "ko": {
+        "name": "Overview-Test"
+      },
+      "nl": {
+        "name": "Overview-Test"
+      },
+      "sv": {
+        "name": "Overview-Test"
+      },
+      "zh-cn": {
+        "name": "Overview-Test"
+      },
+      "zh-tw": {
+        "name": "Overview-Test"
+      }
+    }
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.0.0"
+  }
+}
