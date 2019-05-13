@@ -42,14 +42,7 @@ export function setColour75(colour) {
 export function drawBat() {
   let level = battery.chargeLevel;
   
-  if(battery.charging){
-    batteryIconCharge.style.display = "inline";
-    batteryIcon.style.display = "none";
-  }
-  else{
-    batteryIconCharge.style.display = "none";
-    batteryIcon.style.display = "inline";
-  }    
+  isCharging();   
   
   let batteryPercentage = Math.floor(level);
   batteryPercent.text = `${batteryPercentage}%`
@@ -80,5 +73,18 @@ export function setColour(colour){
   batteryIcon.style.fill = colour;
   batteryPercent.style.fill = colour;
 }
+
+export function isCharging(){
+  if(battery.charging){
+    batteryIconCharge.style.display = "inline";
+    batteryIcon.style.display = "none";
+  }
+  else{
+    batteryIconCharge.style.display = "none";
+    batteryIcon.style.display = "inline";
+  }   
+}
+
+drawBat();
 
 //Battery Draw - END

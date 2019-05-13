@@ -1,19 +1,20 @@
 import document from "document"; 
 import { display } from "display";
 import { HeartRateSensor } from "heart-rate";
-import { BodyPresenceSensor } from "body-presence";
 import { user } from "user-profile";
+import { battery } from "power";
+import { charger } from "power";
 import * as heartRateZone from "../common/heartRateZone"
 //HR - START
 
 export let hrm = new HeartRateSensor();
-export let body = new BodyPresenceSensor();
 export var isHeartbeatAnimation  = true;
 export var hrmAnimationPhase = false;
 export var prevHrmRate = null;
 export var hrmRate = null;
 export var hrAnimated = true;
 export var hrAnimatedInterval = null;
+export var batteryIconVisible = false;
 export let hrEl = document.getElementById("hr");
 export let hrIconSystoleEl = document.getElementById("hr-icon-systole");
 export let hrIconDiastoleEl = document.getElementById("hr-icon-diastole");
@@ -86,7 +87,7 @@ export function animateHr() {
 
 export function drawHrm() { 
   hrmRate = hrm.heartRate;
-  if (hrmRate && display.on) {
+  if (hrmRate && !batteryIconVisible) {
     hrCountEl.text = `${hrmRate}`;  
     hrRestingEl.text = `(${user.restingHeartRate})`;
     hrZoneEl.text = heartRateZone.getHeartRateZone(language, user.heartRateZone(hrmRate));
@@ -105,16 +106,21 @@ export function drawHrm() {
   }
 }
 
+export function batteryCharger() {
+  if(battery.chargeLevel <= 15) {
+    batteryIconVisible = true;
+    hideHr();
+  } else {
+    if(charger.connected) {
+      batteryIconVisible = true;
+      hideHr();
+    } else {
+      batteryIconVisible = false;
+      drawHrm();
+    }
+  }
+}
+
 drawHrm();
 hrm.onreading = drawHrm;
-body.onreading = () => {
-  if (!body.present) {
-    hrm.stop();
-    hrEl.style.display = "none";
-  } else {
-    hrm.start();
-    hrEl.style.display = "inline";
-  }
-};
-body.start();
 //HR Draw - END
