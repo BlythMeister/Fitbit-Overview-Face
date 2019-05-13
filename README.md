@@ -61,6 +61,20 @@ To add support for additional languages, or update existing, please create a Git
 ![VersaLite-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/3.cutdown.png?raw=true)
 ![VersaLite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/4.charging.png?raw=true)
 
+# How To Contribute
+
+The editor for Fitbit clock faces is online at https://studio.fitbit.com
+
+To contribute, you need to create your own empty project on this site and upload all files in `src`.
+
+You will be able to test by either side-loading onto an actual watch in developer mode, or using the simulator.
+
+To commit changes you need to export the project (under the download menu) and update the files on GitHub.
+
+Finally, you can raise a pull request for me to review!
+
+Fitbit have said they are looking to introduce GitHub support from within their Studio site, so this should make the process easier once they complete this work!
+
 # Licence
 
 This clock face is licenced under GPLv3.
