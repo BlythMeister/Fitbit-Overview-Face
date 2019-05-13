@@ -71,6 +71,36 @@
   fill: white;
 }
 
+#versa-lite-time {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  fill: white;
+  x: 100%-15;
+  y: 175;    
+}
+
+#versa-lite-am-pm {
+  font-size: 40;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: middle;
+  x: 100%-140;
+  y: 220;
+  fill: white;
+}
+
+#versa-lite-second {
+  font-size: 40;
+  font-family: Seville-Bold;
+  text-length: 120;
+  text-anchor: end;
+  x: 100%-5;
+  y:220;
+  fill: white;
+}
+
 #hr {
   transform: translate(3%,30)
 }

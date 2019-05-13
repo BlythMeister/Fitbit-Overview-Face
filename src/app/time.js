@@ -4,7 +4,7 @@ import { preferences } from "user-settings";
 import { me as device } from "device";
 
 export let root = document.getElementById('root')
-export const deviceType = device.modelName.toLowerCase()
+export const deviceType = device.modelName.toLowerCase().replace(' ', '-')
 export let timedeviceType = deviceType + '-time'
 export let seconddeviceType = deviceType + '-second'
 export let amPmdeviceType = deviceType + '-am-pm'
