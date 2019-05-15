@@ -17,17 +17,12 @@ export function applyState() {
 }
 
 export  function applyStopHRState() {
-    hr.hrm.stop();
-    hr.hideHr();
+    hr.hrm.stop()
 }
 
 export function applyHRState() {
-     hr.hrm.start();
-    if (!hr.hrmRate) {
-      hr.hideHr()    
-    } else if(!hr.isHeartbeatAnimation) {
-      hr.stopHrAnimation();
-    }
+    hr.hrm.start();
+    hr.drawHrm();
 }
 
 export function applyProgressState() {
@@ -35,6 +30,6 @@ export function applyProgressState() {
 }
 
 export function applyBmState() {
-  bm.drawBMR;
-  bm.drawBMI;
+  bm.drawBMR();
+  bm.drawBMI();
 }
