@@ -4,24 +4,39 @@ import { me as device } from "device";
 export function deviceSetup() {
   let root = document.getElementById('root');
   console.log(device.modelName);
-  
-  setIonicTimes('none');
-  setVersaTimes('none');
-  setVersaLiteTimes('none');
-  
+   
   switch(device.modelName.toLowerCase()) {
     case 'versa':
-      setVersaTimes('inline'); 
+      setVersa();
       break;
     case 'versa lite':
-      setVersaLiteTimes('inline'); 
+      setVersaLite(); 
       break;
     case 'ionic':
-      setIonicTimes('inline'); 
+      setIonic(); 
       break;  
     default:
       console.log("DEVICE UNKNOWN")
   }
+}
+
+export function setVersa(){
+  setIonicTimes('none');
+  setVersaTimes('inline');
+  setVersaLiteTimes('none');
+}
+
+export function setIonic(){
+  setIonicTimes('inline');
+  setVersaTimes('none');
+  setVersaLiteTimes('none');
+}
+
+export function setVersaLite(){
+  setIonicTimes('none');
+  setVersaTimes('none');
+  setVersaLiteTimes('inline');
+  document.getElementById('elevationGain').style.display = 'none';
 }
 
 export function setIonicTimes(value){

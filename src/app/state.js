@@ -17,7 +17,8 @@ export function applyState() {
 }
 
 export  function applyStopHRState() {
-    hr.hrm.stop()
+    hr.hrm.stop();
+    hr.stopHrAnimation();
 }
 
 export function applyHRState() {
