@@ -71,7 +71,7 @@
   fill: white;
 }
 
-#versa-lite-time {
+#versalite-time {
   font-size: 100;
   font-family: Seville-Bold;
   text-length: 120;
@@ -81,7 +81,7 @@
   y: 175;    
 }
 
-#versa-lite-am-pm {
+#versalite-am-pm {
   font-size: 40;
   font-family: Seville-Bold;
   text-length: 120;
@@ -91,7 +91,7 @@
   fill: white;
 }
 
-#versa-lite-second {
+#versalite-second {
   font-size: 40;
   font-family: Seville-Bold;
   text-length: 120;

@@ -3,18 +3,18 @@ import { me as device } from "device";
 
 export function deviceSetup() {
   let root = document.getElementById('root');
-  console.log(device.modelName);
+  console.log(device.modelId);
    
-  switch(device.modelName.toLowerCase()) {
-    case 'versa':
-      setVersa();
-      break;
-    case 'versa lite':
-      setVersaLite(); 
-      break;
-    case 'ionic':
+  switch(device.modelId) {
+    case '27':
       setIonic(); 
       break;  
+    case '32':
+      setVersa();
+      break;
+    case '38':
+      setVersaLite(); 
+      break;
     default:
       console.log("DEVICE UNKNOWN")
   }
@@ -54,9 +54,9 @@ export function setVersaTimes(value){
 }
 
 export function setVersaLiteTimes(value){
-    var time = document.getElementById('versa-lite-time');
-    var sec = document.getElementById('versa-lite-second');
-    var amPm = document.getElementById('versa-lite-am-pm');
+    var time = document.getElementById('versalite-time');
+    var sec = document.getElementById('versalite-second');
+    var amPm = document.getElementById('versalite-am-pm');
     setElements(time, sec, amPm, value);
 }
 

@@ -29,14 +29,14 @@
   
   <g id="clock">
     <text id="ionic-time"/>
-    <text id="versa-time"/>
-    <text id="versa-lite-time"/>
     <text id="ionic-am-pm"/>
-    <text id="versa-am-pm"/>
-    <text id="versa-lite-am-pm"/>
     <text id="ionic-second"/>
+    <text id="versa-time"/>
+    <text id="versa-am-pm"/>
     <text id="versa-second"/>
-    <text id="versa-lite-second"/>
+    <text id="versalite-time"/>
+    <text id="versalite-am-pm"/>
+    <text id="versalite-second"/>
   </g>
   
   <g id="bm">
