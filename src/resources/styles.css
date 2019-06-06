@@ -109,7 +109,7 @@
   text-anchor: start;
   font-size: 22;
   font-family: Seville-Bold-Condensed;
-  fill: white;
+  fill: #969696;
   x: 6;
   y: 0;
 }
@@ -118,7 +118,7 @@
   text-anchor: start;
   font-size: 22;
   font-family: Seville-Bold-Condensed;
-  fill: white;
+  fill: #969696;
   x: 0;
   y: 22;
 }
@@ -127,7 +127,7 @@
   text-anchor: start;
   font-size: 22;
   font-family: Seville-Bold-Condensed;
-  fill: white;
+  fill: #969696;
   x: 0;
   y: 44;
 }
@@ -172,7 +172,7 @@
   text-anchor: end;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
-  fill: white;
+  fill: #969696;
 }
 
 #date {
@@ -182,7 +182,7 @@
   text-anchor: end;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
-  fill: steelblue;
+  fill: #969696;
 }
 
 #steps {
@@ -214,7 +214,7 @@
   font-size: 18;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
-  fill: palegoldenrod;
+  fill: darkorange;
   x:5;
   y:8;
 }
@@ -224,29 +224,9 @@
   font-size: 18;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
-  fill: palegoldenrod;
+  fill: darkorange;
   x:5;
   y:25;
-}
-
-#steps {  
-  fill: gold;
-}
-
-#distance {
-  fill: olive;
-}
-
-#elevationGain {
-  fill: skyblue;
-}
-
-#calories {
-  fill: darkorange;
-}
-
-#activeMinutes {
-  fill: lightseagreen;
 }
 
 .icon {

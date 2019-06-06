@@ -2,8 +2,8 @@
   <rect id="background" /> 
   
   <g>
-    <rect id="battery-line-back" x="0%" y="0%" width="100%" height="2%" fill="fb-white" />
-    <rect id="battery-line" x="0%" y="0%" width="100%" height="2%" fill="fb-white" />    
+    <rect id="battery-line-back" x="0%" y="0%" width="100%" height="2%" fill="#969696" />
+    <rect id="battery-line" x="0%" y="0%" width="100%" height="2%" fill="#969696" />    
   </g>
   
   <g id="hr"> 
@@ -45,37 +45,37 @@
   </g>
  
   <g id="steps">
-    <text id="steps-count" class="count" />
-    <image id="steps-icon" class="icon" href="stat_steps_solid_24px.png" />
-    <rect id="steps-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
-    <rect id="steps-line" x="0" y="20" width="50" height="5" fill="gold" />
+    <text id="steps-count" class="count" fill="orangered" />
+    <image id="steps-icon" class="icon" href="stat_steps_solid_24px.png" fill="orangered" />
+    <rect id="steps-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
+    <rect id="steps-line" x="0" y="20" width="50" height="5" fill="orangered" />
   </g>
   
   <g id="distance">   
-    <text id="distance-count" class="count" />
-    <image id="distance-icon" class="icon" href="stat_dist_solid_24px.png" />
-    <rect id="distance-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
-    <rect id="distance-line" x="0" y="20" width="50" height="5" fill="olive" />
+    <text id="distance-count" class="count" fill="forestgreen" />
+    <image id="distance-icon" class="icon" href="stat_dist_solid_24px.png" fill="forestgreen" />
+    <rect id="distance-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
+    <rect id="distance-line" x="0" y="20" width="50" height="5" fill="forestgreen" />
   </g>
   
   <g id="calories">  
-    <text id="calories-count" class="count" />
-    <image id="calories-icon" class="icon" href="stat_cals_solid_24px.png" />
-    <rect id="calories-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
-    <rect id="calories-line" x="0" y="20" width="50" height="5" fill="darkorange" />
+    <text id="calories-count" class="count" fill="deeppink" />
+    <image id="calories-icon" class="icon" href="stat_cals_solid_24px.png" fill="deeppink" />
+    <rect id="calories-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
+    <rect id="calories-line" x="0" y="20" width="50" height="5" fill="deeppink" />
   </g> 
   
   <g id="elevationGain">  
-    <text id="elevationGain-count" class="count" />
-    <image id="elevationGain-icon" class="icon" href="stat_floors_solid_24px.png" />
-    <rect id="elevationGain-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
-    <rect id="elevationGain-line" x="0" y="20" width="50" height="5" fill="skyblue" />
+    <text id="elevationGain-count" class="count" fill="darkorchid" />
+    <image id="elevationGain-icon" class="icon" href="stat_floors_solid_24px.png" fill="darkorchid" />
+    <rect id="elevationGain-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
+    <rect id="elevationGain-line" x="0" y="20" width="50" height="5" fill="darkorchid" />
   </g>
   
   <g id="activeMinutes">   
-    <text id="activeMinutes-count" class="count" />
-    <image id="activeMinutes-icon" class="icon" href="stat_am_solid_24px.png" />
-    <rect id="activeMinutes-line-back" x="0" y="20" width="28%" height="5" fill="fb-white" />
-    <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="lightseagreen" />
+    <text id="activeMinutes-count" class="count" fill="deepskyblue" />
+    <image id="activeMinutes-icon" class="icon" href="stat_am_solid_24px.png" fill="deepskyblue" />
+    <rect id="activeMinutes-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
+    <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="deepskyblue" />
   </g>
 </svg>

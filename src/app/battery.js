@@ -9,10 +9,10 @@ export let batteryPercent = document.getElementById("battery-percent");
 export let batteryLineBack = document.getElementById("battery-line-back");
 export let batteryPercentBlock = document.getElementById("battery");
 
-export let colour0 = 'crimson';
-export let colour25 = 'orange';
-export let colour50 = 'yellow';
-export let colour75 = 'lime';
+export let colour0 = '#FF0000';
+export let colour25 = 'darkorange';
+export let colour50 = 'gold';
+export let colour75 = '#00FF00';
 //Battery - END
 
 export let root = document.getElementById('root')
