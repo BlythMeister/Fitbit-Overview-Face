@@ -24,18 +24,22 @@ export function setShowBatteryPercent(visibility) {
 
 export function setColour0(colour) {
   colour0 = colour;
+  drawBat();
 }
 
 export function setColour25(colour) {
   colour25 = colour;
+  drawBat();
 }
 
 export function setColour50(colour) {
   colour50 = colour;
+  drawBat();
 }
 
 export function setColour75(colour) {
   colour75 = colour;
+  drawBat();
 }
 
 //Battery Draw - START
