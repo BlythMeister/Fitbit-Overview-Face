@@ -2,7 +2,7 @@
 
 Based on the ANDv2 clock face (https://github.com/ahsandar/ANDv2) with some customisations.
 
-Fitbit listing: (https://gam.Fitbit.com/gallery/clock/7c4f7506-8ed8-4eb9-84e3-28b85671f26b)
+Fitbit listing: (https://gallery.fitbit.com/details/7c4f7506-8ed8-4eb9-84e3-28b85671f26b)
 
 Or scan this QR Code
 
