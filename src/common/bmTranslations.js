@@ -7,7 +7,9 @@ let bmi = {
   'ja': 'BMI',
   'ko': 'BMI',
   'chs': 'BMI',
-  'cht': 'BMI'
+  'cht': 'BMI',
+  'nl': 'BMI',
+  'sv': 'BMI'
 }
 
 let bmr = {
@@ -19,7 +21,9 @@ let bmr = {
   'ja': 'BMR',
   'ko': 'BMR',
   'chs': 'BMR',
-  'cht': 'BMR'
+  'cht': 'BMR',
+  'nl': 'BMR',
+  'sv': 'BMR'
 }
 
 export function getBMI(language) {

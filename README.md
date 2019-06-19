@@ -35,6 +35,8 @@ Or scan this QR Code
 * Korean
 * Chinese (Simplified)
 * Chinese (Traditional)
+* Dutch
+* Sweedish
 
 To add support for additional languages, or update existing, please create a GitHub issue.
 

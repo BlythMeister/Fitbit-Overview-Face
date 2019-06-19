@@ -8,6 +8,8 @@ let monthsShort = {
   'ko': ['1','2','3','4','5','6','7','8','9','10','11','12'],
   'chs': ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
   'cht': ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+  'nl': ['jan','feb','mrt','apr','mei','juni','juli','aug','sept','okt','nov','dec'],
+  'sv': ['jan','febr','mars','april','maj','juni','juli','aug','sept','okt','nov','dec']
 }
 
 let monthsLong = {
@@ -20,6 +22,8 @@ let monthsLong = {
   'ko': ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
   'chs': ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
   'cht': ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+  'nl': ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'],
+  'sv': ['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december']
 }
 
 let weekdays = {
@@ -32,6 +36,8 @@ let weekdays = {
   'ko': ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
   'chs': ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
   'cht': ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+  'nl': ['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'],
+  'sv': ['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag']
 }
 
 export function getMonthAbrv(language, number) {

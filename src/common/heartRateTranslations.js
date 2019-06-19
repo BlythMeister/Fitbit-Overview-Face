@@ -7,7 +7,9 @@ let heartRates = {
   'ja': {'out-of-range':'定期的','fat-burn':'脂肪燃焼','cardio':'カーディオ','peak':'ピーク','below-custom':'低い','custom':'승인','above-custom':'高い'},
   'ko': {'out-of-range':'정규병','fat-burn':'지방 연소','cardio':'심장병','peak':'피크','below-custom':'낮은','custom':'승인','above-custom':'높은'},
   'chs': {'out-of-range':'定期','fat-burn':'脂肪燃烧','cardio':'有氧运动','peak':'峰','below-custom':'低','custom':'好','above-custom':'杲'},
-  'cht': {'out-of-range':'定期','fat-burn':'脂肪燃燒','cardio':'有氧運動','peak':'峰','below-custom':'低','custom':'好','above-custom':'杲'}
+  'cht': {'out-of-range':'定期','fat-burn':'脂肪燃燒','cardio':'有氧運動','peak':'峰','below-custom':'低','custom':'好','above-custom':'杲'},
+  'nl': {'out-of-range':'Regelmatig','fat-burn':'Vetverbranding','cardio':'Cardio','peak':'Top','below-custom':'Laag','custom':'OK','above-custom':'Hoog'},
+  'sv': {'out-of-range':'Regelbunden','fat-burn':'Fettförbränning','cardio':'Cardio','peak':'Topp','below-custom':'Låg','custom':'OK','above-custom':'Hög'}
 }
 
 export function getHeartRateZone(language, zone) {
