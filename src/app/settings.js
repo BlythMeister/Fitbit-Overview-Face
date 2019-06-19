@@ -36,6 +36,7 @@ export function applySettings() {
     if (settings.hasOwnProperty("language") && settings["language"].values) {
       date.setLanguage(settings["language"].values[0].value);
       hr.setLanguage(settings["language"].values[0].value);
+      bm.setLanguage(settings["language"].values[0].value);
     } 
             
     if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"].values) {

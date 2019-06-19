@@ -4,7 +4,7 @@ import { HeartRateSensor } from "heart-rate";
 import { user } from "user-profile";
 import { battery } from "power";
 import { charger } from "power";
-import * as heartRateZone from "../common/heartRateZone"
+import * as heartRateTranslations from "../common/heartRateTranslations"
 //HR - START
 
 export let hrm = new HeartRateSensor();
@@ -90,7 +90,7 @@ export function drawHrm() {
   if (hrmRate && !batteryIconVisible) {
     hrCountEl.text = `${hrmRate}`;  
     hrRestingEl.text = `(${user.restingHeartRate})`;
-    hrZoneEl.text = heartRateZone.getHeartRateZone(language, user.heartRateZone(hrmRate));
+    hrZoneEl.text = heartRateTranslations.getHeartRateZone(language, user.heartRateZone(hrmRate));
     
     if (!prevHrmRate) {
       hrEl.style.display = "inline";    

@@ -12,7 +12,7 @@
     <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
     <g>
       <text id="hr-resting" class="count sideCount" />
-       <text id="hr-zone" class="count sideCount" />
+      <text id="hr-zone" class="count sideCount" />
     </g>
   </g> 
   

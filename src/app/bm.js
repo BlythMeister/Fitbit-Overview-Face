@@ -1,19 +1,29 @@
 import document from "document"; 
 import { user } from "user-profile";
+import * as bmTranslations from "../common/bmTranslations"
 
 //BM - START
 export let bmrZoneEl = document.getElementById("bmr-zone");
 export let bmiZoneEl = document.getElementById("bmi-zone");
 //BM - END
-  
+
+export let language = "en";
+export function setLanguage(val) { 
+  language = val
+  drawBMR();
+  drawBMI();
+}
+
 //BM Draw - START
 export function drawBMR() {
-  bmrZoneEl.text = `BMR: ${user.bmr}`;
+  let bmrLabel = bmTranslations.getBMR(language);
+  bmrZoneEl.text = `${bmrLabel}: ${user.bmr}`;
 }
 
 export function drawBMI() {
+  let bmiLabel = bmTranslations.getBMI(language);
   var bmi = (user.weight/(user.height*user.height)).toFixed(2);
-  bmiZoneEl.text = `BMI: ${bmi}`;
+  bmiZoneEl.text = `${bmiLabel}: ${bmi}`;
 }
 
 export function setBMIVis(visibility) {
