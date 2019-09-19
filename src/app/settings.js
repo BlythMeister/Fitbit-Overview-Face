@@ -31,13 +31,7 @@ export function applySettings() {
   try {
     if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"].values) {
       activity.distanceUnitSet(settings["distanceUnit"].values[0].value);
-    }     
-    
-    if (settings.hasOwnProperty("language") && settings["language"].values) {
-      date.setLanguage(settings["language"].values[0].value);
-      hr.setLanguage(settings["language"].values[0].value);
-      bm.setLanguage(settings["language"].values[0].value);
-    } 
+    }    
             
     if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"].values) {
       date.setDateFormat(settings["dateFormat"].values[0].value); 
@@ -176,8 +170,7 @@ export function loadSettings() {
     console.log(ex);
     var defaults = {
       isHeartbeatAnimation: false,
-      isFastProgress: false,
-      language: 'en'
+      isFastProgress: false
     };    
     
     if (units.distance === "us") {

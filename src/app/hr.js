@@ -4,7 +4,7 @@ import { HeartRateSensor } from "heart-rate";
 import { user } from "user-profile";
 import { battery } from "power";
 import { charger } from "power";
-import * as heartRateTranslations from "../common/heartRateTranslations"
+import { gettext } from "i18n";
 //HR - START
 
 export let hrm = new HeartRateSensor();
@@ -21,12 +21,6 @@ export let hrIconDiastoleEl = document.getElementById("hr-icon-diastole");
 export let hrCountEl = document.getElementById("hr-count");
 export let hrRestingEl = document.getElementById("hr-resting");
 export let hrZoneEl = document.getElementById("hr-zone");
-
-export let language = "en";
-export function setLanguage(val) { 
-  language = val
-  drawHrm();
-}
 
 export function isHeartbeatAnimationSet(val) { 
   isHeartbeatAnimation = val;
@@ -90,7 +84,7 @@ export function drawHrm() {
   if (hrmRate && !batteryIconVisible) {
     hrCountEl.text = `${hrmRate}`;  
     hrRestingEl.text = `(${user.restingHeartRate})`;
-    hrZoneEl.text = heartRateTranslations.getHeartRateZone(language, user.heartRateZone(hrmRate));
+    hrZoneEl.text = gettext(user.heartRateZone(hrmRate));
     
     if (!prevHrmRate) {
       hrEl.style.display = "inline";    

@@ -1,6 +1,5 @@
 import document from "document"; 
-import * as dateTranslations from "../common/dateTranslations"
-import * as util from "../common/utils";
+import { gettext } from "i18n";
 //Date - START
 
 export let dayEl = document.getElementById("day");
@@ -8,16 +7,11 @@ export let dateEl = document.getElementById("date");
 export let dateFormat = "dd mmm yy";
 export function setDateFormat(val) { dateFormat = val}
 
-export let language = "en";
-export function setLanguage(val) { 
-  language = val
-  drawDate(new Date());
-}
 //Date - END
 
 export function drawDate(now) {
-  let date = getDateInFormat(now, language);
-  let dayName = dateTranslations.getWeekdayName(language, now.getDay());
+  let date = getDateInFormat(now);
+  let dayName = gettext(`day-${now.getDay()}`);
 
   dayEl.text = `${dayName}`;
   dateEl.text =  `${date}`;
@@ -25,25 +19,32 @@ export function drawDate(now) {
 
 export function getDateInFormat(now){
   let day = now.getDate();
-  let monthName = dateTranslations.getMonthName(language, now.getMonth());
-  let monthAbrv = dateTranslations.getMonthAbrv(language, now.getMonth());
+  let monthName = gettext(`month-long-${now.getMonth()}`);
+  let monthAbrv = gettext(`month-short-${now.getMonth()}`);
   let monthIndex = now.getMonth() + 1;
   let year = now.getYear() % 100;  
 
   switch(dateFormat) {
     case "dd.mm.yy":
-      return util.zeroPad(day) + "." + util.zeroPad(monthIndex) + "." + year;
+      return zeroPad(day) + "." + zeroPad(monthIndex) + "." + year;
     case "dd/mm/yy":
-      return util.zeroPad(day) + "/" + util.zeroPad(monthIndex) + "/" + year;
+      return zeroPad(day) + "/" + zeroPad(monthIndex) + "/" + year;
     case "dd mmm yy":
-      return util.zeroPad(day) + " " + monthAbrv + " " + year;
+      return zeroPad(day) + " " + monthAbrv + " " + year;
     case "dd mmmm yy":
-      return util.zeroPad(day) + " " + monthName + " " + year;
+      return zeroPad(day) + " " + monthName + " " + year;
     case "mm.dd.yy":
-      return util.zeroPad(monthIndex) + "." + util.zeroPad(day) + "." + year;
+      return zeroPad(monthIndex) + "." + zeroPad(day) + "." + year;
     case "mmm dd yy":
-      return monthAbrv + " " + util.zeroPad(day) + " " + year;
+      return monthAbrv + " " + zeroPad(day) + " " + year;
     case "mmmm dd yy":
-      return monthName + " " + util.zeroPad(day) + " " + year;
+      return monthName + " " + zeroPad(day) + " " + year;
   }  
+}
+
+export function zeroPad(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
 }

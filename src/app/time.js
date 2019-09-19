@@ -1,5 +1,4 @@
 import document from "document";
-import * as util from "../common/utils";
 import { preferences } from "user-settings";
 import { me as device } from "device";
 
@@ -43,7 +42,7 @@ export function setSeconds(now){
   if (showSeconds)
   {
     secEl.style.display= 'inline';
-    return util.zeroPad(now.getSeconds());    
+    return zeroPad(now.getSeconds());    
   }
   else
   {
@@ -52,7 +51,7 @@ export function setSeconds(now){
 }
 
 export function setMinutes(now){
-  return util.zeroPad(now.getMinutes());
+  return zeroPad(now.getMinutes());
 }
 
 export function setHours(now) {
@@ -91,7 +90,7 @@ export function setHours(now) {
   
   if(showLeadingZero)
   {
-      return util.zeroPad(hours);
+      return zeroPad(hours);
   }
   else
   {
@@ -99,3 +98,10 @@ export function setHours(now) {
   }
 }
 //Time Draw - END
+
+export function zeroPad(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
