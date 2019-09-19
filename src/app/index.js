@@ -21,6 +21,7 @@ device.deviceSetup();
 
 display.onchange = (evt) => {
   state.applyState();
+  hr.drawHrm();
 }
 
 clock.ontick = (evt) => {  
