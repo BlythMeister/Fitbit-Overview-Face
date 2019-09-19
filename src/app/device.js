@@ -36,7 +36,6 @@ export function setVersaLite(){
   setIonicTimes('none');
   setVersaTimes('none');
   setVersaLiteTimes('inline');
-  document.getElementById('elevationGain').style.display = 'none';
 }
 
 export function setIonicTimes(value){

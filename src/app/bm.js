@@ -3,6 +3,7 @@ import { user } from "user-profile";
 import { gettext } from "i18n";
 
 //BM - START
+export let bmEl = document.getElementById("bm");
 export let bmrZoneEl = document.getElementById("bmr-zone");
 export let bmiZoneEl = document.getElementById("bmi-zone");
 //BM - END

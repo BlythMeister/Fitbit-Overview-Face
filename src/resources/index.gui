@@ -1,33 +1,33 @@
 <svg id="root">
   <rect id="background" /> 
   
-  <g>
-    <rect id="battery-line-back" x="0%" y="0%" width="100%" height="2%" fill="#969696" />
-    <rect id="battery-line" x="0%" y="0%" width="100%" height="2%" fill="#969696" />    
-  </g>
+  <svg x="0" y="0">
+    <rect id="battery-line-back" x="0" y="0" width="100%" height="2%" fill="#969696" />
+    <rect id="battery-line" x="0" y="0" width="100%" height="2%" fill="#969696" />    
+  </svg>
   
-  <g id="hr"> 
+  <svg id="hr"> 
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
     <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
-    <g>
+    <svg>
       <text id="hr-resting" class="count sideCount" />
       <text id="hr-zone" class="count sideCount" />
-    </g>
-  </g> 
+    </svg>
+  </svg> 
   
-  <g id="battery">  
+  <svg id="battery">  
     <text id="battery-percent" class="count" />
     <image id="battery-icon" class="icon" href="battery_solid_24px.png" />
     <image id="battery-icon-charge" class="icon" href="battery_charge_solid_24px.png" />
-  </g>
+  </svg>
   
-  <g id="calendar">
+  <svg id="calendar">
     <text id="day"/>
     <text id="date"/>
-  </g>
+  </svg>
   
-  <g id="clock">
+  <svg id="clock">
     <text id="ionic-time"/>
     <text id="ionic-am-pm"/>
     <text id="ionic-second"/>
@@ -37,45 +37,45 @@
     <text id="versalite-time"/>
     <text id="versalite-am-pm"/>
     <text id="versalite-second"/>
-  </g>
+  </svg>
   
-  <g id="bm">
+  <svg id="bm">
     <text id="bmr-zone" />
     <text id="bmi-zone" />
-  </g>
+  </svg>
  
-  <g id="steps">
+  <svg id="steps">
     <text id="steps-count" class="count" fill="orangered" />
     <image id="steps-icon" class="icon" href="stat_steps_solid_24px.png" fill="orangered" />
     <rect id="steps-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="steps-line" x="0" y="20" width="50" height="5" fill="orangered" />
-  </g>
+  </svg>
   
-  <g id="distance">   
+  <svg id="distance">   
     <text id="distance-count" class="count" fill="forestgreen" />
     <image id="distance-icon" class="icon" href="stat_dist_solid_24px.png" fill="forestgreen" />
     <rect id="distance-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="distance-line" x="0" y="20" width="50" height="5" fill="forestgreen" />
-  </g>
+  </svg>
   
-  <g id="calories">  
+  <svg id="calories">  
     <text id="calories-count" class="count" fill="deeppink" />
     <image id="calories-icon" class="icon" href="stat_cals_solid_24px.png" fill="deeppink" />
     <rect id="calories-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="calories-line" x="0" y="20" width="50" height="5" fill="deeppink" />
-  </g> 
+  </svg> 
   
-  <g id="elevationGain">  
+  <svg id="elevationGain">  
     <text id="elevationGain-count" class="count" fill="darkorchid" />
     <image id="elevationGain-icon" class="icon" href="stat_floors_solid_24px.png" fill="darkorchid" />
     <rect id="elevationGain-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="elevationGain-line" x="0" y="20" width="50" height="5" fill="darkorchid" />
-  </g>
+  </svg>
   
-  <g id="activeMinutes">   
+  <svg id="activeMinutes">   
     <text id="activeMinutes-count" class="count" fill="deepskyblue" />
     <image id="activeMinutes-icon" class="icon" href="stat_am_solid_24px.png" fill="deepskyblue" />
     <rect id="activeMinutes-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="deepskyblue" />
-  </g>
+  </svg>
 </svg>

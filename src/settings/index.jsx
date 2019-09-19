@@ -50,99 +50,114 @@ function mySettings(props) {
   {color: '#2d2d2d'}
 ];
   
+  let statsLocations = [ {value:"TL", name:"Top Left"}, {value:"BL", name:"Bottom Left"},
+                         {value:"TM", name:"Top Middle"},{value:"BM", name:"Bottom Middle"},
+                         {value:"TR", name:"Top Right"},{value:"BR", name:"Bottom Right"},
+                         {value:"NONE", name:"Hidden"}];
+  
   return (
     <Page> 
-      <Section title="Localisation">
+      <Section title={<Text bold align="center">Localisation</Text>}>   
         <Select label="Distance Unit" settingsKey="distanceUnit" options={[ {value:"m", name:"meters"}, {value:"km", name:"kilometers"}, {value:"ft", name:"feet"}, {value:"mi", name:"miles"} ]} />
         <Select label="Date Format" settingsKey="dateFormat" options={[ {value:"dd.mm.yy", name:"dd.mm.yy"}, {value:"dd mmm yy", name:"dd mmm yy"}, {value:"dd mmmm yy", name:"dd mmmm yy"}, {value:"dd/mm/yy", name:"dd/mm/yy"}, {value:"mm.dd.yy", name:"mm.dd.yy"}, {value:"mmm dd yy", name:"mmm dd yy"}, {value:"mmmm dd yy", name:"mmmm dd yy"} ]} />
         <Select label="Time Format" settingsKey="timeFormat" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"12h", name:"12 hour"}, {value:"24h", name:"24 hour"} ]} />
       </Section>
       
-      <Section title="Heart Rate">
+      <Section title={<Text bold align="center">Heart Rate</Text>}>
         <Toggle settingsKey="isHeartbeatAnimation" label="Heartbeat animation" />    
         <Toggle settingsKey="hearRateZoneVis" label="Heart rate zone Visibility" />
       </Section>
       
-      <Section title="Clock">
+      <Section title={<Text bold align="center">Clock</Text>}>
         <Toggle settingsKey="isAmPm" label="AM/PM indication on 12-hour clock" />      
         <Toggle settingsKey="showSeconds" label="Show seconds value" />
         <Toggle settingsKey="showLeadingZero" label="Show leading zero on hours" />
       </Section>       
       
-      <Section title="BMR/BMI">
-        <Toggle settingsKey="BMRVis" label="BMR Visibility" />
-        <Toggle settingsKey="BMIVis" label="BMI Visibility" />
-      </Section>      
+      <Section title={<Text bold align="center">Stats Location
+            (Note: It is possible to overlap stats!)</Text>}>
+        <Select label="BMR/BMI Location" settingsKey="BMLocation" options={statsLocations} />
+        <Select label="Steps Location" settingsKey="stepsLocation" options={statsLocations} />
+        <Select label="Distance Location" settingsKey="distanceLocation" options={statsLocations} />
+        <Select label="Elevation Location" settingsKey="elevationGainLocation" options={statsLocations} />
+        <Select label="Calories Location" settingsKey="caloriesLocation" options={statsLocations} />
+        <Select label="Active Minutes Location" settingsKey="activeMinutesLocation" options={statsLocations} />
+      </Section>
       
-      <Section title="Battery">
+      <Section title={<Text bold align="center">BMR/BMI</Text>}>
+        <Toggle settingsKey="BMRVis" label="Show BMR" />
+        <Toggle settingsKey="BMIVis" label="Show BMI" />
+      </Section> 
+      
+      <Section title={<Text bold align="center">Battery</Text>}>
         <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
       </Section>
       
-      <Section title="Time colour">
+      <Section title={<Text bold align="center">Time colour</Text>}>
         <ColorSelect settingsKey="timeColour" colors={colourSet} />
       </Section>
       
-      <Section title="Date colour">
+      <Section title={<Text bold align="center">Date colour</Text>}>
         <ColorSelect settingsKey="dateColour" colors={colourSet} />
       </Section>
       
-      <Section title="Steps colour">
+      <Section title={<Text bold align="center">Steps colour</Text>}>
         <ColorSelect settingsKey="stepsColour" colors={colourSet} />
       </Section>
       
-      <Section title="Distance colour">
+      <Section title={<Text bold align="center">Distance colour</Text>}>
         <ColorSelect settingsKey="distanceColour" colors={colourSet} />
       </Section>
        
-      <Section title="Elevation colour">
+      <Section title={<Text bold align="center">Elevation colour</Text>}>
         <ColorSelect settingsKey="elevationGainColour" colors={colourSet} />
       </Section>
        
-      <Section title="Calories colour">
+      <Section title={<Text bold align="center">Calories colour</Text>}>
         <ColorSelect settingsKey="caloriesColour" colors={colourSet} />
       </Section>
       
-      <Section title="Active Minutes colour">
+      <Section title={<Text bold align="center">Active Minutes colour</Text>}>
         <ColorSelect settingsKey="activeMinutesColour" colors={colourSet} />
       </Section>
       
-      <Section title="Heart colour">
+      <Section title={<Text bold align="center">Heart colour</Text>}>
         <ColorSelect settingsKey="heartColour" colors={colourSet} />
       </Section>
       
-      <Section title="Heart rate colour">
+      <Section title={<Text bold align="center">Heart rate colour</Text>}>
         <ColorSelect settingsKey="heartRateColour" colors={colourSet} />
       </Section>
       
-      <Section title="BMI/BMR colour">
+      <Section title={<Text bold align="center">BMI/BMR colour</Text>}>
         <ColorSelect settingsKey="bmColour" colors={colourSet} />
       </Section>
       
-      <Section title="Progress background colour">
+      <Section title={<Text bold align="center">Progress background colour</Text>}>
         <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
       </Section>  
       
-      <Section title="Battery 0% - 25% colour">
+      <Section title={<Text bold align="center">Battery 0% - 25% colour</Text>}>
         <ColorSelect settingsKey="battery0Colour" colors={colourSet} />
       </Section>  
       
-      <Section title="Battery 25% - 50% colour">
+      <Section title={<Text bold align="center">Battery 25% - 50% colour</Text>}>
         <ColorSelect settingsKey="battery25Colour" colors={colourSet} />
       </Section>  
       
-      <Section title="Battery 50% - 75% colour">
+      <Section title={<Text bold align="center">Battery 50% - 75% colour</Text>}>
         <ColorSelect settingsKey="battery50Colour" colors={colourSet} />
       </Section>  
       
-      <Section title="Battery 75% - 100% colour">
+      <Section title={<Text bold align="center">Battery 75% - 100% colour</Text>}>
         <ColorSelect settingsKey="battery75Colour" colors={colourSet} />
       </Section>  
       
-      <Section title="Battery bar background colour">
+      <Section title={<Text bold align="center">Battery bar background colour</Text>}>
         <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
       </Section> 
       
-      <Section title="Background colour">
+      <Section title={<Text bold align="center">Background colour</Text>}>
         <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
       </Section>         
     </Page>    

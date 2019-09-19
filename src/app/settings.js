@@ -125,16 +125,25 @@ export function applySettings() {
     }
 
     for (var i=0; i < activity.goalTypes.length; i++) {
-      var goalTypeProp = activity.goalTypes[i] + "Colour";
-      if (settings.hasOwnProperty(goalTypeProp) && settings[goalTypeProp]) {
-        activity.progressEls[i].count.style.fill = settings[goalTypeProp];
-        activity.progressEls[i].icon.style.fill = settings[goalTypeProp];
-        activity.progressEls[i].line.style.fill = settings[goalTypeProp];
+      var goalTypeColourProp = activity.goalTypes[i] + "Colour";
+      if (settings.hasOwnProperty(goalTypeColourProp) && settings[goalTypeColourProp]) {
+        activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].icon.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].line.style.fill = settings[goalTypeColourProp];
       }
       if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
         activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"];
       }
+      var goalTypeLocationProp = activity.goalTypes[i] + "Location";
+      if (settings.hasOwnProperty(goalTypeLocationProp) && settings[goalTypeLocationProp]) {
+        setStatsTransform(activity.progressEls[i].container, settings[goalTypeLocationProp].values[0].value);
+      }
     }
+    
+    if (settings.hasOwnProperty("BMLocation") && settings["BMLocation"]) {
+        setStatsTransform(bm.bmEl, settings["BMLocation"].values[0].value);
+      }
+    
     activity.resetProgressPrevState();
     state.applyState();
   } catch (ex) {
@@ -143,6 +152,66 @@ export function applySettings() {
 }
 
 applySettings();
+
+export function setStatsTransform(element, location)
+{
+    var maxWidth = device.screen.width;
+    var maxHeight = device.screen.height;
+  
+    if(location == "TL")
+    {
+      element.style.display = "inline";
+      element.x = (3 * maxWidth) / 100;
+      element.y = maxHeight - 60;
+      return;
+    }
+  
+    if(location == "BL")
+    {
+      element.style.display = "inline";
+      element.x = (3 * maxWidth) / 100;
+      element.y = maxHeight - 30;
+      return;
+    }
+  
+    if(location == "TM")
+    {
+      element.style.display = "inline";
+      element.x = (36 * maxWidth) / 100;
+      element.y = maxHeight - 60;
+      return;
+    }
+  
+    if(location == "BM")
+    {
+      element.style.display = "inline";
+      element.x = (36 * maxWidth) / 100;
+      element.y = maxHeight - 30;
+      return;
+    }
+  
+    if(location == "TR")
+    {
+      element.style.display = "inline";
+      element.x = (69 * maxWidth) / 100;
+      element.y = maxHeight - 60;
+      return;
+    }
+  
+    if(location == "BR")
+    {
+      element.style.display = "inline";
+      element.x = (69 * maxWidth) / 100;
+      element.y = maxHeight - 30;
+      return;
+    }
+  
+    if(location == "NONE")
+    {
+      element.style.display = "none";
+      return;
+    }
+}
 
 export function onsettingschange(data) {
   if (!data) {

@@ -29,6 +29,7 @@
   x: 100%-5;
   y: 120;
   fill: white;
+  display: none;
 }
 
 #ionic-second {
@@ -39,6 +40,7 @@
   x: 100%-5;
   y:160;
   fill: white;
+  display: none;
 }
 
 #versa-time {
@@ -59,6 +61,7 @@
   x: 100%-140;
   y: 220;
   fill: white;
+  display: none;
 }
 
 #versa-second {
@@ -69,6 +72,7 @@
   x: 100%-5;
   y:220;
   fill: white;
+  display: none;
 }
 
 #versalite-time {
@@ -89,6 +93,7 @@
   x: 100%-140;
   y: 220;
   fill: white;
+  display: none;
 }
 
 #versalite-second {
@@ -99,10 +104,12 @@
   x: 100%-5;
   y:220;
   fill: white;
+  display: none;
 }
 
 #hr {
-  transform: translate(3%,30)
+  x: 3%;
+  y: 30;    
 }
 
 #hr-count {
@@ -131,6 +138,7 @@
   text-length: 120;
   x: 0;
   y: 44;
+  display: none;
 }
 
 #hr-icon-systole {
@@ -150,7 +158,9 @@
 }
 
 #battery {
-  transform: translate(35%,15)
+  x: 35%;
+  y: 15;
+  display: none;
 }
 
 #battery-percent {
@@ -159,11 +169,12 @@
   font-family: Seville-Bold-Condensed;
   fill: white;
   x: 22;
-  y: 18;
+  y: 18;  
 }
 
 #calendar {
-  transform: translate(100%-3%,30); 
+  x: 100%-3%;
+  y: 30;
 }
 
 #day {
@@ -187,47 +198,51 @@
 }
 
 #steps {
-  transform: translate(3%,100%-60);  
+  display: "none";
+  fill: darkorange;
 }
 
 #distance {
-  transform: translate(3%,100%-30)
+  display: "none";
 }
 
-#bm  {
-  transform: translate(36%,100%-60)
+#bm {
+  display: "none";
 }
 
 #elevationGain  {
-  transform: translate(36%,100%-30)
+  display: "none";
 }
 
 #calories  {
-  transform: translate(69%,100%-60)
+  display: "none";
 }
 
 #activeMinutes {
-  transform: translate(69%,100%-30)
+  display: "none";
 }
+
 
 #bmr-zone {
   text-anchor: start;
-  font-size: 18;
+  font-size: 16;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
   fill: darkorange;
   x:5;
-  y:8;
+  y:10;
+  display: none;
 }
 
 #bmi-zone {
   text-anchor: start;
-  font-size: 18;
+  font-size: 16;
   font-family: Seville-Bold-Condensed;
   text-length: 120;
   fill: darkorange;
   x:5;
   y:25;
+  display: none;
 }
 
 .icon {
