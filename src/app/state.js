@@ -23,6 +23,7 @@ export  function applyStopHRState() {
 
 export function applyHRState() {
     hr.hrm.start();
+    hr.batteryCharger();
     hr.drawHrm();
 }
 

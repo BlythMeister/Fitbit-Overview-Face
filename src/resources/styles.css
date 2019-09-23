@@ -11,14 +11,37 @@
   fill:black;
 }
 
-#ionic-time {
-  font-size: 110;
+#ionic-time-hour {
+  font-size: 100;
   font-family: Seville-Bold;
-  text-length: 120;
+  text-length: 60;
   text-anchor: end;
   fill: white;
-  x: 100%-55;
-  y: 165;    
+  x: 100%-200;
+  y: 160;
+  display: none;
+}
+
+#ionic-time-colon {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white;
+  x: 100%-175;
+  y: 153;
+  display: none;
+}
+
+#ionic-time-minute {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white; 
+  x: 100%-60;
+  y: 160;
+  display: none; 
 }
 
 #ionic-am-pm {
@@ -43,14 +66,37 @@
   display: none;
 }
 
-#versa-time {
+#versa-time-hour {
   font-size: 100;
   font-family: Seville-Bold;
-  text-length: 120;
+  text-length: 60;
   text-anchor: end;
   fill: white;
-  x: 100%-15;
-  y: 175;    
+  x: 100%-145;
+  y: 175;
+  display: none;
+}
+
+#versa-time-colon {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white;
+  x: 100%-120;
+  y: 168;
+  display: none;
+}
+
+#versa-time-minute {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white; 
+  x: 100%-5;
+  y: 175;
+  display: none; 
 }
 
 #versa-am-pm {
@@ -75,14 +121,37 @@
   display: none;
 }
 
-#versalite-time {
+#versalite-time-hour {
   font-size: 100;
   font-family: Seville-Bold;
-  text-length: 120;
+  text-length: 60;
   text-anchor: end;
   fill: white;
-  x: 100%-15;
-  y: 175;    
+  x: 100%-145;
+  y: 175;
+  display: none;
+}
+
+#versalite-time-colon {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white;
+  x: 100%-120;
+  y: 168;
+  display: none;
+}
+
+#versalite-time-minute {
+  font-size: 100;
+  font-family: Seville-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white; 
+  x: 100%-5;
+  y: 175;
+  display: none; 
 }
 
 #versalite-am-pm {

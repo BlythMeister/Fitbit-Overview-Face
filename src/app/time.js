@@ -3,17 +3,22 @@ import { preferences } from "user-settings";
 import { me as device } from "device";
 
 export let root = document.getElementById('root')
-export let timeEl = getElement("time");
-export let secEl = getElement("second");
-export let amPmEl = getElement("am-pm");
+export let timeHourEl = getElement("time-hour");
+export let timeColonEl = getElement("time-colon");
+export let timeMinuteEl = getElement("time-minute");
+export let timeSecEl = getElement("second");
+export let timeAmPmEl = getElement("am-pm");
 export let isAmPm = false;
 export let showSeconds = true;
 export let showLeadingZero = true;
+export let flashDots = false;
 export let timeFormat = 'auto'
 export function setIsAmPm(val) { isAmPm = val}
 export function setShowSeconds(val) { showSeconds = val }
 export function setShowLeadingZero(val) { showLeadingZero = val }
 export function setTimeFormat(val) { timeFormat = val }
+export function setFlashDots(val) { flashDots = val }
+
 
 export function getElement(type){
     switch(device.modelId) {
@@ -31,27 +36,47 @@ export function getElement(type){
 
 //Time Draw - START
 export function drawTime(now) {
-  var hours = setHours(now);
-  let mins = setMinutes(now);
-  let secs = setSeconds(now);
-  timeEl.text = `${hours}:${mins}`;
-  secEl.text = `${secs}`;  
+  setHours(now);
+  setMinutes(now);
+  setSeconds(now);
+  setColon();  
+}
+
+export function setColon()
+{
+  timeColonEl.text = ":";
+  if(flashDots)
+  {
+    if(timeColonEl.style.display == 'inline')    
+    {
+      timeColonEl.style.display = 'none';
+    }
+    else
+    {
+      timeColonEl.style.display = 'inline';
+    }
+  }
+  else
+  {
+    timeColonEl.style.display = 'inline';
+  }
 }
 
 export function setSeconds(now){
   if (showSeconds)
   {
-    secEl.style.display= 'inline';
-    return zeroPad(now.getSeconds());    
+    timeSecEl.style.display= 'inline';
+    timeSecEl.text = zeroPad(now.getSeconds());
   }
   else
   {
-      secEl.style.display= 'none';
+    timeSecEl.style.display= 'none';
   }  
 }
 
 export function setMinutes(now){
-  return zeroPad(now.getMinutes());
+  timeMinuteEl.style.display= 'inline';
+  timeMinuteEl.text = zeroPad(now.getMinutes());
 }
 
 export function setHours(now) {
@@ -66,15 +91,15 @@ export function setHours(now) {
     // 12h format    
     if (isAmPm) {
       if (hours < 12) {
-        amPmEl.text = " AM";
+        timeAmPmEl.text = " AM";
       } else {
-        amPmEl.text = " PM";        
+        timeAmPmEl.text = " PM";        
       }
-      amPmEl.style.display= 'inline';
+      timeAmPmEl.style.display= 'inline';
     }
     else
     {
-      amPmEl.style.display= 'none';
+      timeAmPmEl.style.display= 'none';
     }
     
     if (hours === 0)
@@ -85,16 +110,17 @@ export function setHours(now) {
     }
   } else {
     // 24h format
-    amPmEl.style.display= 'none';
+    timeAmPmEl.style.display= 'none';
   }
   
+  timeHourEl.style.display= 'inline';
   if(showLeadingZero)
   {
-      return zeroPad(hours);
+    timeHourEl.text = zeroPad(hours);
   }
   else
   {
-    return hours;
+    timeHourEl.text = zeroPad(hours);
   }
 }
 //Time Draw - END

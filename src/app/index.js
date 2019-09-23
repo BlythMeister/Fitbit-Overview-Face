@@ -5,7 +5,6 @@ import { battery as powerBattery } from "power";
 import { charger as powerCharger } from "power";
 import clock from "clock";
 
-import * as device from "./device.js"
 import * as bm from "./bm.js";
 import * as date from "./date.js"
 import * as battery from "./battery.js"
@@ -17,11 +16,9 @@ import * as state from "./state.js"
 
 clock.granularity = "seconds";
 settings.loadSettings();
-device.deviceSetup();
 
 display.onchange = (evt) => {
   state.applyState();
-  hr.drawHrm();
 }
 
 clock.ontick = (evt) => {  

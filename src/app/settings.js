@@ -53,6 +53,10 @@ export function applySettings() {
       time.setShowLeadingZero(!!settings["showLeadingZero"]); 
     }
     
+    if (settings.hasOwnProperty("flashDots")) {
+      time.setFlashDots(!!settings["flashDots"]); 
+    }
+    
     if (settings.hasOwnProperty("hearRateZoneVis")) {
       hr.setHrZoneVis(!!settings["hearRateZoneVis"]); 
     } 
@@ -66,9 +70,11 @@ export function applySettings() {
     } 
     
     if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {
-      time.timeEl.style.fill = settings["timeColour"];
-      time.secEl.style.fill = settings["timeColour"];
-      time.amPmEl.style.fill = settings["timeColour"];
+      time.timeHourEl.style.fill = settings["timeColour"];
+      time.timeColonEl.style.fill = settings["timeColour"];
+      time.timeMinuteEl.style.fill = settings["timeColour"];
+      time.timeSecEl.style.fill = settings["timeColour"];
+      time.timeAmPmEl.style.fill = settings["timeColour"];
     }
 
     if (settings.hasOwnProperty("dateColour") && settings["dateColour"]) {
@@ -125,23 +131,26 @@ export function applySettings() {
     }
 
     for (var i=0; i < activity.goalTypes.length; i++) {
-      var goalTypeColourProp = activity.goalTypes[i] + "Colour";
+      var goalType = activity.goalTypes[i];      
+      var goalTypeColourProp = goalType + "Colour";
       if (settings.hasOwnProperty(goalTypeColourProp) && settings[goalTypeColourProp]) {
         activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].icon.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].line.style.fill = settings[goalTypeColourProp];
       }
+
       if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
         activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"];
       }
-      var goalTypeLocationProp = activity.goalTypes[i] + "Location";
+
+      var goalTypeLocationProp = goalType + "Location";
       if (settings.hasOwnProperty(goalTypeLocationProp) && settings[goalTypeLocationProp]) {
-        setStatsTransform(activity.progressEls[i].container, settings[goalTypeLocationProp].values[0].value);
+        setStatsLocation(activity.progressEls[i].container, settings[goalTypeLocationProp].values[0].value);
       }
     }
     
     if (settings.hasOwnProperty("BMLocation") && settings["BMLocation"]) {
-        setStatsTransform(bm.bmEl, settings["BMLocation"].values[0].value);
+        setStatsLocation(bm.bmEl, settings["BMLocation"].values[0].value);
       }
     
     activity.resetProgressPrevState();
@@ -153,7 +162,7 @@ export function applySettings() {
 
 applySettings();
 
-export function setStatsTransform(element, location)
+export function setStatsLocation(element, location)
 {
     var maxWidth = device.screen.width;
     var maxHeight = device.screen.height;
