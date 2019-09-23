@@ -28,18 +28,14 @@
   </svg>
   
   <svg id="clock">
-    <svg id="ionic-time">
-      <text id="ionic-time-hour"/>
-      <text id="ionic-time-colon"/>
-      <text id="ionic-time-minute"/>
-    </svg>
+    <text id="ionic-time-hour"/>
+    <text id="ionic-time-colon"/>
+    <text id="ionic-time-minute"/>
     <text id="ionic-am-pm"/>
     <text id="ionic-second"/>
-    <svg id="versa-time">
-      <text id="versa-time-hour"/>
-      <text id="versa-time-colon"/>
-      <text id="versa-time-minute"/>
-    </svg>
+    <text id="versa-time-hour"/>
+    <text id="versa-time-colon"/>
+    <text id="versa-time-minute"/>
     <text id="versa-am-pm"/>
     <text id="versa-second"/>
     <text id="versalite-time-hour"/>

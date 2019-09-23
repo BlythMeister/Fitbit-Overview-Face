@@ -75,8 +75,7 @@ function mySettings(props) {
         <Toggle settingsKey="flashDots" label="Flash the : in time" />
       </Section>       
       
-      <Section title="Stats Location
-            (Note: It is possible to overlap stats!)">
+      <Section title="Stats Location (Note: It is possible to overlap stats!)">
         <Select label="BMR/BMI Location" settingsKey="BMLocation" options={statsLocations} />
         <Select label="Steps Location" settingsKey="stepsLocation" options={statsLocations} />
         <Select label="Distance Location" settingsKey="distanceLocation" options={statsLocations} />

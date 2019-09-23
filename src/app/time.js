@@ -11,14 +11,39 @@ export let timeAmPmEl = getElement("am-pm");
 export let isAmPm = false;
 export let showSeconds = true;
 export let showLeadingZero = true;
-export let flashDots = false;
 export let timeFormat = 'auto'
+export var flashDotsInterval = null;
 export function setIsAmPm(val) { isAmPm = val}
 export function setShowSeconds(val) { showSeconds = val }
 export function setShowLeadingZero(val) { showLeadingZero = val }
 export function setTimeFormat(val) { timeFormat = val }
-export function setFlashDots(val) { flashDots = val }
 
+timeColonEl.text = ":";
+timeColonEl.style.display = 'inline';
+
+export function setFlashDots(val) { 
+  if(val)
+  {
+    clearInterval(flashDotsInterval);
+    flashDotsInterval = setInterval(animateColon, 500);
+  }
+  else
+  {
+    clearInterval(flashDotsInterval);
+  }
+}
+
+export function animateColon()
+{
+  if(timeColonEl.style.display == 'none')
+  {
+    timeColonEl.style.display = 'inline';
+  }
+  else
+  {
+    timeColonEl.style.display = 'none';  
+  }    
+}
 
 export function getElement(type){
     switch(device.modelId) {
@@ -39,27 +64,6 @@ export function drawTime(now) {
   setHours(now);
   setMinutes(now);
   setSeconds(now);
-  setColon();  
-}
-
-export function setColon()
-{
-  timeColonEl.text = ":";
-  if(flashDots)
-  {
-    if(timeColonEl.style.display == 'inline')    
-    {
-      timeColonEl.style.display = 'none';
-    }
-    else
-    {
-      timeColonEl.style.display = 'inline';
-    }
-  }
-  else
-  {
-    timeColonEl.style.display = 'inline';
-  }
 }
 
 export function setSeconds(now){
