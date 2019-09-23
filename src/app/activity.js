@@ -1,6 +1,7 @@
 import document from "document";
 import { goals } from "user-activity";
 import { today } from "user-activity";
+import { me as device } from "device";
 
 //Progress - START
 export let root = document.getElementById('root')
@@ -20,13 +21,16 @@ export function getProgressEl(prefix) {
   }
 }
 
-export let goalTypes = [
-  "steps",
-  "distance",
-  "elevationGain",
-  "calories",
-  "activeMinutes"
-];
+export let goalTypes = [];
+
+switch(device.modelId) {
+  case '38':
+    goalTypes = ["steps","distance","calories","activeMinutes"]
+    break;
+  default:
+    goalTypes = ["steps","distance","elevationGain","calories","activeMinutes"]
+}
+  
 
 export let progressEls = [];
 
