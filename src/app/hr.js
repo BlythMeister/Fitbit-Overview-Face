@@ -41,7 +41,7 @@ export function setHrZoneVis(visibility) {
 
 export function initHrInterval() {
   clearInterval(hrAnimatedInterval);
-  hrAnimatedInterval = setInterval(animateHr, (60/hrmRate)*1000);
+  hrAnimatedInterval = setInterval(animateHr, (60/hrmRate)*1000*2);
 }
 
 export function stopHrAnimation() {
