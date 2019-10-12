@@ -23,14 +23,19 @@ export function getProgressEl(prefix) {
 
 export let goalTypes = [];
 
-switch(device.modelId) {
-  case '38':
-    goalTypes = ["steps","distance","calories","activeMinutes"]
-    break;
-  default:
-    goalTypes = ["steps","distance","elevationGain","calories","activeMinutes"]
+export function pushGoalTypeIfSupported(type)
+{
+  if(today.local[type] != undefined)
+  {
+    goalTypes.push(type);
+  }
 }
-  
+
+pushGoalTypeIfSupported("steps");
+pushGoalTypeIfSupported("distance");
+pushGoalTypeIfSupported("elevationGain");
+pushGoalTypeIfSupported("calories");
+pushGoalTypeIfSupported("activeMinutes");  
 
 export let progressEls = [];
 

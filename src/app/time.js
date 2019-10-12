@@ -46,17 +46,7 @@ export function animateColon()
 }
 
 export function getElement(type){
-    switch(device.modelId) {
-    case '27':
-      return document.getElementById("ionic-" + type)
-    case '32':
-      return document.getElementById("versa-" + type)
-    case '38':
-      return document.getElementById("versalite-" + type)
-    default:
-      console.log("DEVICE UNKNOWN");
-      return null;
-  }
+    return document.getElementById(device.screen.width + "-" + type)
 }
 
 //Time Draw - START
