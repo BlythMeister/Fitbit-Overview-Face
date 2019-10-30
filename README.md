@@ -63,6 +63,13 @@ To add support for additional languages, or update existing, please create a Git
 ![VersaLite-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/3.cutdown.png?raw=true)
 ![VersaLite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/4.charging.png?raw=true)
 
+### Versa 2 Device
+
+![Versa2](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/1.base.png?raw=true)
+![Versa2-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/2.24h.png?raw=true)
+![Versa2-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/3.cutdown.png?raw=true)
+![Versa2-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/4.charging.png?raw=true)
+
 # How To Contribute
 
 The editor for Fitbit clock faces is online at https://studio.fitbit.com
