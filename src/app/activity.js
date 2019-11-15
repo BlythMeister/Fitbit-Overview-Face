@@ -25,7 +25,7 @@ export let goalTypes = [];
 
 export function pushGoalTypeIfSupported(type)
 {
-  if(today.local[type] != undefined)
+  if(today.adjusted[type] != undefined)
   {
     goalTypes.push(type);
   }
@@ -50,7 +50,7 @@ for (var i=0; i < goalTypes.length; i++) {
 export function drawProgress(progressEl) {
   let prefix = progressEl.prefix;
   
-  let actual = (today.local[prefix] || 0);
+  let actual = (today.adjusted[prefix] || 0);
   if (progressEl.prevProgressVal == actual) {
     return;
   }  

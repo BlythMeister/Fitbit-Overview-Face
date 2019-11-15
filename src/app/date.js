@@ -3,7 +3,7 @@ import { gettext } from "i18n";
 //Date - START
 
 export let dayEl = document.getElementById("day");
-export let dateEl = document.getElementById("date"); 
+export let dateEl = document.getElementById("date");
 export let dateFormat = "dd mmm yy";
 export function setDateFormat(val) { dateFormat = val}
 
