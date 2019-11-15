@@ -39,6 +39,8 @@ export function getDateInFormat(now){
       return monthAbrv + " " + zeroPad(day) + " " + year;
     case "mmmm dd yy":
       return monthName + " " + zeroPad(day) + " " + year;
+    case "yyyy/mm/dd":
+      return year + "/" + zeroPad(monthIndex) + "/" + + zeroPad(day);
   }  
 }
 
