@@ -38,7 +38,7 @@ Or scan this QR Code
 * Dutch
 * Sweedish
 
-To add support for additional languages, or update existing, please create a GitHub issue.
+To add support for additional languages, or update existing please see [gitlocalize](https://gitlocalize.com/repo/4274)
 
 # Screenshots
 
