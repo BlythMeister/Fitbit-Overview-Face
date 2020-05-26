@@ -29,6 +29,8 @@ export function getDateInFormat(now){
       return zeroPad(day) + "." + zeroPad(monthIndex) + "." + year;
     case "dd/mm/yy":
       return zeroPad(day) + "/" + zeroPad(monthIndex) + "/" + year;
+    case "mm/dd/yy":
+      return zeroPad(monthIndex) + "/" + zeroPad(day) + "/" + year;
     case "dd mmm yy":
       return zeroPad(day) + " " + monthAbrv + " " + year;
     case "dd mmmm yy":

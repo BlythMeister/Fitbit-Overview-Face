@@ -25,6 +25,9 @@ msgstr "Bene"
 msgid "above-custom"
 msgstr "Alto"
 
+msgid "off-wrist"
+msgstr "Fuori dal polso"
+
 msgid "month-short-0"
 msgstr "gen"
 

@@ -25,6 +25,9 @@ msgstr "OK"
 msgid "above-custom"
 msgstr "High"
 
+msgid "off-wrist"
+msgstr "Off Wrist"
+
 msgid "month-short-0"
 msgstr "Jan"
 

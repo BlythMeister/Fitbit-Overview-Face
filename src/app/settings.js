@@ -154,6 +154,12 @@ export function applySettings() {
     } else {
       battery.setShowBatteryPercent(true);
     } 
+    
+    if (settings.hasOwnProperty("showBatteryBar")) {
+      battery.setShowBatteryBar(!!settings["showBatteryBar"]); 
+    } else {
+      battery.setShowBatteryBar(true);
+    } 
         
     if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
        battery.setColour0(settings["battery0Colour"]);
@@ -183,8 +189,8 @@ export function applySettings() {
        battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
     } else {
        battery.batteryLineBack.style.fill = "black";
-    }
-
+    }    
+        
     for (var i=0; i < activity.goalTypes.length; i++) {
       var goalType = activity.goalTypes[i];      
       var goalTypeColourProp = goalType + "Colour";
@@ -203,6 +209,14 @@ export function applySettings() {
       } else {
         activity.progressEls[i].lineBack.style.fill = "black";
       }
+      
+      var progressVisibility = true;
+      if (settings.hasOwnProperty("showStatsProgress")) {
+        progressVisibility = !!settings["showStatsProgress"];
+      }
+      
+      activity.progressEls[i].line.style.display = (!progressVisibility ? "none" : "inline");
+      activity.progressEls[i].lineBack.style.display = (!progressVisibility ? "none" : "inline");
 
       var goalTypeLocationProp = goalType + "Location";
       if (settings.hasOwnProperty(goalTypeLocationProp) && settings[goalTypeLocationProp]) {
@@ -230,10 +244,10 @@ export function applySettings() {
         setStatsLocation(bm.bmEl, settings["BMLocation"].values[0].value);
     } else {
       setStatsLocation(bm.bmEl, "TM");
-    }
+    } 
     
     activity.resetProgressPrevState();
-    state.applyState();
+    state.reApplyState();
   } catch (ex) {
     console.log(ex);
   }

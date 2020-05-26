@@ -1,9 +1,9 @@
 <svg id="root">
   <rect id="background" /> 
   
-  <svg x="0" y="0">
+  <svg id="battery-line" x="0" y="0">
     <rect id="battery-line-back" x="0" y="0" width="100%" height="2%" fill="#969696" />
-    <rect id="battery-line" x="0" y="0" width="100%" height="2%" fill="#969696" />    
+    <rect id="battery-line-front" x="0" y="0" width="100%" height="2%" fill="#969696" />    
   </svg>
   
   <svg id="hr"> 

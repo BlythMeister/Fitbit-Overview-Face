@@ -3,10 +3,11 @@ import { battery } from "power";
 
 //Battery - START
 export let batteryLine = document.getElementById("battery-line");
+export let batteryLineFront = document.getElementById("battery-line-front");
+export let batteryLineBack = document.getElementById("battery-line-back");
 export let batteryIconCharge = document.getElementById("battery-icon-charge");
 export let batteryIcon = document.getElementById("battery-icon");
 export let batteryPercent = document.getElementById("battery-percent");
-export let batteryLineBack = document.getElementById("battery-line-back");
 export let batteryPercentBlock = document.getElementById("battery");
 
 export let colour0 = '#FF0000';
@@ -20,6 +21,10 @@ export const screenWidth = root.width
 
 export function setShowBatteryPercent(visibility) {
   batteryPercentBlock.style.display = (!visibility ? "none" : "inline");
+}
+
+export function setShowBatteryBar(visibility) {
+  batteryLine.style.display = (!visibility ? "none" : "inline");
 }
 
 export function setColour0(colour) {
@@ -51,7 +56,7 @@ export function drawBat() {
   let batteryPercentage = Math.floor(level);
   batteryPercent.text = `${batteryPercentage}%`
   let lineWidth = Math.floor(screenWidth*(batteryPercentage/100));
-  batteryLine.width = lineWidth;
+  batteryLineFront.width = lineWidth;
   
   if (batteryPercentage >= 75)
   {
@@ -72,7 +77,7 @@ export function drawBat() {
 }
 
 export function setColour(colour){
-  batteryLine.style.fill = colour;
+  batteryLineFront.style.fill = colour;
   batteryIconCharge.style.fill = colour;
   batteryIcon.style.fill = colour;
   batteryPercent.style.fill = colour;

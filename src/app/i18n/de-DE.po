@@ -25,6 +25,9 @@ msgstr "In Ordnung"
 msgid "above-custom"
 msgstr "Hoch"
 
+msgid "off-wrist"
+msgstr "Aus dem Handgelenk"
+
 msgid "month-short-0"
 msgstr "Jan"
 

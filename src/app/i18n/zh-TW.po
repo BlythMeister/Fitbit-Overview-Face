@@ -25,6 +25,9 @@ msgstr "好"
 msgid "above-custom"
 msgstr "杲"
 
+msgid "off-wrist"
+msgstr "離腕"
+
 msgid "month-short-0"
 msgstr "一月"
 

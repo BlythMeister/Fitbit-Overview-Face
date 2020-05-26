@@ -25,6 +25,9 @@ msgstr "D'accord"
 msgid "above-custom"
 msgstr "Haut"
 
+msgid "off-wrist"
+msgstr "Poignet"
+
 msgid "month-short-0"
 msgstr "janv."
 

@@ -30,6 +30,7 @@ export function setFlashDots(val) {
   else
   {
     clearInterval(flashDotsInterval);
+    timeColonEl.style.display = 'inline';
   }
 }
 
@@ -114,7 +115,7 @@ export function setHours(now) {
   }
   else
   {
-    timeHourEl.text = zeroPad(hours);
+    timeHourEl.text = hours;
   }
 }
 //Time Draw - END

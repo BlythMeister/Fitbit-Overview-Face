@@ -25,6 +25,9 @@ msgstr "승인"
 msgid "above-custom"
 msgstr "높은"
 
+msgid "off-wrist"
+msgstr "손목에서"
+
 msgid "month-short-0"
 msgstr "1"
 

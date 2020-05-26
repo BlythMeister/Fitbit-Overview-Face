@@ -1,13 +1,11 @@
 import document from "document"; 
 import { display } from "display";
-import { HeartRateSensor } from "heart-rate";
 import { user } from "user-profile";
 import { battery } from "power";
 import { charger } from "power";
 import { gettext } from "i18n";
 //HR - START
 
-export let hrm = new HeartRateSensor();
 export var isHeartbeatAnimation  = true;
 export var hrmAnimationPhase = false;
 export var prevHrmRate = null;
@@ -79,24 +77,38 @@ export function animateHr() {
     prevHrmRate = hrmRate;
 }
 
-export function drawHrm() { 
-  hrmRate = hrm.heartRate;
-  if (hrmRate && !batteryIconVisible) {
-    hrCountEl.text = `${hrmRate}`;  
-    hrRestingEl.text = `(${user.restingHeartRate})`;
-    hrZoneEl.text = gettext(user.heartRateZone(hrmRate));
-    
-    if (!prevHrmRate) {
-      hrEl.style.display = "inline";    
+export function newHrm(rate) { 
+  hrmRate = rate;
+  drawHrm();
+}
+
+export function drawHrm() {  
+  if (hrmRate == null)
+  {
+      hrCountEl.text = "-";  
+      hrRestingEl.text = `(${user.restingHeartRate})`;
+      hrZoneEl.text = gettext("off-wrist");
+      stopHrAnimation();
+  }
+  else
+  {
+    if (hrmRate && !batteryIconVisible) {
+      hrCountEl.text = `${hrmRate}`;  
+      hrRestingEl.text = `(${user.restingHeartRate})`;
+      hrZoneEl.text = gettext(user.heartRateZone(hrmRate));
+
+      if (!prevHrmRate) {
+        hrEl.style.display = "inline";    
+      }
+      if (!hrAnimated && isHeartbeatAnimation) {
+        clearInterval(hrAnimatedInterval);   
+        prevHrmRate = hrmRate;
+        initHrInterval();
+        hrAnimated = true;      
+      }
+    } else {
+      hideHr();
     }
-    if (!hrAnimated && isHeartbeatAnimation) {
-      clearInterval(hrAnimatedInterval);   
-      prevHrmRate = hrmRate;
-      initHrInterval();
-      hrAnimated = true;      
-    }
-  } else {
-    hideHr();
   }
 }
 
@@ -114,7 +126,4 @@ export function batteryCharger() {
     }
   }
 }
-
-drawHrm();
-hrm.onreading = drawHrm;
 //HR Draw - END

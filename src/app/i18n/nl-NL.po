@@ -25,6 +25,9 @@ msgstr "OK"
 msgid "above-custom"
 msgstr "Hoog"
 
+msgid "off-wrist"
+msgstr "Uit de pols"
+
 msgid "month-short-0"
 msgstr "jan"
 

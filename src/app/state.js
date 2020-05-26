@@ -1,4 +1,10 @@
 import { display } from "display";
+import { battery as powerBattery } from "power";
+import { charger as powerCharger } from "power";
+import { BodyPresenceSensor } from "body-presence";
+import { HeartRateSensor } from "heart-rate";
+import clock from "clock";
+
 import * as bm from "./bm.js";
 import * as date from "./date.js"
 import * as battery from "./battery.js"
@@ -6,32 +12,57 @@ import * as time from "./time.js"
 import * as hr from "./hr.js"
 import * as activity from "./activity.js"
 
-export function applyState() {
-  if (display.on) {    
-    applyHRState();
-    applyProgressState();
-    applyBmState();
+const hrm = new HeartRateSensor();
+const body = new BodyPresenceSensor();
+
+clock.granularity = "seconds";
+body.start();
+
+display.onchange = (evt) => {
+  displayBodyChange();
+}
+
+body.onreading = (evt) => {
+  displayBodyChange();
+}
+
+export function displayBodyChange() {
+  if (body.present && display.on) {
+    hrm.start();
   } else {
-    applyStopHRState();
+    hrm.stop();    
+    if (!body.present)
+    {
+      hr.newHrm(null);  
+    }  
   }  
+  reApplyState();
 }
 
-export  function applyStopHRState() {
-    hr.hrm.stop();
-    hr.stopHrAnimation();
+clock.ontick = (evt) => {  
+  time.drawTime(evt.date);
+  date.drawDate(evt.date);
+  activity.drawAllProgress();
 }
 
-export function applyHRState() {
-    hr.hrm.start();
-    hr.batteryCharger();
-    hr.drawHrm();
+powerBattery.onchange = (evt) => {
+  battery.drawBat();
+  hr.batteryCharger();
 }
 
-export function applyProgressState() {
-    activity.drawAllProgress();    
+powerCharger.onchange = (evt) => {
+  battery.isCharging();
+  hr.batteryCharger();
 }
 
-export function applyBmState() {
+hrm.onreading = (evt) => {
+  hr.newHrm(hrm.heartRate);
+};
+
+export function reApplyState() {
+  hr.batteryCharger();
+  hr.drawHrm();
+  activity.drawAllProgress();  
   bm.drawBMR();
   bm.drawBMI();
 }
