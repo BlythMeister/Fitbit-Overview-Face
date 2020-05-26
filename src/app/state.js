@@ -16,26 +16,39 @@ const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
 
 clock.granularity = "seconds";
-body.start();
+
+if (display.on) {
+  body.start();
+}
+
+if (body.present) {
+    hrm.start(); 
+}
 
 display.onchange = (evt) => {
-  displayBodyChange();
+  if (display.on) {
+    body.start();
+    if (body.present) {
+      hrm.start();
+      hr.newHrm(hrm.heartRate);
+    }
+  } else {
+    hrm.stop();
+    body.stop();
+  }
+  
+  reApplyState();
 }
 
 body.onreading = (evt) => {
-  displayBodyChange();
-}
-
-export function displayBodyChange() {
-  if (body.present && display.on) {
-    hrm.start();
+  if (body.present) {
+    hrm.start(); 
+    hr.newHrm(hrm.heartRate);
   } else {
-    hrm.stop();    
-    if (!body.present)
-    {
-      hr.newHrm(null);  
-    }  
-  }  
+    hrm.stop();
+    hr.newHrm(0);    
+  }
+  
   reApplyState();
 }
 
