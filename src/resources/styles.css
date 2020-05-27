@@ -198,16 +198,16 @@
 }
 
 #battery-icon {
-  width: 19;
-  height: 19;
-  x:-70;
+  width: 18;
+  height: 18;
+  x:-15;
   y:-18;
 }
 
 #battery-icon-charge {
-  width: 19;
-  height: 19;
-  x:-70;
+  width: 18;
+  height: 18;
+  x:-15;
   y:-18;
 }
 
@@ -216,7 +216,7 @@
   font-size: 22;
   font-family: Seville-Bold-Condensed;
   fill: white;
-  x: 0;
+  x: -17;
   y: 0; 
 }
 
