@@ -1,3 +1,6 @@
+msgid "settings-required"
+msgstr "需要设置"
+
 msgid "bmi"
 msgstr "BMI"
 
@@ -24,9 +27,6 @@ msgstr "好"
 
 msgid "above-custom"
 msgstr "杲"
-
-msgid "off-wrist"
-msgstr "离腕"
 
 msgid "month-short-0"
 msgstr "1月"

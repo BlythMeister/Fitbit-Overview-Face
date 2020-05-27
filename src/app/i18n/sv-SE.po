@@ -1,3 +1,6 @@
+msgid "settings-required"
+msgstr "Inställningar krävs"
+
 msgid "bmi"
 msgstr "BMI"
 
@@ -24,9 +27,6 @@ msgstr "OK"
 
 msgid "above-custom"
 msgstr "Hög"
-
-msgid "off-wrist"
-msgstr "Av handleden"
 
 msgid "month-short-0"
 msgstr "jan"

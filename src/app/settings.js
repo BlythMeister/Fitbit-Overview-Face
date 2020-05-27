@@ -7,6 +7,7 @@ import * as messaging from "messaging";
 import { me as appbit } from "appbit";
 import { me as device } from "device";
 import { locale } from "user-settings";
+import { gettext } from "i18n";
 
 import * as bm from "./bm.js";
 import * as date from "./date.js"
@@ -19,30 +20,36 @@ import * as state from "./state.js"
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
 export const SETTINGS_FILE = "settingsV1.cbor";
-export let settings = loadSettings();
 export let root = document.getElementById('root');
 export let backgroundEl = document.getElementById('background');
+export let noSettingsEl = document.getElementById('noSettings');
+export let noSettingsTextEl = document.getElementById('noSettingsText');
+export let settings = loadSettings();
 
 export function applySettings() {
   if (!loadSettings) {
    return;
   }
   
+  if(!settings) {
+    return;    
+  }
+  
   try {
-    if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"].values) {
-      activity.distanceUnitSet(settings["distanceUnit"].values[0].value);
+    if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"]) {
+      activity.distanceUnitSet(settings["distanceUnit"]);
     } else {
-      activity.distanceUnitSet("mi");
+      activity.distanceUnitSet("auto");
     }
             
-    if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"].values) {
-      date.setDateFormat(settings["dateFormat"].values[0].value); 
+    if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"]) {
+      date.setDateFormat(settings["dateFormat"]); 
     } else {
       date.setDateFormat("dd mmmm yy");
     }
             
-    if (settings.hasOwnProperty("timeFormat") && settings["timeFormat"].values) {
-      time.setTimeFormat(settings["timeFormat"].values[0].value); 
+    if (settings.hasOwnProperty("timeFormat") && settings["timeFormat"]) {
+      time.setTimeFormat(settings["timeFormat"]); 
     } else {
       time.setTimeFormat("auto");
     } 
@@ -50,43 +57,43 @@ export function applySettings() {
     if (settings.hasOwnProperty("isAmPm")) {
       time.setIsAmPm(!!settings["isAmPm"]); 
     } else {
-      time.setIsAmPm(true);
+      time.setIsAmPm(false);
     }  
     
     if (settings.hasOwnProperty("showSeconds")) {
       time.setShowSeconds(!!settings["showSeconds"]); 
     } else {
-      time.setShowSeconds(true);
+      time.setShowSeconds(false);
     } 
     
     if (settings.hasOwnProperty("showLeadingZero")) {
       time.setShowLeadingZero(!!settings["showLeadingZero"]); 
     } else {
-      time.setShowLeadingZero(true);
+      time.setShowLeadingZero(false);
     }
     
     if (settings.hasOwnProperty("flashDots")) {
       time.setFlashDots(!!settings["flashDots"]); 
     } else {
-      time.setFlashDots(true);
+      time.setFlashDots(false);
     }
     
     if (settings.hasOwnProperty("hearRateZoneVis")) {
       hr.setHrZoneVis(!!settings["hearRateZoneVis"]); 
     } else {
-      hr.setHrZoneVis(true);
+      hr.setHrZoneVis(false);
     } 
     
     if (settings.hasOwnProperty("BMIVis")) {
       bm.setBMIVis(!!settings["BMIVis"]); 
     } else {
-      bm.setBMIVis(true);
+      bm.setBMIVis(false);
     } 
     
     if (settings.hasOwnProperty("BMRVis")) {
       bm.setBMRVis(!!settings["BMRVis"]); 
     } else {
-      bm.setBMRVis(true);
+      bm.setBMRVis(false);
     } 
     
     if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {
@@ -112,9 +119,9 @@ export function applySettings() {
     }
 
     if (settings.hasOwnProperty("isHeartbeatAnimation")) {
-      hr.isHeartbeatAnimationSet(!!settings.isHeartbeatAnimation); 
+      hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"]); 
     } else {
-      hr.isHeartbeatAnimationSet(true);
+      hr.isHeartbeatAnimationSet(false);
     }
 
     if (settings.hasOwnProperty("backgroundColour") && settings["backgroundColour"]) {
@@ -152,13 +159,13 @@ export function applySettings() {
     if (settings.hasOwnProperty("showBatteryPercent")) {
       battery.setShowBatteryPercent(!!settings["showBatteryPercent"]); 
     } else {
-      battery.setShowBatteryPercent(true);
+      battery.setShowBatteryPercent(false);
     } 
     
     if (settings.hasOwnProperty("showBatteryBar")) {
       battery.setShowBatteryBar(!!settings["showBatteryBar"]); 
     } else {
-      battery.setShowBatteryBar(true);
+      battery.setShowBatteryBar(false);
     } 
         
     if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
@@ -220,36 +227,22 @@ export function applySettings() {
 
       var goalTypeLocationProp = goalType + "Location";
       if (settings.hasOwnProperty(goalTypeLocationProp) && settings[goalTypeLocationProp]) {
-        setStatsLocation(activity.progressEls[i].container, settings[goalTypeLocationProp].values[0].value);
+        setStatsLocation(activity.progressEls[i].container, settings[goalTypeLocationProp]);
       } else {
-        if(goalType == "steps"){
-          setStatsLocation(activity.progressEls[i].container, "TL")
-        }
-        if(goalType == "distance"){
-          setStatsLocation(activity.progressEls[i].container, "BL")
-        }
-        if(goalType == "elevationGain"){
-          setStatsLocation(activity.progressEls[i].container, "BM")
-        }
-        if(goalType == "calories"){
-          setStatsLocation(activity.progressEls[i].container, "TR")
-        }
-        if(goalType == "activeMinutes"){
-          setStatsLocation(activity.progressEls[i].container, "BR")
-        }
+        setStatsLocation(activity.progressEls[i].container, "NONE")
       }
     }
     
     if (settings.hasOwnProperty("BMLocation") && settings["BMLocation"]) {
-        setStatsLocation(bm.bmEl, settings["BMLocation"].values[0].value);
+        setStatsLocation(bm.bmEl, settings["BMLocation"]);
     } else {
-      setStatsLocation(bm.bmEl, "TM");
+      setStatsLocation(bm.bmEl, "NONE");
     } 
     
     activity.resetProgressPrevState();
     state.reApplyState();
   } catch (ex) {
-    console.log(ex);
+    console.error(ex);
   }
 }
 
@@ -321,27 +314,48 @@ export function onsettingschange(data) {
   }
   settings = data;
   applySettings();
+  saveSettings();
   time.drawTime(new Date());
+  noSettingsEl.style.display = "none";
 }
 
 messaging.peerSocket.addEventListener("message", function(evt) {
-  if (!settings) {
-    settings = {};
-  }
-  settings[evt.data.key] = evt.data.value;
-  onsettingschange(settings);
+  if(evt.data.dataType === "settingChange")
+  {
+    if (!settings) {
+      settings = {};
+    }
+    
+    if(typeof evt.data.value === "object") {
+      console.log(`Setting update - key:${evt.data.key} value:${evt.data.value.values[0].value}`);
+      settings[evt.data.key] = evt.data.value.values[0].value; 
+    } else {
+      console.log(`Setting update - key:${evt.data.key} value:${evt.data.value}`);
+      settings[evt.data.key] = evt.data.value;
+    }
+    
+    onsettingschange(settings);
+  }  
 })
 
 appbit.addEventListener("unload", saveSettings);
 
 export function loadSettings() {
   try {
-    return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
+    var fileContent = fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
+    if(fileContent === null || Object.keys(fileContent).length === 0)
+    {
+      noSettingsEl.style.display = "inline";
+      noSettingsTextEl.text = gettext("settings-required");
+      return null
+    }  
+    noSettingsEl.style.display = "none";
+    return fileContent;
   } catch (ex) {
     console.log(ex);
-    var defaults = {};
-    fs.writeFileSync(SETTINGS_FILE, defaults, SETTINGS_TYPE);
-    return defaults;
+    noSettingsEl.style.display = "inline";
+    noSettingsTextEl.text = gettext("settings-required");
+    return null;
   }
 }
 

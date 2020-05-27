@@ -30,7 +30,7 @@ display.onchange = (evt) => {
     body.start();
     if (body.present) {
       hrm.start();
-      hr.newHrm(hrm.heartRate);
+      hr.newHrm(0);
     }
   } else {
     hrm.stop();
@@ -43,7 +43,7 @@ display.onchange = (evt) => {
 body.onreading = (evt) => {
   if (body.present) {
     hrm.start(); 
-    hr.newHrm(hrm.heartRate);
+    hr.newHrm(0);
   } else {
     hrm.stop();
     hr.newHrm(0);    

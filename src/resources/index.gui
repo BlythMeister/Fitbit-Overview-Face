@@ -17,9 +17,9 @@
   </svg> 
   
   <svg id="battery">  
-    <text id="battery-percent" class="count" />
     <image id="battery-icon" class="icon" href="battery_solid_24px.png" />
     <image id="battery-icon-charge" class="icon" href="battery_charge_solid_24px.png" />
+    <text id="battery-percent" class="count" />
   </svg>
   
   <svg id="calendar">
@@ -79,4 +79,8 @@
     <rect id="activeMinutes-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="deepskyblue" />
   </svg>
+   
+  <rect id="noSettings">
+    <text id="noSettingsText"/>
+  </rect>
 </svg>

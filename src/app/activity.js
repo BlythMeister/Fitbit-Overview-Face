@@ -1,12 +1,13 @@
 import document from "document";
 import { goals } from "user-activity";
 import { today } from "user-activity";
+import { units } from "user-settings";
 import { me as device } from "device";
 
 //Progress - START
 export let root = document.getElementById('root')
 export const screenWidth = root.width
-export var distanceUnit = "m";
+export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
 export function getProgressEl(prefix) {  
   let containerEl = document.getElementById(prefix);
@@ -58,14 +59,13 @@ export function drawProgress(progressEl) {
   
   var displayValue = actual;
   if (prefix === "distance" && actual) {    
-    if (distanceUnit === "km") {
+    if ((distanceUnit === "auto" && units.distance === "metric") || distanceUnit === "km") {
       displayValue = (actual / 1000.).toFixed(2);
-    } else if (distanceUnit === "ft") {
-      displayValue = Math.round(actual * 3.2808); 
-    } else if (distanceUnit === "mi") {
+    } else if ((distanceUnit === "auto" && units.distance === "us") || distanceUnit === "mi") {
       displayValue = (actual / 1609.344).toFixed(2);
-    }
-    else {
+    } else if (distanceUnit === "ft") {
+      displayValue = Math.round(actual * 3.2808).toFixed(2); 
+    } else if (distanceUnit === "m") {
       displayValue = Math.round(actual);
     }
   }  

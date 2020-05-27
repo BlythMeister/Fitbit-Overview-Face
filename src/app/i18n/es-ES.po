@@ -1,3 +1,6 @@
+msgid "settings-required"
+msgstr "Configuraciones requeridas"
+
 msgid "bmi"
 msgstr "IMC"
 
@@ -24,9 +27,6 @@ msgstr "Bueno"
 
 msgid "above-custom"
 msgstr "Alto"
-
-msgid "off-wrist"
-msgstr "Fuera de la muñeca"
 
 msgid "month-short-0"
 msgstr "ene."

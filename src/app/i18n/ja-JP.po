@@ -1,3 +1,6 @@
+msgid "settings-required"
+msgstr "必要な設定"
+
 msgid "bmi"
 msgstr "BMI"
 
@@ -24,9 +27,6 @@ msgstr "승인"
 
 msgid "above-custom"
 msgstr "高い"
-
-msgid "off-wrist"
-msgstr "手首オフ"
 
 msgid "month-short-0"
 msgstr "1"

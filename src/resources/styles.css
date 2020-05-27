@@ -11,6 +11,24 @@
   fill:black;
 }
 
+#noSettings {
+  x: 0;
+  y: 0;
+  width:100%;
+  height:100%;
+  fill:black;
+}
+
+#noSettingsText {
+  font-size: 25;
+  font-family: Seville-Bold;
+  text-length: 100;
+  text-anchor: middle;
+  fill: white;
+  x: 50%;
+  y: 50%;
+}
+
 #348-time-hour {
   font-size: 100;
   font-family: Seville-Bold;
@@ -131,7 +149,8 @@
   font-size: 22;
   font-family: Seville-Bold-Condensed;
   fill: #969696;
-  x: 6;
+  text-length: 120;
+  x: 5;
   y: 0;
 }
 
@@ -140,8 +159,9 @@
   font-size: 22;
   font-family: Seville-Bold-Condensed;
   fill: #969696;
+  text-length: 120;
   x: 0;
-  y: 22;
+  y: 25;
 }
 
 #hr-zone {
@@ -151,7 +171,7 @@
   fill: #969696;
   text-length: 120;
   x: 0;
-  y: 44;
+  y: 50;
   display: none;
 }
 
@@ -178,17 +198,17 @@
 }
 
 #battery-icon {
-  width: 20;
-  height: 20;
-  x:-20;
-  y:-15;
+  width: 19;
+  height: 19;
+  x:-70;
+  y:-18;
 }
 
 #battery-icon-charge {
-  width: 20;
-  height: 20;
-  x:-20;
-  y:-15;
+  width: 19;
+  height: 19;
+  x:-70;
+  y:-18;
 }
 
 #battery-percent {
@@ -196,18 +216,18 @@
   font-size: 22;
   font-family: Seville-Bold-Condensed;
   fill: white;
-  x: -22;
-  y: 5; 
+  x: 0;
+  y: 0; 
 }
 
 #calendar {
   x: 100%-3%;
-  y: 50;
+  y: 55;
 }
 
 #day {
   x: 0;
-  y: 5;
+  y: 0;
   font-size: 22;
   text-anchor: end;
   font-family: Seville-Bold-Condensed;
@@ -217,7 +237,7 @@
 
 #date {
   x: 0;
-  y: 28;
+  y: 25;
   font-size: 22;
   text-anchor: end;
   font-family: Seville-Bold-Condensed;

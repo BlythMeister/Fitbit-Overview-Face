@@ -87,7 +87,7 @@ export function drawHrm() {
   {
       hrCountEl.text = "-";  
       hrRestingEl.text = `(${user.restingHeartRate})`;
-      hrZoneEl.text = gettext("off-wrist");
+      hrZoneEl.text = "";
       stopHrAnimation();
   }
   else
@@ -95,7 +95,7 @@ export function drawHrm() {
     if (hrmRate && !batteryIconVisible) {
       hrCountEl.text = `${hrmRate}`;  
       hrRestingEl.text = `(${user.restingHeartRate})`;
-      hrZoneEl.text = gettext(user.heartRateZone(hrmRate));
+      hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;  
 
       if (!prevHrmRate) {
         hrEl.style.display = "inline";    
