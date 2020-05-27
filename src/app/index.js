@@ -1,4 +1,3 @@
-
 import document from "document";
 
 import * as bm from "./bm.js";
@@ -9,5 +8,6 @@ import * as hr from "./hr.js"
 import * as activity from "./activity.js"
 import * as settings from "./settings.js"
 import * as state from "./state.js"
+import * as nightlight from "./nightlight.js"
 
-settings.loadSettings();
+settings.applySettings();

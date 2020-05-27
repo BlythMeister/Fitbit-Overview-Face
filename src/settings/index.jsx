@@ -98,6 +98,10 @@ function mySettings(props) {
         <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
       </Section>
       
+      <Section title="Nightlight">
+        <Toggle settingsKey="nightlightEnabled" label="Enable on nightlight on touch" />
+      </Section>
+      
       <Section title="Time colour">
         <ColorSelect settingsKey="timeColour" colors={colourSet} />
       </Section>

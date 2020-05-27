@@ -16,6 +16,7 @@ import * as time from "./time.js"
 import * as hr from "./hr.js"
 import * as activity from "./activity.js"
 import * as state from "./state.js"
+import * as nightlight from "./nightlight.js"
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
@@ -82,6 +83,12 @@ export function applySettings() {
       hr.setHrZoneVis(!!settings["hearRateZoneVis"]); 
     } else {
       hr.setHrZoneVis(false);
+    } 
+    
+    if (settings.hasOwnProperty("nightlightEnabled")) {
+      nightlight.setEnabled(!!settings["nightlightEnabled"]); 
+    } else {
+      nightlight.setEnabled(false);
     } 
     
     if (settings.hasOwnProperty("BMIVis")) {
