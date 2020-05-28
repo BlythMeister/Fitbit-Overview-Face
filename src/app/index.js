@@ -8,6 +8,6 @@ import * as hr from "./hr.js"
 import * as activity from "./activity.js"
 import * as settings from "./settings.js"
 import * as state from "./state.js"
-import * as nightlight from "./nightlight.js"
+import * as torch from "./torch.js"
 
 settings.applySettings();

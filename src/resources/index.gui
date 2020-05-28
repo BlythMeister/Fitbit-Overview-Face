@@ -80,7 +80,7 @@
     <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="deepskyblue" />
   </svg>
   
-  <rect id="nightlight" pointer-events="visible" />
+  <rect id="torch" pointer-events="visible" />
    
   <rect id="noSettings">
     <text id="noSettingsText"/>

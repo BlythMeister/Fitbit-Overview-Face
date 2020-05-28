@@ -16,7 +16,7 @@ import * as time from "./time.js"
 import * as hr from "./hr.js"
 import * as activity from "./activity.js"
 import * as state from "./state.js"
-import * as nightlight from "./nightlight.js"
+import * as torch from "./torch.js"
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
@@ -85,10 +85,10 @@ export function applySettings() {
       hr.setHrZoneVis(false);
     } 
     
-    if (settings.hasOwnProperty("nightlightEnabled")) {
-      nightlight.setEnabled(!!settings["nightlightEnabled"]); 
+    if (settings.hasOwnProperty("torchEnabled")) {
+      torch.setEnabled(!!settings["torchEnabled"]); 
     } else {
-      nightlight.setEnabled(false);
+      torch.setEnabled(false);
     } 
     
     if (settings.hasOwnProperty("BMIVis")) {
