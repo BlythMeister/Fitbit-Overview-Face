@@ -15,6 +15,7 @@ export function getProgressEl(prefix) {
     prefix: prefix,
     prevProgressVal: null,
     container: containerEl,
+    position:"NONE",
     count: containerEl.getElementById(prefix + "-count"),
     icon: containerEl.getElementById(prefix + "-icon"),
     line: containerEl.getElementById(prefix + "-line"),

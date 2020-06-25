@@ -49,11 +49,10 @@ function mySettings(props) {
   {color: '#494949'}, 
   {color: '#2d2d2d'}
 ];
-  
-  let statsLocations = [ {value:"TL", name:"Top Left"}, {value:"BL", name:"Bottom Left"},
-                         {value:"TM", name:"Top Middle"},{value:"BM", name:"Bottom Middle"},
-                         {value:"TR", name:"Top Right"},{value:"BR", name:"Bottom Right"},
-                         {value:"NONE", name:"Hidden"}];
+      
+  let availiableStats = [ {value:"NONE", name:"Empty"}, 
+                          {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
+                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Minutes"}]
     
   return (
     <Page> 
@@ -73,15 +72,15 @@ function mySettings(props) {
         <Toggle settingsKey="showSeconds" label="Show seconds value" />
         <Toggle settingsKey="showLeadingZero" label="Show leading zero on hours" />
         <Toggle settingsKey="flashDots" label="Flash the : in time" />
-      </Section>       
-      
-      <Section title="Stats Location (Note: It is possible to overlap stats!)">
-        <Select label="BMR/BMI Location" settingsKey="BMLocation" options={statsLocations} />
-        <Select label="Steps Location" settingsKey="stepsLocation" options={statsLocations} />
-        <Select label="Distance Location" settingsKey="distanceLocation" options={statsLocations} />
-        <Select label="Elevation Location" settingsKey="elevationGainLocation" options={statsLocations} />
-        <Select label="Calories Location" settingsKey="caloriesLocation" options={statsLocations} />
-        <Select label="Active Minutes Location" settingsKey="activeMinutesLocation" options={statsLocations} />
+      </Section>   
+            
+      <Section title="Stats">
+        <Select label="Top Left" settingsKey="StatsTL" options={availiableStats} />
+        <Select label="Bottom Left" settingsKey="StatsBL" options={availiableStats} />
+        <Select label="Top Middle" settingsKey="StatsTM" options={availiableStats} />
+        <Select label="Bottom Middle" settingsKey="StatsBM" options={availiableStats} />
+        <Select label="Top Right" settingsKey="StatsTR" options={availiableStats} />
+        <Select label="Bottom Right" settingsKey="StatsBR" options={availiableStats} />
       </Section>
       
       <Section title="BMR/BMI">

@@ -6,6 +6,11 @@ import { gettext } from "i18n";
 export let bmEl = document.getElementById("bm");
 export let bmrZoneEl = document.getElementById("bmr-zone");
 export let bmiZoneEl = document.getElementById("bmi-zone");
+export let position = "NONE";
+
+export function setPosition(pos){
+  position = pos;
+}
 //BM - END
 
 //BM Draw - START

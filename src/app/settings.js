@@ -204,7 +204,7 @@ export function applySettings() {
     } else {
        battery.batteryLineBack.style.fill = "black";
     }    
-        
+    
     for (var i=0; i < activity.goalTypes.length; i++) {
       var goalType = activity.goalTypes[i];      
       var goalTypeColourProp = goalType + "Colour";
@@ -230,21 +230,48 @@ export function applySettings() {
       }
       
       activity.progressEls[i].line.style.display = (!progressVisibility ? "none" : "inline");
-      activity.progressEls[i].lineBack.style.display = (!progressVisibility ? "none" : "inline");
-
-      var goalTypeLocationProp = goalType + "Location";
-      if (settings.hasOwnProperty(goalTypeLocationProp) && settings[goalTypeLocationProp]) {
-        setStatsLocation(activity.progressEls[i].container, settings[goalTypeLocationProp]);
-      } else {
-        setStatsLocation(activity.progressEls[i].container, "NONE")
-      }
+      activity.progressEls[i].lineBack.style.display = (!progressVisibility ? "none" : "inline");      
     }
     
-    if (settings.hasOwnProperty("BMLocation") && settings["BMLocation"]) {
-        setStatsLocation(bm.bmEl, settings["BMLocation"]);
-    } else {
-      setStatsLocation(bm.bmEl, "NONE");
-    } 
+    let positions = ["TL","BL","TM","BM","TR","BR"];
+
+    
+    for (var i=0; i < positions.length; i++) {
+      var position = positions[i];  
+      var positionProp = "Stats" + position;
+      
+      if (settings.hasOwnProperty(positionProp) && settings[positionProp]) {
+        //Remove item from position
+        if(bm.position == position)
+        {
+          setStatsLocation(bm.bmEl, "NONE")
+          bm.setPosition("NONE");
+        }
+        for (var x=0; x < activity.goalTypes.length; x++) {
+           if(activity.progressEls[x].position == position)
+           {
+             setStatsLocation(activity.progressEls[x].container, "NONE");
+             activity.progressEls[x].position = "NONE";
+           }
+        }
+        
+        if(settings[positionProp] == "BMIBMR")
+        {        
+          bm.setPosition(position);
+          setStatsLocation(bm.bmEl, position);
+        }
+        else
+        {
+          for (var x=0; x < activity.goalTypes.length; x++) {
+           if(activity.goalTypes[x] == settings[positionProp])
+           {
+             setStatsLocation(activity.progressEls[x].container, position);
+             activity.progressEls[x].position = position;
+           }
+          }
+        }
+      }
+    }
     
     activity.resetProgressPrevState();
     state.reApplyState();
@@ -259,7 +286,6 @@ export function setStatsLocation(element, location)
 {
     var maxWidth = device.screen.width;
     var maxHeight = device.screen.height;
-  
     if(location == "TL")
     {
       element.style.display = "inline";
