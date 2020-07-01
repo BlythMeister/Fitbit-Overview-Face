@@ -3,6 +3,7 @@
 Based on the ANDv2 clock face (https://github.com/ahsandar/ANDv2) with some customisations.
 
 Fitbit listing: (https://gallery.fitbit.com/details/7c4f7506-8ed8-4eb9-84e3-28b85671f26b)
+
 Pre-Release Fitbit listing: (https://gallery.fitbit.com/details/6d80c169-94c5-4105-b9dc-98df99b798cd)
 
 Or scan this QR Code for release version
