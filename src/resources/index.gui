@@ -83,6 +83,6 @@
   <rect id="torch" pointer-events="visible" />
    
   <rect id="noSettings">
-    <text id="noSettingsText"/>
+    <textarea id="noSettingsText"/>
   </rect>
 </svg>

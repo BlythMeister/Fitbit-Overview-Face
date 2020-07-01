@@ -64,7 +64,7 @@ function mySettings(props) {
       
       <Section title="Heart Rate">
         <Toggle settingsKey="isHeartbeatAnimation" label="Heartbeat animation" />    
-        <Toggle settingsKey="hearRateZoneVis" label="Heart rate zone Visibility" />
+        <Toggle settingsKey="heartRateZoneVis" label="Heart rate zone Visibility" />
       </Section>
       
       <Section title="Clock">

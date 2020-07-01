@@ -1,5 +1,5 @@
-msgid "settings-required"
-msgstr "Impostazioni richieste"
+msgid "settings-error"
+msgstr "Impostazioni mancanti o non valide"
 
 msgid "bmi"
 msgstr "BMI"

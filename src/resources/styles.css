@@ -31,11 +31,14 @@
 #noSettingsText {
   font-size: 25;
   font-family: Seville-Bold;
-  text-length: 100;
+  font-weight: bold;
+  text-length: 150;
   text-anchor: middle;
+  text-decoration: underline;
+  display-align: center;  
+  width: 90%;
   fill: white;
-  x: 50%;
-  y: 50%;
+  x: 5%;
 }
 
 #348-time-hour {

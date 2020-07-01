@@ -29,30 +29,40 @@ export let settings = loadSettings();
 
 export function applySettings() {
   if (!loadSettings) {
-   return;
+    console.log("No settings loaded");
+    showHideSettingsError(true);
+    return;
   }
   
   if(!settings) {
-    return;    
+    console.log("No settings loaded");
+    showHideSettingsError(true);
+    return;
   }
   
   try {
     if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"]) {
       activity.distanceUnitSet(settings["distanceUnit"]);
     } else {
-      activity.distanceUnitSet("auto");
+      console.log("Missing setting 'distanceUnit'");
+      showHideSettingsError(true);
+      return;
     }
             
     if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"]) {
       date.setDateFormat(settings["dateFormat"]); 
     } else {
-      date.setDateFormat("dd mmmm yy");
+      console.log("Missing setting 'dateFormat'");
+      showHideSettingsError(true);
+      return;
     }
             
     if (settings.hasOwnProperty("timeFormat") && settings["timeFormat"]) {
       time.setTimeFormat(settings["timeFormat"]); 
     } else {
-      time.setTimeFormat("auto");
+      console.log("Missing setting 'timeFormat'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("isAmPm")) {
@@ -110,19 +120,18 @@ export function applySettings() {
       time.timeSecEl.style.fill = settings["timeColour"];
       time.timeAmPmEl.style.fill = settings["timeColour"];
     } else {
-      time.timeHourEl.style.fill = "white";
-      time.timeColonEl.style.fill = "white";
-      time.timeMinuteEl.style.fill = "white";
-      time.timeSecEl.style.fill = "white";
-      time.timeAmPmEl.style.fill = "white";
+      console.log("Missing setting 'timeColour'");
+      showHideSettingsError(true);
+      return;
     }
 
     if (settings.hasOwnProperty("dateColour") && settings["dateColour"]) {
       date.dateEl.style.fill = settings["dateColour"];
       date.dayEl.style.fill = settings["dateColour"];
     } else {
-      date.dateEl.style.fill = "white";
-      date.dayEl.style.fill = "white";
+      console.log("Missing setting 'dateColour'");
+      showHideSettingsError(true);
+      return;
     }
 
     if (settings.hasOwnProperty("isHeartbeatAnimation")) {
@@ -134,15 +143,18 @@ export function applySettings() {
     if (settings.hasOwnProperty("backgroundColour") && settings["backgroundColour"]) {
       backgroundEl.style.fill = settings["backgroundColour"];     
     } else {
-      backgroundEl.style.fill = "black";
+      console.log("Missing setting 'backgroundColour'");
+      showHideSettingsError(true);
+      return;
     }
 
     if (settings.hasOwnProperty("heartColour") && settings["heartColour"]) {
       hr.hrIconDiastoleEl.style.fill = settings["heartColour"];
       hr.hrIconSystoleEl.style.fill = settings["heartColour"];         
     } else {
-      hr.hrIconDiastoleEl.style.fill = "white";
-      hr.hrIconSystoleEl.style.fill = "white";
+      console.log("Missing setting 'heartColour'");
+      showHideSettingsError(true);
+      return;
     }          
 
     if (settings.hasOwnProperty("heartRateColour") && settings["heartRateColour"]) {
@@ -150,17 +162,18 @@ export function applySettings() {
       hr.hrRestingEl.style.fill = settings["heartRateColour"];
       hr.hrZoneEl.style.fill = settings["heartRateColour"];
     } else {
-      hr.hrCountEl.style.fill = "white";    
-      hr.hrRestingEl.style.fill = "white";
-      hr.hrZoneEl.style.fill = "white";
+      console.log("Missing setting 'heartRateColour'");
+      showHideSettingsError(true);
+      return;
     }          
 
     if (settings.hasOwnProperty("bmColour") && settings["bmColour"]) {
       bm.bmrZoneEl.style.fill = settings["bmColour"];   
       bm.bmiZoneEl.style.fill = settings["bmColour"];
     } else {
-      bm.bmrZoneEl.style.fill = "white";   
-      bm.bmiZoneEl.style.fill = "white";
+      console.log("Missing setting 'bmColour'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("showBatteryPercent")) {
@@ -176,33 +189,43 @@ export function applySettings() {
     } 
         
     if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
-       battery.setColour0(settings["battery0Colour"]);
+      battery.setColour0(settings["battery0Colour"]);
     } else {
-       battery.setColour0("white");
+      console.log("Missing setting 'battery0Colour'");
+      showHideSettingsError(true);
+      return;
     } 
         
     if (settings.hasOwnProperty("battery25Colour") && settings["battery25Colour"]) {
-       battery.setColour25(settings["battery25Colour"]);
+      battery.setColour25(settings["battery25Colour"]);
     } else {
-       battery.setColour25("white");
+      console.log("Missing setting 'battery25Colour'");
+      showHideSettingsError(true);
+      return;
     }
         
     if (settings.hasOwnProperty("battery50Colour") && settings["battery50Colour"]) {
-       battery.setColour50(settings["battery50Colour"]);
+      battery.setColour50(settings["battery50Colour"]);
     } else {
-       battery.setColour50("white");
+      console.log("Missing setting 'battery50Colour'");
+      showHideSettingsError(true);
+      return;
     }
         
     if (settings.hasOwnProperty("battery75Colour") && settings["battery75Colour"]) {
-       battery.setColour75(settings["battery75Colour"]);
+      battery.setColour75(settings["battery75Colour"]);
     } else {
-       battery.setColour75("white");
+      console.log("Missing setting ''");
+      showHideSettingsError(true);
+      return;
     }
         
     if (settings.hasOwnProperty("batteryBackgroundColour") && settings["batteryBackgroundColour"]) {
-       battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
+      battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
     } else {
-       battery.batteryLineBack.style.fill = "black";
+      console.log("Missing setting 'batteryBackgroundColour'");
+      showHideSettingsError(true);
+      return;
     }    
     
     for (var i=0; i < activity.goalTypes.length; i++) {
@@ -213,15 +236,17 @@ export function applySettings() {
         activity.progressEls[i].icon.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].line.style.fill = settings[goalTypeColourProp];
       } else {
-        activity.progressEls[i].count.style.fill = "white";
-        activity.progressEls[i].icon.style.fill = "white";
-        activity.progressEls[i].line.style.fill = "white";
+        console.log("Missing setting '" + goalTypeColourProp + "'");
+        showHideSettingsError(true);
+        return;
       }
 
       if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
         activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"];
       } else {
-        activity.progressEls[i].lineBack.style.fill = "black";
+        console.log("Missing setting 'progressBackgroundColour'");
+        showHideSettingsError(true);
+        return;
       }
       
       var progressVisibility = true;
@@ -234,7 +259,6 @@ export function applySettings() {
     }
     
     let positions = ["TL","BL","TM","BM","TR","BR"];
-
     
     for (var i=0; i < positions.length; i++) {
       var position = positions[i];  
@@ -242,34 +266,45 @@ export function applySettings() {
       
       if (settings.hasOwnProperty(positionProp) && settings[positionProp]) {
         //Remove item from position
-        if(bm.position == position)
-        {
+        if(bm.position == position) {
           setStatsLocation(bm.bmEl, "NONE")
           bm.setPosition("NONE");
         }
+        
         for (var x=0; x < activity.goalTypes.length; x++) {
-           if(activity.progressEls[x].position == position)
-           {
+           if(activity.progressEls[x].position == position) {
              setStatsLocation(activity.progressEls[x].container, "NONE");
              activity.progressEls[x].position = "NONE";
            }
         }
         
-        if(settings[positionProp] == "BMIBMR")
-        {        
-          bm.setPosition(position);
-          setStatsLocation(bm.bmEl, position);
-        }
-        else
-        {
+        if(settings[positionProp] == "BMIBMR") {        
+          if(bm.position == "NONE" || bm.position == position) {
+            bm.setPosition(position);
+            setStatsLocation(bm.bmEl, position);  
+          } else {
+            console.log("BMI/BMR in 2 positions");
+            showHideSettingsError(true);
+            return;
+          }
+        } else {
           for (var x=0; x < activity.goalTypes.length; x++) {
-           if(activity.goalTypes[x] == settings[positionProp])
-           {
-             setStatsLocation(activity.progressEls[x].container, position);
-             activity.progressEls[x].position = position;
+           if(activity.goalTypes[x] == settings[positionProp]) {
+            if(activity.progressEls[x].position == "NONE" || activity.progressEls[x].position == position) {
+              activity.progressEls[x].position = position;
+              setStatsLocation(activity.progressEls[x].container, position);
+            } else {
+              console.log(activity.goalTypes[x] + " in 2 positions");
+              showHideSettingsError(true);
+              return;
+            }
            }
           }
         }
+      } else {
+        console.log("Missing setting '" + positionProp + "'");
+        showHideSettingsError(true);
+        return;
       }
     }
     
@@ -277,6 +312,7 @@ export function applySettings() {
     state.reApplyState();
   } catch (ex) {
     console.error(ex);
+    showHideSettingsError(true);
   }
 }
 
@@ -345,11 +381,11 @@ export function onsettingschange(data) {
   if (!data) {
    return;
   }
+  showHideSettingsError(false);
   settings = data;
   applySettings();
   saveSettings();
-  time.drawTime(new Date());
-  noSettingsEl.style.display = "none";
+  time.drawTime(new Date());  
 }
 
 messaging.peerSocket.addEventListener("message", function(evt) {
@@ -378,16 +414,14 @@ export function loadSettings() {
     var fileContent = fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
     if(fileContent === null || Object.keys(fileContent).length === 0)
     {
-      noSettingsEl.style.display = "inline";
-      noSettingsTextEl.text = gettext("settings-required");
-      return null
+      showHideSettingsError(true);
+      return null;
     }  
-    noSettingsEl.style.display = "none";
+    showHideSettingsError(false);
     return fileContent;
   } catch (ex) {
     console.log(ex);
-    noSettingsEl.style.display = "inline";
-    noSettingsTextEl.text = gettext("settings-required");
+    showHideSettingsError(true);
     return null;
   }
 }
@@ -395,4 +429,15 @@ export function loadSettings() {
 // Save settings to the filesystem
 export function saveSettings() {
   fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+}
+
+export function showHideSettingsError(show) {
+  if(show){
+    console.log("Show settings error");
+    noSettingsEl.style.display = "inline";
+    noSettingsTextEl.text = gettext("settings-error");
+  } else {
+    console.log("Hide settings error");
+    noSettingsEl.style.display = "none";
+  }  
 }
