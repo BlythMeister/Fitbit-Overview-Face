@@ -360,10 +360,10 @@ export function getFont(key)
     return "System-Bold";
   }
   if(key == "COL"){
-    return "Colfax-Bold";
+    return "Colfax-Medium";
   }
   if(key == "FAB"){
-    return "Fabrikat-Bold";
+    return "Fabrikat-Black";
   }
   if(key == "SEV"){
     return "Seville-Bold";
@@ -371,6 +371,11 @@ export function getFont(key)
   if(key == "SEVC"){
     return "Seville-Bold-Condensed";
   } 
+  if(key == "SEVS"){
+    return "SevilleSharp-Bold";
+  } 
+  
+  return "System-Bold";
 }
 
 export function setStatsLocation(element, location)
@@ -488,11 +493,9 @@ export function saveSettings() {
 
 export function showHideSettingsError(show) {
   if(show){
-    console.log("Show settings error");
     noSettingsEl.style.display = "inline";
     noSettingsTextEl.text = gettext("settings-error");
   } else {
-    console.log("Hide settings error");
     noSettingsEl.style.display = "none";
   }  
 }

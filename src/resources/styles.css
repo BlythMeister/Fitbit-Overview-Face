@@ -29,12 +29,11 @@
 }
 
 #noSettingsText {
-  font-size: 25;
+  font-size: 22;
   font-family: System-Bold;
   font-weight: bold;
-  text-length: 150;
+  text-length: 200;
   text-anchor: middle;
-  text-decoration: underline;
   display-align: center;  
   width: 90%;
   fill: white;

@@ -102,11 +102,11 @@ function mySettings(props) {
       </Section>
       
       <Section title="Fonts">
-        <Select label="Heart Rate Font" settingsKey="heartRateFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
-        <Select label="Date Font" settingsKey="dateFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
-        <Select label="Clock Font" settingsKey="clockFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "FAB", name: "Fabrikat"}]} />
-        <Select label="Stats Font" settingsKey="statsFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
-        <Select label="Battery Font" settingsKey="batteryFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
+        <Select label="Heart Rate Font" settingsKey="heartRateFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}, {value: "SEVS", name: "Seville Sharp"}]} />
+        <Select label="Date Font" settingsKey="dateFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}, {value: "SEVS", name: "Seville Sharp"}]} />
+        <Select label="Clock Font" settingsKey="clockFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}, {value: "SEVS", name: "Seville Sharp"}, {value: "FAB", name: "Fabrikat"}]} />
+        <Select label="Stats Font" settingsKey="statsFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}, {value: "SEVS", name: "Seville Sharp"}]} />
+        <Select label="Battery Font" settingsKey="batteryFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}, {value: "SEVS", name: "Seville Sharp"}]} />
       </Section>
       
       <Section title="Time colour">

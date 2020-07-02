@@ -1,5 +1,5 @@
 msgid "settings-error"
-msgstr "Einstellungen fehlen oder sind ungültig"
+msgstr "Einstellungen fehlen oder sind ungültig.\n\nÜberprüfen Sie die Zifferblatteinstellungen in der Fitbit-App."
 
 msgid "bmi"
 msgstr "BMI"

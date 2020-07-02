@@ -1,5 +1,5 @@
 msgid "settings-error"
-msgstr "Paramètres manquants ou non valides"
+msgstr "Paramètres manquants ou non valides.\n\nVérifiez les paramètres du cadran d'horloge dans l'application Fitbit."
 
 msgid "bmi"
 msgstr "IMC"

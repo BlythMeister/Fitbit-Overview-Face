@@ -1,5 +1,5 @@
 msgid "settings-error"
-msgstr "Impostazioni mancanti o non valide"
+msgstr "Impostazioni mancanti o non valide.\n\nControlla le impostazioni del quadrante dell'orologio nell'app Fitbit."
 
 msgid "bmi"
 msgstr "BMI"

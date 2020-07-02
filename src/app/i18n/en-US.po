@@ -1,5 +1,5 @@
 msgid "settings-error"
-msgstr "Settings Missing Or Invalid"
+msgstr "Settings Missing Or Invalid.\n\nCheck Clock Face Settings In The Fitbit App."
 
 msgid "bmi"
 msgstr "BMI"

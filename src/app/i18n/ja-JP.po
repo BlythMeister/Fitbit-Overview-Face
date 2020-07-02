@@ -1,5 +1,5 @@
 msgid "settings-error"
-msgstr "設定がないか無効です"
+msgstr "設定が欠落しているか無効です。\n\nFitbitアプリで時計の文字盤の設定を確認してください。"
 
 msgid "bmi"
 msgstr "BMI"
