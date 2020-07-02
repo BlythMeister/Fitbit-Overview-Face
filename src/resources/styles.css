@@ -30,7 +30,7 @@
 
 #noSettingsText {
   font-size: 25;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   font-weight: bold;
   text-length: 150;
   text-anchor: middle;
@@ -43,7 +43,7 @@
 
 #348-time-hour {
   font-size: 100;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white;
@@ -54,7 +54,7 @@
 
 #348-time-colon {
   font-size: 100;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white;
@@ -65,7 +65,7 @@
 
 #348-time-minute {
   font-size: 100;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white; 
@@ -76,7 +76,7 @@
 
 #348-am-pm {
   font-size: 38;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 120;
   text-anchor: end;
   x: 100%-5;
@@ -87,7 +87,7 @@
 
 #348-second {
   font-size: 38;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 120;
   text-anchor: end;
   x: 100%-5;
@@ -98,7 +98,7 @@
 
 #300-time-hour {
   font-size: 100;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white;
@@ -109,7 +109,7 @@
 
 #300-time-colon {
   font-size: 100;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white;
@@ -120,7 +120,7 @@
 
 #300-time-minute {
   font-size: 100;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white; 
@@ -131,7 +131,7 @@
 
 #300-am-pm {
   font-size: 40;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 120;
   text-anchor: middle;
   x: 100%-140;
@@ -142,7 +142,7 @@
 
 #300-second {
   font-size: 40;
-  font-family: Seville-Bold;
+  font-family: System-Bold;
   text-length: 120;
   text-anchor: end;
   x: 100%-5;
@@ -159,7 +159,7 @@
 #hr-count {
   text-anchor: start;
   font-size: 22;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   fill: #969696;
   text-length: 120;
   x: 5;
@@ -169,7 +169,7 @@
 #hr-resting {
   text-anchor: start;
   font-size: 22;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   fill: #969696;
   text-length: 120;
   x: 0;
@@ -179,7 +179,7 @@
 #hr-zone {
   text-anchor: start;
   font-size: 22;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   fill: #969696;
   text-length: 120;
   x: 0;
@@ -226,7 +226,7 @@
 #battery-percent {
   text-anchor: end;
   font-size: 22;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   fill: white;
   x: -17;
   y: 0; 
@@ -242,7 +242,7 @@
   y: 0;
   font-size: 22;
   text-anchor: end;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   text-length: 120;
   fill: #969696;
 }
@@ -252,7 +252,7 @@
   y: 25;
   font-size: 22;
   text-anchor: end;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   text-length: 120;
   fill: #969696;
 }
@@ -285,7 +285,7 @@
 #bmr-zone {
   text-anchor: start;
   font-size: 16;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
   x:5;
@@ -296,7 +296,7 @@
 #bmi-zone {
   text-anchor: start;
   font-size: 16;
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
   x:5;
@@ -316,5 +316,5 @@
   x: 26;
   y: 15;
   text-length: 10; 
-  font-family: Seville-Bold-Condensed;
+  font-family: System-Bold;
 }
