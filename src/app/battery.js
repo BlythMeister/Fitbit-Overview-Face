@@ -27,6 +27,10 @@ export function setShowBatteryBar(visibility) {
   batteryLine.style.display = (!visibility ? "none" : "inline");
 }
 
+export function setFont(font) {
+  batteryPercent.style.fontFamily = font;
+}
+
 export function setColour0(colour) {
   colour0 = colour;
   drawBat();

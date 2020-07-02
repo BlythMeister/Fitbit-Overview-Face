@@ -53,7 +53,7 @@ function mySettings(props) {
   let availiableStats = [ {value:"NONE", name:"Empty"}, 
                           {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
                           {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Minutes"}]
-    
+      
   return (
     <Page> 
       <Section title="Localisation">   
@@ -101,8 +101,16 @@ function mySettings(props) {
         <Toggle settingsKey="torchEnabled" label="Enable on torch on double tap" />
       </Section>
       
+      <Section title="Fonts">
+        <Select label="Heart Rate Font" settingsKey="heartRateFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
+        <Select label="Date Font" settingsKey="dateFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
+        <Select label="Clock Font" settingsKey="clockFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "FAB", name: "Fabrikat"}]} />
+        <Select label="Stats Font" settingsKey="statsFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
+        <Select label="Battery Font" settingsKey="batteryFont" options={[{value:"SYS", name: "System" }, {value:"COL", name:"Colfax"}, {value: "SEV", name: "Seville"}, {value: "SEVC", name: "Seville Condensed"}]} />
+      </Section>
+      
       <Section title="Time colour">
-        <ColorSelect settingsKey="timeColour" colors={colourSet} />
+        <ColorSelect settingsKey="timeColour" colors={colourSet}/>
       </Section>
       
       <Section title="Date colour">
