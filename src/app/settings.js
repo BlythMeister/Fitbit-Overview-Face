@@ -89,8 +89,8 @@ export function applySettings() {
       time.setFlashDots(false);
     }
     
-    if (settings.hasOwnProperty("hearRateZoneVis")) {
-      hr.setHrZoneVis(!!settings["hearRateZoneVis"]); 
+    if (settings.hasOwnProperty("heartRateZoneVis")) {
+      hr.setHrZoneVis(!!settings["heartRateZoneVis"]); 
     } else {
       hr.setHrZoneVis(false);
     } 
