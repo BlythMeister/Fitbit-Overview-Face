@@ -20,6 +20,26 @@
   fill:white;
 }
 
+#noSettings {
+  x: 0;
+  y: 0;
+  width:100%;
+  height:100%;
+  fill:black;
+}
+
+#noSettingsText {
+  font-size: 22;
+  font-family: System-Bold;
+  font-weight: bold;
+  text-length: 200;
+  text-anchor: middle;
+  display-align: center;  
+  width: 90%;
+  fill: white;
+  x: 5%;
+}
+
 #348-time-hour {
   font-size: 100;
   font-family: System-Bold;
