@@ -44,7 +44,9 @@ export function applySettings() {
     if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"]) {
       activity.distanceUnitSet(settings["distanceUnit"]);
     } else {
-      activity.distanceUnitSet('auto');
+      console.log("Missing setting 'distanceUnit'");
+      showHideSettingsError(true);
+      return;
     }
             
     if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"]) {
@@ -58,90 +60,113 @@ export function applySettings() {
     if (settings.hasOwnProperty("timeFormat") && settings["timeFormat"]) {
       time.setTimeFormat(settings["timeFormat"]); 
     } else {
-      time.setTimeFormat('auto');
+      console.log("Missing setting 'timeFormat'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("isAmPm")) {
       time.setIsAmPm(!!settings["isAmPm"]); 
     } else {
-      time.setIsAmPm(false);
+      console.log("Missing setting 'isAmPm'");
+      showHideSettingsError(true);
+      return;
     }  
     
     if (settings.hasOwnProperty("showSeconds")) {
       time.setShowSeconds(!!settings["showSeconds"]); 
     } else {
-      time.setShowSeconds(false);
+      console.log("Missing setting 'showSeconds'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("showLeadingZero")) {
       time.setShowLeadingZero(!!settings["showLeadingZero"]); 
     } else {
-      time.setShowLeadingZero(false);
+      console.log("Missing setting 'showLeadingZero'");
+      showHideSettingsError(true);
+      return;
     }
     
     if (settings.hasOwnProperty("flashDots")) {
       time.setFlashDots(!!settings["flashDots"]); 
     } else {
-      time.setFlashDots(false);
+      console.log("Missing setting 'flashDots'");
+      showHideSettingsError(true);
+      return;
     }
     
     if (settings.hasOwnProperty("heartRateZoneVis")) {
       hr.setHrZoneVis(!!settings["heartRateZoneVis"]); 
     } else {
-      hr.setHrZoneVis(false);
+      console.log("Missing setting 'heartRateZoneVis'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("torchEnabled")) {
       torch.setEnabled(!!settings["torchEnabled"]); 
     } else {
-      torch.setEnabled(false);
+      console.log("Missing setting 'torchEnabled'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("BMIVis")) {
       bm.setBMIVis(!!settings["BMIVis"]); 
     } else {
-      bm.setBMIVis(false);
+      console.log("Missing setting 'BMIVis'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("BMRVis")) {
       bm.setBMRVis(!!settings["BMRVis"]); 
     } else {
-      bm.setBMRVis(false);
+      console.log("Missing setting 'BMRVis'");
+      showHideSettingsError(true);
+      return;
     } 
     
-    let clockFont = getFont("SYS")
     if (settings.hasOwnProperty("clockFont") && settings["clockFont"]) {
-      clockFont = getFont(settings["clockFont"]);
+      let clockFont = getFont(settings["clockFont"]);
+      time.timeHourEl.style.fontFamily = clockFont;
+      time.timeColonEl.style.fontFamily = clockFont;
+      time.timeMinuteEl.style.fontFamily = clockFont;
+      time.timeSecEl.style.fontFamily = clockFont;
+      time.timeAmPmEl.style.fontFamily = clockFont;
+    } else {
+      console.log("Missing setting 'clockFont'");
+      showHideSettingsError(true);
+      return;
     }
     
-    if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {
-      
+    if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {      
       time.timeHourEl.style.fill = settings["timeColour"];
-      time.timeHourEl.style.fontFamily = clockFont;
       time.timeColonEl.style.fill = settings["timeColour"];
-      time.timeColonEl.style.fontFamily = clockFont;
       time.timeMinuteEl.style.fill = settings["timeColour"];
-      time.timeMinuteEl.style.fontFamily = clockFont;
       time.timeSecEl.style.fill = settings["timeColour"];
-      time.timeSecEl.style.fontFamily = clockFont;
       time.timeAmPmEl.style.fill = settings["timeColour"];
-      time.timeAmPmEl.style.fontFamily = clockFont;
     } else {
       console.log("Missing setting 'timeColour'");
       showHideSettingsError(true);
       return;
     }
     
-    let dateFont = getFont("SYS")
     if (settings.hasOwnProperty("dateFont") && settings["dateFont"]) {
-      dateFont = getFont(settings["dateFont"]);
+      let dateFont = getFont(settings["dateFont"]);
+      date.dateEl.style.fontFamily = dateFont;
+      date.dayEl.style.fontFamily = dateFont;
+    } else {
+      console.log("Missing setting 'dateFont'");
+      showHideSettingsError(true);
+      return;
     }
 
     if (settings.hasOwnProperty("dateColour") && settings["dateColour"]) {
       date.dateEl.style.fill = settings["dateColour"];
-      date.dateEl.style.fontFamily = dateFont;
-      date.dayEl.style.fill = settings["dateColour"];
-      date.dayEl.style.fontFamily = dateFont;
+      date.dayEl.style.fill = settings["dateColour"];      
     } else {
       console.log("Missing setting 'dateColour'");
       showHideSettingsError(true);
@@ -151,7 +176,9 @@ export function applySettings() {
     if (settings.hasOwnProperty("isHeartbeatAnimation")) {
       hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"]); 
     } else {
-      hr.isHeartbeatAnimationSet(false);
+      console.log("Missing setting 'isHeartbeatAnimation'");
+      showHideSettingsError(true);
+      return;
     }
     
     if (settings.hasOwnProperty("backgroundColour") && settings["backgroundColour"]) {
@@ -171,40 +198,49 @@ export function applySettings() {
       return;
     }          
 
-    let heartRateFont = getFont("SYS")
     if (settings.hasOwnProperty("heartRateFont") && settings["heartRateFont"]) {
-      heartRateFont = getFont(settings["heartRateFont"]);
+      let heartRateFont = getFont(settings["heartRateFont"]);
+      hr.hrCountEl.style.fontFamily = heartRateFont;
+      hr.hrRestingEl.style.fontFamily = heartRateFont;
+      hr.hrZoneEl.style.fontFamily = heartRateFont;
+    } else {
+      console.log("Missing setting 'heartRateFont'");
+      showHideSettingsError(true);
+      return;
     }
     
     if (settings.hasOwnProperty("heartRateColour") && settings["heartRateColour"]) {
-      hr.hrCountEl.style.fill = settings["heartRateColour"]; 
-      hr.hrCountEl.style.fontFamily = heartRateFont;
+      hr.hrCountEl.style.fill = settings["heartRateColour"];
       hr.hrRestingEl.style.fill = settings["heartRateColour"];
-      hr.hrRestingEl.style.fontFamily = heartRateFont;
       hr.hrZoneEl.style.fill = settings["heartRateColour"];
-      hr.hrZoneEl.style.fontFamily = heartRateFont;
     } else {
       console.log("Missing setting 'heartRateColour'");
       showHideSettingsError(true);
       return;
     }          
             
-    let batteryFont = getFont("SYS")
     if (settings.hasOwnProperty("batteryFont") && settings["batteryFont"]) {
-      batteryFont = getFont(settings["batteryFont"]);
+      battery.setFont(getFont(settings["batteryFont"]));
+    } else {
+      console.log("Missing setting 'batteryFont'");
+      showHideSettingsError(true);
+      return;
     }
-    battery.setFont(batteryFont);
     
     if (settings.hasOwnProperty("showBatteryPercent")) {
       battery.setShowBatteryPercent(!!settings["showBatteryPercent"]); 
     } else {
-      battery.setShowBatteryPercent(false);
+      console.log("Missing setting 'showBatteryPercent'");
+      showHideSettingsError(true);
+      return;
     } 
     
     if (settings.hasOwnProperty("showBatteryBar")) {
       battery.setShowBatteryBar(!!settings["showBatteryBar"]); 
     } else {
-      battery.setShowBatteryBar(false);
+      console.log("Missing setting 'showBatteryBar'");
+      showHideSettingsError(true);
+      return;
     } 
         
     if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
@@ -247,16 +283,23 @@ export function applySettings() {
       return;
     }    
     
-    let statsFont = getFont("SYS")
     if (settings.hasOwnProperty("statsFont") && settings["statsFont"]) {
-      statsFont = getFont(settings["statsFont"]);
+      let statsFont = getFont(settings["statsFont"]);
+      bm.bmrZoneEl.style.fontFamily = statsFont; 
+      bm.bmiZoneEl.style.fontFamily = statsFont; 
+      for (var i=0; i < activity.goalTypes.length; i++) {
+        activity.progressEls[i].count.style.fontFamily = statsFont;
+      }
+    } else {
+      console.log("Missing setting 'statsFont'");
+      showHideSettingsError(true);
+      return;
     }
 
     if (settings.hasOwnProperty("bmColour") && settings["bmColour"]) {
-      bm.bmrZoneEl.style.fill = settings["bmColour"];  
-      bm.bmrZoneEl.style.fontFamily = statsFont; 
+      bm.bmrZoneEl.style.fill = settings["bmColour"];
       bm.bmiZoneEl.style.fill = settings["bmColour"]; 
-      bm.bmiZoneEl.style.fontFamily = statsFont; 
+      
     } else {
       console.log("Missing setting 'bmColour'");
       showHideSettingsError(true);
@@ -267,8 +310,7 @@ export function applySettings() {
       var goalType = activity.goalTypes[i];      
       var goalTypeColourProp = goalType + "Colour";
       if (settings.hasOwnProperty(goalTypeColourProp) && settings[goalTypeColourProp]) {
-        activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];
-        activity.progressEls[i].count.style.fontFamily = statsFont;
+        activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];        
         activity.progressEls[i].icon.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].line.style.fill = settings[goalTypeColourProp];
       } else {
@@ -287,11 +329,14 @@ export function applySettings() {
       
       var progressVisibility = true;
       if (settings.hasOwnProperty("showStatsProgress")) {
-        progressVisibility = !!settings["showStatsProgress"];
-      }
-      
-      activity.progressEls[i].line.style.display = (!progressVisibility ? "none" : "inline");
-      activity.progressEls[i].lineBack.style.display = (!progressVisibility ? "none" : "inline");      
+        let progressVisibility = (settings["showStatsProgress"] ? "inline" : "none");
+        activity.progressEls[i].line.style.display = progressVisibility;
+        activity.progressEls[i].lineBack.style.display = progressVisibility;   
+      } else {
+        console.log("Missing setting 'showStatsProgress'");
+        showHideSettingsError(true);
+        return;
+      }  
     }
     
     let positions = ["TL","BL","TM","BM","TR","BR"];
@@ -455,13 +500,20 @@ messaging.peerSocket.addEventListener("message", function(evt) {
       settings = {};
     }
     
+    var newValue = "";
     if(typeof evt.data.value === "object") {
-      console.log(`Setting update - key:${evt.data.key} value:${evt.data.value.values[0].value}`);
-      settings[evt.data.key] = evt.data.value.values[0].value; 
+      newValue = evt.data.value.values[0].value; 
     } else {
-      console.log(`Setting update - key:${evt.data.key} value:${evt.data.value}`);
-      settings[evt.data.key] = evt.data.value;
+      newValue = evt.data.value;
     }
+    
+    if(settings[evt.data.key] != newValue)
+    {
+      console.log(`Setting update - key:${evt.data.key} value:${newValue}`);
+      settings[evt.data.key] = newValue
+    } else {
+      return;
+    }  
     
     onsettingschange(settings);
   }  
