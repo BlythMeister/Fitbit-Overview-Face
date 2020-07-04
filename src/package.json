@@ -8,8 +8,7 @@
     "requestedPermissions": [
       "access_activity",
       "access_user_profile",
-      "access_heart_rate",
-      "run_background"
+      "access_heart_rate"
     ],
     "buildTargets": [
       "higgs",
