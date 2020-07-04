@@ -3,6 +3,7 @@ import * as messaging from "messaging";
 import { me } from "companion";
 
 setDefaultSettings();
+sendAllSettings();
 
 // Settings have been changed
 settingsStorage.onchange = function(evt) {
@@ -11,6 +12,10 @@ settingsStorage.onchange = function(evt) {
 
 // Message socket opened
 messaging.peerSocket.onopen = function(evt) {
+  sendAllSettings();
+}
+
+function sendAllSettings() {
   for (var i=0; i < settingsStorage.length; i++) {  
     var key = settingsStorage.key(i);
     var value = settingsStorage.getItem(key);
