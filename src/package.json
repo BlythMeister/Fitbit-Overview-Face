@@ -9,7 +9,7 @@
       "access_activity",
       "access_user_profile",
       "access_heart_rate",
-      "run_background
+      "run_background"
     ],
     "buildTargets": [
       "higgs",
