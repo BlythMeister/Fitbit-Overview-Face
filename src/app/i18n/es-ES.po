@@ -1,6 +1,3 @@
-msgid "settings-error"
-msgstr "Configuraciones faltantes o inválidas.\n\nComprueba la configuración de la esfera del reloj en la aplicación Fitbit."
-
 msgid "bmi"
 msgstr "IMC"
 

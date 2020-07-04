@@ -1,6 +1,3 @@
-msgid "settings-error"
-msgstr "Instellingen ontbreken of zijn ongeldig.\n\nControleer de wijzerplaatinstellingen in de Fitbit-app."
-
 msgid "bmi"
 msgstr "BMI"
 

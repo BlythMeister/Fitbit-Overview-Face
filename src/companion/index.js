@@ -3,15 +3,14 @@ import * as messaging from "messaging";
 import { me } from "companion";
 
 setDefaultSettings();
-sendAllSettings();
 
 // Settings have been changed
 settingsStorage.onchange = function(evt) {
   sendSettingValue(evt.key, evt.newValue);
 }
 
-// Message socket opened
-messaging.peerSocket.onopen = function(evt) {
+//Message socket error
+messaging.peerSocket.onerror = function(evt) {
   sendAllSettings();
 }
 
@@ -52,14 +51,14 @@ function setDefaultSettings() {
   setDefaultSetting("batteryFont",{"values":[{"value":"SYS","name":"System"}],"selected":[0]});
   setDefaultSetting("timeColour","white");
   setDefaultSetting("dateColour","white");
-  setDefaultSetting("stepsColour","darkorange");
-  setDefaultSetting("distanceColour","forestgreen");
-  setDefaultSetting("elevationGainColour","darkorchid");
-  setDefaultSetting("caloriesColour","deeppink");
-  setDefaultSetting("activeMinutesColour","deepskyblue");
+  setDefaultSetting("stepsColour","white");
+  setDefaultSetting("distanceColour","white");
+  setDefaultSetting("elevationGainColour","white");
+  setDefaultSetting("caloriesColour","white");
+  setDefaultSetting("activeMinutesColour","white");
   setDefaultSetting("heartColour","crimson");
   setDefaultSetting("heartRateColour","white");
-  setDefaultSetting("bmColour","gold");
+  setDefaultSetting("bmColour","white");
   setDefaultSetting("progressBackgroundColour","#969696");
   setDefaultSetting("battery0Colour","#FF0000");
   setDefaultSetting("battery25Colour","darkorange");
@@ -75,7 +74,6 @@ function setDefaultSetting(key, value) {
     let jsonValue = JSON.stringify(value)
     console.log(`Companion Set Default - key:${key} val:${jsonValue}`);
     settingsStorage.setItem(key, jsonValue);
-    sendSettingValue(key, jsonValue);
   }
 }
 
@@ -92,6 +90,7 @@ function sendSettingValue(key, val) {
       messaging.peerSocket.send(data);
     } else {
       console.log("No peerSocket connection");
+      sendSettingValue(key, val);
     }
   }
 }

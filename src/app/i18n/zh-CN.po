@@ -1,6 +1,3 @@
-msgid "settings-error"
-msgstr "设置缺失或无效。\n\n在Fitbit应用程序中检查时钟面设置。"
-
 msgid "bmi"
 msgstr "BMI"
 
