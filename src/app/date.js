@@ -22,7 +22,8 @@ export function getDateInFormat(now){
   let monthName = gettext(`month-long-${now.getMonth()}`);
   let monthAbrv = gettext(`month-short-${now.getMonth()}`);
   let monthIndex = now.getMonth() + 1;
-  let year = now.getYear() % 100;  
+  let year = now.getYear() % 100;
+  let fullyear = now.getYear();
 
   switch(dateFormat) {
     case "dd.mm.yy":
@@ -41,8 +42,26 @@ export function getDateInFormat(now){
       return monthAbrv + " " + zeroPad(day) + " " + year;
     case "mmmm dd yy":
       return monthName + " " + zeroPad(day) + " " + year;
-    case "yyyy/mm/dd":
+    case "yy/mm/dd":
       return year + "/" + zeroPad(monthIndex) + "/" + + zeroPad(day);
+    case "dd.mm.yyyy":
+      return zeroPad(day) + "." + zeroPad(monthIndex) + "." + fullyear;
+    case "dd/mm/yyyy":
+      return zeroPad(day) + "/" + zeroPad(monthIndex) + "/" + fullyear;
+    case "mm/dd/yyyy":
+      return zeroPad(monthIndex) + "/" + zeroPad(day) + "/" + fullyear;
+    case "dd mmm yyyy":
+      return zeroPad(day) + " " + monthAbrv + " " + fullyear;
+    case "dd mmmm yyyy":
+      return zeroPad(day) + " " + monthName + " " + fullyear;
+    case "mm.dd.yyyy":
+      return zeroPad(monthIndex) + "." + zeroPad(day) + "." + fullyear;
+    case "mmm dd yyyy":
+      return monthAbrv + " " + zeroPad(day) + " " + fullyear;
+    case "mmmm dd yyyy":
+      return monthName + " " + zeroPad(day) + " " + fullyear;
+    case "yyyy/mm/dd":
+      return fullyear + "/" + zeroPad(monthIndex) + "/" + + zeroPad(day);
   }  
 }
 
