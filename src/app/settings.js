@@ -140,8 +140,8 @@ export function applySettings() {
       date.dateEl.style.fill = settings["dateColour"];
       date.dayEl.style.fill = settings["dateColour"];      
     } else {
-      date.dateEl.style.fill = "white";
-      date.dayEl.style.fill = "white";  
+      date.dateEl.style.fill = "#969696";
+      date.dayEl.style.fill = "#969696";  
     }
 
     if (settings.hasOwnProperty("isHeartbeatAnimation")) {
@@ -177,9 +177,9 @@ export function applySettings() {
       hr.hrRestingEl.style.fill = settings["heartRateColour"];
       hr.hrZoneEl.style.fill = settings["heartRateColour"];
     } else {
-      hr.hrCountEl.style.fill = "white";
-      hr.hrRestingEl.style.fill = "white";
-      hr.hrZoneEl.style.fill = "white";
+      hr.hrCountEl.style.fill = "#969696";
+      hr.hrRestingEl.style.fill = "#969696";
+      hr.hrZoneEl.style.fill = "#969696";
     }          
     
     let batteryFont = getFont("SYS");
@@ -227,7 +227,7 @@ export function applySettings() {
     if (settings.hasOwnProperty("batteryBackgroundColour") && settings["batteryBackgroundColour"]) {
       battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
     } else {
-      battery.batteryLineBack.style.fill = "#969696"
+      battery.batteryLineBack.style.fill = "#494949"
     }    
     
     let statsFont = getFont("SYS");
@@ -265,7 +265,7 @@ export function applySettings() {
       if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
         activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"];
       } else {
-        activity.progressEls[i].lineBack.style.fill = "#969696";
+        activity.progressEls[i].lineBack.style.fill = "#494949";
       }
       
       var progressVisibility = "inline";

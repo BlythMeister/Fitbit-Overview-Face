@@ -26,29 +26,12 @@ if (body.present) {
 }
 
 display.onchange = (evt) => {
-  if (display.on) {
-    body.start();
-    if (body.present) {
-      hrm.start();
-      hr.newHrm(0);
-    }
-  } else {
-    hrm.stop();
-    body.stop();
-  }
-  
+  startStopHrm();
   reApplyState();
 }
 
 body.onreading = (evt) => {
-  if (body.present) {
-    hrm.start(); 
-    hr.newHrm(0);
-  } else {
-    hrm.stop();
-    hr.newHrm(0);    
-  }
-  
+  startStopHrm();
   reApplyState();
 }
 
@@ -59,20 +42,50 @@ clock.ontick = (evt) => {
 }
 
 powerBattery.onchange = (evt) => {
-  battery.drawBat();
-  hr.batteryCharger();
+  reApplyState();
 }
 
 powerCharger.onchange = (evt) => {
-  battery.isCharging();
-  hr.batteryCharger();
+  reApplyState();
 }
 
 hrm.onreading = (evt) => {
   hr.newHrm(hrm.heartRate);
 };
 
+export function startStopHrm() {
+  let startHrm = false;
+  let startBody = false;
+  
+  if(powerBattery.chargeLevel >= 20) {
+    if (display.on) {
+      startBody = true;
+      if (body.present) {
+        startHrm = true;
+      }
+    } 
+  }  
+  
+  if(startBody) {
+    body.start();
+  } else {
+    body.stop();
+  }
+  
+  if(startHrm)
+  {
+    hrm.start();
+    hr.newHrm(0); 
+  } else {
+    hrm.stop();
+  }
+  
+  reApplyState();
+}
+
 export function reApplyState() {
+  battery.drawBat();
+  battery.isCharging();
   hr.batteryCharger();
   hr.drawHrm();
   activity.drawAllProgress();  

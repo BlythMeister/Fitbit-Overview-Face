@@ -50,21 +50,21 @@ function setDefaultSettings() {
   setDefaultSetting("statsFont",{"values":[{"value":"SYS","name":"System"}],"selected":[0]});
   setDefaultSetting("batteryFont",{"values":[{"value":"SYS","name":"System"}],"selected":[0]});
   setDefaultSetting("timeColour","white");
-  setDefaultSetting("dateColour","white");
+  setDefaultSetting("dateColour","#969696");
   setDefaultSetting("stepsColour","white");
   setDefaultSetting("distanceColour","white");
   setDefaultSetting("elevationGainColour","white");
   setDefaultSetting("caloriesColour","white");
   setDefaultSetting("activeMinutesColour","white");
   setDefaultSetting("heartColour","crimson");
-  setDefaultSetting("heartRateColour","white");
+  setDefaultSetting("heartRateColour","#969696");
   setDefaultSetting("bmColour","white");
-  setDefaultSetting("progressBackgroundColour","#969696");
+  setDefaultSetting("progressBackgroundColour","#494949");
   setDefaultSetting("battery0Colour","#FF0000");
   setDefaultSetting("battery25Colour","darkorange");
   setDefaultSetting("battery50Colour","gold");
   setDefaultSetting("battery75Colour","#00FF00");
-  setDefaultSetting("batteryBackgroundColour","#969696");
+  setDefaultSetting("batteryBackgroundColour","#494949");
   setDefaultSetting("backgroundColour","black");
 }
 

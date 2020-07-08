@@ -113,7 +113,7 @@ export function drawHrm() {
 }
 
 export function batteryCharger() {
-  if(battery.chargeLevel <= 15) {
+  if(battery.chargeLevel < 20) {
     batteryIconVisible = true;
     hideHr();
   } else {

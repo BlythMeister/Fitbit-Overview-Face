@@ -23,7 +23,7 @@ export function getDateInFormat(now){
   let monthAbrv = gettext(`month-short-${now.getMonth()}`);
   let monthIndex = now.getMonth() + 1;
   let year = now.getYear() % 100;
-  let fullyear = now.getYear();
+  let fullyear = now.getYear() + 1900;
 
   switch(dateFormat) {
     case "dd.mm.yy":
