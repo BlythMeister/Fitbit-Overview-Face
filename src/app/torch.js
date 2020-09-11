@@ -15,20 +15,30 @@ torchEl.onclick = function(e) {
   {
     if(firstTouch) {
       if(torchOn){
-        torchEl.style.opacity = 0;
-        display.brightnessOverride = undefined;
-        display.autoOff = true;
-        torchOn = false;
+        TurnOffTorch()
       } else {
-        torchEl.style.opacity = 1;
-        display.brightnessOverride = "max";
-        display.autoOff = false;
-        display.on = true;
-        torchOn = true;
+        TurnOnTorch();
       }  
     } else {
       firstTouch = true;
       setTimeout(function () {firstTouch = false;}, 500);
     }
   }
+}
+
+export function TurnOnTorch()
+{
+  torchEl.style.opacity = 1;
+  display.brightnessOverride = "max";
+  display.autoOff = false;
+  display.on = true;
+  torchOn = true;
+}
+
+export function TurnOffTorch()
+{
+  torchEl.style.opacity = 0;
+  display.brightnessOverride = undefined;
+  display.autoOff = true;
+  torchOn = false;
 }
