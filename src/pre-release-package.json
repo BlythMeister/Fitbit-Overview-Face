@@ -17,38 +17,56 @@
       "mira"
     ],
     "i18n": {
-      "en": {
+      "en-US": {
         "name": "Overview (Pre-Release)"
       },
-      "de": {
-        "name": "Overview-Test"
+      "pt-BR": {
+        "name": "Overview (Pre-Release)"
       },
-      "es": {
-        "name": "Overview-Test"
+      "id-ID": {
+        "name": "Overview (Pre-Release)"
       },
-      "fr": {
-        "name": "Overview-Test"
+      "ro-RO": {
+        "name": "Overview (Pre-Release)"
       },
-      "it": {
-        "name": "Overview-Test"
+      "ru-RU": {
+        "name": "Overview (Pre-Release)"
       },
-      "ja": {
-        "name": "Overview-Test"
+      "pl-PL": {
+        "name": "Overview (Pre-Release)"
       },
-      "ko": {
-        "name": "Overview-Test"
+      "cs-CZ": {
+        "name": "Overview (Pre-Release)"
       },
-      "nl": {
-        "name": "Overview-Test"
+      "zh-TW": {
+        "name": "Overview (Pre-Release)"
       },
-      "sv": {
-        "name": "Overview-Test"
+      "zh-CN": {
+        "name": "Overview (Pre-Release)"
       },
-      "zh-cn": {
-        "name": "Overview-Test"
+      "sv-SE": {
+        "name": "Overview (Pre-Release)"
       },
-      "zh-tw": {
-        "name": "Overview-Test"
+      "nl-NL": {
+        "name": "Overview (Pre-Release)"
+      },
+      "ko-KR": {
+        "name": "Overview (Pre-Release)"
+      },
+      "ja-JP": {
+        "name": "Overview (Pre-Release)"
+      },
+      "it-IT": {
+        "name": "Overview (Pre-Release)"
+      },
+      "fr-FR": {
+        "name": "Overview (Pre-Release)"
+      },
+      "es-ES": {
+        "name": "Overview (Pre-Release)"
+      },
+      "de-DE": {
+        "name": "Overview (Pre-Release)"
       }
     },
     "defaultLanguage": "en-US"

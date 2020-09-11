@@ -1,0 +1,120 @@
+msgid "bmi"
+msgstr "ИМТ"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "Обычный"
+
+msgid "fat-burn"
+msgstr "Сжигание жира"
+
+msgid "cardio"
+msgstr "Кардио"
+
+msgid "peak"
+msgstr "Вершина горы"
+
+msgid "below-custom"
+msgstr "Низкий"
+
+msgid "custom"
+msgstr "хорошо"
+
+msgid "above-custom"
+msgstr "Высокая"
+
+msgid "month-short-0"
+msgstr "янв"
+
+msgid "month-short-1"
+msgstr "фев"
+
+msgid "month-short-2"
+msgstr "мар"
+
+msgid "month-short-3"
+msgstr "апр"
+
+msgid "month-short-4"
+msgstr "май"
+
+msgid "month-short-5"
+msgstr "июн"
+
+msgid "month-short-6"
+msgstr "июл"
+
+msgid "month-short-7"
+msgstr "авг"
+
+msgid "month-short-8"
+msgstr "сен"
+
+msgid "month-short-9"
+msgstr "окт"
+
+msgid "month-short-10"
+msgstr "ноя"
+
+msgid "month-short-11"
+msgstr "дек"
+
+msgid "month-long-0"
+msgstr "Январь"
+
+msgid "month-long-1"
+msgstr "Февраль"
+
+msgid "month-long-2"
+msgstr "Март"
+
+msgid "month-long-3"
+msgstr "Апрель"
+
+msgid "month-long-4"
+msgstr "Май"
+
+msgid "month-long-5"
+msgstr "Июнь"
+
+msgid "month-long-6"
+msgstr "Июль"
+
+msgid "month-long-7"
+msgstr "Август"
+
+msgid "month-long-8"
+msgstr "Сентябрь"
+
+msgid "month-long-9"
+msgstr "Октябрь"
+
+msgid "month-long-10"
+msgstr "Ноябрь"
+
+msgid "month-long-11"
+msgstr "Декабрь"
+
+msgid "day-0"
+msgstr "воскресенье"
+
+msgid "day-1"
+msgstr "понедельник"
+
+msgid "day-2"
+msgstr "вторник"
+
+msgid "day-3"
+msgstr "среда"
+
+msgid "day-4"
+msgstr "четверг"
+
+msgid "day-5"
+msgstr "пятница"
+
+msgid "day-6"
+msgstr "суббота"
+

@@ -17,37 +17,55 @@
       "mira"
     ],
     "i18n": {
-      "en": {
+      "en-US": {
         "name": "Overview"
       },
-      "de": {
+      "de-DE": {
         "name": "Overview"
       },
-      "es": {
+      "es-ES": {
         "name": "Overview"
       },
-      "fr": {
+      "fr-FR": {
         "name": "Overview"
       },
-      "it": {
+      "it-IT": {
         "name": "Overview"
       },
-      "ja": {
+      "ja-JP": {
         "name": "Overview"
       },
-      "ko": {
+      "ko-KR": {
         "name": "Overview"
       },
-      "nl": {
+      "nl-NL": {
         "name": "Overview"
       },
-      "sv": {
+      "sv-SE": {
         "name": "Overview"
       },
-      "zh-cn": {
+      "zh-CN": {
         "name": "Overview"
       },
-      "zh-tw": {
+      "zh-TW": {
+        "name": "Overview"
+      },
+      "pt-BR": {
+        "name": "Overview"
+      },
+      "id-ID": {
+        "name": "Overview"
+      },
+      "ro-RO": {
+        "name": "Overview"
+      },
+      "ru-RU": {
+        "name": "Overview"
+      },
+      "pl-PL": {
+        "name": "Overview"
+      },
+      "cs-CZ": {
         "name": "Overview"
       }
     },
