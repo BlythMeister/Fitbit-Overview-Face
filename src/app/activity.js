@@ -9,10 +9,11 @@ export let root = document.getElementById('root')
 export const screenWidth = root.width
 export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
-export function getProgressEl(prefix) {  
+export function getProgressEl(prefix, officialType) {  
   let containerEl = document.getElementById(prefix);
   return {
     prefix: prefix,
+    type: officialType,
     prevProgressVal: null,
     container: containerEl,
     position:"NONE",
@@ -24,42 +25,54 @@ export function getProgressEl(prefix) {
 }
 
 export let goalTypes = [];
+export let goalOfficialTypes = [];
 
-export function pushGoalTypeIfSupported(type)
+export function pushGoalTypeIfSupported(type, officialType)
 {
-  if(today.adjusted[type] != undefined)
+  if(today.adjusted[officialType] != undefined)
   {
     goalTypes.push(type);
+    goalOfficialTypes.push(officialType);
   }
 }
 
-pushGoalTypeIfSupported("steps");
-pushGoalTypeIfSupported("distance");
-pushGoalTypeIfSupported("elevationGain");
-pushGoalTypeIfSupported("calories");
-pushGoalTypeIfSupported("activeMinutes");  
+pushGoalTypeIfSupported("steps", "steps");
+pushGoalTypeIfSupported("distance", "distance");
+pushGoalTypeIfSupported("elevationGain", "elevationGain");
+pushGoalTypeIfSupported("calories", "calories");
+pushGoalTypeIfSupported("activeMinutes", "activeZoneMinutes");  
 
 export let progressEls = [];
 
 for (var i=0; i < goalTypes.length; i++) {
   var goalType = goalTypes[i];
-  progressEls.push(getProgressEl(goalType)); 
+  var goalOfficialType = goalOfficialTypes[i];
+  progressEls.push(getProgressEl(goalType, goalOfficialType)); 
 }  
 //Progress - END
 
 
 //Progress Draw - START
 export function drawProgress(progressEl) {
-  let prefix = progressEl.prefix;
+  let type = progressEl.type;
   
-  let actual = (today.adjusted[prefix] || 0);
+  let actual = 0;
+  var goal = 0;
+  if(type == "activeZoneMinutes") {
+    actual = today.adjusted[type].total
+    goal = goals[type].total
+  } else if(today.adjusted[type]) {
+    actual = today.adjusted[type]
+    goal = goals[type]
+  }  
+  
   if (progressEl.prevProgressVal == actual) {
     return;
   }  
   progressEl.prevProgressVal = actual;
   
   var displayValue = actual;
-  if (prefix === "distance" && actual) {    
+  if (type === "distance" && actual) {    
     if ((distanceUnit === "auto" && units.distance === "metric") || distanceUnit === "km") {
       displayValue = (actual / 1000.).toFixed(2);
     } else if ((distanceUnit === "auto" && units.distance === "us") || distanceUnit === "mi") {
@@ -70,9 +83,8 @@ export function drawProgress(progressEl) {
       displayValue = Math.round(actual);
     }
   }  
-  progressEl.count.text = `${displayValue}`;
+  progressEl.count.text = `${displayValue}`; 
   
-  var goal = (goals[prefix] || 0);
   var maxLine = screenWidth /100 * 28;
   if(goal > 0) {    
     var complete = (actual / goal);
