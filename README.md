@@ -39,8 +39,12 @@ Or scan this QR Code for release version
 * Chinese (Traditional)
 * Dutch
 * Sweedish
-
-To add support for additional languages, or update existing please see [gitlocalize](https://gitlocalize.com/repo/4274)
+* Polish
+* Portuguese (Brazil)
+* Romainian
+* Russian
+* Czech
+* Indonesian
 
 # Screenshots
 
@@ -51,7 +55,7 @@ To add support for additional languages, or update existing please see [gitlocal
 ![Ionic-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Ionic/3.cutdown.png?raw=true)
 ![Ionic-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Ionic/4.charging.png?raw=true)
 
-### Versa Device
+### Versa Family (Except Lite) Device
 
 ![Versa](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa/1.base.png?raw=true)
 ![Versa-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa/2.24h.png?raw=true)
@@ -64,13 +68,6 @@ To add support for additional languages, or update existing please see [gitlocal
 ![VersaLite-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/2.24h.png?raw=true)
 ![VersaLite-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/3.cutdown.png?raw=true)
 ![VersaLite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/4.charging.png?raw=true)
-
-### Versa 2 Device
-
-![Versa2](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/1.base.png?raw=true)
-![Versa2-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/2.24h.png?raw=true)
-![Versa2-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/3.cutdown.png?raw=true)
-![Versa2-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa2/4.charging.png?raw=true)
 
 # How To Contribute
 
