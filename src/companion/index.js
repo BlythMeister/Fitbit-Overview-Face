@@ -1,8 +1,10 @@
 import { settingsStorage } from "settings";
 import * as messaging from "messaging";
 import { me } from "companion";
+import { device } from "peer";
 
 setDefaultSettings();
+setSetting("deviceModelId", device.modelId);
 
 // Settings have been changed
 settingsStorage.onchange = function(evt) {
@@ -37,7 +39,7 @@ function setDefaultSettings() {
   setDefaultSetting("StatsTM",{"values":[{"value":"BMIBMR","name":"BMR/BMI"}],"selected":[1]});
   setDefaultSetting("StatsBM",{"values":[{"value":"calories","name":"Calories"}],"selected":[5]});
   setDefaultSetting("StatsTR",{"values":[{"value":"elevationGain","name":"Floors"}],"selected":[4]});
-  setDefaultSetting("StatsBR",{"values":[{"value":"activeMinutes","name":"Active Minutes"}],"selected":[6]});
+  setDefaultSetting("StatsBR",{"values":[{"value":"activeMinutes","name":"Active Zone Minutes"}],"selected":[6]});
   setDefaultSetting("BMRVis",true);
   setDefaultSetting("BMIVis",true);
   setDefaultSetting("showStatsProgress",true);
@@ -71,10 +73,14 @@ function setDefaultSettings() {
 function setDefaultSetting(key, value) {
   let extantValue = settingsStorage.getItem(key);
   if (extantValue === null) {
-    let jsonValue = JSON.stringify(value)
-    console.log(`Companion Set Default - key:${key} val:${jsonValue}`);
-    settingsStorage.setItem(key, jsonValue);
+    setSetting(key, value);
   }
+}
+
+function setSetting(key, value) {
+  let jsonValue = JSON.stringify(value)
+  console.log(`Companion Set - key:${key} val:${jsonValue}`);
+  settingsStorage.setItem(key, jsonValue);
 }
 
 function sendSettingValue(key, val) {

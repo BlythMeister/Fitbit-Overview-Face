@@ -50,12 +50,21 @@ function mySettings(props) {
   {color: '#2d2d2d'}
 ];
       
+  let modelId = JSON.parse(props.settingsStorage.getItem("deviceModelId"));
   let availiableStats = [ {value:"NONE", name:"Empty"}, 
                           {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
-                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Minutes"}]
-      
+                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
+  let showElevationColour = true;    
+  
+  if(modelId === "38") {
+    availiableStats = [ {value:"NONE", name:"Empty"}, 
+                        {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
+                        {value:"elevationGain", name:"Floors (Not Supported On Versa Lite)"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
+    showElevationColour = false;
+  } 
+  
   return (
-    <Page> 
+    <Page>      
       <Section title="Localisation">   
         <Select label="Distance Unit" settingsKey="distanceUnit" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"m", name:"meters"}, {value:"km", name:"kilometers"}, {value:"ft", name:"feet"}, {value:"mi", name:"miles"} ]} />
         <Select label="Date Format" settingsKey="dateFormat" options={[ {value:"dd.mm.yy", name:"dd.mm.yy"}, {value:"dd mmm yy", name:"dd mmm yy"}, {value:"dd mmmm yy", name:"dd mmmm yy"}, {value:"dd/mm/yy", name:"dd/mm/yy"}, {value:"mm/dd/yy", name:"mm/dd/yy"}, {value:"mm.dd.yy", name:"mm.dd.yy"}, {value:"mmm dd yy", name:"mmm dd yy"}, {value:"mmmm dd yy", name:"mmmm dd yy"}, {value:"yy/mm/dd", name:"yy/mm/dd"}, {value:"dd.mm.yyyy", name:"dd.mm.yyyy"}, {value:"dd mmm yyyy", name:"dd mmm yyyy"}, {value:"dd mmmm yyyy", name:"dd mmmm yyyy"}, {value:"dd/mm/yyyy", name:"dd/mm/yyyy"}, {value:"mm/dd/yyyy", name:"mm/dd/yyyy"}, {value:"mm.dd.yyyy", name:"mm.dd.yyyy"}, {value:"mmm dd yyyy", name:"mmm dd yyyy"}, {value:"mmmm dd yyyy", name:"mmmm dd yyyy"}, {value:"yyyy/mm/dd", name:"yyyy/mm/dd"} ]} />
@@ -125,15 +134,15 @@ function mySettings(props) {
         <ColorSelect settingsKey="distanceColour" colors={colourSet} />
       </Section>
        
-      <Section title="Elevation colour">
+      { showElevationColour && <Section title="Floors colour">
         <ColorSelect settingsKey="elevationGainColour" colors={colourSet} />
-      </Section>
+      </Section> }
        
       <Section title="Calories colour">
         <ColorSelect settingsKey="caloriesColour" colors={colourSet} />
       </Section>
       
-      <Section title="Active Minutes colour">
+      <Section title="Active Zone Minutes colour">
         <ColorSelect settingsKey="activeMinutesColour" colors={colourSet} />
       </Section>
       
