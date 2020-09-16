@@ -46,6 +46,7 @@ function setDefaultSettings() {
   setDefaultSetting("showBatteryPercent",true);
   setDefaultSetting("showBatteryBar",true);
   setDefaultSetting("torchEnabled",false);
+  setDefaultSetting("torchAutoOff",{"values":[{"value":"-1","name":"Never"}],"selected":[0]});  
   setDefaultSetting("heartRateFont",{"values":[{"value":"SYS","name":"System"}],"selected":[0]});
   setDefaultSetting("dateFont",{"values":[{"value":"SYS","name":"System"}],"selected":[0]});
   setDefaultSetting("clockFont",{"values":[{"value":"SYS","name":"System"}],"selected":[0]});

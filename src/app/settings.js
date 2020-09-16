@@ -93,6 +93,12 @@ export function applySettings() {
       torch.setEnabled(false);
     } 
     
+    if (settings.hasOwnProperty("torchAutoOff")) {
+      torch.setAutoOff(settings["torchAutoOff"]); 
+    } else {
+      torch.setAutoOff(-1);
+    } 
+    
     if (settings.hasOwnProperty("BMIVis")) {
       bm.setBMIVis(!!settings["BMIVis"]); 
     } else {

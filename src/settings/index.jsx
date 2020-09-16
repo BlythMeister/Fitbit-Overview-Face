@@ -108,6 +108,7 @@ function mySettings(props) {
       
       <Section title="Torch">
         <Toggle settingsKey="torchEnabled" label="Enable on torch on double tap" />
+        <Select settingsKey="torchAutoOff" label="Automatically turn torch off after" options={[{value:"-1", name: "Never" }, {value:"1", name:"1 Second"}, {value: "2", name: "2 Seconds"}, {value: "5", name: "5 Seconds"}, {value: "15", name: "15 Seconds"}, {value: "30", name: "30 Seconds"}, {value: "60", name: "60 Seconds"}]} />
       </Section>
       
       <Section title="Fonts">

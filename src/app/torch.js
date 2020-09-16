@@ -7,15 +7,18 @@ export let torchEl = document.getElementById('torch');
 export let torchEnabled = false;
 export let firstTouch = false;
 export let torchOn = false;
+export let autoOffTimer = undefined;
+export let torchAutoOff = -1;
 
 export function setEnabled(val) { torchEnabled = val}
+export function setAutoOff(val) { torchAutoOff = val}
 
 torchEl.onclick = function(e) {
   if(torchEnabled)
   {
     if(firstTouch) {
       if(torchOn){
-        TurnOffTorch()
+        TurnOffTorch();        
       } else {
         TurnOnTorch();
       }  
@@ -33,6 +36,11 @@ export function TurnOnTorch()
   display.autoOff = false;
   display.on = true;
   torchOn = true;
+  if(torchAutoOff > 0)
+  {
+    autoOffTimer = setTimeout(function () {TurnOffTorch();}, torchAutoOff * 1000);    
+  }
+  
 }
 
 export function TurnOffTorch()
@@ -41,4 +49,8 @@ export function TurnOffTorch()
   display.brightnessOverride = undefined;
   display.autoOff = true;
   torchOn = false;
+  if(autoOffTimer != undefined){
+    clearTimeout(autoOffTimer);
+    autoOffTimer = undefined;
+  }
 }
