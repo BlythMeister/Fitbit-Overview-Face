@@ -40,7 +40,7 @@ pushGoalTypeIfSupported("steps", "steps");
 pushGoalTypeIfSupported("distance", "distance");
 pushGoalTypeIfSupported("elevationGain", "elevationGain");
 pushGoalTypeIfSupported("calories", "calories");
-pushGoalTypeIfSupported("activeMinutes", "activeZoneMinutes");  
+pushGoalTypeIfSupported("activeMinutes", "activeZoneMinutes");
 
 export let progressEls = [];
 
@@ -72,7 +72,12 @@ export function drawProgress(progressEl) {
   progressEl.prevProgressVal = actual;
   
   var displayValue = actual;
-  if (type === "distance" && actual) {    
+  if (actual === undefined)
+  {
+      displayValue = "---";
+  }
+  else if (type === "distance" && actual) 
+  {    
     if ((distanceUnit === "auto" && units.distance === "metric") || distanceUnit === "km") {
       displayValue = (actual / 1000.).toFixed(2);
     } else if ((distanceUnit === "auto" && units.distance === "us") || distanceUnit === "mi") {
@@ -86,7 +91,12 @@ export function drawProgress(progressEl) {
   progressEl.count.text = `${displayValue}`; 
   
   var maxLine = screenWidth /100 * 28;
-  if(goal > 0) {    
+  if(goal === undefined)
+  {
+    progressEl.line.width = 0;
+  }
+  else if(goal > 0) 
+  {    
     var complete = (actual / goal);
     if (complete > 1) complete = 1;
     progressEl.line.width = maxLine*complete;
