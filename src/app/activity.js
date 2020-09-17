@@ -64,15 +64,15 @@ export function drawProgress(progressEl) {
   } else if(today.adjusted[type]) {
     actual = today.adjusted[type]
     goal = goals[type]
-  }  
-  
+  }
+    
   if (progressEl.prevProgressVal == actual) {
     return;
   }  
   progressEl.prevProgressVal = actual;
   
   var displayValue = actual;
-  if (actual === undefined)
+  if (!actual || actual < 0)
   {
       displayValue = "---";
   }
@@ -91,20 +91,16 @@ export function drawProgress(progressEl) {
   progressEl.count.text = `${displayValue}`; 
   
   var maxLine = screenWidth /100 * 28;
-  if(goal === undefined)
+  if(!goal || goal < 0 || !actual || actual < 0)
   {
-    progressEl.line.width = 0;
-  }
-  else if(goal > 0) 
-  {    
+    progressEl.line.width = 0;      
+  } 
+  else 
+  {
     var complete = (actual / goal);
     if (complete > 1) complete = 1;
     progressEl.line.width = maxLine*complete;
   }
-  else
-  {
-      progressEl.line.width = maxLine;
-  }  
 } 
 
 export function drawAllProgress() {
