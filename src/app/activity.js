@@ -74,7 +74,7 @@ export function drawProgress(progressEl) {
   var displayValue = actual;
   if (!actual || actual < 0)
   {
-      displayValue = "---";
+      displayValue = "0";
   }
   else if (type === "distance" && actual) 
   {    
