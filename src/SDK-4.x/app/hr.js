@@ -13,6 +13,7 @@ export var hrmRate = null;
 export var hrAnimated = true;
 export var hrAnimatedInterval = null;
 export var batteryIconVisible = false;
+export var hrMonitoring = true;
 export let hrEl = document.getElementById("hr");
 export let hrIconSystoleEl = document.getElementById("hr-icon-systole");
 export let hrIconDiastoleEl = document.getElementById("hr-icon-diastole");
@@ -35,6 +36,10 @@ export function isHeartbeatAnimationSet(val) {
 
 export function setHrZoneVis(visibility) {
   hrZoneEl.style.display = (!visibility ? "none" : "inline");
+}
+
+export function setMonitoring(monitoring) {
+  hrMonitoring = monitoring;
 }
 
 export function initHrInterval() {
@@ -83,7 +88,7 @@ export function newHrm(rate) {
 }
 
 export function drawHrm() {  
-  if (hrmRate <= 0)
+  if (hrmRate == null || hrmRate <= 0 || hrMonitoring)
   {
       hrCountEl.text = "-";  
       hrRestingEl.text = `(${user.restingHeartRate})`;

@@ -76,8 +76,10 @@ export function startStopHrm() {
   {
     hrm.start();
     hr.newHrm(0); 
+    hr.setMonitoring(true);
   } else {
     hrm.stop();
+    hr.setMonitoring(false);
   }
   
   reApplyState();
