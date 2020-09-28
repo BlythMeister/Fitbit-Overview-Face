@@ -80,7 +80,7 @@ Or scan this QR Code for release version
 
 The editor for Fitbit clock faces is online at https://studio.fitbit.com
 
-To contribute, you need to create your own empty project on this site and upload all files in `src`.
+To contribute, you need to create your own empty project on this site and upload all files in `src\SDK-4.x` or `src\SDK-5.x` depending on watch face version to edit.
 
 You will be able to test by either side-loading onto an actual watch in developer mode, or using the simulator.
 
