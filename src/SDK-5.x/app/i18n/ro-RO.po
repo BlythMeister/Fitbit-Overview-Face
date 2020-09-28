@@ -1,0 +1,121 @@
+msgid "bmi"
+msgstr "IMC"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "Regulat"
+
+msgid "fat-burn"
+msgstr "Arderea grasimilor"
+
+msgid "cardio"
+msgstr "Cardio"
+
+msgid "peak"
+msgstr "Vârf"
+
+msgid "below-custom"
+msgstr "Scăzut"
+
+msgid "custom"
+msgstr "O.K"
+
+msgid "above-custom"
+msgstr "Înalt"
+
+msgid "month-short-0"
+msgstr "ian."
+
+msgid "month-short-1"
+msgstr "feb."
+
+msgid "month-short-2"
+msgstr "mar."
+
+msgid "month-short-3"
+msgstr "apr."
+
+msgid "month-short-4"
+msgstr "mai"
+
+msgid "month-short-5"
+msgstr "iun."
+
+msgid "month-short-6"
+msgstr "iul."
+
+msgid "month-short-7"
+msgstr "aug."
+
+msgid "month-short-8"
+msgstr "sept."
+
+msgid "month-short-9"
+msgstr "oct."
+
+msgid "month-short-10"
+msgstr "nov."
+
+msgid "month-short-11"
+msgstr "dec."
+
+msgid "month-long-0"
+msgstr "ianuarie"
+
+msgid "month-long-1"
+msgstr "februarie"
+
+msgid "month-long-2"
+msgstr "martie"
+
+msgid "month-long-3"
+msgstr "aprilie"
+
+msgid "month-long-4"
+msgstr "mai"
+
+msgid "month-long-5"
+msgstr "iunie"
+
+msgid "month-long-6"
+msgstr "iulie"
+
+msgid "month-long-7"
+msgstr "august"
+
+msgid "month-long-8"
+msgstr "septembrie"
+
+msgid "month-long-9"
+msgstr "octombrie"
+
+msgid "month-long-10"
+msgstr "noiembrie"
+
+msgid "month-long-11"
+msgstr "decembrie"
+
+msgid "day-0"
+msgstr "duminică"
+
+msgid "day-1"
+msgstr "luni"
+
+msgid "day-2"
+msgstr "marți"
+
+msgid "day-3"
+msgstr "miercuri"
+
+msgid "day-4"
+msgstr "joi"
+
+msgid "day-5"
+msgstr "vineri"
+
+msgid "day-6"
+msgstr "sâmbătă"
+
+

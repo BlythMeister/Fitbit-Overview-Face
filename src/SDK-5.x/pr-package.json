@@ -1,0 +1,76 @@
+{
+  "devDependencies": {
+    "@fitbit/sdk": "~5.0.0"
+  },
+  "fitbit": {
+    "appUUID": "6d80c169-94c5-4105-b9dc-98df99b798cd",
+    "appType": "clockface",
+    "appDisplayName": "Overview (Pre-Release)",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_heart_rate",
+      "run_background"
+    ],
+    "buildTargets": [
+      "vulcan",
+      "atlas"
+    ],
+    "i18n": {
+      "en-US": {
+        "name": "Overview (Pre-Release)"
+      },
+      "pt-BR": {
+        "name": "Overview (Pre-Release)"
+      },
+      "id-ID": {
+        "name": "Overview (Pre-Release)"
+      },
+      "ro-RO": {
+        "name": "Overview (Pre-Release)"
+      },
+      "ru-RU": {
+        "name": "Overview (Pre-Release)"
+      },
+      "pl-PL": {
+        "name": "Overview (Pre-Release)"
+      },
+      "cs-CZ": {
+        "name": "Overview (Pre-Release)"
+      },
+      "zh-TW": {
+        "name": "Overview (Pre-Release)"
+      },
+      "zh-CN": {
+        "name": "Overview (Pre-Release)"
+      },
+      "sv-SE": {
+        "name": "Overview (Pre-Release)"
+      },
+      "nl-NL": {
+        "name": "Overview (Pre-Release)"
+      },
+      "ko-KR": {
+        "name": "Overview (Pre-Release)"
+      },
+      "ja-JP": {
+        "name": "Overview (Pre-Release)"
+      },
+      "it-IT": {
+        "name": "Overview (Pre-Release)"
+      },
+      "fr-FR": {
+        "name": "Overview (Pre-Release)"
+      },
+      "es-ES": {
+        "name": "Overview (Pre-Release)"
+      },
+      "de-DE": {
+        "name": "Overview (Pre-Release)"
+      }
+    },
+    "defaultLanguage": "en-US"
+  }
+}

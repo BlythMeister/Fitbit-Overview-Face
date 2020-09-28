@@ -1,0 +1,120 @@
+msgid "bmi"
+msgstr "BMI"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "定期"
+
+msgid "fat-burn"
+msgstr "脂肪燃烧"
+
+msgid "cardio"
+msgstr "有氧运动"
+
+msgid "peak"
+msgstr "峰"
+
+msgid "below-custom"
+msgstr "低"
+
+msgid "custom"
+msgstr "好"
+
+msgid "above-custom"
+msgstr "杲"
+
+msgid "month-short-0"
+msgstr "1月"
+
+msgid "month-short-1"
+msgstr "2月"
+
+msgid "month-short-2"
+msgstr "3月"
+
+msgid "month-short-3"
+msgstr "4月"
+
+msgid "month-short-4"
+msgstr "5月"
+
+msgid "month-short-5"
+msgstr "6月"
+
+msgid "month-short-6"
+msgstr "7月"
+
+msgid "month-short-7"
+msgstr "8月"
+
+msgid "month-short-8"
+msgstr "9月"
+
+msgid "month-short-9"
+msgstr "10月"
+
+msgid "month-short-10"
+msgstr "11月"
+
+msgid "month-short-11"
+msgstr "12月"
+
+msgid "month-long-0"
+msgstr "一月"
+
+msgid "month-long-1"
+msgstr "二月"
+
+msgid "month-long-2"
+msgstr "三月"
+
+msgid "month-long-3"
+msgstr "四月"
+
+msgid "month-long-4"
+msgstr "五月"
+
+msgid "month-long-5"
+msgstr "六月"
+
+msgid "month-long-6"
+msgstr "七月"
+
+msgid "month-long-7"
+msgstr "八月"
+
+msgid "month-long-8"
+msgstr "九月"
+
+msgid "month-long-9"
+msgstr "十月"
+
+msgid "month-long-10"
+msgstr "十一月"
+
+msgid "month-long-11"
+msgstr "十二月"
+
+msgid "day-0"
+msgstr "星期日"
+
+msgid "day-1"
+msgstr "星期一"
+
+msgid "day-2"
+msgstr "星期二"
+
+msgid "day-3"
+msgstr "星期三"
+
+msgid "day-4"
+msgstr "星期四"
+
+msgid "day-5"
+msgstr "星期五"
+
+msgid "day-6"
+msgstr "星期六"
+

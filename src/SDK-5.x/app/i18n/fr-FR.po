@@ -1,0 +1,120 @@
+msgid "bmi"
+msgstr "IMC"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "Ordinaire"
+
+msgid "fat-burn"
+msgstr "Bruler les graisses"
+
+msgid "cardio"
+msgstr "Cardio"
+
+msgid "peak"
+msgstr "De pointe"
+
+msgid "below-custom"
+msgstr "Faible"
+
+msgid "custom"
+msgstr "D'accord"
+
+msgid "above-custom"
+msgstr "Haut"
+
+msgid "month-short-0"
+msgstr "janv."
+
+msgid "month-short-1"
+msgstr "févr."
+
+msgid "month-short-2"
+msgstr "mars"
+
+msgid "month-short-3"
+msgstr "avr."
+
+msgid "month-short-4"
+msgstr "mai"
+
+msgid "month-short-5"
+msgstr "juin"
+
+msgid "month-short-6"
+msgstr "juil."
+
+msgid "month-short-7"
+msgstr "août"
+
+msgid "month-short-8"
+msgstr "sept."
+
+msgid "month-short-9"
+msgstr "oct."
+
+msgid "month-short-10"
+msgstr "nov."
+
+msgid "month-short-11"
+msgstr "déc."
+
+msgid "month-long-0"
+msgstr "janvier"
+
+msgid "month-long-1"
+msgstr "février"
+
+msgid "month-long-2"
+msgstr "mars"
+
+msgid "month-long-3"
+msgstr "avril"
+
+msgid "month-long-4"
+msgstr "mai"
+
+msgid "month-long-5"
+msgstr "juin"
+
+msgid "month-long-6"
+msgstr "juillet"
+
+msgid "month-long-7"
+msgstr "août"
+
+msgid "month-long-8"
+msgstr "septembre"
+
+msgid "month-long-9"
+msgstr "octobre"
+
+msgid "month-long-10"
+msgstr "novembre"
+
+msgid "month-long-11"
+msgstr "décembre"
+
+msgid "day-0"
+msgstr "dimanche"
+
+msgid "day-1"
+msgstr "lundi"
+
+msgid "day-2"
+msgstr "mardi"
+
+msgid "day-3"
+msgstr "mercredi"
+
+msgid "day-4"
+msgstr "jeudi"
+
+msgid "day-5"
+msgstr "vendredi"
+
+msgid "day-6"
+msgstr "samedi"
+

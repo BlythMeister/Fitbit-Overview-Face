@@ -1,0 +1,120 @@
+msgid "bmi"
+msgstr "BMI"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "定期的"
+
+msgid "fat-burn"
+msgstr "脂肪燃焼"
+
+msgid "cardio"
+msgstr "カーディオ"
+
+msgid "peak"
+msgstr "ピーク"
+
+msgid "below-custom"
+msgstr "低い"
+
+msgid "custom"
+msgstr "승인"
+
+msgid "above-custom"
+msgstr "高い"
+
+msgid "month-short-0"
+msgstr "1"
+
+msgid "month-short-1"
+msgstr "2"
+
+msgid "month-short-2"
+msgstr "3"
+
+msgid "month-short-3"
+msgstr "4"
+
+msgid "month-short-4"
+msgstr "5"
+
+msgid "month-short-5"
+msgstr "6"
+
+msgid "month-short-6"
+msgstr "7"
+
+msgid "month-short-7"
+msgstr "8"
+
+msgid "month-short-8"
+msgstr "9"
+
+msgid "month-short-9"
+msgstr "10"
+
+msgid "month-short-10"
+msgstr "11"
+
+msgid "month-short-11"
+msgstr "12"
+
+msgid "month-long-0"
+msgstr "1月"
+
+msgid "month-long-1"
+msgstr "2月"
+
+msgid "month-long-2"
+msgstr "3月"
+
+msgid "month-long-3"
+msgstr "4月"
+
+msgid "month-long-4"
+msgstr "5月"
+
+msgid "month-long-5"
+msgstr "6月"
+
+msgid "month-long-6"
+msgstr "7月"
+
+msgid "month-long-7"
+msgstr "8月"
+
+msgid "month-long-8"
+msgstr "9月"
+
+msgid "month-long-9"
+msgstr "10月"
+
+msgid "month-long-10"
+msgstr "11月"
+
+msgid "month-long-11"
+msgstr "12月"
+
+msgid "day-0"
+msgstr "日曜日"
+
+msgid "day-1"
+msgstr "月曜日"
+
+msgid "day-2"
+msgstr "火曜日"
+
+msgid "day-3"
+msgstr "水曜日"
+
+msgid "day-4"
+msgstr "木曜日"
+
+msgid "day-5"
+msgstr "金曜日"
+
+msgid "day-6"
+msgstr "土曜日"
+

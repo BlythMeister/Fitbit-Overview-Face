@@ -1,0 +1,240 @@
+#root {
+  viewport-fill: black;
+  fill: palegoldenrod;
+}
+
+#background {
+  x: 0;
+  y: 0;
+  width:100%;
+  height:100%;
+  fill:black;
+}
+
+#torch {
+  x: 0;
+  y: 0;
+  width:100%;
+  height:100%;
+  opacity: 0;
+  fill:white;
+}
+
+#336-time-hour {
+  font-size: 100;
+  font-family: System-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white;
+  x: 100%-5%-200;
+  y: 207;
+  display: none;
+}
+
+#336-time-colon {
+  font-size: 100;
+  font-family: System-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white;
+  x: 100%-5%-175;
+  y: 200;
+  display: none;
+}
+
+#336-time-minute {
+  font-size: 100;
+  font-family: System-Bold;
+  text-length: 60;
+  text-anchor: end;
+  fill: white; 
+  x: 100%-5%-65;
+  y: 207;
+  display: none; 
+}
+
+#336-am-pm {
+  font-size: 40;
+  font-family: System-Bold;
+  text-length: 55;
+  text-anchor: end;
+  x: 100%-5%;
+  y: 167;
+  fill: white;
+  display: none;
+}
+
+#336-second {
+  font-size: 40;
+  font-family: System-Bold;
+  text-length: 55;
+  text-anchor: end;
+  x: 100%-5%;
+  y:207;
+  fill: white;
+  display: none;
+}
+
+#top-left {
+  x: 5%;
+  y: 65;    
+}
+
+#top-right {
+  x: 100%-5%;
+  y: 65;
+}
+
+#hr-count {
+  text-anchor: start;
+  font-size: 22;
+  font-family: System-Bold;
+  fill: #969696;
+  text-length: 120;
+  x: 5;
+  y: 0;
+}
+
+#hr-resting {
+  text-anchor: start;
+  font-size: 22;
+  font-family: System-Bold;
+  fill: #969696;
+  text-length: 120;
+  x: 0;
+  y: 25;
+}
+
+#hr-zone {
+  text-anchor: start;
+  font-size: 22;
+  font-family: System-Bold;
+  fill: #969696;
+  text-length: 120;
+  x: 0;
+  y: 50;
+  display: none;
+}
+
+#hr-icon-systole {
+  fill: crimson;
+  width: 30;
+  height: 30;
+  x:45;
+  y:-10;
+}
+
+#hr-icon-diastole {
+  fill: crimson;
+  width: 36;
+  height: 36;
+  x:43;
+  y:-12;
+}
+
+#battery {
+  display: none;
+}
+
+.battery-icon {
+  width: 18;
+  height: 18;
+  x:-73;
+  y:-18;
+}
+
+#battery-percent {
+  text-anchor: end;
+  font-size: 22;
+  font-family: System-Bold;
+  fill: white;
+  x: 0;
+  y: 0;
+  text-length: 10;
+}
+
+#calendar {
+  display:inline;
+}
+
+#day {
+  x: 0;
+  y: 25;
+  font-size: 22;
+  text-anchor: end;
+  font-family: System-Bold;
+  text-length: 120;
+  fill: #969696;
+}
+
+#date {
+  x: 0;
+  y: 50;
+  font-size: 22;
+  text-anchor: end;
+  font-family: System-Bold;
+  text-length: 120;
+  fill: #969696;
+}
+
+#steps {
+  display: "none";
+}
+
+#distance {
+  display: "none";
+}
+
+#bm {
+  display: "none";
+}
+
+#elevationGain  {
+  display: "none";
+}
+
+#calories  {
+  display: "none";
+}
+
+#activeMinutes {
+  display: "none";
+}
+
+
+#bmr-zone {
+  text-anchor: start;
+  font-size: 16;
+  font-family: System-Bold;
+  text-length: 120;
+  fill: darkorange;
+  x:5;
+  y:10;
+  display: none;
+}
+
+#bmi-zone {
+  text-anchor: start;
+  font-size: 16;
+  font-family: System-Bold;
+  text-length: 120;
+  fill: darkorange;
+  x:5;
+  y:25;
+  display: none;
+}
+
+.icon {
+  width: 20;
+  height: 20;
+  x:0;
+  y:0;
+}
+
+.count {
+  font-size: 22;
+  x: 26;
+  y: 15;
+  text-length: 10; 
+  font-family: System-Bold;
+}
