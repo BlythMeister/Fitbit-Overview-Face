@@ -88,7 +88,7 @@ export function newHrm(rate) {
 }
 
 export function drawHrm() {  
-  if (hrmRate == null || hrmRate <= 0 || hrMonitoring)
+  if (hrmRate == null || hrmRate <= 0 || !hrMonitoring)
   {
       hrCountEl.text = "-";  
       hrRestingEl.text = `(${user.restingHeartRate})`;
