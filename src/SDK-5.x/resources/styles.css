@@ -139,7 +139,7 @@
 .battery-icon {
   width: 18;
   height: 18;
-  x:-73;
+  x:-18;
   y:-18;
 }
 
@@ -148,7 +148,7 @@
   font-size: 22;
   font-family: System-Bold;
   fill: white;
-  x: 0;
+  x: -20;
   y: 0;
   text-length: 10;
 }
