@@ -50,24 +50,31 @@ Or scan this QR Code for release version
 
 ### Ionic Device
 
-![Ionic](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Ionic/1.base.png?raw=true)
-![Ionic-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Ionic/2.24h.png?raw=true)
-![Ionic-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Ionic/3.cutdown.png?raw=true)
-![Ionic-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Ionic/4.charging.png?raw=true)
+![348x250](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/348x250/1.base.png?raw=true)
+![348x250-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/348x250/2.24h.png?raw=true)
+![348x250-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/348x250/3.cutdown.png?raw=true)
+![348x250-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/348x250/4.charging.png?raw=true)
 
-### Versa Family (Except Lite) Device
+### Versa & Versa 2 Devices
 
-![Versa](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa/1.base.png?raw=true)
-![Versa-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa/2.24h.png?raw=true)
-![Versa-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa/3.cutdown.png?raw=true)
-![Versa-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/Versa/4.charging.png?raw=true)
+![300x300](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300/1.base.png?raw=true)
+![300x300-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300/2.24h.png?raw=true)
+![300x300-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300/3.cutdown.png?raw=true)
+![300x300-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300/4.charging.png?raw=true)
 
 ### Versa Lite Device
 
-![VersaLite](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/1.base.png?raw=true)
-![VersaLite-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/2.24h.png?raw=true)
-![VersaLite-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/3.cutdown.png?raw=true)
-![VersaLite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/VersaLite/4.charging.png?raw=true)
+![300x300-Lite](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300_Lite/1.base.png?raw=true)
+![300x300-Lite-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300_Lite/2.24h.png?raw=true)
+![300x300-Lite-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300_Lite/3.cutdown.png?raw=true)
+![300x300-Lite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/300x300_Lite/4.charging.png?raw=true)
+
+### Versa3 & Sense Devices
+
+![336x336](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/336x336/1.base.png?raw=true)
+![336x336-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/336x336/2.24h.png?raw=true)
+![336x336-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/336x336/3.cutdown.png?raw=true)
+![336x336-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/screenshots/336x336/4.charging.png?raw=true)
 
 # How To Contribute
 
