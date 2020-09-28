@@ -57,29 +57,62 @@ export function applySettings() {
       time.setTimeFormat("auto");
     } 
     
-    if (settings.hasOwnProperty("isAmPm")) {
-      time.setIsAmPm(!!settings["isAmPm"]); 
-    } else {
-      time.setIsAmPm(true);
-    }  
-    
-    if (settings.hasOwnProperty("showSeconds")) {
-      time.setShowSeconds(!!settings["showSeconds"]); 
-    } else {
-      time.setShowSeconds(true);
+    if(settings.hasOwnProperty("showTime"))
+    {
+      if (settings.hasOwnProperty("isAmPm")) {
+        time.setIsAmPm(!!settings["isAmPm"] && !!settings["showTime"]); 
+      } else {
+        time.setIsAmPm(!!settings["showTime"]);
+      } 
+    }
+    else
+    {
+      if (settings.hasOwnProperty("isAmPm")) {
+        time.setIsAmPm(!!settings["isAmPm"]); 
+      } else {
+        time.setIsAmPm(true);
+      } 
     } 
+    
+    if(settings.hasOwnProperty("showTime"))
+    {
+      if (settings.hasOwnProperty("showSeconds")) {
+        time.setShowSeconds(!!settings["showSeconds"] && !!settings["showTime"]); 
+      } else {
+        time.setShowSeconds(!!settings["showTime"]);
+      } 
+    }
+    else
+    {
+      if (settings.hasOwnProperty("showSeconds")) {
+        time.setShowSeconds(!!settings["showSeconds"]); 
+      } else {
+        time.setShowSeconds(true);
+      } 
+    }
+    
+    if(settings.hasOwnProperty("showTime"))
+    {
+      if (settings.hasOwnProperty("flashDots")) {
+        time.setFlashDots(!!settings["flashDots"] && !!settings["showTime"]); 
+      } else {
+        time.setFlashDots(!!settings["showTime"]);
+      } 
+    }
+    else
+    {
+      if (settings.hasOwnProperty("flashDots")) {
+        time.setFlashDots(!!settings["flashDots"]); 
+      } else {
+        time.setFlashDots(true);
+      } 
+    }
     
     if (settings.hasOwnProperty("showLeadingZero")) {
       time.setShowLeadingZero(!!settings["showLeadingZero"]); 
     } else {
       time.setShowLeadingZero(true);
-    }
-    
-    if (settings.hasOwnProperty("flashDots")) {
-      time.setFlashDots(!!settings["flashDots"]); 
-    } else {
-      time.setFlashDots(true);
-    }
+    } 
     
     if (settings.hasOwnProperty("heartRateZoneVis")) {
       hr.setHrZoneVis(!!settings["heartRateZoneVis"]); 
@@ -110,17 +143,7 @@ export function applySettings() {
     } else {
       bm.setBMRVis(true);
     } 
-    
-    let clockFont = getFont("SYS");
-    if (settings.hasOwnProperty("clockFont") && settings["clockFont"]) {
-      clockFont = getFont(settings["clockFont"]);
-    }
-    time.timeHourEl.style.fontFamily = clockFont;
-    time.timeColonEl.style.fontFamily = clockFont;
-    time.timeMinuteEl.style.fontFamily = clockFont;
-    time.timeSecEl.style.fontFamily = clockFont;
-    time.timeAmPmEl.style.fontFamily = clockFont;
-    
+        
     if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {      
       time.timeHourEl.style.fill = settings["timeColour"];
       time.timeColonEl.style.fill = settings["timeColour"];
@@ -135,12 +158,15 @@ export function applySettings() {
       time.timeAmPmEl.style.fill = "white";
     }
     
-    let dateFont = getFont("SYS");
-    if (settings.hasOwnProperty("dateFont") && settings["dateFont"]) {
-      dateFont = getFont(settings["dateFont"]);
+    if (settings.hasOwnProperty("showTime")) {      
+      time.timeHourEl.style.display = (!!settings["showTime"] ? "inline" : "none");
+      time.timeColonEl.style.display = (!!settings["showTime"] ? "inline" : "none");
+      time.timeMinuteEl.style.display = (!!settings["showTime"] ? "inline" : "none");
+    } else {
+      time.timeHourEl.style.display = "inline";
+      time.timeColonEl.style.display = "inline";
+      time.timeMinuteEl.style.display = "inline";
     }
-    date.dateEl.style.fontFamily = dateFont;
-    date.dayEl.style.fontFamily = dateFont;
 
     if (settings.hasOwnProperty("dateColour") && settings["dateColour"]) {
       date.dateEl.style.fill = settings["dateColour"];
@@ -148,12 +174,31 @@ export function applySettings() {
     } else {
       date.dateEl.style.fill = "#969696";
       date.dayEl.style.fill = "#969696";  
+    }   
+        
+    if (settings.hasOwnProperty("showDate")) {      
+      date.dateEl.style.display = (!!settings["showDate"] ? "inline" : "none");
+      date.dayEl.style.display = (!!settings["showDate"] ? "inline" : "none");
+    } else {
+      date.dateEl.style.display = "inline";
+      date.dayEl.style.display = "inline";
     }
 
-    if (settings.hasOwnProperty("isHeartbeatAnimation")) {
-      hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"]); 
-    } else {
-      hr.isHeartbeatAnimationSet(true);
+    if(settings.hasOwnProperty("showHeartRate"))
+    {
+      if (settings.hasOwnProperty("isHeartbeatAnimation")) {
+        hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"] && !!settings["showHeartRate"]); 
+      } else {
+        hr.isHeartbeatAnimationSet(!!settings["showHeartRate"]);
+      } 
+    }
+    else
+    {
+      if (settings.hasOwnProperty("isHeartbeatAnimation")) {
+        hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"]); 
+      } else {
+        hr.isHeartbeatAnimationSet(true);
+      } 
     }
     
     if (settings.hasOwnProperty("backgroundColour") && settings["backgroundColour"]) {
@@ -168,15 +213,7 @@ export function applySettings() {
     } else {
       hr.hrIconDiastoleEl.style.fill = "crimson";
       hr.hrIconSystoleEl.style.fill = "crimson"; 
-    }          
-
-    let heartRateFont = getFont("SYS");
-    if (settings.hasOwnProperty("heartRateFont") && settings["heartRateFont"]) {
-      heartRateFont = getFont(settings["heartRateFont"]);
     }
-    hr.hrCountEl.style.fontFamily = heartRateFont;
-    hr.hrRestingEl.style.fontFamily = heartRateFont;
-    hr.hrZoneEl.style.fontFamily = heartRateFont;
     
     if (settings.hasOwnProperty("heartRateColour") && settings["heartRateColour"]) {
       hr.hrCountEl.style.fill = settings["heartRateColour"];
@@ -186,13 +223,36 @@ export function applySettings() {
       hr.hrCountEl.style.fill = "#969696";
       hr.hrRestingEl.style.fill = "#969696";
       hr.hrZoneEl.style.fill = "#969696";
-    }          
-    
-    let batteryFont = getFont("SYS");
-    if (settings.hasOwnProperty("batteryFont") && settings["batteryFont"]) {
-      batteryFont = getFont(settings["batteryFont"]);
+    }   
+        
+    if (settings.hasOwnProperty("showHeartRate")) {      
+      hr.hrIconDiastoleEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
+      hr.hrIconSystoleEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
+      hr.hrCountEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
+      hr.hrRestingEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
+    } else {
+      hr.hrIconDiastoleEl.style.display = "inline";
+      hr.hrIconSystoleEl.style.display = "inline";
+      hr.hrCountEl.style.display = "inline";
+      hr.hrRestingEl.style.display = "inline";
     }
-    battery.setFont(batteryFont);
+    
+    if(settings.hasOwnProperty("showHeartRate"))
+    {
+      if (settings.hasOwnProperty("heartRateZoneVis")) {
+        hr.setHrZoneVis(!!settings["heartRateZoneVis"] && !!settings["showHeartRate"]); 
+      } else {
+        hr.setHrZoneVis(!!settings["showHeartRate"]);
+      } 
+    }
+    else
+    {
+      if (settings.hasOwnProperty("heartRateZoneVis")) {
+        hr.setHrZoneVis(!!settings["heartRateZoneVis"]); 
+      } else {
+        hr.setHrZoneVis(true);
+      } 
+    }
     
     if (settings.hasOwnProperty("showBatteryPercent")) {
       battery.setShowBatteryPercent(!!settings["showBatteryPercent"]); 
@@ -234,17 +294,7 @@ export function applySettings() {
       battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
     } else {
       battery.batteryLineBack.style.fill = "#494949"
-    }    
-    
-    let statsFont = getFont("SYS");
-    if (settings.hasOwnProperty("statsFont") && settings["statsFont"]) {
-      statsFont = getFont(settings["statsFont"]);
-    }
-    bm.bmrZoneEl.style.fontFamily = statsFont; 
-    bm.bmiZoneEl.style.fontFamily = statsFont; 
-    for (var i=0; i < activity.goalTypes.length; i++) {
-      activity.progressEls[i].count.style.fontFamily = statsFont;
-    }
+    } 
 
     if (settings.hasOwnProperty("bmColour") && settings["bmColour"]) {
       bm.bmrZoneEl.style.fill = settings["bmColour"];
@@ -341,30 +391,6 @@ export function applySettings() {
 }
 
 applySettings();
-
-export function getFont(key)
-{
-  if(key == "SYS"){
-    return "System-Bold";
-  }
-  if(key == "COL"){
-    return "Colfax-Medium";
-  }
-  if(key == "FAB"){
-    return "Fabrikat-Black";
-  }
-  if(key == "SEV"){
-    return "Seville-Bold";
-  }
-  if(key == "SEVC"){
-    return "Seville-Bold-Condensed";
-  } 
-  if(key == "SEVS"){
-    return "SevilleSharp-Bold";
-  } 
-  
-  return "System-Bold";
-}
 
 export function setStatsLocation(element, location)
 {

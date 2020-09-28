@@ -70,7 +70,6 @@ export function setSeconds(now){
 }
 
 export function setMinutes(now){
-  timeMinuteEl.style.display= 'inline';
   timeMinuteEl.text = zeroPad(now.getMinutes());
 }
 
@@ -108,7 +107,6 @@ export function setHours(now) {
     timeAmPmEl.style.display= 'none';
   }
   
-  timeHourEl.style.display= 'inline';
   if(showLeadingZero)
   {
     timeHourEl.text = zeroPad(hours);
