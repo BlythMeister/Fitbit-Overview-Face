@@ -148,11 +148,11 @@
 }
 
 #battery-percent {
-  text-anchor: middle;
+  text-anchor: end;
   font-size: 22;
   font-family: System-Bold;
   fill: white;
-  x: -10;
+  x: 13;
   y: 0;
   text-length: 10;
 }
