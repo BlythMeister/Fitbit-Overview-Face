@@ -13,7 +13,7 @@ export var hrmRate = null;
 export var hrAnimated = true;
 export var hrAnimatedInterval = null;
 export var hrMonitoring = true;
-export let hrEl = document.getElementById("top-left");
+export let topLeftEl = document.getElementById("top-left");
 export let hrIconSystoleEl = document.getElementById("hr-icon-systole");
 export let hrIconDiastoleEl = document.getElementById("hr-icon-diastole");
 export let hrCountEl = document.getElementById("hr-count");
@@ -57,7 +57,7 @@ export function hideHr() {
    hrmRate = null;
    prevHrmRate = null;   
    stopHrAnimation();
-   hrEl.style.display = "none";
+   topLeftEl.style.display = "none";
 }
 
 export function animateHr() {   
@@ -102,7 +102,7 @@ export function drawHrm() {
       hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;  
 
       if (!prevHrmRate) {
-        hrEl.style.display = "inline";    
+        topLeftEl.style.display = "inline";    
       }
       if (!hrAnimated && isHeartbeatAnimation) {
         clearInterval(hrAnimatedInterval);   

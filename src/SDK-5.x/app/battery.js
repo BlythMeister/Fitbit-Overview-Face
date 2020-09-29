@@ -16,9 +16,6 @@ export let colour50 = 'gold';
 export let colour75 = '#00FF00';
 //Battery - END
 
-export let root = document.getElementById('root')
-export const screenWidth = root.width
-
 export function setShowBatteryPercent(visibility) {
   batteryPercentBlock.style.display = (!visibility ? "none" : "inline");
 }
@@ -59,8 +56,9 @@ export function drawBat() {
   
   let batteryPercentage = Math.floor(level);
   batteryPercent.text = `${batteryPercentage}%`
-  let lineWidth = Math.floor(screenWidth*(batteryPercentage/100));
-  batteryLineFront.width = lineWidth;
+  
+  let sweep = Math.floor(180*(batteryPercentage/100));
+  batteryLineFront.sweepAngle = sweep;
   
   if (batteryPercentage >= 75)
   {
