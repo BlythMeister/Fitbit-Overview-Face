@@ -183,7 +183,7 @@
 }
 
 #battery {
-  x: 100%-3%;
+  x: 50%;
   y: 30;
   display: none;
 }
@@ -191,14 +191,14 @@
 #battery-icon {
   width: 18;
   height: 18;
-  x:-15;
+  x:15;
   y:-18;
 }
 
 #battery-icon-charge {
   width: 18;
   height: 18;
-  x:-15;
+  x:15;
   y:-18;
 }
 
@@ -207,13 +207,13 @@
   font-size: 22;
   font-family: System-Bold;
   fill: white;
-  x: -17;
+  x: 15;
   y: 0; 
 }
 
 #calendar {
   x: 100%-3%;
-  y: 55;
+  y: 45;
 }
 
 #day {
