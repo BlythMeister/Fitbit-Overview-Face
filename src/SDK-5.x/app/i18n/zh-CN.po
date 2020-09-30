@@ -8,22 +8,22 @@ msgid "out-of-range"
 msgstr "定期"
 
 msgid "fat-burn"
-msgstr "脂肪燃烧"
+msgstr "脂肪烧伤"
 
 msgid "cardio"
-msgstr "有氧运动"
+msgstr "心"
 
 msgid "peak"
-msgstr "峰"
+msgstr "峰值"
 
 msgid "below-custom"
 msgstr "低"
 
 msgid "custom"
-msgstr "好"
+msgstr "还行"
 
 msgid "above-custom"
-msgstr "杲"
+msgstr "高"
 
 msgid "month-short-0"
 msgstr "1月"
@@ -117,4 +117,3 @@ msgstr "星期五"
 
 msgid "day-6"
 msgstr "星期六"
-

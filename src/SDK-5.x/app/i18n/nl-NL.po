@@ -5,7 +5,7 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Regelmatig"
+msgstr "Regelmatige"
 
 msgid "fat-burn"
 msgstr "Vetverbranding"
@@ -14,16 +14,16 @@ msgid "cardio"
 msgstr "Cardio"
 
 msgid "peak"
-msgstr "Top"
+msgstr "Piek"
 
 msgid "below-custom"
-msgstr "Laag"
+msgstr "Lage"
 
 msgid "custom"
 msgstr "OK"
 
 msgid "above-custom"
-msgstr "Hoog"
+msgstr "Hoge"
 
 msgid "month-short-0"
 msgstr "jan"
@@ -41,16 +41,16 @@ msgid "month-short-4"
 msgstr "mei"
 
 msgid "month-short-5"
-msgstr "juni"
+msgstr "jun"
 
 msgid "month-short-6"
-msgstr "juli"
+msgstr "jul"
 
 msgid "month-short-7"
 msgstr "aug"
 
 msgid "month-short-8"
-msgstr "sept"
+msgstr "sep"
 
 msgid "month-short-9"
 msgstr "okt"
@@ -117,4 +117,3 @@ msgstr "vrijdag"
 
 msgid "day-6"
 msgstr "zaterdag"
-

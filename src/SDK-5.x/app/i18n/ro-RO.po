@@ -5,10 +5,10 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Regulat"
+msgstr "Regulate"
 
 msgid "fat-burn"
-msgstr "Arderea grasimilor"
+msgstr "Ardere a grasimilor"
 
 msgid "cardio"
 msgstr "Cardio"
@@ -20,10 +20,10 @@ msgid "below-custom"
 msgstr "Scăzut"
 
 msgid "custom"
-msgstr "O.K"
+msgstr "ok"
 
 msgid "above-custom"
-msgstr "Înalt"
+msgstr "Înaltă"
 
 msgid "month-short-0"
 msgstr "ian."
@@ -117,5 +117,3 @@ msgstr "vineri"
 
 msgid "day-6"
 msgstr "sâmbătă"
-
-

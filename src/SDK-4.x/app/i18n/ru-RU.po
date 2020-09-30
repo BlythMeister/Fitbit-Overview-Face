@@ -5,7 +5,7 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Обычный"
+msgstr "Регулярные"
 
 msgid "fat-burn"
 msgstr "Сжигание жира"
@@ -14,16 +14,16 @@ msgid "cardio"
 msgstr "Кардио"
 
 msgid "peak"
-msgstr "Вершина горы"
+msgstr "Пик"
 
 msgid "below-custom"
-msgstr "Низкий"
+msgstr "Низкой"
 
 msgid "custom"
-msgstr "хорошо"
+msgstr "Хорошо"
 
 msgid "above-custom"
-msgstr "Высокая"
+msgstr "Высокой"
 
 msgid "month-short-0"
 msgstr "янв"
@@ -117,4 +117,3 @@ msgstr "пятница"
 
 msgid "day-6"
 msgstr "суббота"
-

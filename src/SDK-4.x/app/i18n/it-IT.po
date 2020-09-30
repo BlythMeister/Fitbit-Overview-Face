@@ -8,7 +8,7 @@ msgid "out-of-range"
 msgstr "Regolare"
 
 msgid "fat-burn"
-msgstr "Bruciare grassi"
+msgstr "Brucia grasso"
 
 msgid "cardio"
 msgstr "Cardio"
@@ -20,10 +20,10 @@ msgid "below-custom"
 msgstr "Basso"
 
 msgid "custom"
-msgstr "Bene"
+msgstr "Ok"
 
 msgid "above-custom"
-msgstr "Alto"
+msgstr "alto"
 
 msgid "month-short-0"
 msgstr "gen"
@@ -117,4 +117,3 @@ msgstr "venerdì"
 
 msgid "day-6"
 msgstr "sabato"
-

@@ -5,25 +5,25 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "定期的"
+msgstr "正規"
 
 msgid "fat-burn"
 msgstr "脂肪燃焼"
 
 msgid "cardio"
-msgstr "カーディオ"
+msgstr "心臓"
 
 msgid "peak"
 msgstr "ピーク"
 
 msgid "below-custom"
-msgstr "低い"
+msgstr "低"
 
 msgid "custom"
-msgstr "승인"
+msgstr "わかりました"
 
 msgid "above-custom"
-msgstr "高い"
+msgstr "高"
 
 msgid "month-short-0"
 msgstr "1"
@@ -117,4 +117,3 @@ msgstr "金曜日"
 
 msgid "day-6"
 msgstr "土曜日"
-

@@ -5,16 +5,16 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Ordinaire"
+msgstr "Régulier"
 
 msgid "fat-burn"
-msgstr "Bruler les graisses"
+msgstr "Fat Burn"
 
 msgid "cardio"
 msgstr "Cardio"
 
 msgid "peak"
-msgstr "De pointe"
+msgstr "Pic"
 
 msgid "below-custom"
 msgstr "Faible"
@@ -23,7 +23,7 @@ msgid "custom"
 msgstr "D'accord"
 
 msgid "above-custom"
-msgstr "Haut"
+msgstr "Haute"
 
 msgid "month-short-0"
 msgstr "janv."
@@ -117,4 +117,3 @@ msgstr "vendredi"
 
 msgid "day-6"
 msgstr "samedi"
-

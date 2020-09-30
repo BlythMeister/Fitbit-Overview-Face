@@ -5,13 +5,13 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Reguler"
+msgstr "Biasa"
 
 msgid "fat-burn"
-msgstr "Pembakaranlemak"
+msgstr "Membakar Lemak"
 
 msgid "cardio"
-msgstr "Kardio"
+msgstr "Cardio"
 
 msgid "peak"
 msgstr "Puncak"
@@ -20,7 +20,7 @@ msgid "below-custom"
 msgstr "Rendah"
 
 msgid "custom"
-msgstr "Baik"
+msgstr "Oke"
 
 msgid "above-custom"
 msgstr "Tinggi"

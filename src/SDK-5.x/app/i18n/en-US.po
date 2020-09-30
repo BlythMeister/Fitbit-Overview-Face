@@ -117,4 +117,3 @@ msgstr "Friday"
 
 msgid "day-6"
 msgstr "Saturday"
-

@@ -5,13 +5,13 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Regelbunden"
+msgstr "Regelbundna"
 
 msgid "fat-burn"
-msgstr "Fettförbränning"
+msgstr "Fett Burn"
 
 msgid "cardio"
-msgstr "Cardio"
+msgstr "Hjärt"
 
 msgid "peak"
 msgstr "Topp"
@@ -20,7 +20,7 @@ msgid "below-custom"
 msgstr "Låg"
 
 msgid "custom"
-msgstr "OK"
+msgstr "Okej"
 
 msgid "above-custom"
 msgstr "Hög"
@@ -29,28 +29,28 @@ msgid "month-short-0"
 msgstr "jan"
 
 msgid "month-short-1"
-msgstr "febr"
+msgstr "feb"
 
 msgid "month-short-2"
-msgstr "mars"
+msgstr "mar"
 
 msgid "month-short-3"
-msgstr "april"
+msgstr "apr"
 
 msgid "month-short-4"
 msgstr "maj"
 
 msgid "month-short-5"
-msgstr "juni"
+msgstr "jun"
 
 msgid "month-short-6"
-msgstr "juli"
+msgstr "jul"
 
 msgid "month-short-7"
 msgstr "aug"
 
 msgid "month-short-8"
-msgstr "sept"
+msgstr "sep"
 
 msgid "month-short-9"
 msgstr "okt"
@@ -117,4 +117,3 @@ msgstr "fredag"
 
 msgid "day-6"
 msgstr "lördag"
-

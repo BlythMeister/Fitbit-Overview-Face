@@ -5,7 +5,7 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Regularny"
+msgstr "Regularne"
 
 msgid "fat-burn"
 msgstr "Spalanie tłuszczu"
@@ -17,13 +17,13 @@ msgid "peak"
 msgstr "Szczyt"
 
 msgid "below-custom"
-msgstr "Niska"
+msgstr "Niskie"
 
 msgid "custom"
-msgstr "Dobrze"
+msgstr "Ok"
 
 msgid "above-custom"
-msgstr "Wysoki"
+msgstr "Wysokiej"
 
 msgid "month-short-0"
 msgstr "sty"
@@ -117,4 +117,3 @@ msgstr "piątek"
 
 msgid "day-6"
 msgstr "sobota"
-

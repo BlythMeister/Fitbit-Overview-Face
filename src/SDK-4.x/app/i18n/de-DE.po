@@ -5,22 +5,22 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Regulär"
+msgstr "Regelmäßige"
 
 msgid "fat-burn"
-msgstr "Fettverbrennung"
+msgstr "Fat Burn"
 
 msgid "cardio"
-msgstr "Cardio"
+msgstr "Herz"
 
 msgid "peak"
-msgstr "Gipfel"
+msgstr "Höhepunkt"
 
 msgid "below-custom"
 msgstr "Niedrig"
 
 msgid "custom"
-msgstr "In Ordnung"
+msgstr "Okay"
 
 msgid "above-custom"
 msgstr "Hoch"
@@ -117,4 +117,3 @@ msgstr "Freitag"
 
 msgid "day-6"
 msgstr "Samstag"
-

@@ -5,13 +5,13 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "정규병"
+msgstr "일반"
 
 msgid "fat-burn"
-msgstr "지방 연소"
+msgstr "지방 화상"
 
 msgid "cardio"
-msgstr "심장병"
+msgstr "심장"
 
 msgid "peak"
 msgstr "피크"
@@ -20,7 +20,7 @@ msgid "below-custom"
 msgstr "낮은"
 
 msgid "custom"
-msgstr "승인"
+msgstr "그래"
 
 msgid "above-custom"
 msgstr "높은"
@@ -117,4 +117,3 @@ msgstr "금요일"
 
 msgid "day-6"
 msgstr "토요일"
-

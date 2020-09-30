@@ -5,7 +5,7 @@ msgid "bmr"
 msgstr "BMR"
 
 msgid "out-of-range"
-msgstr "Pravidelný"
+msgstr "Pravidelné"
 
 msgid "fat-burn"
 msgstr "Spalování tuků"
@@ -17,13 +17,13 @@ msgid "peak"
 msgstr "Vrchol"
 
 msgid "below-custom"
-msgstr "Nízký"
+msgstr "Nízké"
 
 msgid "custom"
-msgstr "OK"
+msgstr "Ok"
 
 msgid "above-custom"
-msgstr "Vysoký"
+msgstr "Vysoké"
 
 msgid "month-short-0"
 msgstr "led"
@@ -117,4 +117,3 @@ msgstr "pátek"
 
 msgid "day-6"
 msgstr "sobota"
-
