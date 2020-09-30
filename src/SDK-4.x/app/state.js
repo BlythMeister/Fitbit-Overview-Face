@@ -17,28 +17,36 @@ const body = new BodyPresenceSensor();
 
 clock.granularity = "seconds";
 
-if (display.on) {
-  body.start();
-}
+body.start();
 
 if (body.present) {
-    hrm.start(); 
+    hrm.start();
+    hr.newHrm(0); 
+    hr.setMonitoring(true);
 }
 
 display.onchange = (evt) => {
-  startStopHrm();
   reApplyState();
 }
 
 body.onreading = (evt) => {
-  startStopHrm();
+  if(body.present)
+  {
+    hrm.start();
+    hr.newHrm(0); 
+    hr.setMonitoring(true);
+  } else {
+    hrm.stop();
+    hr.setMonitoring(false);
+  }
+  
   reApplyState();
 }
 
 clock.ontick = (evt) => {  
   time.drawTime(evt.date);
   date.drawDate(evt.date);
-  activity.drawAllProgress();
+  reApplyState();
 }
 
 powerBattery.onchange = (evt) => {
@@ -53,37 +61,6 @@ hrm.onreading = (evt) => {
   hr.newHrm(hrm.heartRate);
 };
 
-export function startStopHrm() {
-  let startHrm = false;
-  let startBody = false;
-  
-  if(powerBattery.chargeLevel >= 20) {
-    if (display.on) {
-      startBody = true;
-      if (body.present) {
-        startHrm = true;
-      }
-    } 
-  }  
-  
-  if(startBody) {
-    body.start();
-  } else {
-    body.stop();
-  }
-  
-  if(startHrm)
-  {
-    hrm.start();
-    hr.newHrm(0); 
-    hr.setMonitoring(true);
-  } else {
-    hrm.stop();
-    hr.setMonitoring(false);
-  }
-  
-  reApplyState();
-}
 
 export function reApplyState() {
   battery.drawBat();
