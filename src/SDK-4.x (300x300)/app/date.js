@@ -61,7 +61,11 @@ export function getDateInFormat(now){
     case "mmmm dd yyyy":
       return monthName + " " + zeroPad(day) + " " + fullyear;
     case "yyyy/mm/dd":
-      return fullyear + "/" + zeroPad(monthIndex) + "/" + + zeroPad(day);
+      return fullyear + "/" + zeroPad(monthIndex) + "/" + + zeroPad(day); 
+    case "mmm dd, yyyy":
+      return monthAbrv + " " + zeroPad(day) + "," + fullyear;
+    case "mmmm dd, yyyy":
+      return monthName + " " + zeroPad(day) + ", " + fullyear;
   }  
 }
 

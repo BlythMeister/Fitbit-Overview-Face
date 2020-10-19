@@ -224,23 +224,23 @@
 }
 
 #bmr-zone {
-  text-anchor: start;
+  text-anchor: middle;
   font-size: 16;
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:5;
+  x:14%;
   y:10;
   display: none;
 }
 
 #bmi-zone {
-  text-anchor: start;
+  text-anchor: middle;
   font-size: 16;
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:5;
+  x:14%;
   y:25;
   display: none;
 }
@@ -264,11 +264,11 @@
   width: 15;
   height: 15;
   x:14%-7;
-  y:-2;
+  y:-4;
 }
 
 .count-arc {
-  font-size: 16;
+  font-size: 18;
   x: 14%;
   y: 25;
   text-length: 10; 

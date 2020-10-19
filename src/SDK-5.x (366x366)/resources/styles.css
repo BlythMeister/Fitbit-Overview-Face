@@ -21,7 +21,7 @@
 }
 
 #clock{
-  y: 200;
+  y: 205;
 }
 
 #time-hour {
@@ -80,8 +80,8 @@
 }
 
 #hr {
-  x: 5%;
-  y: 60;    
+  x: 8%;
+  y: 55;    
 }
 
 #hr-count {
@@ -125,8 +125,8 @@
   display: none;
   width: 50;
   height: 20;
-  x:100%-55;
-  y:60;
+  x:100%-60;
+  y:55;
 }
 
 .battery-icon {
@@ -149,13 +149,13 @@
 #calendar {
   display:inline;
   x: 5;
-  y: 95;
+  y: 105;
 }
 
 #day {
   x: 50%;
   y: 0;
-  font-size: 24;
+  font-size: 22;
   text-anchor: middle;
   font-family: System-Bold;
   text-length: 120;
@@ -164,8 +164,8 @@
 
 #date {
   x: 50%;
-  y: 30;
-  font-size: 28;
+  y: 25;
+  font-size: 22;
   text-anchor: middle;
   font-family: System-Bold;
   text-length: 120;
@@ -221,23 +221,23 @@
 }
 
 #bmr-zone {
-  text-anchor: start;
+  text-anchor: middle;
   font-size: 16;
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:5;
+  x:14%;
   y:10;
   display: none;
 }
 
 #bmi-zone {
-  text-anchor: start;
+  text-anchor: middle;
   font-size: 16;
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:5;
+  x:14%;
   y:25;
   display: none;
 }
@@ -261,11 +261,11 @@
   width: 15;
   height: 15;
   x:14%-7;
-  y:-2;
+  y:-4;
 }
 
 .count-arc {
-  font-size: 16;
+  font-size: 18;
   x: 14%;
   y: 25;
   text-length: 10; 

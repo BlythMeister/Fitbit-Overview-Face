@@ -426,7 +426,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (5 * maxWidth) / 100;
-      element.y = maxHeight - 115
+      element.y = maxHeight - 115;
       return;
     }
   
@@ -434,7 +434,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (5 * maxWidth) / 100;
-      element.y = maxHeight - 75
+      element.y = maxHeight - 75;
       return;
     }
   

@@ -201,23 +201,23 @@
 
 
 #bmr-zone {
-  text-anchor: start;
+  text-anchor: middle;
   font-size: 16;
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:5;
+  x:14%;
   y:10;
   display: none;
 }
 
 #bmi-zone {
-  text-anchor: start;
+  text-anchor: middle;
   font-size: 16;
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:5;
+  x:14%;
   y:25;
   display: none;
 }
