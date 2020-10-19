@@ -51,7 +51,7 @@ function setDefaultSettings() {
   setDefaultSetting("StatsBR",{"values":[{"value":"activeMinutes","name":"Active Zone Minutes"}],"selected":[6]});
   setDefaultSetting("BMRVis",true);
   setDefaultSetting("BMIVis",true);
-  setDefaultSetting("showStatsProgress",true);
+  setDefaultSetting("progressBars",{"values":[{"value":"bars","name":"Bars"}],"selected":[1]});
   setDefaultSetting("showBatteryPercent",true);
   setDefaultSetting("showBatteryBar",true);
   setDefaultSetting("torchEnabled",false);

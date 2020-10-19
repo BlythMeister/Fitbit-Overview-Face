@@ -217,7 +217,7 @@ function mySettings(props) {
       </Section> }
       
       { hasStat(props) && <Section title="Stats Progress">
-        <Toggle settingsKey="showStatsProgress" label="Show progress bars" />
+        <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"} ]} /> 
       </Section> }
       
       <Section title="Battery">

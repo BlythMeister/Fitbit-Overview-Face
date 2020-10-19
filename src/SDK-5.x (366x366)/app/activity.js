@@ -11,16 +11,22 @@ export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
 export function getProgressEl(prefix, officialType) {  
   let containerEl = document.getElementById(prefix);
+  let containerArcEl = document.getElementById(prefix + "-arc");
   return {
     prefix: prefix,
     type: officialType,
     prevProgressVal: null,
-    container: containerEl,
+    container: containerEl, 
+    containerArc: containerArcEl,
     position:"NONE",
     count: containerEl.getElementById(prefix + "-count"),
     icon: containerEl.getElementById(prefix + "-icon"),
     line: containerEl.getElementById(prefix + "-line"),
-    lineBack: containerEl.getElementById(prefix + "-line-back")
+    lineBack: containerEl.getElementById(prefix + "-line-back"),
+    countArc: containerArcEl.getElementById(prefix + "-arc-count"),
+    iconArc: containerArcEl.getElementById(prefix + "-arc-icon"),
+    lineArc: containerArcEl.getElementById(prefix + "-arc-line"),
+    lineBackArc: containerArcEl.getElementById(prefix + "-arc-line-back")
   }
 }
 
@@ -88,18 +94,22 @@ export function drawProgress(progressEl) {
       displayValue = Math.round(actual);
     }
   }  
-  progressEl.count.text = `${displayValue}`; 
+  progressEl.count.text = `${displayValue}`;
+  progressEl.countArc.text = `${displayValue}`;  
   
   var maxLine = screenWidth /100 * 28;
   if(!goal || goal < 0 || !actual || actual < 0)
   {
-    progressEl.line.width = 0;      
+    progressEl.line.width = 0; 
+    progressEl.lineArc.sweepAngle = 0;     
   } 
   else 
   {
     var complete = (actual / goal);
     if (complete > 1) complete = 1;
     progressEl.line.width = maxLine*complete;
+    let sweep = Math.floor(225*complete);
+    progressEl.lineArc.sweepAngle = sweep;
   }
 } 
 

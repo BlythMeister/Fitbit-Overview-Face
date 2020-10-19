@@ -301,6 +301,11 @@ export function applySettings() {
       bm.bmiZoneEl.style.fill = "white"; 
     } 
     
+    var progressBarType = "bars";
+    if (settings.hasOwnProperty("progressBars") && settings["progressBars"]) {
+      progressBarType = settings["progressBars"];
+    }
+    
     for (var i=0; i < activity.goalTypes.length; i++) {
       var goalType = activity.goalTypes[i];      
       var goalTypeColourProp = goalType + "Colour";
@@ -308,27 +313,45 @@ export function applySettings() {
         activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];        
         activity.progressEls[i].icon.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].line.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].countArc.style.fill = settings[goalTypeColourProp];        
+        activity.progressEls[i].iconArc.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].lineArc.style.fill = settings[goalTypeColourProp];
       } else {
         activity.progressEls[i].count.style.fill = "white";        
         activity.progressEls[i].icon.style.fill = "white";
-        activity.progressEls[i].line.style.fill = "white";
+        activity.progressEls[i].line.style.fill = "white"; 
+        activity.progressEls[i].countArc.style.fill = "white";        
+        activity.progressEls[i].iconArc.style.fill = "white";
+        activity.progressEls[i].lineArc.style.fill = "white";
       }
 
       if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
-        activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"];
+        activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"]; 
+        activity.progressEls[i].lineBackArc.style.fill = settings["progressBackgroundColour"];
       } else {
-        activity.progressEls[i].lineBack.style.fill = "#494949";
+        activity.progressEls[i].lineBack.style.fill = "#494949"; 
+        activity.progressEls[i].lineBackArc.style.fill = "#494949";
       }
       
-      var progressVisibility = "inline";
-      if (settings.hasOwnProperty("showStatsProgress")) {
-        progressVisibility = (settings["showStatsProgress"] ? "inline" : "none");
-      } 
-      activity.progressEls[i].line.style.display = progressVisibility;
-      activity.progressEls[i].lineBack.style.display = progressVisibility; 
+      if(progressBarType == "bars") {
+        activity.progressEls[i].line.style.display = "inline";
+        activity.progressEls[i].lineBack.style.display = "inline";
+        activity.progressEls[i].lineArc.style.display = "none";
+        activity.progressEls[i].lineBackArc.style.display = "none"; 
+      } else if(progressBarType == "arc") {
+        activity.progressEls[i].line.style.display = "none";
+        activity.progressEls[i].lineBack.style.display = "none";
+        activity.progressEls[i].lineArc.style.display = "inline";
+        activity.progressEls[i].lineBackArc.style.display = "inline"; 
+      } else {
+        activity.progressEls[i].line.style.display = "none";
+        activity.progressEls[i].lineBack.style.display = "none";
+        activity.progressEls[i].lineArc.style.display = "none";
+        activity.progressEls[i].lineBackArc.style.display = "none"; 
+      }
     }
     
-    let positions = ["TL","BL","TM","MM","BM","TR","BR"];
+    var positions = ["TL","BL","TM","MM","BM","TR","BR"];
     
     for (var i=0; i < positions.length; i++) {
       var position = positions[i];  
@@ -342,6 +365,7 @@ export function applySettings() {
       for (var x=0; x < activity.goalTypes.length; x++) {
          if(activity.progressEls[x].position == position) {
            setStatsLocation(activity.progressEls[x].container, "NONE");
+           setStatsLocation(activity.progressEls[x].containerArc, "NONE");
            activity.progressEls[x].position = "NONE";
          }
       }
@@ -370,12 +394,18 @@ export function applySettings() {
         bm.setPosition(position);
         setStatsLocation(bm.bmEl, position);  
       } else {
-      for (var x=0; x < activity.goalTypes.length; x++) {
-        if(activity.goalTypes[x] == stat) {
-          activity.progressEls[x].position = position;
-          setStatsLocation(activity.progressEls[x].container, position);
+        for (var x=0; x < activity.goalTypes.length; x++) {
+          if(activity.goalTypes[x] == stat) {
+            activity.progressEls[x].position = position;
+            if(progressBarType == "bars") {
+              setStatsLocation(activity.progressEls[x].container, position);
+              setStatsLocation(activity.progressEls[x].containerArc, "NONE");
+            } else if(progressBarType == "arc") {
+              setStatsLocation(activity.progressEls[x].container, "NONE");
+              setStatsLocation(activity.progressEls[x].containerArc, position);
+            }
+          }
         }
-      }
       }
     }
     
@@ -396,7 +426,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (5 * maxWidth) / 100;
-      element.y = maxHeight - 110
+      element.y = maxHeight - 115
       return;
     }
   
@@ -412,7 +442,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (36 * maxWidth) / 100;
-      element.y = maxHeight - 110;
+      element.y = maxHeight - 115;
       return;
     }
   
@@ -436,7 +466,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (67 * maxWidth) / 100;
-      element.y = maxHeight - 110;
+      element.y = maxHeight - 115;
       return;
     }
   

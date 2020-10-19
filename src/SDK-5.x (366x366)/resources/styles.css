@@ -21,7 +21,7 @@
 }
 
 #clock{
-  y: 215;
+  y: 200;
 }
 
 #time-hour {
@@ -149,13 +149,13 @@
 #calendar {
   display:inline;
   x: 5;
-  y: 105;
+  y: 95;
 }
 
 #day {
   x: 50%;
   y: 0;
-  font-size: 22;
+  font-size: 24;
   text-anchor: middle;
   font-family: System-Bold;
   text-length: 120;
@@ -165,7 +165,7 @@
 #date {
   x: 50%;
   y: 30;
-  font-size: 26;
+  font-size: 28;
   text-anchor: middle;
   font-family: System-Bold;
   text-length: 120;
@@ -184,18 +184,41 @@
   display: "none";
 }
 
-#elevationGain  {
+#elevationGain {
   display: "none";
 }
 
-#calories  {
+#calories {
   display: "none";
 }
 
 #activeMinutes {
   display: "none";
+} 
+ 
+#steps-arc {
+  display: "none";
 }
 
+#distance-arc {
+  display: "none";
+}
+
+#bm-arc {
+  display: "none";
+}
+
+#elevationGain-arc {
+  display: "none";
+}
+
+#calories-arc {
+  display: "none";
+}
+
+#activeMinutes-arc {
+  display: "none";
+}
 
 #bmr-zone {
   text-anchor: start;
@@ -232,4 +255,20 @@
   y: 15;
   text-length: 10; 
   font-family: System-Bold;
+} 
+
+.icon-arc {
+  width: 15;
+  height: 15;
+  x:14%-7;
+  y:-2;
+}
+
+.count-arc {
+  font-size: 16;
+  x: 14%;
+  y: 25;
+  text-length: 10; 
+  font-family: System-Bold;
+  text-anchor: middle;
 }

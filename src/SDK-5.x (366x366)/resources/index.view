@@ -75,5 +75,40 @@
     <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="deepskyblue" />
   </svg>
   
+  <svg id="steps-arc">
+    <text id="steps-arc-count" class="count-arc" fill="orangered" />
+    <image id="steps-arc-icon" class="icon-arc" href="stat_steps_solid_24px.png" fill="orangered" />
+    <arc id="steps-arc-line-back" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="225" fill="#969696" />
+    <arc id="steps-arc-line" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="0" fill="orangered" />
+  </svg>
+  
+  <svg id="distance-arc">   
+    <text id="distance-arc-count" class="count-arc" fill="forestgreen" />
+    <image id="distance-arc-icon" class="icon-arc" href="stat_dist_solid_24px.png" fill="forestgreen" />
+    <arc id="distance-arc-line-back" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="225" fill="#969696" />
+    <arc id="distance-arc-line" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="0" fill="forestgreen" />
+  </svg>
+  
+  <svg id="calories-arc">  
+    <text id="calories-arc-count" class="count-arc" fill="deeppink" />
+    <image id="calories-arc-icon" class="icon-arc" href="stat_cals_solid_24px.png" fill="deeppink" />
+    <arc id="calories-arc-line-back" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="225" fill="#969696" />
+    <arc id="calories-arc-line" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="0" fill="deeppink" />
+  </svg> 
+  
+  <svg id="elevationGain-arc">  
+    <text id="elevationGain-arc-count" class="count-arc" fill="darkorchid" />
+    <image id="elevationGain-arc-icon" class="icon-arc" href="stat_floors_solid_24px.png" fill="darkorchid" />
+    <arc id="elevationGain-arc-line-back" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="225" fill="#969696" />
+    <arc id="elevationGain-arc-line" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="0" fill="darkorchid" />
+  </svg>
+  
+  <svg id="activeMinutes-arc">   
+    <text id="activeMinutes-arc-count" class="count-arc" fill="deepskyblue" />
+    <image id="activeMinutes-arc-icon" class="icon-arc" href="stat_azm_solid_24px.png" fill="deepskyblue" />
+    <arc id="activeMinutes-arc-line-back" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="225" fill="#969696" />
+    <arc id="activeMinutes-arc-line" x="0" y="-10" width="28%" arc-width="5" height="60" start-angle="245" sweep-angle="0" fill="deepskyblue" />
+  </svg>
+    
   <rect id="torch" pointer-events="visible" />
 </svg>
