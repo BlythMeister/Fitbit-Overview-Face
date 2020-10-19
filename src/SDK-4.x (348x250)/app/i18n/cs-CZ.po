@@ -1,0 +1,119 @@
+msgid "bmi"
+msgstr "BMI"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "Pravidelné"
+
+msgid "fat-burn"
+msgstr "Spalování tuků"
+
+msgid "cardio"
+msgstr "Kardio"
+
+msgid "peak"
+msgstr "Vrchol"
+
+msgid "below-custom"
+msgstr "Nízké"
+
+msgid "custom"
+msgstr "Ok"
+
+msgid "above-custom"
+msgstr "Vysoké"
+
+msgid "month-short-0"
+msgstr "led"
+
+msgid "month-short-1"
+msgstr "úno"
+
+msgid "month-short-2"
+msgstr "bře"
+
+msgid "month-short-3"
+msgstr "dub"
+
+msgid "month-short-4"
+msgstr "kvě"
+
+msgid "month-short-5"
+msgstr "čvn"
+
+msgid "month-short-6"
+msgstr "čvc"
+
+msgid "month-short-7"
+msgstr "srp"
+
+msgid "month-short-8"
+msgstr "zář"
+
+msgid "month-short-9"
+msgstr "říj"
+
+msgid "month-short-10"
+msgstr "lis"
+
+msgid "month-short-11"
+msgstr "pro"
+
+msgid "month-long-0"
+msgstr "leden"
+
+msgid "month-long-1"
+msgstr "únor"
+
+msgid "month-long-2"
+msgstr "březen"
+
+msgid "month-long-3"
+msgstr "duben"
+
+msgid "month-long-4"
+msgstr "květen"
+
+msgid "month-long-5"
+msgstr "červen"
+
+msgid "month-long-6"
+msgstr "červenec"
+
+msgid "month-long-7"
+msgstr "srpen"
+
+msgid "month-long-8"
+msgstr "září"
+
+msgid "month-long-9"
+msgstr "říjen"
+
+msgid "month-long-10"
+msgstr "listopad"
+
+msgid "month-long-11"
+msgstr "prosinec"
+
+msgid "day-0"
+msgstr "neděle"
+
+msgid "day-1"
+msgstr "pondělí"
+
+msgid "day-2"
+msgstr "úterý"
+
+msgid "day-3"
+msgstr "středa"
+
+msgid "day-4"
+msgstr "čtvrtek"
+
+msgid "day-5"
+msgstr "pátek"
+
+msgid "day-6"
+msgstr "sobota"

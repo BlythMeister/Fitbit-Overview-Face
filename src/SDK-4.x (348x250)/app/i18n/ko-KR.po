@@ -1,0 +1,119 @@
+msgid "bmi"
+msgstr "BMI"
+
+msgid "bmr"
+msgstr "BMR"
+
+msgid "out-of-range"
+msgstr "일반"
+
+msgid "fat-burn"
+msgstr "지방 화상"
+
+msgid "cardio"
+msgstr "심장"
+
+msgid "peak"
+msgstr "피크"
+
+msgid "below-custom"
+msgstr "낮은"
+
+msgid "custom"
+msgstr "그래"
+
+msgid "above-custom"
+msgstr "높은"
+
+msgid "month-short-0"
+msgstr "1"
+
+msgid "month-short-1"
+msgstr "2"
+
+msgid "month-short-2"
+msgstr "3"
+
+msgid "month-short-3"
+msgstr "4"
+
+msgid "month-short-4"
+msgstr "5"
+
+msgid "month-short-5"
+msgstr "6"
+
+msgid "month-short-6"
+msgstr "7"
+
+msgid "month-short-7"
+msgstr "8"
+
+msgid "month-short-8"
+msgstr "9"
+
+msgid "month-short-9"
+msgstr "10"
+
+msgid "month-short-10"
+msgstr "11"
+
+msgid "month-short-11"
+msgstr "12"
+
+msgid "month-long-0"
+msgstr "1월"
+
+msgid "month-long-1"
+msgstr "2월"
+
+msgid "month-long-2"
+msgstr "3월"
+
+msgid "month-long-3"
+msgstr "4월"
+
+msgid "month-long-4"
+msgstr "5월"
+
+msgid "month-long-5"
+msgstr "6월"
+
+msgid "month-long-6"
+msgstr "7월"
+
+msgid "month-long-7"
+msgstr "8월"
+
+msgid "month-long-8"
+msgstr "9월"
+
+msgid "month-long-9"
+msgstr "10월"
+
+msgid "month-long-10"
+msgstr "11월"
+
+msgid "month-long-11"
+msgstr "12월"
+
+msgid "day-0"
+msgstr "일요일"
+
+msgid "day-1"
+msgstr "월요일"
+
+msgid "day-2"
+msgstr "화요일"
+
+msgid "day-3"
+msgstr "수요일"
+
+msgid "day-4"
+msgstr "목요일"
+
+msgid "day-5"
+msgstr "금요일"
+
+msgid "day-6"
+msgstr "토요일"
