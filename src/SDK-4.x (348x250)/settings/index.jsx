@@ -169,13 +169,7 @@ function mySettings(props) {
   let availiableStats = [ {value:"NONE", name:"Empty"}, 
                           {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
                           {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
-  
-  if(modelId === "38") {
-    availiableStats = [ {value:"NONE", name:"Empty"}, 
-                        {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
-                        {value:"NONE", name:"Floors (Not Supported On Versa Lite)"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
-  } 
-  
+   
   return (
     <Page>     
       <Section title="Clock">

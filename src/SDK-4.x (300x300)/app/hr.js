@@ -18,7 +18,6 @@ export let hrEl = document.getElementById("hr");
 export let hrIconSystoleEl = document.getElementById("hr-icon-systole");
 export let hrIconDiastoleEl = document.getElementById("hr-icon-diastole");
 export let hrCountEl = document.getElementById("hr-count");
-export let hrRestingEl = document.getElementById("hr-resting");
 export let hrZoneEl = document.getElementById("hr-zone");
 
 export function isHeartbeatAnimationSet(val) { 
@@ -90,16 +89,14 @@ export function newHrm(rate) {
 export function drawHrm() {  
   if (hrmRate == null || hrmRate <= 0 || !hrMonitoring)
   {
-      hrCountEl.text = "-";  
-      hrRestingEl.text = `(${user.restingHeartRate})`;
+      hrCountEl.text = `-- (${user.restingHeartRate})`;
       hrZoneEl.text = "";
       stopHrAnimation();
   }
   else
   {
     if (hrmRate && !batteryIconVisible) {
-      hrCountEl.text = `${hrmRate}`;  
-      hrRestingEl.text = `(${user.restingHeartRate})`;
+      hrCountEl.text = `${hrmRate} (${user.restingHeartRate})`;
       hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;  
 
       if (!prevHrmRate) {

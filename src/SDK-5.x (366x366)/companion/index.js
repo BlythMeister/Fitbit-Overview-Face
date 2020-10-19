@@ -3,9 +3,6 @@ import * as messaging from "messaging";
 import { me } from "companion";
 import { device } from "peer";
 
-setDefaultSettings();
-setSetting("deviceModelId", device.modelId);
-
 // Settings have been changed
 settingsStorage.onchange = function(evt) {
   sendSettingValue(evt.key, evt.newValue);
@@ -17,6 +14,8 @@ messaging.peerSocket.onerror = function(evt) {
 }
 
 messaging.peerSocket.onopen = function(evt) {
+  setDefaultSettings();
+  setSetting("deviceModelId", device.modelId);
   sendAllSettings();
 }
 
@@ -32,7 +31,7 @@ function sendAllSettings() {
 function setDefaultSettings() {
   console.log("Set Default Settings");
   setDefaultSetting("distanceUnit", {"values":[{"value":"auto","name":"Automatic (Use Fitbit Setting)"}],"selected":[0]});
-  setDefaultSetting("dateFormat", {"values":[{"value":"dd mmmm yy","name":"dd mmmm yy"}],"selected":[2]});
+  setDefaultSetting("dateFormat", {"values":[{"value":"dd mmmm yyyy","name":"dd mmmm yyyy"}],"selected":[11]});
   setDefaultSetting("timeFormat", {"values":[{"value":"auto","name":"Automatic (Use Fitbit Setting)"}],"selected":[0]});
   setDefaultSetting("showHeartRate",true);
   setDefaultSetting("isHeartbeatAnimation",true);
@@ -77,11 +76,10 @@ function setDefaultSettings() {
 
 function setDefaultSetting(key, value) {
   let existingValue = settingsStorage.getItem(key);
-  if (existingValue === null) {
+  if (existingValue == null) {
     setSetting(key, value);
   } else {
     console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
-    sendSettingValue(key, existingValue);
   }
 }
 
@@ -89,7 +87,6 @@ function setSetting(key, value) {
   let jsonValue = JSON.stringify(value)
   console.log(`Companion Set - key:${key} val:${jsonValue}`);
   settingsStorage.setItem(key, jsonValue);
-  sendSettingValue(key, jsonValue)
 }
 
 function sendSettingValue(key, val) {

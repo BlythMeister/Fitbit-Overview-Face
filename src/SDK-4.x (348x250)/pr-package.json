@@ -15,10 +15,7 @@
       "run_background"
     ],
     "buildTargets": [
-      "higgs",
-      "meson",
-      "gemini",
-      "mira"
+      "higgs"
     ],
     "i18n": {
       "en-US": {

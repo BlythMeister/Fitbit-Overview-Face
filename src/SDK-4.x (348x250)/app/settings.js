@@ -217,11 +217,9 @@ export function applySettings() {
     
     if (settings.hasOwnProperty("heartRateColour") && settings["heartRateColour"]) {
       hr.hrCountEl.style.fill = settings["heartRateColour"];
-      hr.hrRestingEl.style.fill = settings["heartRateColour"];
       hr.hrZoneEl.style.fill = settings["heartRateColour"];
     } else {
       hr.hrCountEl.style.fill = "#969696";
-      hr.hrRestingEl.style.fill = "#969696";
       hr.hrZoneEl.style.fill = "#969696";
     }   
         
@@ -229,12 +227,10 @@ export function applySettings() {
       hr.hrIconDiastoleEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
       hr.hrIconSystoleEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
       hr.hrCountEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
-      hr.hrRestingEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
     } else {
       hr.hrIconDiastoleEl.style.display = "inline";
       hr.hrIconSystoleEl.style.display = "inline";
       hr.hrCountEl.style.display = "inline";
-      hr.hrRestingEl.style.display = "inline";
     }
     
     if(settings.hasOwnProperty("showHeartRate"))

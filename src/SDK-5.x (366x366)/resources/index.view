@@ -12,7 +12,7 @@
     <text id="battery-percent" />
   </svg>
   
-  <svg id="top-left"> 
+  <svg id="hr"> 
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
     <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
@@ -22,19 +22,17 @@
     </svg>
   </svg> 
   
-  <svg id="top-right">       
-    <svg id="calendar">
-      <text id="day"/>
-      <text id="date"/>
-    </svg>
+  <svg id="calendar">
+    <text id="day"/>
+    <text id="date"/>
   </svg>
   
   <svg id="clock">
-    <text id="336-time-hour"/>
-    <text id="336-time-colon"/>
-    <text id="336-time-minute"/>
-    <text id="336-am-pm"/>
-    <text id="336-second"/>
+    <text id="time-hour"/>
+    <text id="time-colon"/>
+    <text id="time-minute"/>
+    <text id="am-pm"/>
+    <text id="second"/>
   </svg>
   
   <svg id="bm">

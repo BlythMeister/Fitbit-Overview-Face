@@ -15,7 +15,6 @@
       "run_background"
     ],
     "buildTargets": [
-      "higgs",
       "meson",
       "gemini",
       "mira"

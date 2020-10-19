@@ -3,11 +3,11 @@ import { preferences } from "user-settings";
 import { me as device } from "device";
 
 export let root = document.getElementById('root')
-export let timeHourEl = getElement("time-hour");
-export let timeColonEl = getElement("time-colon");
-export let timeMinuteEl = getElement("time-minute");
-export let timeSecEl = getElement("second");
-export let timeAmPmEl = getElement("am-pm");
+export let timeHourEl = document.getElementById("time-hour");
+export let timeColonEl = document.getElementById("time-colon");
+export let timeMinuteEl = document.getElementById("time-minute");
+export let timeSecEl = document.getElementById("second");
+export let timeAmPmEl = document.getElementById("am-pm");
 export let isAmPm = false;
 export let showSeconds = true;
 export let showLeadingZero = true;
@@ -44,10 +44,6 @@ export function animateColon()
   {
     timeColonEl.style.display = 'none';  
   }    
-}
-
-export function getElement(type){
-    return document.getElementById(device.screen.width + "-" + type)
 }
 
 //Time Draw - START

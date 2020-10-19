@@ -20,112 +20,61 @@
   fill:white;
 }
 
-#348-time-hour {
-  font-size: 100;
+#clock{
+  y: 190;
+}
+
+#time-hour {
+  font-size: 90;
   font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white;
-  x: 100%-205;
-  y: 160;
+  x: 100%-190;
+  y: 0;
   display: none;
 }
 
-#348-time-colon {
-  font-size: 100;
+#time-colon {
+  font-size: 90;
   font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white;
-  x: 100%-180;
-  y: 153;
+  x: 100%-170;
+  y: -7;
   display: none;
 }
 
-#348-time-minute {
-  font-size: 100;
+#time-minute {
+  font-size: 90;
   font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
   fill: white; 
   x: 100%-60;
-  y: 160;
+  y: 0;
   display: none; 
 }
 
-#348-am-pm {
-  font-size: 38;
-  font-family: System-Bold;
-  text-length: 120;
-  text-anchor: end;
-  x: 100%-5;
-  y: 120;
-  fill: white;
-  display: none;
-}
-
-#348-second {
-  font-size: 38;
-  font-family: System-Bold;
-  text-length: 120;
-  text-anchor: end;
-  x: 100%-5;
-  y:160;
-  fill: white;
-  display: none;
-}
-
-#300-time-hour {
-  font-size: 100;
-  font-family: System-Bold;
-  text-length: 60;
-  text-anchor: end;
-  fill: white;
-  x: 100%-150;
-  y: 175;
-  display: none;
-}
-
-#300-time-colon {
-  font-size: 100;
-  font-family: System-Bold;
-  text-length: 60;
-  text-anchor: end;
-  fill: white;
-  x: 100%-125;
-  y: 168;
-  display: none;
-}
-
-#300-time-minute {
-  font-size: 100;
-  font-family: System-Bold;
-  text-length: 60;
-  text-anchor: end;
-  fill: white; 
-  x: 100%-5;
-  y: 175;
-  display: none; 
-}
-
-#300-am-pm {
-  font-size: 40;
-  font-family: System-Bold;
-  text-length: 120;
-  text-anchor: middle;
-  x: 100%-140;
-  y: 220;
-  fill: white;
-  display: none;
-}
-
-#300-second {
+#am-pm {
   font-size: 40;
   font-family: System-Bold;
   text-length: 120;
   text-anchor: end;
   x: 100%-5;
-  y:220;
+  y: -40;
+  fill: white;
+  display: none;
+}
+
+#second {
+  font-size: 40;
+  font-family: System-Bold;
+  text-length: 120;
+  text-anchor: end;
+  x: 100%-5;
+  y:0;
   fill: white;
   display: none;
 }
@@ -141,18 +90,8 @@
   font-family: System-Bold;
   fill: #969696;
   text-length: 120;
-  x: 5;
+  x: 40;
   y: 0;
-}
-
-#hr-resting {
-  text-anchor: start;
-  font-size: 22;
-  font-family: System-Bold;
-  fill: #969696;
-  text-length: 120;
-  x: 0;
-  y: 25;
 }
 
 #hr-zone {
@@ -161,8 +100,8 @@
   font-family: System-Bold;
   fill: #969696;
   text-length: 120;
-  x: 0;
-  y: 50;
+  x: 40;
+  y: 25;
   display: none;
 }
 
@@ -170,20 +109,20 @@
   fill: crimson;
   width: 30;
   height: 30;
-  x:45;
+  x:0;
   y:-10;
 }
 
 #hr-icon-diastole {
   fill: crimson;
-  width: 36;
-  height: 36;
-  x:43;
+  width: 38;
+  height: 38;
+  x:-2;
   y:-12;
 }
 
 #battery {
-  x: 50%;
+  x: 100%-5;
   y: 30;
   display: none;
 }
@@ -191,14 +130,14 @@
 #battery-icon {
   width: 18;
   height: 18;
-  x:15;
+  x:-18;
   y:-18;
 }
 
 #battery-icon-charge {
   width: 18;
   height: 18;
-  x:15;
+  x:-18;
   y:-18;
 }
 
@@ -207,30 +146,30 @@
   font-size: 22;
   font-family: System-Bold;
   fill: white;
-  x: 15;
+  x: -20;
   y: 0; 
 }
 
 #calendar {
-  x: 100%-5;
-  y: 55;
+  x: 0;
+  y: 85;
 }
 
 #day {
-  x: 0;
+  x: 50%;
   y: 0;
   font-size: 22;
-  text-anchor: end;
+  text-anchor: middle;
   font-family: System-Bold;
   text-length: 120;
   fill: #969696;
 }
 
 #date {
-  x: 0;
-  y: 25;
-  font-size: 22;
-  text-anchor: end;
+  x: 50%;
+  y: 30;
+  font-size: 26;
+  text-anchor: middle;
   font-family: System-Bold;
   text-length: 120;
   fill: #969696;
@@ -287,7 +226,7 @@
   width: 20;
   height: 20;
   x:0;
-  y:0;
+  y:-2;
 }
 
 .count {

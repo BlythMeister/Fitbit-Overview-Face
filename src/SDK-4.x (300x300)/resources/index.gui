@@ -10,10 +10,7 @@
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
     <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
-    <svg>
-      <text id="hr-resting" class="count sideCount" />
-      <text id="hr-zone" class="count sideCount" />
-    </svg>
+    <text id="hr-zone" class="count sideCount" />
   </svg> 
   
   <svg id="battery">  
@@ -28,16 +25,11 @@
   </svg>
   
   <svg id="clock">
-    <text id="348-time-hour"/>
-    <text id="348-time-colon"/>
-    <text id="348-time-minute"/>
-    <text id="348-am-pm"/>
-    <text id="348-second"/>
-    <text id="300-time-hour"/>
-    <text id="300-time-colon"/>
-    <text id="300-time-minute"/>
-    <text id="300-am-pm"/>
-    <text id="300-second"/>
+    <text id="time-hour"/>
+    <text id="time-colon"/>
+    <text id="time-minute"/>
+    <text id="am-pm"/>
+    <text id="second"/>
   </svg>
   
   <svg id="bm">
