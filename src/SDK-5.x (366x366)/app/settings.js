@@ -406,12 +406,12 @@ export function applySettings() {
         for (var x=0; x < activity.goalTypes.length; x++) {
           if(activity.goalTypes[x] == stat) {
             activity.progressEls[x].position = position;
-            if(progressBarType == "bars") {
-              setStatsLocation(activity.progressEls[x].container, position);
-              setStatsLocation(activity.progressEls[x].containerArc, "NONE");
-            } else if(progressBarType == "arc") {
+            if(progressBarType == "arc") {
               setStatsLocation(activity.progressEls[x].container, "NONE");
               setStatsLocation(activity.progressEls[x].containerArc, position);
+            } else {
+              setStatsLocation(activity.progressEls[x].container, position);
+              setStatsLocation(activity.progressEls[x].containerArc, "NONE");
             }
           }
         }
