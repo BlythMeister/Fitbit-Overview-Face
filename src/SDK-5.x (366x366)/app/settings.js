@@ -178,10 +178,19 @@ export function applySettings() {
         
     if (settings.hasOwnProperty("showDate")) {      
       date.dateEl.style.display = (!!settings["showDate"] ? "inline" : "none");
-      date.dayEl.style.display = (!!settings["showDate"] ? "inline" : "none");
+      
+      if(settings["showDate"]) {
+        if (settings.hasOwnProperty("showDay")) {      
+          date.dayEl.style.display = (!!settings["showDay"] ? "inline" : "none");
+        } else {
+          date.dayEl.style.display = "inline";
+        }
+      } else {
+        date.dayEl.style.display = "none";
+      }      
+      
     } else {
       date.dateEl.style.display = "inline";
-      date.dayEl.style.display = "inline";
     }
 
     if(settings.hasOwnProperty("showHeartRate"))

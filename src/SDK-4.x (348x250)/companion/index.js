@@ -42,6 +42,7 @@ function setDefaultSettings() {
   setDefaultSetting("showLeadingZero",true);
   setDefaultSetting("flashDots",true);  
   setDefaultSetting("showDate",true);
+  setDefaultSetting("showDay",true);
   setDefaultSetting("StatsTL",{"values":[{"value":"steps","name":"Steps"}],"selected":[2]});
   setDefaultSetting("StatsBL",{"values":[{"value":"distance","name":"Distance"}],"selected":[3]});
   setDefaultSetting("StatsTM",{"values":[{"value":"BMIBMR","name":"BMR/BMI"}],"selected":[1]});
