@@ -45,6 +45,7 @@ Or scan this QR Code for release version
 * Russian
 * Czech
 * Indonesian
+* Norwegian (Versa 3 & Sense Only)
 
 # Screenshots
 
@@ -71,7 +72,7 @@ Or scan this QR Code for release version
 ![300x300-Lite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300_Lite/4.charging.png?raw=true)
 ![300x300-Lite-arc](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300_Lite/5.arc.png?raw=true)
 
-### Versa3 & Sense Devices
+### Versa 3 & Sense Devices
 
 ![336x336](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/336x336/1.base.png?raw=true)
 ![336x336-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/336x336/2.24h.png?raw=true)
