@@ -1,4 +1,4 @@
-import document from "document";
+import * as document from "document";
 import { preferences } from "user-settings";
 import { me as device } from "device";
 

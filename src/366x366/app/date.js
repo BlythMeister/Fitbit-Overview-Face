@@ -1,4 +1,4 @@
-import document from "document"; 
+import * as document from "document"; 
 import { gettext } from "i18n";
 //Date - START
 

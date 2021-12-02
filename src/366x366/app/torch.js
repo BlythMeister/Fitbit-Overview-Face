@@ -1,5 +1,4 @@
-import document from "document";
-
+import * as document from "document";
 import { display } from "display";
 
 export let torchEl = document.getElementById('torch');

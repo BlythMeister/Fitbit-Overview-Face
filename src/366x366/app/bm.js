@@ -1,4 +1,4 @@
-import document from "document"; 
+import * as document from "document"; 
 import { user } from "user-profile";
 import { gettext } from "i18n";
 

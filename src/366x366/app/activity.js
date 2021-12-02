@@ -1,4 +1,4 @@
-import document from "document";
+import * as document from "document";
 import { goals } from "user-activity";
 import { today } from "user-activity";
 import { units } from "user-settings";

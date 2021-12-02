@@ -1,4 +1,4 @@
-import document from "document";
+import * as document from "document";
 
 import * as bm from "./bm.js";
 import * as date from "./date.js"

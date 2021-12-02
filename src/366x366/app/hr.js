@@ -1,4 +1,4 @@
-import document from "document"; 
+import * as document from "document"; 
 import { display } from "display";
 import { user } from "user-profile";
 import { battery } from "power";

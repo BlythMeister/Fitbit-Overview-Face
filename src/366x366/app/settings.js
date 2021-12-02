@@ -1,4 +1,4 @@
-import document from "document";
+import * as document from "document";
 import { preferences } from "user-settings";
 import { units } from "user-settings";
 import { user } from "user-profile";
