@@ -174,7 +174,8 @@ function mySettings(props) {
   let modelId = JSON.parse(props.settingsStorage.getItem("deviceModelId"));
   let availiableStats = [ {value:"NONE", name:"Empty"}, 
                           {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
-                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
+                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}, 
+                          {value:"activeMinutesWeek", name:"Weekly Active Zone Minutes"}]
   
   return (
     <Page>     
@@ -258,6 +259,10 @@ function mySettings(props) {
       
       { hasActivity(props, "activeMinutes") && <Section title="Active Zone Minutes colour">
         <ColorSelect settingsKey="activeMinutesColour" colors={colourSet} />
+      </Section> }
+      
+      { hasActivity(props, "activeMinutesWeek") && <Section title="Weekly Active Zone Minutes colour">
+        <ColorSelect settingsKey="activeMinutesWeekColour" colors={colourSet} />
       </Section> }
       
       { hasHeartRate(props) && <Section title="Heart colour">

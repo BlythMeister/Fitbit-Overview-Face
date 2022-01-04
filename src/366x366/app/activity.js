@@ -1,6 +1,8 @@
 import * as document from "document";
 import { goals } from "user-activity";
 import { today } from "user-activity";
+import { weekGoals } from "user-activity";
+import { week } from "user-activity";
 import { units } from "user-settings";
 import { me as device } from "device";
 
@@ -9,13 +11,15 @@ export let root = document.getElementById('root')
 export const screenWidth = root.width
 export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
-export function getProgressEl(prefix, officialType) {
+export function getProgressEl(prefix, officialType, dayWeek) {
   let containerEl = document.getElementById(prefix);
   let containerArcEl = document.getElementById(prefix + "-arc");
   let containerRingEl = document.getElementById(prefix + "-ring");
   return {
     prefix: prefix,
     type: officialType,
+    doTotal: prefix == "activeMinutes",
+    dayWeek: dayWeek,
     prevProgressVal: null,
     container: containerEl,
     containerArc: containerArcEl,
@@ -48,18 +52,32 @@ export function pushGoalTypeIfSupported(type, officialType)
   }
 }
 
+export function pushWeekGoalTypeIfSupported(type, officialType)
+{
+  if(week.adjusted[officialType] != undefined)
+  {
+    goalTypes.push(type);
+    goalOfficialTypes.push(officialType);
+  }
+}
+
 pushGoalTypeIfSupported("steps", "steps");
 pushGoalTypeIfSupported("distance", "distance");
 pushGoalTypeIfSupported("elevationGain", "elevationGain");
 pushGoalTypeIfSupported("calories", "calories");
 pushGoalTypeIfSupported("activeMinutes", "activeZoneMinutes");
+pushWeekGoalTypeIfSupported("activeMinutesWeek", "activeZoneMinutes");
 
 export let progressEls = [];
 
 for (var i=0; i < goalTypes.length; i++) {
   var goalType = goalTypes[i];
   var goalOfficialType = goalOfficialTypes[i];
-  progressEls.push(getProgressEl(goalType, goalOfficialType));
+  var goalDayWeek = "day";
+  if(goalType.indexOf("Week") >= 0){
+    goalDayWeek = "week"
+  }    
+  progressEls.push(getProgressEl(goalType, goalOfficialType, goalDayWeek));
 }
 //Progress - END
 
@@ -67,15 +85,31 @@ for (var i=0; i < goalTypes.length; i++) {
 //Progress Draw - START
 export function drawProgress(progressEl) {
   let type = progressEl.type;
+  let dayWeek = progressEl.dayWeek;
+  let doTotal = progressEl.doTotal;
 
   let actual = 0;
   var goal = 0;
-  if(type == "activeZoneMinutes") {
-    actual = today.adjusted[type].total
-    goal = goals[type].total
-  } else if(today.adjusted[type]) {
-    actual = today.adjusted[type]
-    goal = goals[type]
+  if(dayWeek == "day") {
+    if(today.adjusted[type]) {
+      if(doTotal) {
+        actual = today.adjusted[type].total
+        goal = goals[type].total
+      } else {
+        actual = today.adjusted[type]
+        goal = goals[type]
+      }
+    }
+  } else {
+    if(week.adjusted[type]) {
+      if(doTotal) {
+        actual = week.adjusted[type].total
+        goal = weekGoals[type].total
+      } else {
+        actual = week.adjusted[type]
+        goal = weekGoals[type]
+      }
+    }
   }
 
   if (progressEl.prevProgressVal == actual) {

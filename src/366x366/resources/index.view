@@ -75,6 +75,13 @@
     <rect id="activeMinutes-line" class="line" fill="deepskyblue" />
   </svg>
   
+  <svg id="activeMinutesWeek">   
+    <text id="activeMinutesWeek-count" class="count" fill="deepskyblue" />
+    <image id="activeMinutesWeek-icon" class="icon" href="azm_36px.png" fill="deepskyblue" />
+    <rect id="activeMinutesWeek-line-back" class="line" fill="#969696" />
+    <rect id="activeMinutesWeek-line" class="line" fill="deepskyblue" />
+  </svg>
+  
   <svg id="steps-arc">
     <text id="steps-arc-count" class="count-arc" fill="orangered" />
     <image id="steps-arc-icon" class="icon-arc" href="steps_36px.png" fill="orangered" />
@@ -110,6 +117,13 @@
     <arc id="activeMinutes-arc-line" class="line-arc" fill="deepskyblue" />
   </svg>
   
+  <svg id="activeMinutesWeek-arc">   
+    <text id="activeMinutesWeek-arc-count" class="count-arc" fill="deepskyblue" />
+    <image id="activeMinutesWeek-arc-icon" class="icon-arc" href="azm_36px.png" fill="deepskyblue" />
+    <arc id="activeMinutesWeek-arc-line-back" class="line-arc" fill="#969696" />
+    <arc id="activeMinutesWeek-arc-line" class="line-arc" fill="deepskyblue" />
+  </svg>
+  
   <svg id="steps-ring">
     <text id="steps-ring-count" class="count-ring" fill="orangered" />
     <image id="steps-ring-icon" class="icon-ring" href="steps_36px.png" fill="orangered" />
@@ -143,6 +157,13 @@
     <image id="activeMinutes-ring-icon" class="icon-ring" href="azm_36px.png" fill="deepskyblue" />
     <arc id="activeMinutes-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="activeMinutes-ring-line" class="line-ring" fill="deepskyblue" />
+  </svg>
+  
+  <svg id="activeMinutesWeek-ring">   
+    <text id="activeMinutesWeek-ring-count" class="count-ring" fill="deepskyblue" />
+    <image id="activeMinutesWeek-ring-icon" class="icon-ring" href="azm_36px.png" fill="deepskyblue" />
+    <arc id="activeMinutesWeek-ring-line-back" class="line-ring" fill="#969696" />
+    <arc id="activeMinutesWeek-ring-line" class="line-ring" fill="deepskyblue" />
   </svg>
     
   <rect id="torch" pointer-events="visible" />

@@ -195,6 +195,10 @@
 #activeMinutes {
   display: "none";
 } 
+
+#activeMinutesWeek {
+  display: "none";
+} 
  
 #steps-arc {
   display: "none";
@@ -219,6 +223,10 @@
 #activeMinutes-arc {
   display: "none";
 } 
+
+#activeMinutesWeek-arc {
+  display: "none";
+} 
  
 #steps-ring {
   display: "none";
@@ -241,6 +249,10 @@
 }
 
 #activeMinutes-ring {
+  display: "none";
+}
+
+#activeMinutesWeek-ring {
   display: "none";
 }
 
