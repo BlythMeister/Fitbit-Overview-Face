@@ -9,15 +9,17 @@ export let root = document.getElementById('root')
 export const screenWidth = root.width
 export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
-export function getProgressEl(prefix, officialType) {  
+export function getProgressEl(prefix, officialType) {
   let containerEl = document.getElementById(prefix);
   let containerArcEl = document.getElementById(prefix + "-arc");
+  let containerRingEl = document.getElementById(prefix + "-ring");
   return {
     prefix: prefix,
     type: officialType,
     prevProgressVal: null,
-    container: containerEl, 
+    container: containerEl,
     containerArc: containerArcEl,
+    containerRing: containerRingEl,
     position:"NONE",
     count: containerEl.getElementById(prefix + "-count"),
     icon: containerEl.getElementById(prefix + "-icon"),
@@ -26,7 +28,11 @@ export function getProgressEl(prefix, officialType) {
     countArc: containerArcEl.getElementById(prefix + "-arc-count"),
     iconArc: containerArcEl.getElementById(prefix + "-arc-icon"),
     lineArc: containerArcEl.getElementById(prefix + "-arc-line"),
-    lineBackArc: containerArcEl.getElementById(prefix + "-arc-line-back")
+    lineBackArc: containerArcEl.getElementById(prefix + "-arc-line-back"),
+    countRing: containerRingEl.getElementById(prefix + "-ring-count"),
+    iconRing: containerRingEl.getElementById(prefix + "-ring-icon"),
+    lineRing: containerRingEl.getElementById(prefix + "-ring-line"),
+    lineBackRing: containerRingEl.getElementById(prefix + "-ring-line-back")
   }
 }
 
@@ -53,15 +59,15 @@ export let progressEls = [];
 for (var i=0; i < goalTypes.length; i++) {
   var goalType = goalTypes[i];
   var goalOfficialType = goalOfficialTypes[i];
-  progressEls.push(getProgressEl(goalType, goalOfficialType)); 
-}  
+  progressEls.push(getProgressEl(goalType, goalOfficialType));
+}
 //Progress - END
 
 
 //Progress Draw - START
 export function drawProgress(progressEl) {
   let type = progressEl.type;
-  
+
   let actual = 0;
   var goal = 0;
   if(type == "activeZoneMinutes") {
@@ -71,56 +77,58 @@ export function drawProgress(progressEl) {
     actual = today.adjusted[type]
     goal = goals[type]
   }
-    
+
   if (progressEl.prevProgressVal == actual) {
     return;
-  }  
+  }
   progressEl.prevProgressVal = actual;
-  
+
   var displayValue = actual;
   if (!actual || actual < 0)
   {
       displayValue = "0";
   }
-  else if (type === "distance" && actual) 
-  {    
+  else if (type === "distance" && actual)
+  {
     if ((distanceUnit === "auto" && units.distance === "metric") || distanceUnit === "km") {
       displayValue = (actual / 1000.).toFixed(2);
     } else if ((distanceUnit === "auto" && units.distance === "us") || distanceUnit === "mi") {
       displayValue = (actual / 1609.344).toFixed(2);
     } else if (distanceUnit === "ft") {
-      displayValue = Math.round(actual * 3.2808).toFixed(2); 
+      displayValue = Math.round(actual * 3.2808).toFixed(2);
     } else if (distanceUnit === "m") {
       displayValue = Math.round(actual);
     }
-  }  
+  }
   progressEl.count.text = `${displayValue}`;
-  progressEl.countArc.text = `${displayValue}`;  
-  
+  progressEl.countArc.text = `${displayValue}`;
+  progressEl.countRing.text = `${displayValue}`;
+
   var maxLine = screenWidth /100 * 28;
   if(!goal || goal < 0 || !actual || actual < 0)
   {
-    progressEl.line.width = 0; 
-    progressEl.lineArc.sweepAngle = 0;     
-  } 
-  else 
+    progressEl.line.width = 0;
+    progressEl.lineArc.sweepAngle = 0;
+    progressEl.lineRing.sweepAngle = 0;
+  }
+  else
   {
     var complete = (actual / goal);
     if (complete > 1) complete = 1;
     progressEl.line.width = maxLine*complete;
-    let sweep = Math.floor(225*complete);
-    progressEl.lineArc.sweepAngle = sweep;
+    progressEl.lineArc.sweepAngle = Math.floor(225*complete);
+    progressEl.lineRing.sweepAngle = Math.floor(360*complete);
   }
-} 
+}
 
 export function drawAllProgress() {
-  for (var i=0; i < goalTypes.length; i++) {  
+  for (var i=0; i < goalTypes.length; i++) {
     drawProgress(progressEls[i]);
   }
 }
 
 export function resetProgressPrevState() {
-  for (var i=0; i < goalTypes.length; i++) {  
+  for (var i=0; i < goalTypes.length; i++) {
     progressEls[i].prevProgressVal = null;
   }
 }

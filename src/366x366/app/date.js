@@ -1,4 +1,4 @@
-import * as document from "document"; 
+import * as document from "document";
 import { gettext } from "i18n";
 //Date - START
 
@@ -66,7 +66,7 @@ export function getDateInFormat(now){
       return monthAbrv + " " + zeroPad(day) + "," + fullyear;
     case "mmmm dd, yyyy":
       return monthName + " " + zeroPad(day) + ", " + fullyear;
-  }  
+  }
 }
 
 export function zeroPad(i) {

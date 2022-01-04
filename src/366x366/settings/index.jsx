@@ -219,7 +219,7 @@ function mySettings(props) {
       </Section> }
       
       { hasStat(props) && <Section title="Stats Progress">
-        <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"} ]} />
+        <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"}, {value:"ring", name:"Ring"} ]} />
       </Section> }
       
       <Section title="Battery">

@@ -32,119 +32,119 @@ export function applySettings() {
     console.log("No settings loaded");
     return;
   }
-  
+
   if(!settings) {
     console.log("No settings loaded");
     return;
   }
-  
+
   try {
     if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"]) {
       activity.distanceUnitSet(settings["distanceUnit"]);
     } else {
       activity.distanceUnitSet("auto");
     }
-            
+
     if (settings.hasOwnProperty("dateFormat") && settings["dateFormat"]) {
-      date.setDateFormat(settings["dateFormat"]); 
+      date.setDateFormat(settings["dateFormat"]);
     } else {
-      date.setDateFormat("dd mmmm yy"); 
+      date.setDateFormat("dd mmmm yy");
     }
-            
+
     if (settings.hasOwnProperty("timeFormat") && settings["timeFormat"]) {
-      time.setTimeFormat(settings["timeFormat"]); 
+      time.setTimeFormat(settings["timeFormat"]);
     } else {
       time.setTimeFormat("auto");
-    } 
-    
+    }
+
     if(settings.hasOwnProperty("showTime"))
     {
       if (settings.hasOwnProperty("isAmPm")) {
-        time.setIsAmPm(!!settings["isAmPm"] && !!settings["showTime"]); 
+        time.setIsAmPm(!!settings["isAmPm"] && !!settings["showTime"]);
       } else {
         time.setIsAmPm(!!settings["showTime"]);
-      } 
+      }
     }
     else
     {
       if (settings.hasOwnProperty("isAmPm")) {
-        time.setIsAmPm(!!settings["isAmPm"]); 
+        time.setIsAmPm(!!settings["isAmPm"]);
       } else {
         time.setIsAmPm(true);
-      } 
-    } 
-    
+      }
+    }
+
     if(settings.hasOwnProperty("showTime"))
     {
       if (settings.hasOwnProperty("showSeconds")) {
-        time.setShowSeconds(!!settings["showSeconds"] && !!settings["showTime"]); 
+        time.setShowSeconds(!!settings["showSeconds"] && !!settings["showTime"]);
       } else {
         time.setShowSeconds(!!settings["showTime"]);
-      } 
+      }
     }
     else
     {
       if (settings.hasOwnProperty("showSeconds")) {
-        time.setShowSeconds(!!settings["showSeconds"]); 
+        time.setShowSeconds(!!settings["showSeconds"]);
       } else {
         time.setShowSeconds(true);
-      } 
+      }
     }
-    
+
     if(settings.hasOwnProperty("showTime"))
     {
       if (settings.hasOwnProperty("flashDots")) {
-        time.setFlashDots(!!settings["flashDots"] && !!settings["showTime"]); 
+        time.setFlashDots(!!settings["flashDots"] && !!settings["showTime"]);
       } else {
         time.setFlashDots(!!settings["showTime"]);
-      } 
+      }
     }
     else
     {
       if (settings.hasOwnProperty("flashDots")) {
-        time.setFlashDots(!!settings["flashDots"]); 
+        time.setFlashDots(!!settings["flashDots"]);
       } else {
         time.setFlashDots(true);
-      } 
+      }
     }
-    
+
     if (settings.hasOwnProperty("showLeadingZero")) {
-      time.setShowLeadingZero(!!settings["showLeadingZero"]); 
+      time.setShowLeadingZero(!!settings["showLeadingZero"]);
     } else {
       time.setShowLeadingZero(true);
-    } 
-    
+    }
+
     if (settings.hasOwnProperty("heartRateZoneVis")) {
-      hr.setHrZoneVis(!!settings["heartRateZoneVis"]); 
+      hr.setHrZoneVis(!!settings["heartRateZoneVis"]);
     } else {
       hr.setHrZoneVis(true);
-    } 
-    
+    }
+
     if (settings.hasOwnProperty("torchEnabled")) {
-      torch.setEnabled(!!settings["torchEnabled"]); 
+      torch.setEnabled(!!settings["torchEnabled"]);
     } else {
       torch.setEnabled(false);
-    } 
-    
+    }
+
     if (settings.hasOwnProperty("torchAutoOff")) {
-      torch.setAutoOff(settings["torchAutoOff"]); 
+      torch.setAutoOff(settings["torchAutoOff"]);
     } else {
       torch.setAutoOff(-1);
-    } 
-    
+    }
+
     if (settings.hasOwnProperty("BMIVis")) {
-      bm.setBMIVis(!!settings["BMIVis"]); 
+      bm.setBMIVis(!!settings["BMIVis"]);
     } else {
       bm.setBMIVis(true);
-    } 
-    
+    }
+
     if (settings.hasOwnProperty("BMRVis")) {
-      bm.setBMRVis(!!settings["BMRVis"]); 
+      bm.setBMRVis(!!settings["BMRVis"]);
     } else {
       bm.setBMRVis(true);
-    } 
-        
-    if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {      
+    }
+
+    if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {
       time.timeHourEl.style.fill = settings["timeColour"];
       time.timeColonEl.style.fill = settings["timeColour"];
       time.timeMinuteEl.style.fill = settings["timeColour"];
@@ -157,8 +157,8 @@ export function applySettings() {
       time.timeSecEl.style.fill = "white";
       time.timeAmPmEl.style.fill = "white";
     }
-    
-    if (settings.hasOwnProperty("showTime")) {      
+
+    if (settings.hasOwnProperty("showTime")) {
       time.timeHourEl.style.display = (!!settings["showTime"] ? "inline" : "none");
       time.timeColonEl.style.display = (!!settings["showTime"] ? "inline" : "none");
       time.timeMinuteEl.style.display = (!!settings["showTime"] ? "inline" : "none");
@@ -170,25 +170,25 @@ export function applySettings() {
 
     if (settings.hasOwnProperty("dateColour") && settings["dateColour"]) {
       date.dateEl.style.fill = settings["dateColour"];
-      date.dayEl.style.fill = settings["dateColour"];      
+      date.dayEl.style.fill = settings["dateColour"];
     } else {
       date.dateEl.style.fill = "#969696";
-      date.dayEl.style.fill = "#969696";  
-    }   
-        
-    if (settings.hasOwnProperty("showDate")) {      
+      date.dayEl.style.fill = "#969696";
+    }
+
+    if (settings.hasOwnProperty("showDate")) {
       date.dateEl.style.display = (!!settings["showDate"] ? "inline" : "none");
-      
+
       if(settings["showDate"]) {
-        if (settings.hasOwnProperty("showDay")) {      
+        if (settings.hasOwnProperty("showDay")) {
           date.dayEl.style.display = (!!settings["showDay"] ? "inline" : "none");
         } else {
           date.dayEl.style.display = "inline";
         }
       } else {
         date.dayEl.style.display = "none";
-      }      
-      
+      }
+
     } else {
       date.dateEl.style.display = "inline";
     }
@@ -196,43 +196,43 @@ export function applySettings() {
     if(settings.hasOwnProperty("showHeartRate"))
     {
       if (settings.hasOwnProperty("isHeartbeatAnimation")) {
-        hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"] && !!settings["showHeartRate"]); 
+        hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"] && !!settings["showHeartRate"]);
       } else {
         hr.isHeartbeatAnimationSet(!!settings["showHeartRate"]);
-      } 
+      }
     }
     else
     {
       if (settings.hasOwnProperty("isHeartbeatAnimation")) {
-        hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"]); 
+        hr.isHeartbeatAnimationSet(!!settings["isHeartbeatAnimation"]);
       } else {
         hr.isHeartbeatAnimationSet(true);
-      } 
+      }
     }
-    
+
     if (settings.hasOwnProperty("backgroundColour") && settings["backgroundColour"]) {
-      backgroundEl.style.fill = settings["backgroundColour"];     
+      backgroundEl.style.fill = settings["backgroundColour"];
     } else {
-      backgroundEl.style.fill = "black"; 
+      backgroundEl.style.fill = "black";
     }
 
     if (settings.hasOwnProperty("heartColour") && settings["heartColour"]) {
       hr.hrIconDiastoleEl.style.fill = settings["heartColour"];
-      hr.hrIconSystoleEl.style.fill = settings["heartColour"];         
+      hr.hrIconSystoleEl.style.fill = settings["heartColour"];
     } else {
       hr.hrIconDiastoleEl.style.fill = "crimson";
-      hr.hrIconSystoleEl.style.fill = "crimson"; 
+      hr.hrIconSystoleEl.style.fill = "crimson";
     }
-    
+
     if (settings.hasOwnProperty("heartRateColour") && settings["heartRateColour"]) {
       hr.hrCountEl.style.fill = settings["heartRateColour"];
       hr.hrZoneEl.style.fill = settings["heartRateColour"];
     } else {
       hr.hrCountEl.style.fill = "#969696";
       hr.hrZoneEl.style.fill = "#969696";
-    }   
-        
-    if (settings.hasOwnProperty("showHeartRate")) {      
+    }
+
+    if (settings.hasOwnProperty("showHeartRate")) {
       hr.hrIconDiastoleEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
       hr.hrIconSystoleEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
       hr.hrCountEl.style.display = (!!settings["showHeartRate"] ? "inline" : "none");
@@ -241,130 +241,151 @@ export function applySettings() {
       hr.hrIconSystoleEl.style.display = "inline";
       hr.hrCountEl.style.display = "inline";
     }
-    
+
     if(settings.hasOwnProperty("showHeartRate"))
     {
       if (settings.hasOwnProperty("heartRateZoneVis")) {
-        hr.setHrZoneVis(!!settings["heartRateZoneVis"] && !!settings["showHeartRate"]); 
+        hr.setHrZoneVis(!!settings["heartRateZoneVis"] && !!settings["showHeartRate"]);
       } else {
         hr.setHrZoneVis(!!settings["showHeartRate"]);
-      } 
+      }
     }
     else
     {
       if (settings.hasOwnProperty("heartRateZoneVis")) {
-        hr.setHrZoneVis(!!settings["heartRateZoneVis"]); 
+        hr.setHrZoneVis(!!settings["heartRateZoneVis"]);
       } else {
         hr.setHrZoneVis(true);
-      } 
+      }
     }
-    
+
     if (settings.hasOwnProperty("showBatteryPercent")) {
-      battery.setShowBatteryPercent(!!settings["showBatteryPercent"]); 
+      battery.setShowBatteryPercent(!!settings["showBatteryPercent"]);
     } else {
       battery.setShowBatteryPercent(true);
-    } 
-    
+    }
+
     if (settings.hasOwnProperty("showBatteryBar")) {
-      battery.setShowBatteryBar(!!settings["showBatteryBar"]); 
+      battery.setShowBatteryBar(!!settings["showBatteryBar"]);
     } else {
       battery.setShowBatteryBar(true);
-    } 
-        
+    }
+
     if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
       battery.setColour0(settings["battery0Colour"]);
     } else {
       battery.setColour0("#FF0000");
-    } 
-        
+    }
+
     if (settings.hasOwnProperty("battery25Colour") && settings["battery25Colour"]) {
       battery.setColour25(settings["battery25Colour"]);
     } else {
       battery.setColour25("darkorange");
     }
-        
+
     if (settings.hasOwnProperty("battery50Colour") && settings["battery50Colour"]) {
       battery.setColour50(settings["battery50Colour"]);
     } else {
       battery.setColour50("gold");
     }
-        
+
     if (settings.hasOwnProperty("battery75Colour") && settings["battery75Colour"]) {
       battery.setColour75(settings["battery75Colour"]);
     } else {
       battery.setColour75("#00FF00");
     }
-        
+
     if (settings.hasOwnProperty("batteryBackgroundColour") && settings["batteryBackgroundColour"]) {
       battery.batteryLineBack.style.fill = settings["batteryBackgroundColour"];
     } else {
       battery.batteryLineBack.style.fill = "#494949"
-    } 
+    }
 
     if (settings.hasOwnProperty("bmColour") && settings["bmColour"]) {
       bm.bmrZoneEl.style.fill = settings["bmColour"];
-      bm.bmiZoneEl.style.fill = settings["bmColour"]; 
-      
+      bm.bmiZoneEl.style.fill = settings["bmColour"];
+
     } else {
       bm.bmrZoneEl.style.fill = "white";
-      bm.bmiZoneEl.style.fill = "white"; 
-    } 
-    
+      bm.bmiZoneEl.style.fill = "white";
+    }
+
     var progressBarType = "bars";
     if (settings.hasOwnProperty("progressBars") && settings["progressBars"]) {
       progressBarType = settings["progressBars"];
     }
-    
+
     for (var i=0; i < activity.goalTypes.length; i++) {
-      var goalType = activity.goalTypes[i];      
+      var goalType = activity.goalTypes[i];
       var goalTypeColourProp = goalType + "Colour";
       if (settings.hasOwnProperty(goalTypeColourProp) && settings[goalTypeColourProp]) {
-        activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];        
+        activity.progressEls[i].count.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].icon.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].line.style.fill = settings[goalTypeColourProp];
-        activity.progressEls[i].countArc.style.fill = settings[goalTypeColourProp];        
+        activity.progressEls[i].countArc.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].iconArc.style.fill = settings[goalTypeColourProp];
         activity.progressEls[i].lineArc.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].countRing.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].iconRing.style.fill = settings[goalTypeColourProp];
+        activity.progressEls[i].lineRing.style.fill = settings[goalTypeColourProp];
       } else {
-        activity.progressEls[i].count.style.fill = "white";        
+        activity.progressEls[i].count.style.fill = "white";
         activity.progressEls[i].icon.style.fill = "white";
-        activity.progressEls[i].line.style.fill = "white"; 
-        activity.progressEls[i].countArc.style.fill = "white";        
+        activity.progressEls[i].line.style.fill = "white";
+        activity.progressEls[i].countArc.style.fill = "white";
         activity.progressEls[i].iconArc.style.fill = "white";
         activity.progressEls[i].lineArc.style.fill = "white";
+        activity.progressEls[i].countRing.style.fill = "white";
+        activity.progressEls[i].iconRing.style.fill = "white";
+        activity.progressEls[i].lineRing.style.fill = "white";
       }
 
       if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
-        activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"]; 
+        activity.progressEls[i].lineBack.style.fill = settings["progressBackgroundColour"];
         activity.progressEls[i].lineBackArc.style.fill = settings["progressBackgroundColour"];
+        activity.progressEls[i].lineBackRing.style.fill = settings["progressBackgroundColour"];
       } else {
-        activity.progressEls[i].lineBack.style.fill = "#494949"; 
+        activity.progressEls[i].lineBack.style.fill = "#494949";
         activity.progressEls[i].lineBackArc.style.fill = "#494949";
+        activity.progressEls[i].lineBackRing.style.fill = "#494949";
       }
-      
+
       if(progressBarType == "bars") {
         activity.progressEls[i].line.style.display = "inline";
         activity.progressEls[i].lineBack.style.display = "inline";
         activity.progressEls[i].lineArc.style.display = "none";
-        activity.progressEls[i].lineBackArc.style.display = "none"; 
+        activity.progressEls[i].lineBackArc.style.display = "none";
+        activity.progressEls[i].lineRing.style.display = "none";
+        activity.progressEls[i].lineBackRing.style.display = "none";
       } else if(progressBarType == "arc") {
         activity.progressEls[i].line.style.display = "none";
         activity.progressEls[i].lineBack.style.display = "none";
         activity.progressEls[i].lineArc.style.display = "inline";
-        activity.progressEls[i].lineBackArc.style.display = "inline"; 
+        activity.progressEls[i].lineBackArc.style.display = "inline";
+        activity.progressEls[i].lineRing.style.display = "none";
+        activity.progressEls[i].lineBackRing.style.display = "none";
+      } else if(progressBarType == "ring") {
+        activity.progressEls[i].line.style.display = "none";
+        activity.progressEls[i].lineBack.style.display = "none";
+        activity.progressEls[i].lineArc.style.display = "none";
+        activity.progressEls[i].lineBackArc.style.display = "none";
+        activity.progressEls[i].lineRing.style.display = "inline";
+        activity.progressEls[i].lineBackRing.style.display = "inline";
       } else {
         activity.progressEls[i].line.style.display = "none";
         activity.progressEls[i].lineBack.style.display = "none";
         activity.progressEls[i].lineArc.style.display = "none";
-        activity.progressEls[i].lineBackArc.style.display = "none"; 
+        activity.progressEls[i].lineBackArc.style.display = "none";
+        activity.progressEls[i].lineRing.style.display = "none";
+        activity.progressEls[i].lineBackRing.style.display = "none";
       }
     }
-    
+
     var positions = ["TL","BL","TM","MM","BM","TR","BR"];
-    
+
     for (var i=0; i < positions.length; i++) {
-      var position = positions[i];  
-            
+      var position = positions[i];
+
       //Remove item from position
       if(bm.position == position) {
         setStatsLocation(bm.bmEl, "NONE")
@@ -375,10 +396,11 @@ export function applySettings() {
          if(activity.progressEls[x].position == position) {
            setStatsLocation(activity.progressEls[x].container, "NONE");
            setStatsLocation(activity.progressEls[x].containerArc, "NONE");
+           setStatsLocation(activity.progressEls[x].containerRing, "NONE");
            activity.progressEls[x].position = "NONE";
          }
       }
-      
+
       var positionProp = "Stats" + position;
       var stat = "";
       if (settings.hasOwnProperty(positionProp) && settings[positionProp]) {
@@ -396,28 +418,38 @@ export function applySettings() {
           stat = "elevationGain";
         } else if(position == "BR"){
           stat = "activeMinutes";
-        } 
+        }
       }
-        
-      if(stat == "BMIBMR") {        
+
+      if(stat == "BMIBMR") {
         bm.setPosition(position);
-        setStatsLocation(bm.bmEl, position);  
+        setStatsLocation(bm.bmEl, position);
       } else {
         for (var x=0; x < activity.goalTypes.length; x++) {
           if(activity.goalTypes[x] == stat) {
             activity.progressEls[x].position = position;
-            if(progressBarType == "arc") {
-              setStatsLocation(activity.progressEls[x].container, "NONE");
-              setStatsLocation(activity.progressEls[x].containerArc, position);
-            } else {
+            if(progressBarType == "bars") {
               setStatsLocation(activity.progressEls[x].container, position);
               setStatsLocation(activity.progressEls[x].containerArc, "NONE");
+              setStatsLocation(activity.progressEls[x].containerRing, "NONE");
+            } else if(progressBarType == "arc") {
+              setStatsLocation(activity.progressEls[x].container, "NONE");
+              setStatsLocation(activity.progressEls[x].containerArc, position);
+              setStatsLocation(activity.progressEls[x].containerRing, "NONE");
+            } else if(progressBarType == "ring") {
+              setStatsLocation(activity.progressEls[x].container, "NONE");
+              setStatsLocation(activity.progressEls[x].containerArc, "NONE");
+              setStatsLocation(activity.progressEls[x].containerRing, position);
+            } else {
+              setStatsLocation(activity.progressEls[x].container, "NONE");
+              setStatsLocation(activity.progressEls[x].containerArc, "NONE");
+              setStatsLocation(activity.progressEls[x].containerRing, "NONE");
             }
           }
         }
       }
     }
-    
+
     activity.resetProgressPrevState();
     state.reApplyState();
   } catch (ex) {
@@ -438,7 +470,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 115;
       return;
     }
-  
+
     if(location == "BL")
     {
       element.style.display = "inline";
@@ -446,7 +478,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 75;
       return;
     }
-  
+
     if(location == "TM")
     {
       element.style.display = "inline";
@@ -454,7 +486,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 115;
       return;
     }
-  
+
     if(location == "MM")
     {
       element.style.display = "inline";
@@ -462,7 +494,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 75;
       return;
     }
-  
+
     if(location == "BM")
     {
       element.style.display = "inline";
@@ -470,7 +502,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 35;
       return;
     }
-  
+
     if(location == "TR")
     {
       element.style.display = "inline";
@@ -478,7 +510,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 115;
       return;
     }
-  
+
     if(location == "BR")
     {
       element.style.display = "inline";
@@ -486,7 +518,7 @@ export function setStatsLocation(element, location)
       element.y = maxHeight - 75;
       return;
     }
-  
+
     if(location == "NONE")
     {
       element.style.display = "none";
@@ -501,7 +533,7 @@ export function onsettingschange(data) {
   settings = data;
   applySettings();
   saveSettings();
-  time.drawTime(new Date());  
+  time.drawTime(new Date());
 }
 
 messaging.peerSocket.addEventListener("message", function(evt) {
@@ -510,24 +542,24 @@ messaging.peerSocket.addEventListener("message", function(evt) {
     if (!settings) {
       settings = {};
     }
-    
+
     var newValue = "";
     if(typeof evt.data.value === "object") {
-      newValue = evt.data.value.values[0].value; 
+      newValue = evt.data.value.values[0].value;
     } else {
       newValue = evt.data.value;
     }
-    
+
     if(settings[evt.data.key] != newValue)
     {
       console.log(`Setting update - key:${evt.data.key} value:${newValue}`);
       settings[evt.data.key] = newValue
     } else {
       return;
-    }  
-    
+    }
+
     onsettingschange(settings);
-  }  
+  }
 })
 
 appbit.addEventListener("unload", saveSettings);

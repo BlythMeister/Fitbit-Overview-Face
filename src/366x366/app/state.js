@@ -21,7 +21,7 @@ body.start();
 
 if (body.present) {
     hrm.start();
-    hr.newHrm(0); 
+    hr.newHrm(0);
     hr.setMonitoring(true);
 }
 
@@ -33,17 +33,17 @@ body.onreading = (evt) => {
   if(body.present)
   {
     hrm.start();
-    hr.newHrm(0); 
+    hr.newHrm(0);
     hr.setMonitoring(true);
   } else {
     hrm.stop();
     hr.setMonitoring(false);
   }
-  
+
   reApplyState();
 }
 
-clock.ontick = (evt) => {  
+clock.ontick = (evt) => {
   time.drawTime(evt.date);
   date.drawDate(evt.date);
   reApplyState();
@@ -65,7 +65,7 @@ export function reApplyState() {
   battery.drawBat();
   battery.isCharging();
   hr.drawHrm();
-  activity.drawAllProgress();  
+  activity.drawAllProgress();
   bm.drawBMR();
   bm.drawBMI();
 }
