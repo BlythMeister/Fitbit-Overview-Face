@@ -63,6 +63,7 @@ Or scan this QR Code for release version
 ![300x300-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300/3.cutdown.png?raw=true)
 ![300x300-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300/4.charging.png?raw=true)
 ![300x300-arc](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300/5.arc.png?raw=true)
+![300x300-ring](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300/6.ring.png?raw=true)
 
 ### Versa Lite Device
 
@@ -71,6 +72,7 @@ Or scan this QR Code for release version
 ![300x300-Lite-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300_Lite/3.cutdown.png?raw=true)
 ![300x300-Lite-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300_Lite/4.charging.png?raw=true)
 ![300x300-Lite-arc](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300_Lite/5.arc.png?raw=true)
+![300x300-Lite-ring](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/300x300_Lite/6.ring.png?raw=true)
 
 ### Versa 3 & Sense Devices
 
@@ -79,6 +81,7 @@ Or scan this QR Code for release version
 ![336x336-cutdown](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/336x336/3.cutdown.png?raw=true)
 ![336x336-charging](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/336x336/4.charging.png?raw=true)
 ![336x336-arc](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/336x336/5.arc.png?raw=true)
+![336x336-ring](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/336x336/6.ring.png?raw=true)
 
 # How To Contribute
 
