@@ -1,4 +1,4 @@
-import document from "document"; 
+import document from "document";
 import { battery } from "power";
 
 //Battery - START
@@ -54,14 +54,14 @@ export function setColour75(colour) {
 //Battery Draw - START
 export function drawBat() {
   let level = battery.chargeLevel;
-  
-  isCharging();   
-  
+
+  isCharging();
+
   let batteryPercentage = Math.floor(level);
   batteryPercent.text = `${batteryPercentage}%`
   let lineWidth = Math.floor(screenWidth*(batteryPercentage/100));
   batteryLineFront.width = lineWidth;
-  
+
   if (batteryPercentage >= 75)
   {
     setColour(colour75);
@@ -77,7 +77,7 @@ export function drawBat() {
   else
   {
     setColour(colour0);
-  }  
+  }
 }
 
 export function setColour(colour){
@@ -95,7 +95,7 @@ export function isCharging(){
   else{
     batteryIconCharge.style.display = "none";
     batteryIcon.style.display = "inline";
-  }   
+  }
 }
 
 drawBat();

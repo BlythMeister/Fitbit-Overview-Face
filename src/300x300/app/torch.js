@@ -20,10 +20,10 @@ torchEl.onclick = function(e) {
   {
     if(firstTouch) {
       if(torchOn){
-        TurnOffTorch();        
+        TurnOffTorch();
       } else {
         TurnOnTorch();
-      }  
+      }
     } else {
       firstTouch = true;
       setTimeout(function () {firstTouch = false;}, 500);
@@ -34,7 +34,7 @@ torchEl.onclick = function(e) {
 display.onchange = (evt) => {
   if(display.on == false && torchOn == true){
     TurnOffTorch();
-  } 
+  }
 }
 
 export function TurnOnTorch()
@@ -44,14 +44,14 @@ export function TurnOnTorch()
   display.autoOff = false;
   display.on = true;
   torchOn = true;
-  
-  torchOnNudgeTimer = setInterval(function () { vibration.start("nudge-max"); }, 2000); 
-  
+
+  torchOnNudgeTimer = setInterval(function () { vibration.start("nudge-max"); }, 2000);
+
   if(torchAutoOff > 0)
   {
-    autoOffTimer = setTimeout(function () {TurnOffTorch();}, torchAutoOff * 1000);    
+    autoOffTimer = setTimeout(function () {TurnOffTorch();}, torchAutoOff * 1000);
   }
-  
+
 }
 
 export function TurnOffTorch()

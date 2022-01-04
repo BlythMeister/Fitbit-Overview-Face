@@ -21,7 +21,7 @@ export function setTimeFormat(val) { timeFormat = val }
 timeColonEl.text = ":";
 timeColonEl.style.display = 'inline';
 
-export function setFlashDots(val) { 
+export function setFlashDots(val) {
   if(val)
   {
     clearInterval(flashDotsInterval);
@@ -42,8 +42,8 @@ export function animateColon()
   }
   else
   {
-    timeColonEl.style.display = 'none';  
-  }    
+    timeColonEl.style.display = 'none';
+  }
 }
 
 //Time Draw - START
@@ -62,7 +62,7 @@ export function setSeconds(now){
   else
   {
     timeSecEl.style.display= 'none';
-  }  
+  }
 }
 
 export function setMinutes(now){
@@ -74,16 +74,16 @@ export function setHours(now) {
   let clockFormat = timeFormat;
   if(timeFormat === "auto")
   {
-    clockFormat = preferences.clockDisplay;    
+    clockFormat = preferences.clockDisplay;
   }
-  
+
   if (clockFormat === "12h") {
-    // 12h format    
+    // 12h format
     if (isAmPm) {
       if (hours < 12) {
         timeAmPmEl.text = " AM";
       } else {
-        timeAmPmEl.text = " PM";        
+        timeAmPmEl.text = " PM";
       }
       timeAmPmEl.style.display= 'inline';
     }
@@ -91,10 +91,10 @@ export function setHours(now) {
     {
       timeAmPmEl.style.display= 'none';
     }
-    
+
     if (hours === 0)
     {
-      hours = 12;  
+      hours = 12;
     } else if (hours > 12) {
       hours = hours - 12;
     }
@@ -102,7 +102,7 @@ export function setHours(now) {
     // 24h format
     timeAmPmEl.style.display= 'none';
   }
-  
+
   if(showLeadingZero)
   {
     timeHourEl.text = zeroPad(hours);

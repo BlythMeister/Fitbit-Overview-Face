@@ -49,7 +49,7 @@ Or scan this QR Code for release version
 
 # Screenshots
 
-### Ionic Device
+### Ionic Device (Deprecated)
 
 ![348x250](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/348x250/1.base.png?raw=true)
 ![348x250-24h](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/.images/348x250/2.24h.png?raw=true)

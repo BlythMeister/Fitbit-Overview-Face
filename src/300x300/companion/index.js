@@ -21,7 +21,7 @@ messaging.peerSocket.onopen = function(evt) {
 
 function sendAllSettings() {
   console.log("Sending all settings");
-  for (var i=0; i < settingsStorage.length; i++) {  
+  for (var i=0; i < settingsStorage.length; i++) {
     var key = settingsStorage.key(i);
     var value = settingsStorage.getItem(key);
     sendSettingValue(key, value);
@@ -40,7 +40,7 @@ function setDefaultSettings() {
   setDefaultSetting("isAmPm",true);
   setDefaultSetting("showSeconds",true);
   setDefaultSetting("showLeadingZero",true);
-  setDefaultSetting("flashDots",true);  
+  setDefaultSetting("flashDots",true);
   setDefaultSetting("showDate",true);
   setDefaultSetting("showDay",true);
   setDefaultSetting("StatsTL",{"values":[{"value":"steps","name":"Steps"}],"selected":[2]});
@@ -96,7 +96,7 @@ function sendSettingValue(key, val) {
       key: key,
       value: JSON.parse(val)
     };
-    
+
     // If we have a MessageSocket, send the data to the device
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
       messaging.peerSocket.send(data);

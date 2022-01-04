@@ -1,4 +1,4 @@
-import document from "document"; 
+import document from "document";
 import { display } from "display";
 import { user } from "user-profile";
 import { battery } from "power";
@@ -20,7 +20,7 @@ export let hrIconDiastoleEl = document.getElementById("hr-icon-diastole");
 export let hrCountEl = document.getElementById("hr-count");
 export let hrZoneEl = document.getElementById("hr-zone");
 
-export function isHeartbeatAnimationSet(val) { 
+export function isHeartbeatAnimationSet(val) {
   isHeartbeatAnimation = val;
   if(val){
     drawHrm();
@@ -55,12 +55,12 @@ export function stopHrAnimation() {
 
 export function hideHr() {
    hrmRate = null;
-   prevHrmRate = null;   
+   prevHrmRate = null;
    stopHrAnimation();
    hrEl.style.display = "none";
 }
 
-export function animateHr() {   
+export function animateHr() {
     if (hrmAnimationPhase) {
       hrIconDiastoleEl.style.display = "none";
       hrIconSystoleEl.style.display = "inline";
@@ -68,25 +68,25 @@ export function animateHr() {
       hrIconDiastoleEl.style.display = "inline";
       hrIconSystoleEl.style.display = "none";
     }
-  
+
     hrmAnimationPhase =!hrmAnimationPhase;
-  
+
     if (prevHrmRate != hrmRate) {
       clearInterval(hrAnimatedInterval);
       if (isHeartbeatAnimation) {
         prevHrmRate = hrmRate;
         initHrInterval();
       }
-    }     
+    }
     prevHrmRate = hrmRate;
 }
 
-export function newHrm(rate) { 
+export function newHrm(rate) {
   hrmRate = rate;
   drawHrm();
 }
 
-export function drawHrm() {  
+export function drawHrm() {
   if (hrmRate == null || hrmRate <= 0 || !hrMonitoring)
   {
       hrCountEl.text = `-- (${user.restingHeartRate})`;
@@ -97,16 +97,16 @@ export function drawHrm() {
   {
     if (hrmRate && !batteryIconVisible) {
       hrCountEl.text = `${hrmRate} (${user.restingHeartRate})`;
-      hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;  
+      hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;
 
       if (!prevHrmRate) {
-        hrEl.style.display = "inline";    
+        hrEl.style.display = "inline";
       }
       if (!hrAnimated && isHeartbeatAnimation) {
-        clearInterval(hrAnimatedInterval);   
+        clearInterval(hrAnimatedInterval);
         prevHrmRate = hrmRate;
         initHrInterval();
-        hrAnimated = true;      
+        hrAnimated = true;
       }
     } else {
       hideHr();
