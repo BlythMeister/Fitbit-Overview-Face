@@ -495,7 +495,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (5 * maxWidth) / 100;
-      element.y = maxHeight - 115;
+      element.y = maxHeight - 116;
       return;
     }
 
@@ -503,7 +503,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (5 * maxWidth) / 100;
-      element.y = maxHeight - 75;
+      element.y = maxHeight - 76;
       return;
     }
 
@@ -511,7 +511,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (36 * maxWidth) / 100;
-      element.y = maxHeight - 115;
+      element.y = maxHeight - 116;
       return;
     }
 
@@ -519,7 +519,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (36 * maxWidth) / 100;
-      element.y = maxHeight - 75;
+      element.y = maxHeight - 76;
       return;
     }
 
@@ -527,7 +527,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (36 * maxWidth) / 100;
-      element.y = maxHeight - 35;
+      element.y = maxHeight - 37;
       return;
     }
 
@@ -535,7 +535,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (67 * maxWidth) / 100;
-      element.y = maxHeight - 115;
+      element.y = maxHeight - 116;
       return;
     }
 
@@ -543,7 +543,7 @@ export function setStatsLocation(element, location)
     {
       element.style.display = "inline";
       element.x = (67 * maxWidth) / 100;
-      element.y = maxHeight - 75;
+      element.y = maxHeight - 76;
       return;
     }
 

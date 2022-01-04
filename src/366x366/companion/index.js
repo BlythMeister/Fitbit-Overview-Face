@@ -59,21 +59,21 @@ function setDefaultSettings() {
   setDefaultSetting("timeColour","white");
   setDefaultSetting("dateColour","white");
   setDefaultSetting("stepsColour","darkorange");
-  setDefaultSetting("distanceColour","forestgreen");
-  setDefaultSetting("elevationGainColour","darkorchid");
+  setDefaultSetting("distanceColour","green");
+  setDefaultSetting("elevationGainColour","darkviolet");
   setDefaultSetting("caloriesColour","deeppink");
   setDefaultSetting("activeMinutesColour","deepskyblue");
   setDefaultSetting("activeMinutesWeekColour","deepskyblue");
-  setDefaultSetting("batteryStatColour","#00FF00");
+  setDefaultSetting("batteryStatColour","lime");
   setDefaultSetting("heartColour","crimson");
   setDefaultSetting("heartRateColour","white");
   setDefaultSetting("bmColour","gold");
-  setDefaultSetting("progressBackgroundColour","#494949");
-  setDefaultSetting("battery0Colour","#FF0000");
+  setDefaultSetting("progressBackgroundColour","dimgrey");
+  setDefaultSetting("battery0Colour","red");
   setDefaultSetting("battery25Colour","darkorange");
   setDefaultSetting("battery50Colour","gold");
-  setDefaultSetting("battery75Colour","#00FF00");
-  setDefaultSetting("batteryBackgroundColour","#494949");
+  setDefaultSetting("battery75Colour","lime");
+  setDefaultSetting("batteryBackgroundColour","dimgrey");
   setDefaultSetting("backgroundColour","black");
 }
 

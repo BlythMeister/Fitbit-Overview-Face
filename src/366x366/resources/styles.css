@@ -1,6 +1,6 @@
 #root {
   viewport-fill: black;
-  fill: palegoldenrod;
+  fill: gold;
 }
 
 #background {
@@ -312,7 +312,7 @@
 }
 
 .count-arc {
-  font-size: 18;
+  font-size: 19;
   x: 14%;
   y: 25;
   text-length: 10; 
@@ -331,23 +331,23 @@
 }
 
 .icon-ring {
-  width: 16;
-  height: 16;
+  width: 18;
+  height: 18;
   x:8;
   y:8;
 }
 
 .count-ring {
-  font-size: 21;
-  x: 36;
+  font-size: 22;
+  x: 37;
   y: 25;
   text-length: 10; 
   font-family: System-Bold;
 }
 
 .line-ring {
-  width: 33;
-  height: 33;
+  width: 35;
+  height: 35;
   x:0;
   y:0;  
   arc-width: 5;
