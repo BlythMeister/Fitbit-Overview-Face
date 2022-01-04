@@ -175,7 +175,7 @@ function mySettings(props) {
   let availiableStats = [ {value:"NONE", name:"Empty"}, 
                           {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
                           {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}, 
-                          {value:"activeMinutesWeek", name:"Weekly Active Zone Minutes"}]
+                          {value:"activeMinutesWeek", name:"Weekly Active Zone Minutes"}, {value:"BATTERY", name:"Battery"}]
   
   return (
     <Page>     
@@ -275,6 +275,10 @@ function mySettings(props) {
       
       { hasActivity(props, "BMIBMR") && <Section title="BMI/BMR colour">
         <ColorSelect settingsKey="bmColour" colors={colourSet} />
+      </Section> }
+      
+      { hasActivity(props, "BATTERY") && <Section title="Battery Stat colour">
+        <ColorSelect settingsKey="batteryStatColour" colors={colourSet} />
       </Section> }
       
       { hasStat(props) && <Section title="Progress background colour">

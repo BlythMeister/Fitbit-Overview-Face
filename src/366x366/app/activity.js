@@ -12,7 +12,7 @@ export const screenWidth = root.width
 export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
 export function getProgressEl(prefix, officialType, dayWeek) {
-  let containerEl = document.getElementById(prefix);
+  let containerEl = document.getElementById(prefix + "-straight");
   let containerArcEl = document.getElementById(prefix + "-arc");
   let containerRingEl = document.getElementById(prefix + "-ring");
   return {
@@ -21,14 +21,14 @@ export function getProgressEl(prefix, officialType, dayWeek) {
     doTotal: prefix == "activeMinutes",
     dayWeek: dayWeek,
     prevProgressVal: null,
-    container: containerEl,
+    containerStraight: containerEl,
     containerArc: containerArcEl,
     containerRing: containerRingEl,
     position:"NONE",
-    count: containerEl.getElementById(prefix + "-count"),
-    icon: containerEl.getElementById(prefix + "-icon"),
-    line: containerEl.getElementById(prefix + "-line"),
-    lineBack: containerEl.getElementById(prefix + "-line-back"),
+    countStraight: containerEl.getElementById(prefix + "-straight-count"),
+    iconStraight: containerEl.getElementById(prefix + "-straight-icon"),
+    lineStraight: containerEl.getElementById(prefix + "-straight-line"),
+    lineBackStraight: containerEl.getElementById(prefix + "-straight-line-back"),
     countArc: containerArcEl.getElementById(prefix + "-arc-count"),
     iconArc: containerArcEl.getElementById(prefix + "-arc-icon"),
     lineArc: containerArcEl.getElementById(prefix + "-arc-line"),
@@ -134,14 +134,13 @@ export function drawProgress(progressEl) {
       displayValue = Math.round(actual);
     }
   }
-  progressEl.count.text = `${displayValue}`;
+  progressEl.countStraight.text = `${displayValue}`;
   progressEl.countArc.text = `${displayValue}`;
   progressEl.countRing.text = `${displayValue}`;
 
-  var maxLine = screenWidth /100 * 28;
   if(!goal || goal < 0 || !actual || actual < 0)
   {
-    progressEl.line.width = 0;
+    progressEl.lineStraight.width = 0;
     progressEl.lineArc.sweepAngle = 0;
     progressEl.lineRing.sweepAngle = 0;
   }
@@ -149,7 +148,8 @@ export function drawProgress(progressEl) {
   {
     var complete = (actual / goal);
     if (complete > 1) complete = 1;
-    progressEl.line.width = maxLine*complete;
+    var maxLine = screenWidth /100 * 28;
+    progressEl.lineStraight.width = maxLine*complete;
     progressEl.lineArc.sweepAngle = Math.floor(225*complete);
     progressEl.lineRing.sweepAngle = Math.floor(360*complete);
   }

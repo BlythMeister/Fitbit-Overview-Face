@@ -40,46 +40,53 @@
     <text id="bmi-zone" />
   </svg>
  
-  <svg id="steps">
-    <text id="steps-count" class="count" fill="orangered" />
-    <image id="steps-icon" class="icon" href="steps_36px.png" fill="orangered" />
-    <rect id="steps-line-back" class="line" fill="#969696" />
-    <rect id="steps-line" class="line" fill="orangered" />
+  <svg id="steps-straight">
+    <text id="steps-straight-count" class="count" fill="orangered" />
+    <image id="steps-straight-icon" class="icon" href="steps_36px.png" fill="orangered" />
+    <rect id="steps-straight-line-back" class="line" fill="#969696" />
+    <rect id="steps-straight-line" class="line" fill="orangered" />
   </svg>
   
-  <svg id="distance">   
-    <text id="distance-count" class="count" fill="forestgreen" />
-    <image id="distance-icon" class="icon" href="distance_36px.png" fill="forestgreen" />
-    <rect id="distance-line-back" class="line" fill="#969696" />
-    <rect id="distance-line" class="line" fill="forestgreen" />
+  <svg id="distance-straight">   
+    <text id="distance-straight-count" class="count" fill="forestgreen" />
+    <image id="distance-straight-icon" class="icon" href="distance_36px.png" fill="forestgreen" />
+    <rect id="distance-straight-line-back" class="line" fill="#969696" />
+    <rect id="distance-straight-line" class="line" fill="forestgreen" />
   </svg>
   
-  <svg id="calories">  
-    <text id="calories-count" class="count" fill="deeppink" />
-    <image id="calories-icon" class="icon" href="calories_36px.png" fill="deeppink" />
-    <rect id="calories-line-back" class="line" fill="#969696" />
-    <rect id="calories-line" class="line" fill="deeppink" />
+  <svg id="calories-straight">  
+    <text id="calories-straight-count" class="count" fill="deeppink" />
+    <image id="calories-straight-icon" class="icon" href="calories_36px.png" fill="deeppink" />
+    <rect id="calories-straight-line-back" class="line" fill="#969696" />
+    <rect id="calories-straight-line" class="line" fill="deeppink" />
   </svg> 
   
-  <svg id="elevationGain">  
-    <text id="elevationGain-count" class="count" fill="darkorchid" />
-    <image id="elevationGain-icon" class="icon" href="floors_36px.png" fill="darkorchid" />
-    <rect id="elevationGain-line-back" class="line" fill="#969696" />
-    <rect id="elevationGain-line" class="line" fill="darkorchid" />
+  <svg id="elevationGain-straight">  
+    <text id="elevationGain-straight-count" class="count" fill="darkorchid" />
+    <image id="elevationGain-straight-icon" class="icon" href="floors_36px.png" fill="darkorchid" />
+    <rect id="elevationGain-straight-line-back" class="line" fill="#969696" />
+    <rect id="elevationGain-straight-line" class="line" fill="darkorchid" />
   </svg>
   
-  <svg id="activeMinutes">   
-    <text id="activeMinutes-count" class="count" fill="deepskyblue" />
-    <image id="activeMinutes-icon" class="icon" href="azm_36px.png" fill="deepskyblue" />
-    <rect id="activeMinutes-line-back" class="line" fill="#969696" />
-    <rect id="activeMinutes-line" class="line" fill="deepskyblue" />
+  <svg id="activeMinutes-straight">   
+    <text id="activeMinutes-straight-count" class="count" fill="deepskyblue" />
+    <image id="activeMinutes-straight-icon" class="icon" href="azm_36px.png" fill="deepskyblue" />
+    <rect id="activeMinutes-straight-line-back" class="line" fill="#969696" />
+    <rect id="activeMinutes-straight-line" class="line" fill="deepskyblue" />
   </svg>
   
-  <svg id="activeMinutesWeek">   
-    <text id="activeMinutesWeek-count" class="count" fill="deepskyblue" />
-    <image id="activeMinutesWeek-icon" class="icon" href="azm_36px.png" fill="deepskyblue" />
-    <rect id="activeMinutesWeek-line-back" class="line" fill="#969696" />
-    <rect id="activeMinutesWeek-line" class="line" fill="deepskyblue" />
+  <svg id="activeMinutesWeek-straight">   
+    <text id="activeMinutesWeek-straight-count" class="count" fill="deepskyblue" />
+    <image id="activeMinutesWeek-straight-icon" class="icon" href="azm_36px.png" fill="deepskyblue" />
+    <rect id="activeMinutesWeek-straight-line-back" class="line" fill="#969696" />
+    <rect id="activeMinutesWeek-straight-line" class="line" fill="deepskyblue" />
+  </svg>
+  
+  <svg id="battery-straight">   
+    <text id="battery-straight-count" class="count" fill="green" />
+    <image id="battery-straight-icon" class="icon" href="battery_24px.png" fill="green" />
+    <rect id="battery-straight-line-back" class="line" fill="#969696" />
+    <rect id="battery-straight-line" class="line" fill="green" />
   </svg>
   
   <svg id="steps-arc">
@@ -105,7 +112,7 @@
   
   <svg id="elevationGain-arc">  
     <text id="elevationGain-arc-count" class="count-arc" fill="darkorchid" />
-    <image id="elevationGain-arc-icon" class="icon-arc" href="stat_floors_solid_24px.png" fill="darkorchid" />
+    <image id="elevationGain-arc-icon" class="icon-arc" href="floors_36px.png" fill="darkorchid" />
     <arc id="elevationGain-arc-line-back" class="line-arc" fill="#969696" />
     <arc id="elevationGain-arc-line" class="line-arc" fill="darkorchid" />
   </svg>
@@ -122,6 +129,13 @@
     <image id="activeMinutesWeek-arc-icon" class="icon-arc" href="azm_36px.png" fill="deepskyblue" />
     <arc id="activeMinutesWeek-arc-line-back" class="line-arc" fill="#969696" />
     <arc id="activeMinutesWeek-arc-line" class="line-arc" fill="deepskyblue" />
+  </svg>
+  
+  <svg id="battery-arc">   
+    <text id="battery-arc-count" class="count-arc" fill="green" />
+    <image id="battery-arc-icon" class="icon-arc" href="battery_24px.png" fill="green" />
+    <arc id="battery-arc-line-back" class="line-arc" fill="#969696" />
+    <arc id="battery-arc-line" class="line-arc" fill="green" />
   </svg>
   
   <svg id="steps-ring">
@@ -145,25 +159,32 @@
     <arc id="calories-ring-line" class="line-ring" fill="deeppink" />
   </svg> 
   
-  <svg id="elevationGain-ring">  
+  <svg id="elevationGain-ring">
     <text id="elevationGain-ring-count" class="count-ring" fill="darkorchid" />
     <image id="elevationGain-ring-icon" class="icon-ring" href="floors_36px.png" fill="darkorchid" />
     <arc id="elevationGain-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="elevationGain-ring-line" class="line-ring" fill="darkorchid" />
   </svg>
   
-  <svg id="activeMinutes-ring">   
+  <svg id="activeMinutes-ring">
     <text id="activeMinutes-ring-count" class="count-ring" fill="deepskyblue" />
     <image id="activeMinutes-ring-icon" class="icon-ring" href="azm_36px.png" fill="deepskyblue" />
     <arc id="activeMinutes-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="activeMinutes-ring-line" class="line-ring" fill="deepskyblue" />
   </svg>
   
-  <svg id="activeMinutesWeek-ring">   
+  <svg id="activeMinutesWeek-ring">
     <text id="activeMinutesWeek-ring-count" class="count-ring" fill="deepskyblue" />
     <image id="activeMinutesWeek-ring-icon" class="icon-ring" href="azm_36px.png" fill="deepskyblue" />
     <arc id="activeMinutesWeek-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="activeMinutesWeek-ring-line" class="line-ring" fill="deepskyblue" />
+  </svg>
+  
+  <svg id="battery-ring">
+    <text id="battery-ring-count" class="count-ring" fill="green" />
+    <image id="battery-ring-icon" class="icon-ring" href="battery_24px.png" fill="green" />
+    <arc id="battery-ring-line-back" class="line-ring" fill="#969696" />
+    <arc id="battery-ring-line" class="line-ring" fill="green" />
   </svg>
     
   <rect id="torch" pointer-events="visible" />

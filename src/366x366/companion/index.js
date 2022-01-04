@@ -64,6 +64,7 @@ function setDefaultSettings() {
   setDefaultSetting("caloriesColour","deeppink");
   setDefaultSetting("activeMinutesColour","deepskyblue");
   setDefaultSetting("activeMinutesWeekColour","deepskyblue");
+  setDefaultSetting("batteryStatColour","deepskyblue");
   setDefaultSetting("heartColour","crimson");
   setDefaultSetting("heartRateColour","white");
   setDefaultSetting("bmColour","gold");

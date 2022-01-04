@@ -172,43 +172,39 @@
   fill: #969696;
 }
 
-#steps {
+#steps-straight {
   display: "none";
 }
 
-#distance {
+#distance-straight {
   display: "none";
 }
 
-#bm {
+#elevationGain-straight {
   display: "none";
 }
 
-#elevationGain {
+#calories-straight {
   display: "none";
 }
 
-#calories {
-  display: "none";
-}
-
-#activeMinutes {
+#activeMinutes-straight {
   display: "none";
 } 
 
-#activeMinutesWeek {
+#activeMinutesWeek-straight {
   display: "none";
 } 
+
+#battery-straight {
+  display: "none";
+}
  
 #steps-arc {
   display: "none";
 }
 
 #distance-arc {
-  display: "none";
-}
-
-#bm-arc {
   display: "none";
 }
 
@@ -227,16 +223,16 @@
 #activeMinutesWeek-arc {
   display: "none";
 } 
- 
+
+#battery-arc {
+  display: "none";
+} 
+  
 #steps-ring {
   display: "none";
 }
 
 #distance-ring {
-  display: "none";
-}
-
-#bm-ring {
   display: "none";
 }
 
@@ -253,6 +249,14 @@
 }
 
 #activeMinutesWeek-ring {
+  display: "none";
+}
+
+#battery-ring {
+  display: "none";
+}
+
+#bm {
   display: "none";
 }
 
