@@ -7,15 +7,15 @@
   </svg>
   
   <svg id="battery">  
-    <image id="battery-icon" class="battery-icon" href="battery_solid_24px.png" />
-    <image id="battery-icon-charge" class="battery-icon" href="battery_charge_solid_24px.png" />
+    <image id="battery-icon" class="battery-icon" href="battery_24px.png" />
+    <image id="battery-icon-charge" class="battery-icon" href="battery_charge_24px.png" />
     <text id="battery-percent" />
   </svg>
   
   <svg id="hr"> 
     <text id="hr-count" class="count sideCount" />
-    <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
-    <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
+    <image id="hr-icon-systole" class="icon" href="heart_48px.png" />
+    <image id="hr-icon-diastole" class="icon" href="heart_48px.png" />
     <svg>
       <text id="hr-resting" class="count sideCount" />
       <text id="hr-zone" class="count sideCount" />
@@ -42,56 +42,56 @@
  
   <svg id="steps">
     <text id="steps-count" class="count" fill="orangered" />
-    <image id="steps-icon" class="icon" href="stat_steps_solid_24px.png" fill="orangered" />
+    <image id="steps-icon" class="icon" href="steps_36px.png" fill="orangered" />
     <rect id="steps-line-back" class="line" fill="#969696" />
     <rect id="steps-line" class="line" fill="orangered" />
   </svg>
   
   <svg id="distance">   
     <text id="distance-count" class="count" fill="forestgreen" />
-    <image id="distance-icon" class="icon" href="stat_dist_solid_24px.png" fill="forestgreen" />
+    <image id="distance-icon" class="icon" href="distance_36px.png" fill="forestgreen" />
     <rect id="distance-line-back" class="line" fill="#969696" />
     <rect id="distance-line" class="line" fill="forestgreen" />
   </svg>
   
   <svg id="calories">  
     <text id="calories-count" class="count" fill="deeppink" />
-    <image id="calories-icon" class="icon" href="stat_cals_solid_24px.png" fill="deeppink" />
+    <image id="calories-icon" class="icon" href="calories_36px.png" fill="deeppink" />
     <rect id="calories-line-back" class="line" fill="#969696" />
     <rect id="calories-line" class="line" fill="deeppink" />
   </svg> 
   
   <svg id="elevationGain">  
     <text id="elevationGain-count" class="count" fill="darkorchid" />
-    <image id="elevationGain-icon" class="icon" href="stat_floors_solid_24px.png" fill="darkorchid" />
+    <image id="elevationGain-icon" class="icon" href="floors_36px.png" fill="darkorchid" />
     <rect id="elevationGain-line-back" class="line" fill="#969696" />
     <rect id="elevationGain-line" class="line" fill="darkorchid" />
   </svg>
   
   <svg id="activeMinutes">   
     <text id="activeMinutes-count" class="count" fill="deepskyblue" />
-    <image id="activeMinutes-icon" class="icon" href="stat_azm_solid_24px.png" fill="deepskyblue" />
+    <image id="activeMinutes-icon" class="icon" href="azm_36px.png" fill="deepskyblue" />
     <rect id="activeMinutes-line-back" class="line" fill="#969696" />
     <rect id="activeMinutes-line" class="line" fill="deepskyblue" />
   </svg>
   
   <svg id="steps-arc">
     <text id="steps-arc-count" class="count-arc" fill="orangered" />
-    <image id="steps-arc-icon" class="icon-arc" href="stat_steps_solid_24px.png" fill="orangered" />
+    <image id="steps-arc-icon" class="icon-arc" href="steps_36px.png" fill="orangered" />
     <arc id="steps-arc-line-back" class="line-arc" fill="#969696" />
     <arc id="steps-arc-line" class="line-arc" fill="orangered" />
   </svg>
   
   <svg id="distance-arc">   
     <text id="distance-arc-count" class="count-arc" fill="forestgreen" />
-    <image id="distance-arc-icon" class="icon-arc" href="stat_dist_solid_24px.png" fill="forestgreen" />
+    <image id="distance-arc-icon" class="icon-arc" href="distance_36px.png" fill="forestgreen" />
     <arc id="distance-arc-line-back" class="line-arc" fill="#969696" />
     <arc id="distance-arc-line" class="line-arc" fill="forestgreen" />
   </svg>
   
   <svg id="calories-arc">  
     <text id="calories-arc-count" class="count-arc" fill="deeppink" />
-    <image id="calories-arc-icon" class="icon-arc" href="stat_cals_solid_24px.png" fill="deeppink" />
+    <image id="calories-arc-icon" class="icon-arc" href="calories_36px.png" fill="deeppink" />
     <arc id="calories-arc-line-back" class="line-arc" fill="#969696" />
     <arc id="calories-arc-line" class="line-arc" fill="deeppink" />
   </svg> 
@@ -105,42 +105,42 @@
   
   <svg id="activeMinutes-arc">   
     <text id="activeMinutes-arc-count" class="count-arc" fill="deepskyblue" />
-    <image id="activeMinutes-arc-icon" class="icon-arc" href="stat_azm_solid_24px.png" fill="deepskyblue" />
+    <image id="activeMinutes-arc-icon" class="icon-arc" href="azm_36px.png" fill="deepskyblue" />
     <arc id="activeMinutes-arc-line-back" class="line-arc" fill="#969696" />
     <arc id="activeMinutes-arc-line" class="line-arc" fill="deepskyblue" />
   </svg>
   
   <svg id="steps-ring">
     <text id="steps-ring-count" class="count-ring" fill="orangered" />
-    <image id="steps-ring-icon" class="icon-ring" href="stat_steps_solid_24px.png" fill="orangered" />
+    <image id="steps-ring-icon" class="icon-ring" href="steps_36px.png" fill="orangered" />
     <arc id="steps-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="steps-ring-line" class="line-ring" fill="orangered" />
   </svg>
   
   <svg id="distance-ring">   
     <text id="distance-ring-count" class="count-ring" fill="forestgreen" />
-    <image id="distance-ring-icon" class="icon-ring" href="stat_dist_solid_24px.png" fill="forestgreen" />
+    <image id="distance-ring-icon" class="icon-ring" href="distance_36px.png" fill="forestgreen" />
     <arc id="distance-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="distance-ring-line" class="line-ring" fill="forestgreen" />
   </svg>
   
   <svg id="calories-ring">  
     <text id="calories-ring-count" class="count-ring" fill="deeppink" />
-    <image id="calories-ring-icon" class="icon-ring" href="stat_cals_solid_24px.png" fill="deeppink" />
+    <image id="calories-ring-icon" class="icon-ring" href="calories_36px.png" fill="deeppink" />
     <arc id="calories-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="calories-ring-line" class="line-ring" fill="deeppink" />
   </svg> 
   
   <svg id="elevationGain-ring">  
     <text id="elevationGain-ring-count" class="count-ring" fill="darkorchid" />
-    <image id="elevationGain-ring-icon" class="icon-ring" href="stat_floors_solid_24px.png" fill="darkorchid" />
+    <image id="elevationGain-ring-icon" class="icon-ring" href="floors_36px.png" fill="darkorchid" />
     <arc id="elevationGain-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="elevationGain-ring-line" class="line-ring" fill="darkorchid" />
   </svg>
   
   <svg id="activeMinutes-ring">   
     <text id="activeMinutes-ring-count" class="count-ring" fill="deepskyblue" />
-    <image id="activeMinutes-ring-icon" class="icon-ring" href="stat_azm_solid_24px.png" fill="deepskyblue" />
+    <image id="activeMinutes-ring-icon" class="icon-ring" href="azm_36px.png" fill="deepskyblue" />
     <arc id="activeMinutes-ring-line-back" class="line-ring" fill="#969696" />
     <arc id="activeMinutes-ring-line" class="line-ring" fill="deepskyblue" />
   </svg>
