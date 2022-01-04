@@ -175,39 +175,35 @@
   fill: #969696;
 }
 
-#steps {
+#steps-straight {
   display: "none";
 }
 
-#distance {
+#distance-straight {
   display: "none";
 }
 
-#bm {
+#elevationGain-straight {
   display: "none";
 }
 
-#elevationGain {
+#calories-straight {
   display: "none";
 }
 
-#calories {
+#activeMinutes-straight {
+  display: "none";
+} 
+
+#battery-straight {
   display: "none";
 }
-
-#activeMinutes {
-  display: "none";
-}
-
+ 
 #steps-arc {
   display: "none";
 }
 
 #distance-arc {
-  display: "none";
-}
-
-#bm-arc {
   display: "none";
 }
 
@@ -220,6 +216,38 @@
 }
 
 #activeMinutes-arc {
+  display: "none";
+} 
+
+#battery-arc {
+  display: "none";
+} 
+  
+#steps-ring {
+  display: "none";
+}
+
+#distance-ring {
+  display: "none";
+}
+
+#elevationGain-ring {
+  display: "none";
+}
+
+#calories-ring {
+  display: "none";
+}
+
+#activeMinutes-ring {
+  display: "none";
+}
+
+#battery-ring {
+  display: "none";
+}
+
+#bm {
   display: "none";
 }
 
@@ -249,7 +277,7 @@
   width: 20;
   height: 20;
   x:0;
-  y:-2;
+  y:0;
 }
 
 .count {
@@ -258,6 +286,13 @@
   y: 15;
   text-length: 10; 
   font-family: System-Bold;
+}
+
+.line {
+  width: 28%;
+  height: 5;
+  x:0;
+  y:22;
 }
 
 .icon-arc {
@@ -274,4 +309,39 @@
   text-length: 10; 
   font-family: System-Bold;
   text-anchor: middle;
+}
+
+.line-arc {
+  width: 28%;
+  height: 60;
+  x:0;
+  y:-10;  
+  arc-width: 5;
+  start-angle: 245;
+  sweep-angle: 225;
+}
+
+.icon-ring {
+  width: 16;
+  height: 16;
+  x:8;
+  y:8;
+}
+
+.count-ring {
+  font-size: 21;
+  x: 36;
+  y: 25;
+  text-length: 10; 
+  font-family: System-Bold;
+}
+
+.line-ring {
+  width: 33;
+  height: 33;
+  x:0;
+  y:0;  
+  arc-width: 5;
+  start-angle: 0;
+  sweep-angle: 360;
 }

@@ -10,23 +10,30 @@ export const screenWidth = root.width
 export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
 export function getProgressEl(prefix, officialType) {
-  let containerEl = document.getElementById(prefix);
+  let containerEl = document.getElementById(prefix + "-straight");
   let containerArcEl = document.getElementById(prefix + "-arc");
+  let containerRingEl = document.getElementById(prefix + "-ring");
   return {
     prefix: prefix,
     type: officialType,
+    doTotal: prefix == "activeMinutes",
     prevProgressVal: null,
-    container: containerEl,
+    containerStraight: containerEl,
     containerArc: containerArcEl,
+    containerRing: containerRingEl,
     position:"NONE",
-    count: containerEl.getElementById(prefix + "-count"),
-    icon: containerEl.getElementById(prefix + "-icon"),
-    line: containerEl.getElementById(prefix + "-line"),
-    lineBack: containerEl.getElementById(prefix + "-line-back"),
+    countStraight: containerEl.getElementById(prefix + "-straight-count"),
+    iconStraight: containerEl.getElementById(prefix + "-straight-icon"),
+    lineStraight: containerEl.getElementById(prefix + "-straight-line"),
+    lineBackStraight: containerEl.getElementById(prefix + "-straight-line-back"),
     countArc: containerArcEl.getElementById(prefix + "-arc-count"),
     iconArc: containerArcEl.getElementById(prefix + "-arc-icon"),
     lineArc: containerArcEl.getElementById(prefix + "-arc-line"),
-    lineBackArc: containerArcEl.getElementById(prefix + "-arc-line-back")
+    lineBackArc: containerArcEl.getElementById(prefix + "-arc-line-back"),
+    countRing: containerRingEl.getElementById(prefix + "-ring-count"),
+    iconRing: containerRingEl.getElementById(prefix + "-ring-icon"),
+    lineRing: containerRingEl.getElementById(prefix + "-ring-line"),
+    lineBackRing: containerRingEl.getElementById(prefix + "-ring-line-back")
   }
 }
 
@@ -61,15 +68,18 @@ for (var i=0; i < goalTypes.length; i++) {
 //Progress Draw - START
 export function drawProgress(progressEl) {
   let type = progressEl.type;
+  let doTotal = progressEl.doTotal;
 
   let actual = 0;
   var goal = 0;
-  if(type == "activeZoneMinutes") {
-    actual = today.adjusted[type].total
-    goal = goals[type].total
-  } else if(today.adjusted[type]) {
-    actual = today.adjusted[type]
-    goal = goals[type]
+  if(today.adjusted[type]) {
+    if(doTotal) {
+      actual = today.adjusted[type].total
+      goal = goals[type].total
+    } else {
+      actual = today.adjusted[type]
+      goal = goals[type]
+    }
   }
 
   if (progressEl.prevProgressVal == actual) {
@@ -94,22 +104,24 @@ export function drawProgress(progressEl) {
       displayValue = Math.round(actual);
     }
   }
-  progressEl.count.text = `${displayValue}`;
+  progressEl.countStraight.text = `${displayValue}`;
   progressEl.countArc.text = `${displayValue}`;
+  progressEl.countRing.text = `${displayValue}`;
 
-  var maxLine = screenWidth /100 * 28;
   if(!goal || goal < 0 || !actual || actual < 0)
   {
-    progressEl.line.width = 0;
+    progressEl.lineStraight.width = 0;
     progressEl.lineArc.sweepAngle = 0;
+    progressEl.lineRing.sweepAngle = 0;
   }
   else
   {
     var complete = (actual / goal);
     if (complete > 1) complete = 1;
-    progressEl.line.width = maxLine*complete;
-    let sweep = Math.floor(225*complete);
-    progressEl.lineArc.sweepAngle = sweep;
+    var maxLine = screenWidth /100 * 28;
+    progressEl.lineStraight.width = maxLine*complete;
+    progressEl.lineArc.sweepAngle = Math.floor(225*complete);
+    progressEl.lineRing.sweepAngle = Math.floor(360*complete);
   }
 }
 

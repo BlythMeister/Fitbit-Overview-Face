@@ -168,12 +168,14 @@ function mySettings(props) {
   let modelId = JSON.parse(props.settingsStorage.getItem("deviceModelId"));
   let availiableStats = [ {value:"NONE", name:"Empty"}, 
                           {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
-                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
+                          {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"},
+			  {value:"BATTERY", name:"Battery"}]
   
   if(modelId === "38") {
     availiableStats = [ {value:"NONE", name:"Empty"}, 
                         {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
-                        {value:"NONE", name:"Floors (Not Supported On Versa Lite)"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"}]
+                        {value:"NONE", name:"Floors (Not Supported On Versa Lite)"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"},
+			{value:"BATTERY", name:"Battery"}]
   } 
   
   return (
@@ -218,7 +220,7 @@ function mySettings(props) {
       </Section> }
       
       { hasStat(props) && <Section title="Stats Progress">
-        <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"} ]} /> 
+        <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"}, {value:"ring", name:"Ring"} ]} />
       </Section> }
       
       <Section title="Battery">
@@ -269,6 +271,10 @@ function mySettings(props) {
       
       { hasActivity(props, "BMIBMR") && <Section title="BMI/BMR colour">
         <ColorSelect settingsKey="bmColour" colors={colourSet} />
+      </Section> }
+      
+      { hasActivity(props, "BATTERY") && <Section title="Battery Stat colour">
+        <ColorSelect settingsKey="batteryStatColour" colors={colourSet} />
       </Section> }
       
       { hasStat(props) && <Section title="Progress background colour">

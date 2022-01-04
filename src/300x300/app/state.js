@@ -61,7 +61,6 @@ hrm.onreading = (evt) => {
   hr.newHrm(hrm.heartRate);
 };
 
-
 export function reApplyState() {
   battery.drawBat();
   battery.isCharging();

@@ -62,6 +62,7 @@ function setDefaultSettings() {
   setDefaultSetting("elevationGainColour","darkorchid");
   setDefaultSetting("caloriesColour","deeppink");
   setDefaultSetting("activeMinutesColour","deepskyblue");
+  setDefaultSetting("batteryStatColour","#00FF00");
   setDefaultSetting("heartColour","crimson");
   setDefaultSetting("heartRateColour","white");
   setDefaultSetting("bmColour","gold");
