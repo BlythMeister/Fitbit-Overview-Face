@@ -7,15 +7,14 @@
   </svg>
   
   <svg id="battery">  
-    <image id="battery-icon" class="battery-icon" href="battery_24px.png" />
-    <image id="battery-icon-charge" class="battery-icon" href="battery_charge_24px.png" />
+    <image id="battery-icon" class="battery-icon" href="battery_full_36px.png" />
     <text id="battery-percent" />
   </svg>
   
   <svg id="hr"> 
     <text id="hr-count" class="count sideCount" />
-    <image id="hr-icon-systole" class="icon" href="heart_48px.png" />
-    <image id="hr-icon-diastole" class="icon" href="heart_48px.png" />
+    <image id="hr-icon-systole" class="icon" href="heart_36px.png" />
+    <image id="hr-icon-diastole" class="icon" href="heart_36px.png" />
     <svg>
       <text id="hr-resting" class="count sideCount" />
       <text id="hr-zone" class="count sideCount" />
@@ -84,7 +83,7 @@
   
   <svg id="battery-straight">   
     <text id="battery-straight-count" class="count" fill="white" />
-    <image id="battery-straight-icon" class="icon" href="battery_24px.png" fill="white" />
+    <image id="battery-straight-icon" class="icon" href="battery_full_36px.png" fill="white" />
     <rect id="battery-straight-line-back" class="line" fill="white" />
     <rect id="battery-straight-line" class="line" fill="white" />
   </svg>
@@ -133,7 +132,7 @@
   
   <svg id="battery-arc">   
     <text id="battery-arc-count" class="count-arc" fill="white" />
-    <image id="battery-arc-icon" class="icon-arc" href="battery_24px.png" fill="white" />
+    <image id="battery-arc-icon" class="icon-arc" href="battery_full_36px.png" fill="white" />
     <arc id="battery-arc-line-back" class="line-arc" fill="white" />
     <arc id="battery-arc-line" class="line-arc" fill="white" />
   </svg>
@@ -182,7 +181,7 @@
   
   <svg id="battery-ring">
     <text id="battery-ring-count" class="count-ring" fill="white" />
-    <image id="battery-ring-icon" class="icon-ring" href="battery_24px.png" fill="white" />
+    <image id="battery-ring-icon" class="icon-ring" href="battery_full_36px.png" fill="white" />
     <arc id="battery-ring-line-back" class="line-ring" fill="white" />
     <arc id="battery-ring-line" class="line-ring" fill="white" />
   </svg>

@@ -159,7 +159,7 @@ function mySettings(props) {
     
   {color: 'lavender'},
   {color: 'beige'},
-  {color: 'aliceblue'},
+  {color: 'mistyrose'},
   {color: 'honeydew'}, 
   {color: 'azure'}, 
   {color: 'snow'}, 
@@ -167,7 +167,7 @@ function mySettings(props) {
   {color: 'white'},
   {color: 'lightgray'},
   {color: 'darkgray'},
-  {color: 'lightslategray'}, 
+  {color: 'gray'}, 
   {color: 'dimgray'}, 
   {color: 'black'}
 ];

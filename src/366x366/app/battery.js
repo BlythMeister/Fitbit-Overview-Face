@@ -8,7 +8,6 @@ export const screenWidth = root.width
 export let batteryLine = document.getElementById("battery-line");
 export let batteryLineFront = document.getElementById("battery-line-front");
 export let batteryLineBack = document.getElementById("battery-line-back");
-export let batteryIconCharge = document.getElementById("battery-icon-charge");
 export let batteryIcon = document.getElementById("battery-icon");
 export let batteryPercent = document.getElementById("battery-percent");
 export let batteryPercentBlock = document.getElementById("battery");
@@ -76,8 +75,6 @@ export function setColour75(colour) {
 export function drawBat() {
   let level = battery.chargeLevel;
 
-  isCharging();
-
   let batteryPercentage = Math.floor(level);
   batteryPercent.text = `${batteryPercentage}%`;  
   batteryStatCountStraight.text = `${batteryPercentage}%`;
@@ -85,46 +82,44 @@ export function drawBat() {
   batteryStatCountRing.text = `${batteryPercentage}%`;
   
   let batteryDecimal = batteryPercentage/100
-  var maxLine = screenWidth /100 * 28;
+  var statMaxLine = screenWidth /100 * 28;
   batteryLineFront.sweepAngle = Math.floor(180*batteryDecimal);
-  batteryStatLineStraight.width = maxLine*batteryDecimal;
+  batteryStatLineStraight.width = statMaxLine*batteryDecimal;
   batteryStatLineArc.sweepAngle = Math.floor(225*batteryDecimal);
   batteryStatLineRing.sweepAngle = Math.floor(360*batteryDecimal);    
 
+  let colourToUse = "";
+  let iconToUse = "";
+  
   if (batteryPercentage >= 75)
   {
-    setColour(colour75);
+    colourToUse = colour75;
+    iconToUse = "battery_full_36px.png";
   }
   else if (batteryPercentage >= 50)
   {
-    setColour(colour50);
+    colourToUse = colour50;
+    iconToUse = "battery_slight_empty_36px.png";
   }
   else if (batteryPercentage >= 25)
   {
-    setColour(colour25);
+    colourToUse = colour25;
+    iconToUse = "battery_half_36px.png";
   }
   else
   {
-    setColour(colour0);
-  }
-}
-
-export function setColour(colour){
-  batteryLineFront.style.fill = colour;
-  batteryIconCharge.style.fill = colour;
-  batteryIcon.style.fill = colour;
-  batteryPercent.style.fill = colour;
-}
-
-export function isCharging(){
+    colourToUse = colour0;
+    iconToUse = "battery_empty_36px.png";
+  }  
+  
   if(battery.charging){
-    batteryIconCharge.style.display = "inline";
-    batteryIcon.style.display = "none";
-  }
-  else{
-    batteryIconCharge.style.display = "none";
-    batteryIcon.style.display = "inline";
-  }
+    iconToUse = "battery_charging_36px.png";    
+  }   
+    
+  batteryLineFront.style.fill = colourToUse;
+  batteryIcon.style.fill = colourToUse;
+  batteryPercent.style.fill = colourToUse;
+  batteryIcon.href = iconToUse;
 }
 
 drawBat();

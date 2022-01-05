@@ -63,7 +63,6 @@ hrm.onreading = (evt) => {
 
 export function reApplyState() {
   battery.drawBat();
-  battery.isCharging();
   hr.drawHrm();
   activity.drawAllProgress();
   bm.drawBMR();

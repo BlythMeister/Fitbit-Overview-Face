@@ -1,6 +1,6 @@
 #root {
   viewport-fill: black;
-  fill: Gold;
+  fill: gold;
 }
 
 #background {
@@ -329,8 +329,8 @@
 }
 
 .count-ring {
-  font-size: 22;
-  x: 37;
+  font-size: 21;
+  x: 38;
   y: 25;
   text-length: 10; 
   font-family: System-Bold;

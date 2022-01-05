@@ -67,10 +67,10 @@ function setDefaultSettings() {
   setDefaultSetting("heartRateColour","white");
   setDefaultSetting("bmColour","gold");
   setDefaultSetting("progressBackgroundColour","dimgrey");
-  setDefaultSetting("battery0Colour","yellow");
+  setDefaultSetting("battery0Colour","red");
   setDefaultSetting("battery25Colour","darkorange");
   setDefaultSetting("battery50Colour","gold");
-  setDefaultSetting("battery75Colour","red");
+  setDefaultSetting("battery75Colour","lime");
   setDefaultSetting("batteryBackgroundColour","dimgrey");
   setDefaultSetting("backgroundColour","black");
 }

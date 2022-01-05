@@ -330,6 +330,16 @@ export function applySettings() {
     battery.batteryStatIconRing.style.fill = "white";
     battery.batteryStatCountRing.style.fill = "white";
   }
+  
+  if (settings.hasOwnProperty("progressBackgroundColour") && settings["progressBackgroundColour"]) {
+    battery.batteryStatLineBackStraight.style.fill = settings["progressBackgroundColour"];
+    battery.batteryStatLineBackArc.style.fill = settings["progressBackgroundColour"];
+    battery.batteryStatLineBackRing.style.fill = settings["progressBackgroundColour"];
+  } else {
+    battery.batteryStatLineBackStraight.style.fill = "#494949";
+    battery.batteryStatLineBackArc.style.fill = "#494949";
+    battery.batteryStatLineBackRing.style.fill = "#494949";
+  }
 
   var progressBarType = "bars";
   if (settings.hasOwnProperty("progressBars") && settings["progressBars"]) {
