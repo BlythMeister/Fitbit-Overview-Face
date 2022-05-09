@@ -1,0 +1,56 @@
+#Basic Settings
+title: Fitbit Overview
+description: "Overview Fitbit watch face"
+url: https://fitbit-overview.blyth.me.uk
+author: BlythMeister
+logo: /images/icon.png
+lang: en_GB
+enableCsp: true
+
+GoogleAnalytics: G-NV5XV49JHF
+
+#Webmaster tools
+webmaster_verifications:
+  google: HV11HFJBxWBjSBdvj2X1ARYcyV0gkh2RC2RN-BBPOQc
+  bing:  70C9C40BE160CF8A17564E2F00B21581
+#Social
+twitter:
+    username: BlythMeister
+    card: summary
+
+facebook:
+   app_id: 1934053506806190
+   publisher: 285001657
+   admins: 285001657
+
+social:
+    name: Chris Blyth
+    links:
+        - https://www.twitter.com/BlythMeister
+        - https://www.linkedin.com/in/chris-blyth/
+        - https://github.com/BlythMeister
+
+#Link format
+permalink: pretty
+
+#Pagination
+paginate: 5
+paginate_path: "/posts/page:num"
+
+#Defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      image: /images/icon.png
+
+#Plugins
+plugins:
+  - jekyll-redirect-from
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-gist
