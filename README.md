@@ -8,7 +8,7 @@ Pre-Release Fitbit listing: (https://gallery.fitbit.com/details/6d80c169-94c5-41
 
 Or scan this QR Code for release version
 
-![QRCode](https://github.com/BlythMeister/Fitbit-Overview-Face/blob/master/docs/imagesQR.png?raw=true)
+![QRCode](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/QR.png)
 
 # Features
 
