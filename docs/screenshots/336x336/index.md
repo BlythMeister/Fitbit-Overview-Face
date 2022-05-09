@@ -7,7 +7,7 @@ description: "Versa 3 & Sense Screenshots"
 
 ## Default
 
-![base]({{ site.url }}/images/336x3è6/1.base.png)
+![base]({{ site.url }}/images/336x336/1.base.png)
 
 ## 24 Hour Mode
 
