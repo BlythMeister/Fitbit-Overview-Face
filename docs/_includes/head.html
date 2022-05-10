@@ -5,7 +5,7 @@
 <meta name="enableCsp" content="{{ site.enableCsp }}">
 {% if site.enableCsp %}
 <!-- ReportURI -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.report-uri.com www.googletagmanager.com www.google-analytics.com cdnjs.cloudflare.com static.cloudflareinsights.com gist.github.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com github.githubassets.com; img-src 'self' data: www.googletagmanager.com www.google-analytics.com; font-src data: cdnjs.cloudflare.com; connect-src blythmeister.report-uri.com www.googletagmanager.com www.google-analytics.com www.bing.com; upgrade-insecure-requests; block-all-mixed-content">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.report-uri.com www.googletagmanager.com www.google-analytics.com cdnjs.cloudflare.com static.cloudflareinsights.com gist.github.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com github.githubassets.com; img-src 'self' data: www.googletagmanager.com www.google-analytics.com; font-src data: cdnjs.cloudflare.com; connect-src 'self' blythmeister.report-uri.com www.googletagmanager.com www.google-analytics.com www.bing.com; upgrade-insecure-requests; block-all-mixed-content">
 <script type="text/json" id="csp-report-uri">
 {
     "keys" : ["blockedURI", "columnNumber", "disposition", "documentURI", "effectiveDirective", "lineNumber", "originalPolicy", "referrer", "sample", "sourceFile", "statusCode", "violatedDirective"],
