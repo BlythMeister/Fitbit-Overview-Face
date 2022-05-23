@@ -5,6 +5,7 @@ import { vibration } from "haptics";
 export let torchEl = document.getElementById('torch');
 
 export let torchEnabled = false;
+export let torchOverlay = false;
 export let firstTouch = false;
 export let torchOn = false;
 export let autoOffTimer = undefined;
@@ -13,6 +14,7 @@ export let torchAutoOff = -1;
 
 export function setEnabled(val) { torchEnabled = val}
 export function setAutoOff(val) { torchAutoOff = val}
+export function setTorchOverlay(val) { torchOverlay = val}
 
 torchEl.onclick = function(e) {
   if(torchEnabled)
@@ -32,25 +34,27 @@ torchEl.onclick = function(e) {
 
 display.onchange = (evt) => {
   if(display.on == false && torchOn == true){
-    TurnOffTorch();
+    display.poke();
   }
 }
 
 export function TurnOnTorch()
 {
-  torchEl.style.opacity = 1;
+  if(torchOverlay)
+  {
+    torchEl.style.opacity = 1;
+  }  
   display.brightnessOverride = "max";
   display.autoOff = false;
   display.on = true;
   torchOn = true;
 
-  torchOnNudgeTimer = setInterval(function () { vibration.start("nudge-max"); }, 2000);
+  torchOnNudgeTimer = setInterval(function () { vibration.start("nudge-max"); display.poke() }, 2000);
 
   if(torchAutoOff > 0)
   {
     autoOffTimer = setTimeout(function () {TurnOffTorch();}, torchAutoOff * 1000);
   }
-
 }
 
 export function TurnOffTorch()

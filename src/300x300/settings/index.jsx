@@ -59,58 +59,40 @@ function hasStat(props)
     }
 }
 
-function hasBattery(props, barOnly)
+function hasSetting(props, key, defaultValue)
 {
   try
   {
-    let batteryPercent = JSON.parse(props.settingsStorage.getItem("showBatteryPercent"));
-    let batteryBar = JSON.parse(props.settingsStorage.getItem("showBatteryBar"));
-
-    if(barOnly)
-    {
-    return batteryBar;  
-    }
-    else
-    {
-     return batteryPercent || batteryBar;
-    }
+    return JSON.parse(props.settingsStorage.getItem(key));
   } catch(e) { 
-    console.log(`Error on hasBattery: ${e}`); 
-    return true;
+    console.log(`Error on ${key}: ${e}`); 
+    return defaultValue;
   }
+}
+
+function hasBatteryIcon(props)
+{
+  return hasSetting(props, "showBatteryPercent", true);
+}
+
+function hasBatteryBar(props)
+{
+  return hasSetting(props, "showBatteryBar", true);
 }
 
 function hasHeartRate(props)
 {
-  try
-  {
-    return JSON.parse(props.settingsStorage.getItem("showHeartRate"));
-  } catch(e) { 
-    console.log(`Error on hasHeartRate: ${e}`); 
-    return true;
-  }
+  return hasSetting(props, "showHeartRate", true);
 }
 
 function hasDate(props)
 {
-  try
-  {
-    return JSON.parse(props.settingsStorage.getItem("showDate"));
-  } catch(e) { 
-    console.log(`Error on hasHeartRate: ${e}`); 
-    return true;
-  }
+  return hasSetting(props, "showDate", true);
 }
 
 function hasTime(props)
 {
-  try
-  {
-    return JSON.parse(props.settingsStorage.getItem("showTime"));
-  } catch(e) { 
-    console.log(`Error on hasHeartRate: ${e}`); 
-    return true;
-  }
+  return hasSetting(props, "showTime", true);
 }
 
 function mySettings(props) {
@@ -131,11 +113,11 @@ function mySettings(props) {
      
   {color: 'gold'},
   {color: 'yellow'},
-  {color: 'lightyellow'},
-  {color: 'maroon'},
-  {color: 'peru'},
   {color: 'tan'},
-    
+  {color: 'peru'},
+  {color: 'saddlebrown'},
+  {color: 'maroon'},
+   
   {color: 'green'},
   {color: 'mediumseagreen'},  
   {color: 'lime'},  
@@ -147,8 +129,8 @@ function mySettings(props) {
   {color: 'blue'},
   {color: 'deepskyblue'},
   {color: 'lightskyblue'}, 
-  {color: 'darkblue'},  
-  {color: 'navy'},
+  {color: 'cornflowerblue'},  
+  {color: 'darkblue'},
     
   {color: 'powderblue'},
   {color: 'mediumslateblue'},
@@ -162,7 +144,7 @@ function mySettings(props) {
   {color: 'mistyrose'},
   {color: 'honeydew'}, 
   {color: 'azure'}, 
-  {color: 'snow'}, 
+  {color: 'lightyellow'}, 
     
   {color: 'white'},
   {color: 'lightgray'},
@@ -235,9 +217,10 @@ function mySettings(props) {
         <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
       </Section>
       
-      <Section title="Torch">
-        <Toggle settingsKey="torchEnabled" label="Enable on torch on double tap" />
-        <Select settingsKey="torchAutoOff" label="Automatically turn torch off after" options={[{value:"-1", name: "Never" }, {value:"1", name:"1 Second"}, {value: "2", name: "2 Seconds"}, {value: "5", name: "5 Seconds"}, {value: "15", name: "15 Seconds"}, {value: "30", name: "30 Seconds"}, {value: "60", name: "60 Seconds"}]} />
+      <Section title="Torch/Always On">
+        <Toggle settingsKey="torchEnabled" label="Enable on torch/always on with double tap" />
+        <Select settingsKey="torchAutoOff" label="Automatically turn torch/always on off after" options={[{value:"-1", name: "Never" }, {value:"1", name:"1 Second"}, {value: "2", name: "2 Seconds"}, {value: "5", name: "5 Seconds"}, {value: "15", name: "15 Seconds"}, {value: "30", name: "30 Seconds"}, {value: "60", name: "60 Seconds"}]} />
+        <Toggle settingsKey="torchOverlay" label="Set screen white when torch/always on" />
       </Section>
       
       { hasTime(props) && <Section title="Time colour">
@@ -288,23 +271,39 @@ function mySettings(props) {
         <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
       </Section> }
       
-      { hasBattery(props, false) && <Section title="Battery 0% - 25% colour">
+      { hasBatteryIcon(props) && <Section title="Battery Icon 0% - 25% colour">
+        <ColorSelect settingsKey="batteryIcon0Colour" colors={colourSet} />
+      </Section> } 
+      
+      { hasBatteryIcon(props) && <Section title="Battery Icon 25% - 50% colour">
+        <ColorSelect settingsKey="batteryIcon25Colour" colors={colourSet} />
+      </Section> }
+      
+      { hasBatteryIcon(props) && <Section title="Battery Icon 50% - 75% colour">
+        <ColorSelect settingsKey="batteryIcon50Colour" colors={colourSet} />
+      </Section> }  
+      
+      { hasBatteryIcon(props) && <Section title="Battery Icon 75% - 100% colour">
+        <ColorSelect settingsKey="batteryIcon75Colour" colors={colourSet} />
+      </Section> }
+      
+      { hasBatteryBar(props) && <Section title="Battery Bar 0% - 25% colour">
         <ColorSelect settingsKey="battery0Colour" colors={colourSet} />
       </Section> } 
       
-      { hasBattery(props, false) && <Section title="Battery 25% - 50% colour">
+      { hasBatteryBar(props) && <Section title="Battery Bar 25% - 50% colour">
         <ColorSelect settingsKey="battery25Colour" colors={colourSet} />
       </Section> }
       
-      { hasBattery(props, false) && <Section title="Battery 50% - 75% colour">
+      { hasBatteryBar(props) && <Section title="Battery Bar 50% - 75% colour">
         <ColorSelect settingsKey="battery50Colour" colors={colourSet} />
       </Section> }  
       
-      { hasBattery(props, false) && <Section title="Battery 75% - 100% colour">
+      { hasBatteryBar(props) && <Section title="Battery Bar 75% - 100% colour">
         <ColorSelect settingsKey="battery75Colour" colors={colourSet} />
       </Section> }
       
-      { hasBattery(props, true) && <Section title="Battery bar background colour">
+      { hasBatteryBar(props) && <Section title="Battery bar background colour">
         <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
       </Section> }
       

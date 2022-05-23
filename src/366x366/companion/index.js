@@ -56,6 +56,7 @@ function setDefaultSettings() {
   setDefaultSetting("showBatteryPercent",true);
   setDefaultSetting("showBatteryBar",true);
   setDefaultSetting("torchEnabled",false);
+  setDefaultSetting("torchOverlay",true);  
   setDefaultSetting("timeColour","white");
   setDefaultSetting("dateColour","white");
   setDefaultSetting("stepsColour","darkorange");
@@ -69,6 +70,10 @@ function setDefaultSettings() {
   setDefaultSetting("heartRateColour","white");
   setDefaultSetting("bmColour","gold");
   setDefaultSetting("progressBackgroundColour","dimgrey");
+  setDefaultSetting("batteryIcon0Colour","red");
+  setDefaultSetting("batteryIcon25Colour","darkorange");
+  setDefaultSetting("batteryIcon50Colour","gold");
+  setDefaultSetting("batteryIcon75Colour","lime");
   setDefaultSetting("battery0Colour","red");
   setDefaultSetting("battery25Colour","darkorange");
   setDefaultSetting("battery50Colour","gold");

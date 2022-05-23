@@ -130,6 +130,12 @@ export function applySettings() {
   } else {
     torch.setAutoOff(-1);
   }
+  
+  if (settings.hasOwnProperty("torchOverlay")) {
+    torch.setTorchOverlay(settings["torchOverlay"]);
+  } else {
+    torch.setTorchOverlay(false);
+  }
 
   if (settings.hasOwnProperty("BMIVis")) {
     bm.setBMIVis(!!settings["BMIVis"]);
@@ -269,11 +275,35 @@ export function applySettings() {
   } else {
     battery.setShowBatteryBar(true);
   }
+  
+  if (settings.hasOwnProperty("batteryIcon0Colour") && settings["batteryIcon0Colour"]) {
+    battery.setColour0Icon(settings["batteryIcon0Colour"]);
+  } else {
+    battery.setColour0Icon("red");
+  }
+
+  if (settings.hasOwnProperty("batteryIcon25Colour") && settings["batteryIcon25Colour"]) {
+    battery.setColour25Icon(settings["batteryIcon25Colour"]);
+  } else {
+    battery.setColour25Icon("darkorange");
+  }
+
+  if (settings.hasOwnProperty("batteryIcon50Colour") && settings["batteryIcon50Colour"]) {
+    battery.setColour50Icon(settings["batteryIcon50Colour"]);
+  } else {
+    battery.setColour50Icon("gold");
+  }
+
+  if (settings.hasOwnProperty("batteryIcon75Colour") && settings["batteryIcon75Colour"]) {
+    battery.setColour75Icon(settings["batteryIcon75Colour"]);
+  } else {
+    battery.setColour75Icon("lime");
+  }
 
   if (settings.hasOwnProperty("battery0Colour") && settings["battery0Colour"]) {
     battery.setColour0(settings["battery0Colour"]);
   } else {
-    battery.setColour0("#FF0000");
+    battery.setColour0("red");
   }
 
   if (settings.hasOwnProperty("battery25Colour") && settings["battery25Colour"]) {
@@ -291,7 +321,7 @@ export function applySettings() {
   if (settings.hasOwnProperty("battery75Colour") && settings["battery75Colour"]) {
     battery.setColour75(settings["battery75Colour"]);
   } else {
-    battery.setColour75("#00FF00");
+    battery.setColour75("lime");
   }
 
   if (settings.hasOwnProperty("batteryBackgroundColour") && settings["batteryBackgroundColour"]) {
