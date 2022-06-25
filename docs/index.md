@@ -59,3 +59,6 @@ Based on the [ANDv2 clock face](https://github.com/ahsandar/ANDv2).
 * [Versa Lite](screenshots/300x300-lite)
 * [Versa 3 & Sense](screenshots/336x336)
 
+## Videos
+
+* [Edit Settings]({{ site.url }}/images/show-settings.mp4)
