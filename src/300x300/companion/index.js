@@ -21,11 +21,18 @@ messaging.peerSocket.onopen = function(evt) {
 
 function sendAllSettings() {
   console.log("Sending all settings");
-  for (var i=0; i < settingsStorage.length; i++) {
-    var key = settingsStorage.key(i);
-    var value = settingsStorage.getItem(key);
-    sendSettingValue(key, value);
+  for (var i=0; i < settingsStorage.length; i++) {       
+    sendSettingAtIndex(i);
   }
+}
+
+function sendSettingAtIndex(i)
+{
+  setTimeout(() => {
+      var key = settingsStorage.key(i);
+      var value = settingsStorage.getItem(key); 
+      sendSettingValue(key, value)
+    }, i * 500);
 }
 
 function setDefaultSettings() {
@@ -105,9 +112,14 @@ function sendSettingValue(key, val) {
 
     // If we have a MessageSocket, send the data to the device
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+      console.log(`Sending Setting - key:${data.key} val:${data.value}`);
       messaging.peerSocket.send(data);
     } else {
       console.log(`No peerSocket connection to send updated ${key}`);
     }
+  }
+  else
+  {
+    console.log(`value was null, not sending ${key}`)
   }
 }
