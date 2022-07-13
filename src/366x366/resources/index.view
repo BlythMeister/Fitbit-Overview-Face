@@ -39,6 +39,16 @@
     <text id="bmi-zone" />
   </svg>
  
+  <svg id="bmi">
+    <text id="bmi-count" class="count-noProgress" fill="white" />
+    <image id="bmi-icon" class="icon-noProgress" href="bmi_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="bmr">
+    <text id="bmr-count" class="count-noProgress" fill="white" />
+    <image id="bmr-icon" class="icon-noProgress" href="bmr_36px.png" fill="white" />
+  </svg>
+ 
   <svg id="steps-straight">
     <text id="steps-straight-count" class="count" fill="white" />
     <image id="steps-straight-icon" class="icon" href="steps_36px.png" fill="white" />
@@ -76,7 +86,7 @@
   
   <svg id="activeMinutesWeek-straight">   
     <text id="activeMinutesWeek-straight-count" class="count" fill="white" />
-    <image id="activeMinutesWeek-straight-icon" class="icon" href="azm_36px.png" fill="white" />
+    <image id="activeMinutesWeek-straight-icon" class="icon" href="azm7_36px.png" fill="white" />
     <rect id="activeMinutesWeek-straight-line-back" class="line" fill="white" />
     <rect id="activeMinutesWeek-straight-line" class="line" fill="white" />
   </svg>
@@ -125,7 +135,7 @@
   
   <svg id="activeMinutesWeek-arc">   
     <text id="activeMinutesWeek-arc-count" class="count-arc" fill="white" />
-    <image id="activeMinutesWeek-arc-icon" class="icon-arc" href="azm_36px.png" fill="white" />
+    <image id="activeMinutesWeek-arc-icon" class="icon-arc" href="azm7_36px.png" fill="white" />
     <arc id="activeMinutesWeek-arc-line-back" class="line-arc" fill="white" />
     <arc id="activeMinutesWeek-arc-line" class="line-arc" fill="white" />
   </svg>
@@ -174,7 +184,7 @@
   
   <svg id="activeMinutesWeek-ring">
     <text id="activeMinutesWeek-ring-count" class="count-ring" fill="white" />
-    <image id="activeMinutesWeek-ring-icon" class="icon-ring" href="azm_36px.png" fill="white" />
+    <image id="activeMinutesWeek-ring-icon" class="icon-ring" href="azm7_36px.png" fill="white" />
     <arc id="activeMinutesWeek-ring-line-back" class="line-ring" fill="white" />
     <arc id="activeMinutesWeek-ring-line" class="line-ring" fill="white" />
   </svg>

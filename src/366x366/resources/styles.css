@@ -260,6 +260,14 @@
   display: "none";
 }
 
+#bmi {
+  display: "none";
+}
+
+#bmr {
+  display: "none";
+}
+
 #bmr-zone {
   text-anchor: middle;
   font-size: 16;
@@ -268,7 +276,6 @@
   fill: darkorange;
   x:14%;
   y:10;
-  display: none;
 }
 
 #bmi-zone {
@@ -279,7 +286,21 @@
   fill: darkorange;
   x:14%;
   y:25;
-  display: none;
+}
+
+.icon-noProgress {
+  width: 23;
+  height: 23;
+  x:4;
+  y:5;
+}
+
+.count-noProgress {
+  font-size: 22;
+  x: 30;
+  y: 25;
+  text-length: 10; 
+  font-family: System-Bold;
 }
 
 .icon {
