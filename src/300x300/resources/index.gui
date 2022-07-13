@@ -35,6 +35,16 @@
     <text id="bmr-zone" />
     <text id="bmi-zone" />
   </svg>
+  
+  <svg id="bmi">
+    <text id="bmi-count" class="count-noProgress" fill="white" />
+    <image id="bmi-icon" class="icon-noProgress" href="bmi_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="bmr">
+    <text id="bmr-count" class="count-noProgress" fill="white" />
+    <image id="bmr-icon" class="icon-noProgress" href="bmr_36px.png" fill="white" />
+  </svg> 
  
   <svg id="steps-straight">
     <text id="steps-straight-count" class="count" fill="white" />

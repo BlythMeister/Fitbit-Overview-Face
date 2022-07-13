@@ -10,7 +10,7 @@ settingsStorage.onchange = function(evt) {
 
 //Message socket error
 messaging.peerSocket.onerror = function(evt) {
-  sendAllSettings();
+  console.log(`Companion Eror:${evt.message}`);
 }
 
 messaging.peerSocket.onopen = function(evt) {
@@ -32,7 +32,7 @@ function sendSettingAtIndex(i)
       var key = settingsStorage.key(i);
       var value = settingsStorage.getItem(key); 
       sendSettingValue(key, value)
-    }, i * 500);
+    }, i * 200);
 }
 
 function setDefaultSettings() {
@@ -50,18 +50,17 @@ function setDefaultSettings() {
   setDefaultSetting("flashDots",true);
   setDefaultSetting("showDate",true);
   setDefaultSetting("showDay",true);
-  setDefaultSetting("StatsTL",{"values":[{"value":"steps","name":"Steps"}],"selected":[2]});
-  setDefaultSetting("StatsBL",{"values":[{"value":"distance","name":"Distance"}],"selected":[3]});
+  setDefaultSetting("StatsTL",{"values":[{"value":"steps","name":"Steps"}],"selected":[4]});
+  setDefaultSetting("StatsBL",{"values":[{"value":"distance","name":"Distance"}],"selected":[5]});
   setDefaultSetting("StatsTM",{"values":[{"value":"BMIBMR","name":"BMR/BMI"}],"selected":[1]});
-  setDefaultSetting("StatsBM",{"values":[{"value":"calories","name":"Calories"}],"selected":[5]});
-  setDefaultSetting("StatsTR",{"values":[{"value":"elevationGain","name":"Floors"}],"selected":[4]});
-  setDefaultSetting("StatsBR",{"values":[{"value":"activeMinutes","name":"Active Zone Minutes"}],"selected":[6]});
-  setDefaultSetting("BMRVis",true);
-  setDefaultSetting("BMIVis",true);
-  setDefaultSetting("progressBars",{"values":[{"value":"bars","name":"Bars"}],"selected":[1]});
+  setDefaultSetting("StatsBM",{"values":[{"value":"calories","name":"Calories"}],"selected":[7]});
+  setDefaultSetting("StatsTR",{"values":[{"value":"elevationGain","name":"Floors"}],"selected":[6]});
+  setDefaultSetting("StatsBR",{"values":[{"value":"activeMinutes","name":"Active Zone Minutes"}],"selected":[9]});
+  setDefaultSetting("progressBars",{"values":[{"value":"ring","name":"Ring"}],"selected":[3]});
   setDefaultSetting("showBatteryPercent",true);
   setDefaultSetting("showBatteryBar",true);
-  setDefaultSetting("torchEnabled",false);
+  setDefaultSetting("torchEnabled",true);
+  setDefaultSetting("torchAutoOff",{"values":[{"value":"15","name":"15 Seconds"}],"selected":[4]});
   setDefaultSetting("torchOverlay",true);
   setDefaultSetting("timeColour","white");
   setDefaultSetting("dateColour","white");
@@ -74,6 +73,8 @@ function setDefaultSettings() {
   setDefaultSetting("heartColour","crimson");
   setDefaultSetting("heartRateColour","white");
   setDefaultSetting("bmColour","gold");
+  setDefaultSetting("bmiColour","gold");
+  setDefaultSetting("bmrColour","gold");
   setDefaultSetting("progressBackgroundColour","dimgrey");
   setDefaultSetting("batteryIcon0Colour","red");
   setDefaultSetting("batteryIcon25Colour","darkorange");

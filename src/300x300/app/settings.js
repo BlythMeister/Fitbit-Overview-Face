@@ -137,18 +137,6 @@ export function applySettings() {
     torch.setTorchOverlay(false);
   }
 
-  if (settings.hasOwnProperty("BMIVis")) {
-    bm.setBMIVis(!!settings["BMIVis"]);
-  } else {
-    bm.setBMIVis(true);
-  }
-
-  if (settings.hasOwnProperty("BMRVis")) {
-    bm.setBMRVis(!!settings["BMRVis"]);
-  } else {
-    bm.setBMRVis(true);
-  }
-
   if (settings.hasOwnProperty("timeColour") && settings["timeColour"]) {
     time.timeHourEl.style.fill = settings["timeColour"];
     time.timeColonEl.style.fill = settings["timeColour"];
@@ -338,6 +326,22 @@ export function applySettings() {
     bm.bmrZoneEl.style.fill = "white";
     bm.bmiZoneEl.style.fill = "white";
   }
+  
+    if (settings.hasOwnProperty("bmiColour") && settings["bmiColour"]) {
+    bm.bmiCountEl.style.fill = settings["bmiColour"];
+    bm.bmiIconEl.style.fill = settings["bmiColour"];
+  } else {
+    bm.bmiCountEl.style.fill = "white";
+    bm.bmiIconEl.style.fill = "white";
+  }
+
+  if (settings.hasOwnProperty("bmrColour") && settings["bmrColour"]) {
+    bm.bmrCountEl.style.fill = settings["bmrColour"];
+    bm.bmrIconEl.style.fill = settings["bmrColour"];
+  } else {
+    bm.bmrCountEl.style.fill = "white";
+    bm.bmrIconEl.style.fill = "white";
+  }
 
   if (settings.hasOwnProperty("batteryStatColour") && settings["batteryStatColour"]) {
     battery.batteryStatLineStraight.style.fill = settings["batteryStatColour"];
@@ -418,9 +422,19 @@ export function applySettings() {
     var position = positions[i];
 
     //Remove item from position
-    if(bm.position == position) {
-      setStatsLocation(bm.bmEl, "NONE");
-      bm.setPosition("NONE");
+    if(bm.bmPosition == position) {
+      setStatsLocation(bm.bmEl, "NONE");      
+      bm.setBMPosition("NONE");
+    }
+    
+    if(bm.bmiPosition == position) {
+      setStatsLocation(bm.bmiEl, "NONE");      
+      bm.setBMIPosition("NONE");
+    }
+    
+    if(bm.bmrPosition == position) {
+      setStatsLocation(bm.bmrEl, "NONE");      
+      bm.setBMRPosition("NONE");
     }
 
     if(battery.batteryStatposition == position){
@@ -460,8 +474,14 @@ export function applySettings() {
     }
 
     if(stat == "BMIBMR") {
-      bm.setPosition(position);
+      bm.setBMPosition(position);
       setStatsLocation(bm.bmEl, position);
+    } else if(stat == "BMI") {
+      bm.setBMIPosition(position);
+      setStatsLocation(bm.bmiEl, position);
+    } else if(stat == "BMR") {
+      bm.setBMRPosition(position);
+      setStatsLocation(bm.bmrEl, position);
     } else if(stat == "BATTERY") {
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
       setStatsLocation(battery.batteryStatContainerArc, "NONE");

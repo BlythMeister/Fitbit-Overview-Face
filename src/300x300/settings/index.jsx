@@ -29,7 +29,7 @@ function hasActivity(props, activity)
   }  
 }
 
-function hasStat(props)
+function hasProgressStat(props)
 {
     try
     { 
@@ -47,14 +47,16 @@ function hasStat(props)
       //console.log(`statsTR: ${statsTR}`);
       //console.log(`statsBR: ${statsBR}`);
 
-      return (statsTL != "NONE" && statsTL != "BMIBMR") ||
-             (statsBL != "NONE" && statsBL != "BMIBMR") ||
-             (statsTM != "NONE" && statsTM != "BMIBMR") ||
-             (statsBM != "NONE" && statsBM != "BMIBMR") ||
-             (statsTR != "NONE" && statsTR != "BMIBMR") ||
-             (statsBR != "NONE" && statsBR != "BMIBMR");
+      let progressStats = ["steps","distance","elevationGain","calories","activeMinutes","BATTERY"]
+      
+      return progressStats.includes(statsTL) ||
+             progressStats.includes(statsBL) ||
+             progressStats.includes(statsTM) ||
+             progressStats.includes(statsBM) ||
+             progressStats.includes(statsTR) ||
+             progressStats.includes(statsBR);
     } catch(e) { 
-      console.log(`Error on hasStat: ${e}`); 
+      console.log(`Error on hasProgressStat: ${e}`); 
       return true;
     }
 }
@@ -155,16 +157,18 @@ function mySettings(props) {
 ];
       
   let modelId = JSON.parse(props.settingsStorage.getItem("deviceModelId"));
-  let availiableStats = [ {value:"NONE", name:"Empty"}, 
-                          {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
+  let availiableStats = [ {value:"NONE", name:"Empty"}, {value:"BMIBMR", name:"BMR/BMI"},
+                          {value:"BMI", name:"BMI"}, {value:"BMR", name:"BMR"},
+                          {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
                           {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"},
-			  {value:"BATTERY", name:"Battery"}]
+			                    {value:"BATTERY", name:"Battery"}]
   
   if(modelId === "38") {
-    availiableStats = [ {value:"NONE", name:"Empty"}, 
-                        {value:"BMIBMR", name:"BMR/BMI"}, {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
+    availiableStats = [ {value:"NONE", name:"Empty"}, {value:"BMIBMR", name:"BMR/BMI"},
+                        {value:"BMI", name:"BMI"}, {value:"BMR", name:"BMR"},
+                        {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
                         {value:"NONE", name:"Floors (Not Supported On Versa Lite)"}, {value:"calories", name:"Calories"}, {value:"activeMinutes", name:"Active Zone Minutes"},
-			{value:"BATTERY", name:"Battery"}]
+			                  {value:"BATTERY", name:"Battery"}]
   } 
   
   return (
@@ -199,16 +203,11 @@ function mySettings(props) {
         <Select label="Bottom Right" settingsKey="StatsBR" options={availiableStats} />
       </Section>
       
-      { hasActivity(props, "BMIBMR") && <Section title="BMR/BMI">
-        <Toggle settingsKey="BMRVis" label="Show BMR" />
-        <Toggle settingsKey="BMIVis" label="Show BMI" />
-      </Section> }
-      
       { hasActivity(props, "distance") && <Section title="Distance">   
         <Select label="Distance Unit" settingsKey="distanceUnit" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"m", name:"meters"}, {value:"km", name:"kilometers"}, {value:"ft", name:"feet"}, {value:"mi", name:"miles"} ]} />        
       </Section> }
       
-      { hasStat(props) && <Section title="Stats Progress">
+      { hasProgressStat(props) && <Section title="Stats Progress">
         <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"}, {value:"ring", name:"Ring"} ]} />
       </Section> }
       
@@ -218,9 +217,9 @@ function mySettings(props) {
       </Section>
       
       <Section title="Torch/Always On">
-        <Toggle settingsKey="torchEnabled" label="Enable on torch/always on with double tap" />
-        <Select settingsKey="torchAutoOff" label="Automatically turn torch/always on off after" options={[{value:"-1", name: "Never" }, {value:"1", name:"1 Second"}, {value: "2", name: "2 Seconds"}, {value: "5", name: "5 Seconds"}, {value: "15", name: "15 Seconds"}, {value: "30", name: "30 Seconds"}, {value: "60", name: "60 Seconds"}]} />
-        <Toggle settingsKey="torchOverlay" label="Set screen white when torch/always on" />
+        <Toggle settingsKey="torchEnabled" label="Enable always on with double tap" />
+        <Select settingsKey="torchAutoOff" label="Automatically off after" options={[{value:"-1", name: "Never" }, {value:"1", name:"1 Second"}, {value: "2", name: "2 Seconds"}, {value: "5", name: "5 Seconds"}, {value: "15", name: "15 Seconds"}, {value: "30", name: "30 Seconds"}, {value: "60", name: "60 Seconds"}]} />
+        <Toggle settingsKey="torchOverlay" label="Set torch when always on" />
       </Section>
       
       { hasTime(props) && <Section title="Time colour">
@@ -263,11 +262,19 @@ function mySettings(props) {
         <ColorSelect settingsKey="bmColour" colors={colourSet} />
       </Section> }
       
+      { hasActivity(props, "BMI") && <Section title="BMI colour">
+        <ColorSelect settingsKey="bmiColour" colors={colourSet} />
+      </Section> }
+      
+      { hasActivity(props, "BMR") && <Section title="BMR colour">
+        <ColorSelect settingsKey="bmrColour" colors={colourSet} />
+      </Section> }
+      
       { hasActivity(props, "BATTERY") && <Section title="Battery Stat colour">
         <ColorSelect settingsKey="batteryStatColour" colors={colourSet} />
       </Section> }
       
-      { hasStat(props) && <Section title="Progress background colour">
+      { hasProgressStat(props) && <Section title="Progress background colour">
         <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
       </Section> }
       
