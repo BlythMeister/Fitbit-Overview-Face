@@ -3,40 +3,49 @@ import * as messaging from "messaging";
 import { me } from "companion";
 import { device } from "peer";
 
+let messageQueue = [];
+let sendingData = null;
+CheckQueue();
+
+function CheckQueue()
+{
+  if(messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0)
+  {
+    sendingData = messageQueue.shift();
+    console.log(`Sending Setting - key:${sendingData.key} val:${sendingData.value}`);
+    messaging.peerSocket.send(sendingData);
+    sendingData = null;
+  }
+  
+  setTimeout(() => {CheckQueue();}, 500);
+}
+
 // Settings have been changed
-settingsStorage.onchange = function(evt) {
-  sendSettingValue(evt.key, evt.newValue);
-}
-
-//Message socket error
 messaging.peerSocket.onerror = function(evt) {
-  console.log(`Companion Eror:${evt.message}`);
-}
-
-messaging.peerSocket.onopen = function(evt) {
-  setDefaultSettings();
-  setSetting("deviceModelId", device.modelId);
-  sendAllSettings();
-}
-
-function sendAllSettings() {
-  console.log("Sending all settings");
-  for (var i=0; i < settingsStorage.length; i++) {       
-    sendSettingAtIndex(i);
+  console.log(`Companion Socket Error:${evt.message}`);
+  if(sendingData != null)
+  {
+    messageQueue.unshift(sendingData);
+    sendingData = null;
   }
 }
 
-function sendSettingAtIndex(i)
-{
-  setTimeout(() => {
-      var key = settingsStorage.key(i);
-      var value = settingsStorage.getItem(key); 
-      sendSettingValue(key, value)
-    }, i * 200);
+messaging.peerSocket.onclose = function(evt) {
+  console.log(`Companion Socket Close:${evt.message}`);
+  if(sendingData != null)
+  {
+    messageQueue.unshift(sendingData);
+    sendingData = null;
+  }
+}
+
+messaging.peerSocket.onopen = function(evt) {
+  setDefaultSettings(); 
 }
 
 function setDefaultSettings() {
   console.log("Set Default Settings");
+  setDefaultSetting("deviceModelId", device.modelId);
   setDefaultSetting("distanceUnit", {"values":[{"value":"auto","name":"Automatic (Use Fitbit Setting)"}],"selected":[0]});
   setDefaultSetting("dateFormat", {"values":[{"value":"dd mmmm yyyy","name":"dd mmmm yyyy"}],"selected":[11]});
   setDefaultSetting("timeFormat", {"values":[{"value":"auto","name":"Automatic (Use Fitbit Setting)"}],"selected":[0]});
@@ -101,6 +110,7 @@ function setSetting(key, value) {
   let jsonValue = JSON.stringify(value)
   console.log(`Companion Set - key:${key} val:${jsonValue}`);
   settingsStorage.setItem(key, jsonValue);
+  sendSettingValue(key, jsonValue);
 }
 
 function sendSettingValue(key, val) {
@@ -111,13 +121,8 @@ function sendSettingValue(key, val) {
       value: JSON.parse(val)
     };
 
-    // If we have a MessageSocket, send the data to the device
-    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-      console.log(`Sending Setting - key:${data.key} val:${data.value}`);
-      messaging.peerSocket.send(data);
-    } else {
-      console.log(`No peerSocket connection to send updated ${key}`);
-    }
+    console.log(`Queue Sending Setting - key:${data.key} val:${data.value}`);
+    messageQueue.push(data);
   }
   else
   {
