@@ -3,6 +3,7 @@ import * as messaging from "messaging";
 import { me } from "companion";
 import { device } from "peer";
 
+let initialOpen = true;
 let messageQueue = [];
 let sendingData = null;
 CheckQueue();
@@ -17,7 +18,7 @@ function CheckQueue()
     sendingData = null;
   }
   
-  setTimeout(() => {CheckQueue();}, 500);
+  setTimeout(() => {CheckQueue();}, 200);
 }
 
 // Settings have been changed
@@ -45,7 +46,17 @@ messaging.peerSocket.onclose = function(evt) {
 }
 
 messaging.peerSocket.onopen = function(evt) {
-  setDefaultSettings(); 
+  setDefaultSettings();
+  if(initialOpen == true)
+  {
+    initialOpen = false;
+    console.log("Sending all settings");
+    for (var i=0; i < settingsStorage.length; i++) {
+      var key = settingsStorage.key(i);
+      var value = settingsStorage.getItem(key);
+      sendSettingValue(key, value)
+    }
+  }
 }
 
 function setDefaultSettings() {
