@@ -124,6 +124,10 @@ body {
     border-top: 1px solid grey;
 }
 
+.header-icons {
+    padding-left: 10px;
+}
+
 .fab {
     padding-top: 6px;
     font-size: 18px;
