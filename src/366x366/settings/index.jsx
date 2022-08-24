@@ -187,6 +187,11 @@ function mySettings(props) {
         { hasDate(props) && <Select label="Date Format" settingsKey="dateFormat" options={[ {value:"dd.mm.yy", name:"dd.mm.yy"}, {value:"dd mmm yy", name:"dd mmm yy"}, {value:"dd mmmm yy", name:"dd mmmm yy"}, {value:"dd/mm/yy", name:"dd/mm/yy"}, {value:"mm/dd/yy", name:"mm/dd/yy"}, {value:"mm.dd.yy", name:"mm.dd.yy"}, {value:"mmm dd yy", name:"mmm dd yy"}, {value:"mmmm dd yy", name:"mmmm dd yy"}, {value:"yy/mm/dd", name:"yy/mm/dd"}, {value:"dd.mm.yyyy", name:"dd.mm.yyyy"}, {value:"dd mmm yyyy", name:"dd mmm yyyy"}, {value:"dd mmmm yyyy", name:"dd mmmm yyyy"}, {value:"dd/mm/yyyy", name:"dd/mm/yyyy"}, {value:"mm/dd/yyyy", name:"mm/dd/yyyy"}, {value:"mm.dd.yyyy", name:"mm.dd.yyyy"}, {value:"mmm dd yyyy", name:"mmm dd yyyy"}, {value:"mmmm dd yyyy", name:"mmmm dd yyyy"}, {value:"yyyy/mm/dd", name:"yyyy/mm/dd"}, {value:"mmm dd, yyyy", name:"mmm dd, yyyy"}, {value:"mmmm dd, yyyy", name:"mmmm dd, yyyy"} ]} /> }
       </Section>
       
+      <Section title="Battery">
+        <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
+        <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
+      </Section>
+      
       <Section title="Heart Rate">
         <Toggle settingsKey="showHeartRate" label="Show Heart rate" />
         { hasHeartRate(props) && <Toggle settingsKey="isHeartbeatAnimation" label="Heartbeat animation" /> }   
@@ -203,12 +208,12 @@ function mySettings(props) {
         <Select label="Bottom Right" settingsKey="StatsBR" options={availiableStats} />
       </Section>
       
-      { hasActivity(props, "distance") && <Section title="Distance">   
-        <Select label="Distance Unit" settingsKey="distanceUnit" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"m", name:"meters"}, {value:"km", name:"kilometers"}, {value:"ft", name:"feet"}, {value:"mi", name:"miles"} ]} />        
-      </Section> }
-      
       { hasProgressStat(props) && <Section title="Stats Progress">
         <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"}, {value:"ring", name:"Ring"} ]} />
+      </Section> }
+      
+      { hasActivity(props, "distance") && <Section title="Distance">   
+        <Select label="Distance Unit" settingsKey="distanceUnit" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"m", name:"meters"}, {value:"km", name:"kilometers"}, {value:"ft", name:"feet"}, {value:"mi", name:"miles"} ]} />        
       </Section> }
       
       { hasActivity(props, "WEATHER")  && <Section title="Weather">
@@ -216,16 +221,15 @@ function mySettings(props) {
         <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"C", name:"Celcius"}, {value:"F", name:"Fahrenheit"} ]} />
       </Section> }
       
-      <Section title="Battery">
-        <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
-        <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
-      </Section>
-      
       <Section title="Torch/Always On">
         <Toggle settingsKey="torchEnabled" label="Enable always on with double tap" />
         <Select settingsKey="torchAutoOff" label="Automatically off after" options={[{value:"-1", name: "Never" }, {value:"1", name:"1 Second"}, {value: "2", name: "2 Seconds"}, {value: "5", name: "5 Seconds"}, {value: "15", name: "15 Seconds"}, {value: "30", name: "30 Seconds"}, {value: "60", name: "60 Seconds"}]} />
         <Toggle settingsKey="torchOverlay" label="Set torch when always on" />
       </Section>
+      
+      <Section title="Background colour">
+        <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
+      </Section>   
       
       { hasTime(props) && <Section title="Time colour">
         <ColorSelect settingsKey="timeColour" colors={colourSet}/>
@@ -233,6 +237,18 @@ function mySettings(props) {
       
       { hasDate(props) && <Section title="Date colour">
         <ColorSelect settingsKey="dateColour" colors={colourSet} />
+      </Section> }
+      
+      { hasHeartRate(props) && <Section title="Heart colour">
+        <ColorSelect settingsKey="heartColour" colors={colourSet} />
+      </Section> }
+      
+      { hasHeartRate(props) && <Section title="Heart rate colour">
+        <ColorSelect settingsKey="heartRateColour" colors={colourSet} />
+      </Section> }
+      
+      { hasProgressStat(props) && <Section title="Progress background colour">
+        <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
       </Section> }
       
       { hasActivity(props, "steps") && <Section title="Steps colour">
@@ -258,15 +274,7 @@ function mySettings(props) {
       { hasActivity(props, "activeMinutesWeek") && <Section title="Weekly Active Zone Minutes colour">
         <ColorSelect settingsKey="activeMinutesWeekColour" colors={colourSet} />
       </Section> }
-      
-      { hasHeartRate(props) && <Section title="Heart colour">
-        <ColorSelect settingsKey="heartColour" colors={colourSet} />
-      </Section> }
-      
-      { hasHeartRate(props) && <Section title="Heart rate colour">
-        <ColorSelect settingsKey="heartRateColour" colors={colourSet} />
-      </Section> }
-      
+           
       { hasActivity(props, "BMIBMR") && <Section title="BMI/BMR colour">
         <ColorSelect settingsKey="bmColour" colors={colourSet} />
       </Section> }
@@ -287,10 +295,6 @@ function mySettings(props) {
         <ColorSelect settingsKey="weatherColour" colors={colourSet} />
       </Section> }
       
-      { hasProgressStat(props) && <Section title="Progress background colour">
-        <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
-      </Section> }
-      
       { hasBatteryIcon(props) && <Section title="Battery Icon 0% - 25% colour">
         <ColorSelect settingsKey="batteryIcon0Colour" colors={colourSet} />
       </Section> } 
@@ -307,6 +311,10 @@ function mySettings(props) {
         <ColorSelect settingsKey="batteryIcon75Colour" colors={colourSet} />
       </Section> }
       
+      { hasBatteryBar(props) && <Section title="Battery bar background colour">
+        <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
+      </Section> } 
+      
       { hasBatteryBar(props) && <Section title="Battery Bar 0% - 25% colour">
         <ColorSelect settingsKey="battery0Colour" colors={colourSet} />
       </Section> } 
@@ -321,15 +329,7 @@ function mySettings(props) {
       
       { hasBatteryBar(props) && <Section title="Battery Bar 75% - 100% colour">
         <ColorSelect settingsKey="battery75Colour" colors={colourSet} />
-      </Section> }
-      
-      { hasBatteryBar(props) && <Section title="Battery bar background colour">
-        <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
-      </Section> }
-      
-      <Section title="Background colour">
-        <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
-      </Section>         
+      </Section> }     
     </Page>    
   );
 }
