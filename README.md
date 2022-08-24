@@ -21,10 +21,15 @@ Or scan this QR Code for release version
 * Distance
 * Calories
 * Floors
-* Active Minutes
-* BMI & BMR
-* Progress bars for activity goals
+* Active Zone Minutes
+* Weekly Active Zone Minutes
+* BMI
+* BMR
+* Progress bars, arc or rings for activity goals
 * Battery bar along the top
+* Current location weather
+* Always on display with "torch" mode
+* Fully customisable which items are displayed & in what colours
 
 # Language Support
 
@@ -45,7 +50,7 @@ Or scan this QR Code for release version
 * Russian
 * Czech
 * Indonesian
-* Norwegian (Versa 3 & Sense Only)
+* Norwegian
 
 # Devices
 

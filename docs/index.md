@@ -26,10 +26,15 @@ Based on the [ANDv2 clock face](https://github.com/ahsandar/ANDv2).
 * Distance
 * Calories
 * Floors
-* Active Minutes
-* BMI & BMR
-* Progress bars for activity goals
+* Active Zone Minutes
+* Weekly Active Zone Minutes
+* BMI
+* BMR
+* Progress bars, arc or rings for activity goals
 * Battery bar along the top
+* Current location weather
+* Always on display with "torch" mode
+* Fully customisable which items are displayed & in what colours
 
 ## Language Support
 
@@ -50,7 +55,7 @@ Based on the [ANDv2 clock face](https://github.com/ahsandar/ANDv2).
 * Russian
 * Czech
 * Indonesian
-* Norwegian (Versa 3 & Sense Only)
+* Norwegian
 
 ## Devices
 
