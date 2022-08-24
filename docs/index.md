@@ -52,11 +52,13 @@ Based on the [ANDv2 clock face](https://github.com/ahsandar/ANDv2).
 * Indonesian
 * Norwegian (Versa 3 & Sense Only)
 
-## Device Screenshots
+## Devices
+
+The watch face for Ionic, Versa, Versa Lite & Versa 2 devices has been deprecated meaning no new features will be added.
 
 * [Ionic (Deprecated)](screenshots/348x250)
-* [Versa & Versa 2](screenshots/300x300)
-* [Versa Lite](screenshots/300x300-lite)
+* [Versa & Versa 2 (Deprecated)](screenshots/300x300)
+* [Versa Lite (Deprecated)](screenshots/300x300-lite)
 * [Versa 3 & Sense](screenshots/336x336)
 
 ## Videos
