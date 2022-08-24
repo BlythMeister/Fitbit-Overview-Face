@@ -48,6 +48,11 @@
     <text id="bmr-count" class="count-noProgress" fill="white" />
     <image id="bmr-icon" class="icon-noProgress" href="bmr_36px.png" fill="white" />
   </svg>
+  
+  <svg id="weather">
+    <text id="weather-count" class="count-noProgressLargeIcon" fill="white">----</text>
+    <image id="weather-icon" class="icon-noProgressLargeIcon" href="weather_36px.png" fill="white" />
+  </svg>
  
   <svg id="steps-noProgress">
     <text id="steps-noProgress-count" class="count-noProgress" fill="white" />

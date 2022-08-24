@@ -1,7 +1,8 @@
 import { settingsStorage } from "settings";
 import * as messaging from "messaging";
-import { me } from "companion";
+import { me as companion } from "companion";
 import { device } from "peer";
+import { weather,WeatherCondition,TemperatureUnit } from "weather";
 
 let initialOpen = true;
 let messageQueue = [];
@@ -13,7 +14,6 @@ function CheckQueue()
   if(messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0)
   {
     sendingData = messageQueue.shift();
-    console.log(`Sending Setting - key:${sendingData.key} val:${sendingData.value}`);
     messaging.peerSocket.send(sendingData);
     sendingData = null;
   }
@@ -22,30 +22,30 @@ function CheckQueue()
 }
 
 // Settings have been changed
-settingsStorage.onchange = function(evt) {
+settingsStorage.addEventListener("change", (evt) => {
   sendSettingValue(evt.key, evt.newValue);
-}
+});
 
 //Message socket error
-messaging.peerSocket.onerror = function(evt) {
+messaging.peerSocket.addEventListener("error", (evt) => {
   console.log(`Companion Socket Error:${evt.message}`);
   if(sendingData != null)
   {
     messageQueue.unshift(sendingData);
     sendingData = null;
   }
-}
+});
 
-messaging.peerSocket.onclose = function(evt) {
+messaging.peerSocket.addEventListener("close", (evt) => {
   console.log(`Companion Socket Close:${evt.message}`);
   if(sendingData != null)
   {
     messageQueue.unshift(sendingData);
     sendingData = null;
   }
-}
+});
 
-messaging.peerSocket.onopen = function(evt) {
+messaging.peerSocket.addEventListener("open", (evt) => {
   setDefaultSettings();
   if(initialOpen == true)
   {
@@ -57,7 +57,13 @@ messaging.peerSocket.onopen = function(evt) {
       sendSettingValue(key, value)
     }
   }
-}
+});
+
+messaging.peerSocket.addEventListener("message", (evt) => {
+  if (evt.data && evt.data.command === "weather" && companion.permissions.granted("access_location")) {
+    sendWeather(evt.data.unit);
+  }
+});
 
 function setDefaultSettings() {
   console.log("Set Default Settings");
@@ -113,6 +119,9 @@ function setDefaultSettings() {
   setDefaultSetting("battery75Colour","lime");
   setDefaultSetting("batteryBackgroundColour","dimgrey");
   setDefaultSetting("backgroundColour","black");
+  setDefaultSetting("weatherColour","white");
+  setDefaultSetting("weatherRefreshInterval",{"values":[{"value":"3600000","name":"60 minutes"}],"selected":[5]});
+  setDefaultSetting("weatherTemperatureUnit",{"values":[{"value":"C","name":"Celcius"}],"selected":[0]});
 }
 
 function setDefaultSetting(key, value) {
@@ -145,5 +154,36 @@ function sendSettingValue(key, val) {
   else
   {
     console.log(`value was null, not sending ${key}`)
+  }
+}
+
+function sendWeather(unit) {
+  let unitKey = "celsius";
+  if(unit == "F")
+  {
+    unitKey = "fahrenheit";
+  }
+
+  weather.getWeatherData({temperatureUnit:unitKey})
+         .then((data) => {
+          if (data.locations.length > 0) {
+            var sendData = {
+              dataType: "weatherUpdate",
+              temperature: Math.floor(data.locations[0].currentWeather.temperature),
+              unit: data.temperatureUnit,
+              loc: data.locations[0].name,
+              condition: findWeatherConditionName(WeatherCondition,data.locations[0].currentWeather.weatherCondition)
+            };
+            messageQueue.push(sendData);
+          }
+        })
+        .catch((ex) => {
+          console.error(ex.message);
+        });
+}
+
+function findWeatherConditionName(WeatherCondition, conditionCode) {
+  for (const condition of Object.keys(WeatherCondition)) {
+    if (conditionCode === WeatherCondition[condition]) return condition;
   }
 }

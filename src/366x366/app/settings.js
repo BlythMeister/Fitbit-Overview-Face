@@ -17,6 +17,7 @@ import * as hr from "./hr.js"
 import * as activity from "./activity.js"
 import * as state from "./state.js"
 import * as torch from "./torch.js"
+import * as weather from "./weather.js"
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
@@ -342,6 +343,25 @@ export function applySettings() {
     bm.bmrCountEl.style.fill = "white";
     bm.bmrIconEl.style.fill = "white";
   }
+  if (settings.hasOwnProperty("weatherColour") && settings["weatherColour"]) {
+    weather.weatherCountEl.style.fill = settings["weatherColour"];
+    weather.weatherIconEl.style.fill = settings["weatherColour"];
+  } else {
+    weather.weatherCountEl.style.fill = "white";
+    weather.weatherIconEl.style.fill = "white";
+  }
+  
+  if (settings.hasOwnProperty("weatherRefreshInterval") && settings["weatherRefreshInterval"]) {
+    weather.setRefreshInterval(settings["weatherRefreshInterval"]);
+  } else {
+    weather.setRefreshInterval(3600000);
+  }
+
+  if (settings.hasOwnProperty("weatherTemperatureUnit") && settings["weatherTemperatureUnit"]) {
+    weather.setTemperatureUnit(settings["weatherTemperatureUnit"]);
+  } else {
+    weather.setTemperatureUnit("C");
+  } 
 
   if (settings.hasOwnProperty("batteryStatColour") && settings["batteryStatColour"]) {
     battery.batteryStatIconNoProgress.style.fill = settings["batteryStatColour"];
@@ -444,6 +464,11 @@ export function applySettings() {
       setStatsLocation(bm.bmrEl, "NONE");
       bm.setBMRPosition("NONE");
     }
+    
+    if(weather.weatherPosition == position) {
+      setStatsLocation(weather.weatherEl, "NONE");
+      weather.setWeatherPosition("NONE");
+    }
 
     if(battery.batteryStatposition == position){
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
@@ -492,6 +517,9 @@ export function applySettings() {
     } else if(stat == "BMR") {
       bm.setBMRPosition(position);
       setStatsLocation(bm.bmrEl, position);
+    } else if(stat == "WEATHER") {
+      weather.setWeatherPosition(position);
+      setStatsLocation(weather.weatherEl, position);
     } else if(stat == "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");

@@ -331,6 +331,21 @@
   font-family: System-Bold;
 }
 
+.icon-noProgressLargeIcon {
+  width: 32;
+  height: 32;
+  x:0;
+  y:0;
+}
+
+.count-noProgressLargeIcon {
+  font-size: 23;
+  x: 37;
+  y: 23;
+  text-length: 10; 
+  font-family: System-Bold;
+}
+
 .icon {
   width: 20;
   height: 20;

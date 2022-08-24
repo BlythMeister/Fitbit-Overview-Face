@@ -168,7 +168,7 @@ function mySettings(props) {
                           {value:"steps", name:"Steps"}, {value:"distance", name:"Distance"},
                           {value:"elevationGain", name:"Floors"}, {value:"calories", name:"Calories"}, 
                           {value:"activeMinutes", name:"Active Zone Minutes"}, {value:"activeMinutesWeek", name:"Weekly Active Zone Minutes"}, 
-                          {value:"BATTERY", name:"Battery"}]
+                          {value:"BATTERY", name:"Battery"},{value:"WEATHER", name:"Weather"}]
   
   return (
     <Page>     
@@ -209,6 +209,11 @@ function mySettings(props) {
       
       { hasProgressStat(props) && <Section title="Stats Progress">
         <Select label="Progress Bars" settingsKey="progressBars" options={[ {value:"none", name:"None"}, {value:"bars", name:"Bars"}, {value:"arc", name:"Arc"}, {value:"ring", name:"Ring"} ]} />
+      </Section> }
+      
+      { hasActivity(props, "WEATHER")  && <Section title="Weather">
+        <Select label="Refresh Interval" settingsKey="weatherRefreshInterval" options={[ {value:"60000", name:"1 minute"}, {value:"300000", name:"5 minutes"}, {value:"600000", name:"10 minutes"}, {value:"900000", name:"15 minutes"}, {value:"1800000", name:"30 minutes"}, {value:"3600000", name:"60 minutes"} ]} />
+        <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={[ {value:"C", name:"Celcius"}, {value:"F", name:"Fahrenheit"} ]} />
       </Section> }
       
       <Section title="Battery">
@@ -276,6 +281,10 @@ function mySettings(props) {
       
       { hasActivity(props, "BATTERY") && <Section title="Battery Stat colour">
         <ColorSelect settingsKey="batteryStatColour" colors={colourSet} />
+      </Section> }
+      
+      { hasActivity(props, "WEATHER") && <Section title="Weather colour">
+        <ColorSelect settingsKey="weatherColour" colors={colourSet} />
       </Section> }
       
       { hasProgressStat(props) && <Section title="Progress background colour">
