@@ -186,6 +186,15 @@ function sendWeather(unit, attempts) {
             setTimeout(() => {sendWeather(unit, attempts + 1);}, 10000);
           } else {
             console.error(ex.message);
+            var sendData = {
+              dataType: "weatherUpdate",
+              temperature: 0,
+              unit: "celcius",
+              condition: null
+            };
+            let jsonValue = JSON.stringify(sendData);
+            localStorage.setItem("weather", jsonValue);
+            sendSavedWeather();
           }          
         });
 }
