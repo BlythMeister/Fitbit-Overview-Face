@@ -446,6 +446,7 @@ export function applySettings() {
     }
 
     if(battery.batteryStatposition == position){
+      setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
       setStatsLocation(battery.batteryStatContainerArc, "NONE");
       setStatsLocation(battery.batteryStatContainerRing, "NONE");
@@ -454,6 +455,7 @@ export function applySettings() {
 
     for (var x=0; x < activity.goalTypes.length; x++) {
        if(activity.progressEls[x].position == position) {
+         setStatsLocation(activity.progressEls[x].containerNoProgress, "NONE");
          setStatsLocation(activity.progressEls[x].containerStraight, "NONE");
          setStatsLocation(activity.progressEls[x].containerArc, "NONE");
          setStatsLocation(activity.progressEls[x].containerRing, "NONE");
