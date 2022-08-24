@@ -1,4 +1,5 @@
 import { settingsStorage } from "settings";
+import { localStorage } from "local-storage";
 import * as messaging from "messaging";
 import { me as companion } from "companion";
 import { device } from "peer";
@@ -14,11 +15,12 @@ function CheckQueue()
   if(messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0)
   {
     sendingData = messageQueue.shift();
+    console.log(`Sending: ${JSON.stringify(sendingData)}`)
     messaging.peerSocket.send(sendingData);
     sendingData = null;
   }
   
-  setTimeout(() => {CheckQueue();}, 200);
+  setTimeout(() => {CheckQueue();}, 100);
 }
 
 // Settings have been changed
@@ -46,6 +48,7 @@ messaging.peerSocket.addEventListener("close", (evt) => {
 });
 
 messaging.peerSocket.addEventListener("open", (evt) => {
+  sendSavedWeather();
   setDefaultSettings();
   if(initialOpen == true)
   {
@@ -61,7 +64,7 @@ messaging.peerSocket.addEventListener("open", (evt) => {
 
 messaging.peerSocket.addEventListener("message", (evt) => {
   if (evt.data && evt.data.command === "weather" && companion.permissions.granted("access_location")) {
-    sendWeather(evt.data.unit);
+    sendWeather(evt.data.unit, 0);
   }
 });
 
@@ -121,7 +124,7 @@ function setDefaultSettings() {
   setDefaultSetting("backgroundColour","black");
   setDefaultSetting("weatherColour","white");
   setDefaultSetting("weatherRefreshInterval",{"values":[{"value":"3600000","name":"60 minutes"}],"selected":[5]});
-  setDefaultSetting("weatherTemperatureUnit",{"values":[{"value":"C","name":"Celcius"}],"selected":[0]});
+  setDefaultSetting("weatherTemperatureUnit",{"values":[{"value":"auto","name":"Automatic (Use Fitbit Setting)"}],"selected":[0]});
 }
 
 function setDefaultSetting(key, value) {
@@ -134,7 +137,7 @@ function setDefaultSetting(key, value) {
 }
 
 function setSetting(key, value) {
-  let jsonValue = JSON.stringify(value)
+  let jsonValue = JSON.stringify(value);
   console.log(`Companion Set - key:${key} val:${jsonValue}`);
   settingsStorage.setItem(key, jsonValue);
   sendSettingValue(key, jsonValue);
@@ -157,7 +160,7 @@ function sendSettingValue(key, val) {
   }
 }
 
-function sendWeather(unit) {
+function sendWeather(unit, attempts) {
   let unitKey = "celsius";
   if(unit == "F")
   {
@@ -171,19 +174,33 @@ function sendWeather(unit) {
               dataType: "weatherUpdate",
               temperature: Math.floor(data.locations[0].currentWeather.temperature),
               unit: data.temperatureUnit,
-              loc: data.locations[0].name,
               condition: findWeatherConditionName(WeatherCondition,data.locations[0].currentWeather.weatherCondition)
             };
-            messageQueue.push(sendData);
+            let jsonValue = JSON.stringify(sendData);
+            localStorage.setItem("weather", jsonValue);
+            sendSavedWeather();
           }
         })
         .catch((ex) => {
-          console.error(ex.message);
+          if(attempts < 3){
+            setTimeout(() => {sendWeather(unit, attempts + 1);}, 10000);
+          } else {
+            console.error(ex.message);
+          }          
         });
 }
 
 function findWeatherConditionName(WeatherCondition, conditionCode) {
   for (const condition of Object.keys(WeatherCondition)) {
     if (conditionCode === WeatherCondition[condition]) return condition;
+  }
+}
+
+function sendSavedWeather() { 
+  var savedWeather = localStorage.getItem("weather");
+  if(savedWeather != null)
+  {
+    var sendData = JSON.parse(savedWeather);
+    messageQueue.push(sendData);
   }
 }

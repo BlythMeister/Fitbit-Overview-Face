@@ -213,7 +213,7 @@ function mySettings(props) {
       
       { hasActivity(props, "WEATHER")  && <Section title="Weather">
         <Select label="Refresh Interval" settingsKey="weatherRefreshInterval" options={[ {value:"60000", name:"1 minute"}, {value:"300000", name:"5 minutes"}, {value:"600000", name:"10 minutes"}, {value:"900000", name:"15 minutes"}, {value:"1800000", name:"30 minutes"}, {value:"3600000", name:"60 minutes"} ]} />
-        <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={[ {value:"C", name:"Celcius"}, {value:"F", name:"Fahrenheit"} ]} />
+        <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={[ {value:"auto", name:"Automatic (Use Fitbit Setting)"}, {value:"C", name:"Celcius"}, {value:"F", name:"Fahrenheit"} ]} />
       </Section> }
       
       <Section title="Battery">
