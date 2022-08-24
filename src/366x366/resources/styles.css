@@ -172,6 +172,34 @@
   fill: #969696;
 }
 
+#steps-noProgress {
+  display: "none";
+}
+
+#distance-noProgress {
+  display: "none";
+}
+
+#elevationGain-noProgress {
+  display: "none";
+}
+
+#calories-noProgress {
+  display: "none";
+}
+
+#activeMinutes-noProgress {
+  display: "none";
+} 
+
+#activeMinutesWeek-noProgress {
+  display: "none";
+} 
+
+#battery-noProgress {
+  display: "none";
+}
+
 #steps-straight {
   display: "none";
 }
@@ -289,15 +317,15 @@
 }
 
 .icon-noProgress {
-  width: 23;
-  height: 23;
-  x:4;
-  y:5;
+  width: 20;
+  height: 20;
+  x:0;
+  y:7;
 }
 
 .count-noProgress {
-  font-size: 22;
-  x: 30;
+  font-size: 28;
+  x: 22;
   y: 25;
   text-length: 10; 
   font-family: System-Bold;
@@ -311,9 +339,9 @@
 }
 
 .count {
-  font-size: 22;
-  x: 26;
-  y: 15;
+  font-size: 23;
+  x: 22;
+  y: 18;
   text-length: 10; 
   font-family: System-Bold;
 }
@@ -326,8 +354,8 @@
 }
 
 .icon-arc {
-  width: 15;
-  height: 15;
+  width: 14;
+  height: 14;
   x:14%-7;
   y:-4;
 }

@@ -49,6 +49,41 @@
     <image id="bmr-icon" class="icon-noProgress" href="bmr_36px.png" fill="white" />
   </svg>
  
+  <svg id="steps-noProgress">
+    <text id="steps-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="steps-noProgress-icon" class="icon-noProgress" href="steps_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="distance-noProgress">   
+    <text id="distance-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="distance-noProgress-icon" class="icon-noProgress" href="distance_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="calories-noProgress">  
+    <text id="calories-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="calories-noProgress-icon" class="icon-noProgress" href="calories_36px.png" fill="white" />
+  </svg> 
+  
+  <svg id="elevationGain-noProgress">  
+    <text id="elevationGain-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="elevationGain-noProgress-icon" class="icon-noProgress" href="floors_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="activeMinutes-noProgress">   
+    <text id="activeMinutes-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="activeMinutes-noProgress-icon" class="icon-noProgress" href="azm_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="activeMinutesWeek-noProgress">   
+    <text id="activeMinutesWeek-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="activeMinutesWeek-noProgress-icon" class="icon-noProgress" href="azm7_36px.png" fill="white" />
+  </svg>
+  
+  <svg id="battery-noProgress">   
+    <text id="battery-noProgress-count" class="count-noProgress" fill="white" />
+    <image id="battery-noProgress-icon" class="icon-noProgress" href="battery_full_36px.png" fill="white" />
+  </svg>
+ 
   <svg id="steps-straight">
     <text id="steps-straight-count" class="count" fill="white" />
     <image id="steps-straight-icon" class="icon" href="steps_36px.png" fill="white" />

@@ -344,6 +344,8 @@ export function applySettings() {
   }
 
   if (settings.hasOwnProperty("batteryStatColour") && settings["batteryStatColour"]) {
+    battery.batteryStatIconNoProgress.style.fill = settings["batteryStatColour"];
+    battery.batteryStatCountNoProgress.style.fill = settings["batteryStatColour"]; 
     battery.batteryStatLineStraight.style.fill = settings["batteryStatColour"];
     battery.batteryStatIconStraight.style.fill = settings["batteryStatColour"];
     battery.batteryStatCountStraight.style.fill = settings["batteryStatColour"];      
@@ -354,6 +356,8 @@ export function applySettings() {
     battery.batteryStatIconRing.style.fill = settings["batteryStatColour"];
     battery.batteryStatCountRing.style.fill = settings["batteryStatColour"];
   } else {
+    battery.batteryStatIconNoProgress.style.fill = "white";
+    battery.batteryStatCountNoProgress.style.fill = "white"; 
     battery.batteryStatLineStraight.style.fill = "white";
     battery.batteryStatIconStraight.style.fill = "white";
     battery.batteryStatCountStraight.style.fill = "white";      
@@ -384,6 +388,8 @@ export function applySettings() {
     var goalType = activity.goalTypes[i];
     var goalTypeColourProp = goalType + "Colour";
     if (settings.hasOwnProperty(goalTypeColourProp) && settings[goalTypeColourProp]) {
+      activity.progressEls[i].countNoProgress.style.fill = settings[goalTypeColourProp];
+      activity.progressEls[i].iconNoProgress.style.fill = settings[goalTypeColourProp];
       activity.progressEls[i].countStraight.style.fill = settings[goalTypeColourProp];
       activity.progressEls[i].iconStraight.style.fill = settings[goalTypeColourProp];
       activity.progressEls[i].lineStraight.style.fill = settings[goalTypeColourProp];
@@ -394,6 +400,8 @@ export function applySettings() {
       activity.progressEls[i].iconRing.style.fill = settings[goalTypeColourProp];
       activity.progressEls[i].lineRing.style.fill = settings[goalTypeColourProp];
     } else {
+      activity.progressEls[i].countNoProgress.style.fill = "white";
+      activity.progressEls[i].iconNoProgress.style.fill = "white";
       activity.progressEls[i].countStraight.style.fill = "white";
       activity.progressEls[i].iconStraight.style.fill = "white";
       activity.progressEls[i].lineStraight.style.fill = "white";
@@ -483,15 +491,10 @@ export function applySettings() {
       bm.setBMRPosition(position);
       setStatsLocation(bm.bmrEl, position);
     } else if(stat == "BATTERY") {
+      setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
       setStatsLocation(battery.batteryStatContainerArc, "NONE");
       setStatsLocation(battery.batteryStatContainerRing, "NONE");
-      battery.batteryStatLineStraight.style.display = "inline";
-      battery.batteryStatLineBackStraight.style.display = "inline";
-      battery.batteryStatLineArc.style.display = "inline";
-      battery.batteryStatLineBackArc.style.display = "inline";
-      battery.batteryStatLineRing.style.display = "inline";
-      battery.batteryStatLineBackRing.style.display = "inline";
       if(progressBarType == "bars") {
         setStatsLocation(battery.batteryStatContainerStraight, position);
       } else if(progressBarType == "arc") {
@@ -499,28 +502,17 @@ export function applySettings() {
       } else if(progressBarType == "ring") {
         setStatsLocation(battery.batteryStatContainerRing, position);
       } else {
-        battery.batteryStatLineStraight.style.display = "none";
-        battery.batteryStatLineBackStraight.style.display = "none";
-        battery.batteryStatLineArc.style.display = "none";
-        battery.batteryStatLineBackArc.style.display = "none";
-        battery.batteryStatLineRing.style.display = "none";
-        battery.batteryStatLineBackRing.style.display = "none";
-        setStatsLocation(battery.batteryStatContainerStraight, position);
+        setStatsLocation(battery.batteryStatContainerNoProgress, position);
       }
       battery.setPosition(position);        
     } else {
       for (var x=0; x < activity.goalTypes.length; x++) {
         if(activity.goalTypes[x] == stat) {
           activity.progressEls[x].position = position;
+          setStatsLocation(activity.progressEls[x].containerNoProgress, "NONE");
           setStatsLocation(activity.progressEls[x].containerStraight, "NONE");
           setStatsLocation(activity.progressEls[x].containerArc, "NONE");
           setStatsLocation(activity.progressEls[x].containerRing, "NONE");
-          activity.progressEls[x].lineStraight.style.display = "inline";
-          activity.progressEls[x].lineBackStraight.style.display = "inline";
-          activity.progressEls[x].lineArc.style.display = "inline";
-          activity.progressEls[x].lineBackArc.style.display = "inline";
-          activity.progressEls[x].lineRing.style.display = "inline";
-          activity.progressEls[x].lineBackRing.style.display = "inline";
           if(progressBarType == "bars") {
             setStatsLocation(activity.progressEls[x].containerStraight, position);
           } else if(progressBarType == "arc") {
@@ -528,13 +520,7 @@ export function applySettings() {
           } else if(progressBarType == "ring") {
             setStatsLocation(activity.progressEls[x].containerRing, position);
           } else {
-            activity.progressEls[x].lineStraight.style.display = "none";
-            activity.progressEls[x].lineBackStraight.style.display = "none";
-            activity.progressEls[x].lineArc.style.display = "none";
-            activity.progressEls[x].lineBackArc.style.display = "none";
-            activity.progressEls[x].lineRing.style.display = "none";
-            activity.progressEls[x].lineBackRing.style.display = "none";
-            setStatsLocation(activity.progressEls[x].containerStraight, position); 
+            setStatsLocation(activity.progressEls[x].containerNoProgress, position); 
           }            
         }
       }

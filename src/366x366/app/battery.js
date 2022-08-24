@@ -12,6 +12,9 @@ export let batteryIcon = document.getElementById("battery-icon");
 export let batteryPercent = document.getElementById("battery-percent");
 export let batteryPercentBlock = document.getElementById("battery");
 
+export let batteryStatContainerNoProgress = document.getElementById("battery-noProgress");
+export let batteryStatIconNoProgress = document.getElementById("battery-noProgress-icon");
+export let batteryStatCountNoProgress = document.getElementById("battery-noProgress-count");
 export let batteryStatContainerStraight = document.getElementById("battery-straight");
 export let batteryStatLineStraight = document.getElementById("battery-straight-line");
 export let batteryStatLineBackStraight = document.getElementById("battery-straight-line-back");
@@ -100,7 +103,8 @@ export function drawBat() {
   let level = battery.chargeLevel;
 
   let batteryPercentage = Math.floor(level);
-  batteryPercent.text = `${batteryPercentage}%`;  
+  batteryPercent.text = `${batteryPercentage}%`;
+  batteryStatCountNoProgress.text = `${batteryPercentage}%`;
   batteryStatCountStraight.text = `${batteryPercentage}%`;
   batteryStatCountArc.text = `${batteryPercentage}%`;
   batteryStatCountRing.text = `${batteryPercentage}%`;

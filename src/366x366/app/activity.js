@@ -12,7 +12,8 @@ export const screenWidth = root.width
 export var distanceUnit = "auto";
 export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
 export function getProgressEl(prefix, officialType, dayWeek) {
-  let containerEl = document.getElementById(prefix + "-straight");
+  let containerNoProgressEl = document.getElementById(prefix + "-noProgress");
+  let containerStraightEl = document.getElementById(prefix + "-straight");
   let containerArcEl = document.getElementById(prefix + "-arc");
   let containerRingEl = document.getElementById(prefix + "-ring");
   return {
@@ -21,14 +22,17 @@ export function getProgressEl(prefix, officialType, dayWeek) {
     doTotal: prefix == "activeMinutes",
     dayWeek: dayWeek,
     prevProgressVal: null,
-    containerStraight: containerEl,
+    containerNoProgress: containerNoProgressEl,
+    containerStraight: containerStraightEl,
     containerArc: containerArcEl,
     containerRing: containerRingEl,
     position:"NONE",
-    countStraight: containerEl.getElementById(prefix + "-straight-count"),
-    iconStraight: containerEl.getElementById(prefix + "-straight-icon"),
-    lineStraight: containerEl.getElementById(prefix + "-straight-line"),
-    lineBackStraight: containerEl.getElementById(prefix + "-straight-line-back"),
+    countNoProgress: containerNoProgressEl.getElementById(prefix + "-noProgress-count"),
+    iconNoProgress: containerNoProgressEl.getElementById(prefix + "-noProgress-icon"),
+    countStraight: containerStraightEl.getElementById(prefix + "-straight-count"),
+    iconStraight: containerStraightEl.getElementById(prefix + "-straight-icon"),
+    lineStraight: containerStraightEl.getElementById(prefix + "-straight-line"),
+    lineBackStraight: containerStraightEl.getElementById(prefix + "-straight-line-back"),
     countArc: containerArcEl.getElementById(prefix + "-arc-count"),
     iconArc: containerArcEl.getElementById(prefix + "-arc-icon"),
     lineArc: containerArcEl.getElementById(prefix + "-arc-line"),
@@ -134,6 +138,7 @@ export function drawProgress(progressEl) {
       displayValue = Math.round(actual);
     }
   }
+  progressEl.countNoProgress.text = `${displayValue}`;
   progressEl.countStraight.text = `${displayValue}`;
   progressEl.countArc.text = `${displayValue}`;
   progressEl.countRing.text = `${displayValue}`;
