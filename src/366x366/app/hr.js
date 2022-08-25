@@ -6,7 +6,7 @@ import { charger } from "power";
 import { gettext } from "i18n";
 //HR - START
 
-export var isHeartbeatAnimation  = true;
+export var isHeartbeatAnimation = true;
 export var hrmAnimationPhase = false;
 export var prevHrmRate = null;
 export var hrmRate = null;
@@ -21,10 +21,9 @@ export let hrZoneEl = document.getElementById("hr-zone");
 
 export function isHeartbeatAnimationSet(val) {
   isHeartbeatAnimation = val;
-  if(val){
+  if (val) {
     drawHrm();
-  }
-  else{
+  } else {
     stopHrAnimation();
   }
 }
@@ -33,7 +32,7 @@ export function isHeartbeatAnimationSet(val) {
 //HR Draw - START
 
 export function setHrZoneVis(visibility) {
-  hrZoneEl.style.display = (!visibility ? "none" : "inline");
+  hrZoneEl.style.display = !visibility ? "none" : "inline";
 }
 
 export function setMonitoring(monitoring) {
@@ -42,7 +41,7 @@ export function setMonitoring(monitoring) {
 
 export function initHrInterval() {
   clearInterval(hrAnimatedInterval);
-  hrAnimatedInterval = setInterval(animateHr, ((60/hrmRate)*1000)/2);
+  hrAnimatedInterval = setInterval(animateHr, ((60 / hrmRate) * 1000) / 2);
 }
 
 export function stopHrAnimation() {
@@ -53,31 +52,31 @@ export function stopHrAnimation() {
 }
 
 export function hideHr() {
-   hrmRate = null;
-   prevHrmRate = null;
-   stopHrAnimation();
-   topLeftEl.style.display = "none";
+  hrmRate = null;
+  prevHrmRate = null;
+  stopHrAnimation();
+  topLeftEl.style.display = "none";
 }
 
 export function animateHr() {
-    if (hrmAnimationPhase) {
-      hrIconDiastoleEl.style.display = "none";
-      hrIconSystoleEl.style.display = "inline";
-    } else {
-      hrIconDiastoleEl.style.display = "inline";
-      hrIconSystoleEl.style.display = "none";
-    }
+  if (hrmAnimationPhase) {
+    hrIconDiastoleEl.style.display = "none";
+    hrIconSystoleEl.style.display = "inline";
+  } else {
+    hrIconDiastoleEl.style.display = "inline";
+    hrIconSystoleEl.style.display = "none";
+  }
 
-    hrmAnimationPhase =!hrmAnimationPhase;
+  hrmAnimationPhase = !hrmAnimationPhase;
 
-    if (prevHrmRate != hrmRate) {
-      clearInterval(hrAnimatedInterval);
-      if (isHeartbeatAnimation) {
-        prevHrmRate = hrmRate;
-        initHrInterval();
-      }
+  if (prevHrmRate != hrmRate) {
+    clearInterval(hrAnimatedInterval);
+    if (isHeartbeatAnimation) {
+      prevHrmRate = hrmRate;
+      initHrInterval();
     }
-    prevHrmRate = hrmRate;
+  }
+  prevHrmRate = hrmRate;
 }
 
 export function newHrm(rate) {
@@ -86,14 +85,11 @@ export function newHrm(rate) {
 }
 
 export function drawHrm() {
-  if (hrmRate == null || hrmRate <= 0 || !hrMonitoring)
-  {
-      hrCountEl.text = `-- (${user.restingHeartRate})`;
-      hrZoneEl.text = "";
-      stopHrAnimation();
-  }
-  else
-  {
+  if (hrmRate == null || hrmRate <= 0 || !hrMonitoring) {
+    hrCountEl.text = `-- (${user.restingHeartRate})`;
+    hrZoneEl.text = "";
+    stopHrAnimation();
+  } else {
     if (hrmRate) {
       hrCountEl.text = `${hrmRate} (${user.restingHeartRate})`;
       hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;

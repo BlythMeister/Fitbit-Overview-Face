@@ -7,10 +7,15 @@ import { units } from "user-settings";
 import { me as device } from "device";
 
 //Progress - START
-export let root = document.getElementById('root')
-export const screenWidth = root.width
+export let root = document.getElementById("root");
+export const screenWidth = root.width;
 export var distanceUnit = "auto";
-export function distanceUnitSet(val) { distanceUnit = val; drawAllProgress(); }
+
+export function distanceUnitSet(val) {
+  distanceUnit = val;
+  drawAllProgress();
+}
+
 export function getProgressEl(prefix, officialType, dayWeek) {
   let containerNoProgressEl = document.getElementById(prefix + "-noProgress");
   let containerStraightEl = document.getElementById(prefix + "-straight");
@@ -26,7 +31,7 @@ export function getProgressEl(prefix, officialType, dayWeek) {
     containerStraight: containerStraightEl,
     containerArc: containerArcEl,
     containerRing: containerRingEl,
-    position:"NONE",
+    position: "NONE",
     countNoProgress: containerNoProgressEl.getElementById(prefix + "-noProgress-count"),
     iconNoProgress: containerNoProgressEl.getElementById(prefix + "-noProgress-icon"),
     countStraight: containerStraightEl.getElementById(prefix + "-straight-count"),
@@ -40,26 +45,22 @@ export function getProgressEl(prefix, officialType, dayWeek) {
     countRing: containerRingEl.getElementById(prefix + "-ring-count"),
     iconRing: containerRingEl.getElementById(prefix + "-ring-icon"),
     lineRing: containerRingEl.getElementById(prefix + "-ring-line"),
-    lineBackRing: containerRingEl.getElementById(prefix + "-ring-line-back")
-  }
+    lineBackRing: containerRingEl.getElementById(prefix + "-ring-line-back"),
+  };
 }
 
 export let goalTypes = [];
 export let goalOfficialTypes = [];
 
-export function pushGoalTypeIfSupported(type, officialType)
-{
-  if(today.adjusted[officialType] != undefined)
-  {
+export function pushGoalTypeIfSupported(type, officialType) {
+  if (today.adjusted[officialType] != undefined) {
     goalTypes.push(type);
     goalOfficialTypes.push(officialType);
   }
 }
 
-export function pushWeekGoalTypeIfSupported(type, officialType)
-{
-  if(week.adjusted[officialType] != undefined)
-  {
+export function pushWeekGoalTypeIfSupported(type, officialType) {
+  if (week.adjusted[officialType] != undefined) {
     goalTypes.push(type);
     goalOfficialTypes.push(officialType);
   }
@@ -74,17 +75,16 @@ pushWeekGoalTypeIfSupported("activeMinutesWeek", "activeZoneMinutes");
 
 export let progressEls = [];
 
-for (var i=0; i < goalTypes.length; i++) {
+for (var i = 0; i < goalTypes.length; i++) {
   var goalType = goalTypes[i];
   var goalOfficialType = goalOfficialTypes[i];
   var goalDayWeek = "day";
-  if(goalType.indexOf("Week") >= 0){
-    goalDayWeek = "week"
-  }    
+  if (goalType.indexOf("Week") >= 0) {
+    goalDayWeek = "week";
+  }
   progressEls.push(getProgressEl(goalType, goalOfficialType, goalDayWeek));
 }
 //Progress - END
-
 
 //Progress Draw - START
 export function drawProgress(progressEl) {
@@ -94,24 +94,24 @@ export function drawProgress(progressEl) {
 
   let actual = 0;
   var goal = 0;
-  if(dayWeek == "day") {
-    if(today.adjusted[type]) {
-      if(doTotal) {
-        actual = today.adjusted[type].total
-        goal = goals[type].total
+  if (dayWeek == "day") {
+    if (today.adjusted[type]) {
+      if (doTotal) {
+        actual = today.adjusted[type].total;
+        goal = goals[type].total;
       } else {
-        actual = today.adjusted[type]
-        goal = goals[type]
+        actual = today.adjusted[type];
+        goal = goals[type];
       }
     }
   } else {
-    if(week.adjusted[type]) {
-      if(doTotal) {
-        actual = week.adjusted[type].total
-        goal = weekGoals[type].total
+    if (week.adjusted[type]) {
+      if (doTotal) {
+        actual = week.adjusted[type].total;
+        goal = weekGoals[type].total;
       } else {
-        actual = week.adjusted[type]
-        goal = weekGoals[type]
+        actual = week.adjusted[type];
+        goal = weekGoals[type];
       }
     }
   }
@@ -122,14 +122,11 @@ export function drawProgress(progressEl) {
   progressEl.prevProgressVal = actual;
 
   var displayValue = actual;
-  if (!actual || actual < 0)
-  {
-      displayValue = "0";
-  }
-  else if (type === "distance" && actual)
-  {
+  if (!actual || actual < 0) {
+    displayValue = "0";
+  } else if (type === "distance" && actual) {
     if ((distanceUnit === "auto" && units.distance === "metric") || distanceUnit === "km") {
-      displayValue = (actual / 1000.).toFixed(2);
+      displayValue = (actual / 1000).toFixed(2);
     } else if ((distanceUnit === "auto" && units.distance === "us") || distanceUnit === "mi") {
       displayValue = (actual / 1609.344).toFixed(2);
     } else if (distanceUnit === "ft") {
@@ -143,31 +140,28 @@ export function drawProgress(progressEl) {
   progressEl.countArc.text = `${displayValue}`;
   progressEl.countRing.text = `${displayValue}`;
 
-  if(!goal || goal < 0 || !actual || actual < 0)
-  {
+  if (!goal || goal < 0 || !actual || actual < 0) {
     progressEl.lineStraight.width = 0;
     progressEl.lineArc.sweepAngle = 0;
     progressEl.lineRing.sweepAngle = 0;
-  }
-  else
-  {
-    var complete = (actual / goal);
+  } else {
+    var complete = actual / goal;
     if (complete > 1) complete = 1;
-    var maxLine = screenWidth /100 * 28;
-    progressEl.lineStraight.width = maxLine*complete;
-    progressEl.lineArc.sweepAngle = Math.floor(225*complete);
-    progressEl.lineRing.sweepAngle = Math.floor(360*complete);
+    var maxLine = (screenWidth / 100) * 28;
+    progressEl.lineStraight.width = maxLine * complete;
+    progressEl.lineArc.sweepAngle = Math.floor(225 * complete);
+    progressEl.lineRing.sweepAngle = Math.floor(360 * complete);
   }
 }
 
 export function drawAllProgress() {
-  for (var i=0; i < goalTypes.length; i++) {
+  for (var i = 0; i < goalTypes.length; i++) {
     drawProgress(progressEls[i]);
   }
 }
 
 export function resetProgressPrevState() {
-  for (var i=0; i < goalTypes.length; i++) {
+  for (var i = 0; i < goalTypes.length; i++) {
     progressEls[i].prevProgressVal = null;
   }
 }

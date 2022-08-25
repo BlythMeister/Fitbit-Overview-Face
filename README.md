@@ -56,30 +56,11 @@ Or scan this QR Code for release version
 
 The watch face for Ionic, Versa, Versa Lite & Versa 2 devices has been deprecated meaning no new features will be added.
 
-## Ionic Device (Deprecated)
+Screenshots availiable on website:
 
-![348x250](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/348x250/1.base.png)
-![348x250-24h](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/348x250/2.24h.png)
-![348x250-cutdown](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/348x250/3.cutdown.png)
-![348x250-charging](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/348x250/4.charging.png)
-
-## Versa & Versa 2 Devices (Deprecated)
-
-![300x300](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300/1.base.png)
-![300x300-24h](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300/2.24h.png)
-![300x300-cutdown](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300/3.cutdown.png)
-![300x300-charging](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300/4.charging.png)
-![300x300-arc](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300/5.arc.png)
-![300x300-ring](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300/6.ring.png)
-
-## Versa Lite Device (Deprecated)
-
-![300x300-Lite](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300_Lite/1.base.png)
-![300x300-Lite-24h](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300_Lite/2.24h.png)
-![300x300-Lite-cutdown](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300_Lite/3.cutdown.png)
-![300x300-Lite-charging](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300_Lite/4.charging.png)
-![300x300-Lite-arc](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300_Lite/5.arc.png)
-![300x300-Lite-ring](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/300x300_Lite/6.ring.png)
+* [Ionic](https://fitbit-overview.blyth.me.uk/screenshots/348x250)
+* [Versa & Versa 2](https://fitbit-overview.blyth.me.uk/screenshots/300x300)
+* [Versa Lite](https://fitbit-overview.blyth.me.uk/screenshots/300x300_Lite)
 
 ## Versa 3 & Sense Devices
 
@@ -88,7 +69,8 @@ The watch face for Ionic, Versa, Versa Lite & Versa 2 devices has been deprecate
 ![336x336-cutdown](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/3.cutdown.png)
 ![336x336-charging](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/4.charging.png)
 ![336x336-arc](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/5.arc.png)
-![336x336-ring](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/6.ring.png)
+![336x336-bars](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/6.bars.png)
+![336x336-no-progress](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/7.no-progress.png)
 
 # How To Contribute
 

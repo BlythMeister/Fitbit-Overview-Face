@@ -9,19 +9,21 @@ export let weatherPosition = "NONE";
 export let temperatureUnit = "C";
 export let weatherInterval = undefined;
 
-export function setWeatherPosition(pos){
+export function setWeatherPosition(pos) {
   weatherPosition = pos;
 }
 
-export function setTemperatureUnit(unit){
+export function setTemperatureUnit(unit) {
   temperatureUnit = unit;
   fetchWeather();
 }
 
-export function setRefreshInterval(interval){
-  if(weatherInterval != undefined)
-  {
+export function setRefreshInterval(interval) {
+  if (weatherInterval != undefined) {
     clearInterval(weatherInterval);
+  }
+  if (interval < 60000) {
+    interval = 60000;
   }
   weatherInterval = setInterval(fetchWeather, interval);
   fetchWeather();
@@ -29,26 +31,30 @@ export function setRefreshInterval(interval){
 
 function fetchWeather() {
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && weatherPosition != "NONE") {
-    // Send a command to the companion
+    let sendCommand = "weather";
+    if (weatherIconEl.href == "weather_36px.png") {
+      sendCommand = "initial-weather";
+    }
+
     let sendUnit = temperatureUnit;
-    if(sendUnit == "auto") {
-      sendUnit = units.temperature
+    if (sendUnit == "auto") {
+      sendUnit = units.temperature;
     }
     messaging.peerSocket.send({
-      command: "weather",
-      unit: sendUnit
+      command: sendCommand,
+      unit: sendUnit,
     });
   }
 }
 
 function processWeatherData(data) {
-  if(data.condition == null){
-    weatherCountEl.text = "----"
+  if (data.condition == null) {
+    weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
     weatherIconEl.href = `weather_${data.condition}_36px.png`;
-  }  
+  }
 }
 
 messaging.peerSocket.addEventListener("open", (evt) => {

@@ -25,6 +25,10 @@ description: "Versa 3 & Sense Screenshots"
 
 ![arc]({{ site.url }}/images/336x336/5.arc.png)
 
-## Ring Progress
+## Bar Progress
 
-![ring]({{ site.url }}/images/336x336/6.ring.png)
+![ring]({{ site.url }}/images/336x336/6.bars.png)
+
+## No Progress
+
+![ring]({{ site.url }}/images/336x336/7.no-progress.png)
