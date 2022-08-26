@@ -8,7 +8,9 @@ import { weather, WeatherCondition } from "weather";
 let initialOpen = true;
 let messageQueue = [];
 let sendingData = null;
-CheckQueue();
+
+//Wake every 15 minutes
+companion.wakeInterval = 900000;
 
 function CheckQueue() {
   try {
@@ -50,6 +52,7 @@ messaging.peerSocket.addEventListener("close", (evt) => {
 });
 
 messaging.peerSocket.addEventListener("open", (evt) => {
+  CheckQueue();
   setDefaultSettings();
   if (initialOpen == true) {
     initialOpen = false;
@@ -125,7 +128,7 @@ function setDefaultSettings() {
   setDefaultSetting("batteryBackgroundColour", "dimgrey");
   setDefaultSetting("backgroundColour", "black");
   setDefaultSetting("weatherColour", "tan");
-  setDefaultSetting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [4] });
+  setDefaultSetting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [3] });
   setDefaultSetting("weatherTemperatureUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
 }
 
