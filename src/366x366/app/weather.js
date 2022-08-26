@@ -38,7 +38,7 @@ export function setRefreshInterval(interval) {
 
 export function fetchWeather() {
   var currentDate = new Date();
-  if (weatherPosition != "NONE" && (weatherLastRequest == null || currentDate - weatherLastRequest > 10000)) {
+  if (weatherPosition != "NONE" && (weatherLastRequest == null || currentDate - weatherLastRequest > 2000)) {
     if (weatherIconEl.href == "weather_36px.png" || weatherLastUpdate == null || currentDate - weatherLastUpdate > weatherInterval) {
       try {
         if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
@@ -60,10 +60,12 @@ export function fetchWeather() {
           if (unansweredRequests >= 10) {
             weatherCountEl.text = "----";
             weatherIconEl.href = "weather_36px.png";
+            weatherLastRequest = null;
           }
         } else {
           weatherCountEl.text = "----";
           weatherIconEl.href = "weather_36px.png";
+          weatherLastRequest = null;
         }
       } catch (e) {
         console.log(`Weather error: ${e}`);
