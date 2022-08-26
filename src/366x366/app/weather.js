@@ -7,43 +7,65 @@ export let weatherCountEl = document.getElementById("weather-count");
 export let weatherIconEl = document.getElementById("weather-icon");
 export let weatherPosition = "NONE";
 export let temperatureUnit = "C";
-export let weatherInterval = undefined;
+export let weatherInterval = 60000;
+export let weatherLastUpdate = null;
+export let unansweredRequests = 0;
 
 export function setWeatherPosition(pos) {
   weatherPosition = pos;
+  if (weatherPosition == "NONE") {
+    weatherCountEl.text = "----";
+    weatherIconEl.href = "weather_36px.png";
+  }
+  fetchWeather();
 }
 
 export function setTemperatureUnit(unit) {
-  temperatureUnit = unit;
-  fetchWeather();
+  if (unit != temperatureUnit) {
+    temperatureUnit = unit;
+    fetchWeather();
+  }
 }
 
 export function setRefreshInterval(interval) {
-  if (weatherInterval != undefined) {
-    clearInterval(weatherInterval);
-  }
   if (interval < 60000) {
     interval = 60000;
   }
-  weatherInterval = setInterval(fetchWeather, interval);
+  weatherInterval = interval;
   fetchWeather();
 }
 
-function fetchWeather() {
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && weatherPosition != "NONE") {
-    let sendCommand = "weather";
-    if (weatherIconEl.href == "weather_36px.png") {
-      sendCommand = "initial-weather";
-    }
+export function fetchWeather() {
+  if (weatherPosition != "NONE") {
+    if (weatherIconEl.href == "weather_36px.png" || weatherLastUpdate == null || new Date() - weatherLastUpdate > weatherInterval) {
+      try {
+        if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+          let sendCommand = "weather";
+          if (weatherIconEl.href == "weather_36px.png") {
+            sendCommand = "initial-weather";
+          }
 
-    let sendUnit = temperatureUnit;
-    if (sendUnit == "auto") {
-      sendUnit = units.temperature;
+          let sendUnit = temperatureUnit;
+          if (sendUnit == "auto") {
+            sendUnit = units.temperature;
+          }
+          messaging.peerSocket.send({
+            command: sendCommand,
+            unit: sendUnit,
+          });
+          unansweredRequests++;
+          if (unansweredRequests >= 10) {
+            weatherCountEl.text = "----";
+            weatherIconEl.href = "weather_36px.png";
+          }
+        } else {
+          weatherCountEl.text = "----";
+          weatherIconEl.href = "weather_36px.png";
+        }
+      } catch (e) {
+        console.log(`Weather error: ${e}`);
+      }
     }
-    messaging.peerSocket.send({
-      command: sendCommand,
-      unit: sendUnit,
-    });
   }
 }
 
@@ -54,6 +76,7 @@ function processWeatherData(data) {
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
     weatherIconEl.href = `weather_${data.condition}_36px.png`;
+    weatherLastUpdate = new Date();
   }
 }
 
@@ -62,7 +85,8 @@ messaging.peerSocket.addEventListener("open", (evt) => {
 });
 
 messaging.peerSocket.addEventListener("message", (evt) => {
-  if (evt.data && evt.data.dataType === "weatherUpdate") {
+  if (evt.data && (evt.data.dataType === "weatherUpdate" || evt.data.dataType === "weatherData")) {
+    unansweredRequests = 0;
     processWeatherData(evt.data);
   }
 });

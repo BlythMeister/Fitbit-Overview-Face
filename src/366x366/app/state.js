@@ -11,6 +11,7 @@ import * as battery from "./battery.js";
 import * as time from "./time.js";
 import * as hr from "./hr.js";
 import * as activity from "./activity.js";
+import * as weather from "./weather.js";
 
 const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
@@ -66,4 +67,5 @@ export function reApplyState() {
   activity.drawAllProgress();
   bm.drawBMR();
   bm.drawBMI();
+  weather.fetchWeather();
 }

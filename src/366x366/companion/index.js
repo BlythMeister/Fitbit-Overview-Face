@@ -50,7 +50,6 @@ messaging.peerSocket.addEventListener("close", (evt) => {
 });
 
 messaging.peerSocket.addEventListener("open", (evt) => {
-  sendSavedWeather();
   setDefaultSettings();
   if (initialOpen == true) {
     initialOpen = false;
@@ -65,10 +64,10 @@ messaging.peerSocket.addEventListener("open", (evt) => {
 
 messaging.peerSocket.addEventListener("message", (evt) => {
   if (evt.data && evt.data.command === "weather" && companion.permissions.granted("access_location")) {
-    sendWeather(evt.data.unit, 0);
+    sendWeather(evt.data.unit);
   } else if (evt.data && evt.data.command === "initial-weather" && companion.permissions.granted("access_location")) {
-    sendSavedWeather();
-    sendWeather(evt.data.unit, 0);
+    sendSavedWeather("weatherData");
+    sendWeather(evt.data.unit);
   }
 });
 
@@ -161,7 +160,7 @@ function sendSettingValue(key, val) {
   }
 }
 
-function sendWeather(unit, attempts) {
+function sendWeather(unit) {
   let unitKey = "celsius";
   if (unit == "F") {
     unitKey = "fahrenheit";
@@ -172,33 +171,25 @@ function sendWeather(unit, attempts) {
     .then((data) => {
       if (data.locations.length > 0) {
         var sendData = {
-          dataType: "weatherUpdate",
           temperature: Math.floor(data.locations[0].currentWeather.temperature),
           unit: data.temperatureUnit,
           condition: findWeatherConditionName(WeatherCondition, data.locations[0].currentWeather.weatherCondition),
         };
         let jsonValue = JSON.stringify(sendData);
         localStorage.setItem("weather", jsonValue);
-        sendSavedWeather();
+        sendSavedWeather("weatherUpdate");
       }
     })
     .catch((ex) => {
-      if (attempts < 3) {
-        setTimeout(() => {
-          sendWeather(unit, attempts + 1);
-        }, 10000);
-      } else {
-        console.error(ex.message);
-        var sendData = {
-          dataType: "weatherUpdate",
-          temperature: 0,
-          unit: "celcius",
-          condition: null,
-        };
-        let jsonValue = JSON.stringify(sendData);
-        localStorage.setItem("weather", jsonValue);
-        sendSavedWeather();
-      }
+      console.error(ex.message);
+      var sendData = {
+        temperature: 0,
+        unit: "celcius",
+        condition: null,
+      };
+      let jsonValue = JSON.stringify(sendData);
+      localStorage.setItem("weather", jsonValue);
+      sendSavedWeather("weatherUpdate");
     });
 }
 
@@ -208,10 +199,16 @@ function findWeatherConditionName(WeatherCondition, conditionCode) {
   }
 }
 
-function sendSavedWeather() {
+function sendSavedWeather(dataType) {
   var savedWeather = localStorage.getItem("weather");
   if (savedWeather != null) {
-    var sendData = JSON.parse(savedWeather);
+    var savedData = JSON.parse(savedWeather);
+    var sendData = {
+      dataType: dataType,
+      temperature: savedData.temperature,
+      unit: savedData.unit,
+      condition: savedData.condition,
+    };
     messageQueue.push(sendData);
   }
 }
