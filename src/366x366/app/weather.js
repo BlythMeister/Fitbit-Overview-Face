@@ -9,6 +9,7 @@ export let weatherPosition = "NONE";
 export let temperatureUnit = "C";
 export let weatherInterval = 60000;
 export let weatherLastUpdate = null;
+export let weatherLastRequest = null;
 export let unansweredRequests = 0;
 
 export function setWeatherPosition(pos) {
@@ -36,8 +37,9 @@ export function setRefreshInterval(interval) {
 }
 
 export function fetchWeather() {
-  if (weatherPosition != "NONE") {
-    if (weatherIconEl.href == "weather_36px.png" || weatherLastUpdate == null || new Date() - weatherLastUpdate > weatherInterval) {
+  var currentDate = new Date();
+  if (weatherPosition != "NONE" && (weatherLastRequest == null || currentDate - weatherLastRequest > 10000)) {
+    if (weatherIconEl.href == "weather_36px.png" || weatherLastUpdate == null || currentDate - weatherLastUpdate > weatherInterval) {
       try {
         if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
           let sendCommand = "weather";
@@ -53,6 +55,7 @@ export function fetchWeather() {
             command: sendCommand,
             unit: sendUnit,
           });
+          weatherLastRequest = new Date();
           unansweredRequests++;
           if (unansweredRequests >= 10) {
             weatherCountEl.text = "----";
