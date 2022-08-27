@@ -15,8 +15,7 @@ export let unansweredRequests = 0;
 export function setWeatherPosition(pos) {
   weatherPosition = pos;
   if (weatherPosition == "NONE") {
-    weatherCountEl.text = "----";
-    weatherIconEl.href = "weather_36px.png";
+    weatherLastUpdate = null;
   }
   fetchWeather();
 }

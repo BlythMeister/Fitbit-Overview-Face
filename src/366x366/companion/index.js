@@ -8,9 +8,15 @@ import { weather, WeatherCondition } from "weather";
 let initialOpen = true;
 let messageQueue = [];
 let sendingData = null;
+let queueCheckInterval = null;
 
 //Wake every 15 minutes
 companion.wakeInterval = 900000;
+//Check messages every 100ms
+if (queueCheckInterval != null) {
+  clearInterval(queueCheckInterval);
+}
+queueCheckInterval = setInterval(CheckQueue, 100);
 
 function CheckQueue() {
   try {
@@ -23,10 +29,6 @@ function CheckQueue() {
   } catch (e) {
     console.log(`Error processing queue: ${e}`);
   }
-
-  setTimeout(() => {
-    CheckQueue();
-  }, 100);
 }
 
 // Settings have been changed
@@ -52,7 +54,6 @@ messaging.peerSocket.addEventListener("close", (evt) => {
 });
 
 messaging.peerSocket.addEventListener("open", (evt) => {
-  CheckQueue();
   setDefaultSettings();
   if (initialOpen == true) {
     initialOpen = false;
