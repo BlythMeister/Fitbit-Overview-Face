@@ -2,8 +2,8 @@ import document from "document";
 import { battery } from "power";
 
 //Battery - START
-export let root = document.getElementById('root')
-export const screenWidth = root.width
+export let root = document.getElementById("root");
+export const screenWidth = root.width;
 
 export let batteryLine = document.getElementById("battery-line");
 export let batteryLineFront = document.getElementById("battery-line-front");
@@ -29,26 +29,26 @@ export let batteryStatIconRing = document.getElementById("battery-ring-icon");
 export let batteryStatCountRing = document.getElementById("battery-ring-count");
 export let batteryStatposition = "NONE";
 
-export let colour0 = 'red';
-export let colour25 = 'darkorange';
-export let colour50 = 'gold';
-export let colour75 = 'lime';
-export let colour0Icon = 'red';
-export let colour25Icon = 'darkorange';
-export let colour50Icon = 'gold';
-export let colour75Icon = 'lime';
+export let colour0 = "red";
+export let colour25 = "darkorange";
+export let colour50 = "gold";
+export let colour75 = "lime";
+export let colour0Icon = "red";
+export let colour25Icon = "darkorange";
+export let colour50Icon = "gold";
+export let colour75Icon = "lime";
 //Battery - END
 
-export function setPosition(pos){
+export function setPosition(pos) {
   batteryStatposition = pos;
 }
 
 export function setShowBatteryPercent(visibility) {
-  batteryPercentBlock.style.display = (!visibility ? "none" : "inline");
+  batteryPercentBlock.style.display = !visibility ? "none" : "inline";
 }
 
 export function setShowBatteryBar(visibility) {
-  batteryLine.style.display = (!visibility ? "none" : "inline");
+  batteryLine.style.display = !visibility ? "none" : "inline";
 }
 
 export function setFont(font) {
@@ -100,51 +100,44 @@ export function drawBat() {
   let level = battery.chargeLevel;
 
   let batteryPercentage = Math.floor(level);
-  batteryPercent.text = `${batteryPercentage}%`;  
+  batteryPercent.text = `${batteryPercentage}%`;
   batteryStatCountStraight.text = `${batteryPercentage}%`;
   batteryStatCountArc.text = `${batteryPercentage}%`;
   batteryStatCountRing.text = `${batteryPercentage}%`;
-  
-  let batteryDecimal = batteryPercentage/100
-  var statMaxLine = screenWidth /100 * 28;
-  batteryLineFront.width = Math.floor(screenWidth*batteryDecimal)
-  batteryStatLineStraight.width = statMaxLine*batteryDecimal;
-  batteryStatLineArc.sweepAngle = Math.floor(225*batteryDecimal);
-  batteryStatLineRing.sweepAngle = Math.floor(360*batteryDecimal);    
+
+  let batteryDecimal = batteryPercentage / 100;
+  var statMaxLine = (screenWidth / 100) * 28;
+  batteryLineFront.width = Math.floor(screenWidth * batteryDecimal);
+  batteryStatLineStraight.width = statMaxLine * batteryDecimal;
+  batteryStatLineArc.sweepAngle = Math.floor(225 * batteryDecimal);
+  batteryStatLineRing.sweepAngle = Math.floor(360 * batteryDecimal);
 
   let colourToUseBar = "";
   let colourToUseIcon = "";
   let iconToUse = "";
-  
-  if (batteryPercentage >= 75)
-  {
+
+  if (batteryPercentage >= 75) {
     colourToUseBar = colour75;
     colourToUseIcon = colour75Icon;
     iconToUse = "battery_full_36px.png";
-  }
-  else if (batteryPercentage >= 50)
-  {
+  } else if (batteryPercentage >= 50) {
     colourToUseBar = colour50;
     colourToUseIcon = colour50Icon;
     iconToUse = "battery_slight_empty_36px.png";
-  }
-  else if (batteryPercentage >= 25)
-  {
+  } else if (batteryPercentage >= 25) {
     colourToUseBar = colour25;
     colourToUseIcon = colour25Icon;
     iconToUse = "battery_half_36px.png";
-  }
-  else
-  {
+  } else {
     colourToUseBar = colour0;
     colourToUseIcon = colour0Icon;
     iconToUse = "battery_empty_36px.png";
-  }  
-  
-  if(battery.charging){
-    iconToUse = "battery_charging_36px.png";    
-  }   
-    
+  }
+
+  if (battery.charging) {
+    iconToUse = "battery_charging_36px.png";
+  }
+
   batteryLineFront.style.fill = colourToUseBar;
   batteryIcon.style.fill = colourToUseIcon;
   batteryPercent.style.fill = colourToUseIcon;

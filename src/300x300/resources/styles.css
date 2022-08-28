@@ -6,21 +6,21 @@
 #background {
   x: 0;
   y: 0;
-  width:100%;
-  height:100%;
-  fill:black;
+  width: 100%;
+  height: 100%;
+  fill: black;
 }
 
 #torch {
   x: 0;
   y: 0;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  fill:white;
+  fill: white;
 }
 
-#clock{
+#clock {
   y: 190;
 }
 
@@ -51,10 +51,10 @@
   font-family: System-Bold;
   text-length: 60;
   text-anchor: end;
-  fill: white; 
+  fill: white;
   x: 100%-60;
   y: 0;
-  display: none; 
+  display: none;
 }
 
 #am-pm {
@@ -74,14 +74,14 @@
   text-length: 120;
   text-anchor: end;
   x: 100%-5;
-  y:0;
+  y: 0;
   fill: white;
   display: none;
 }
 
 #hr {
   x: 5;
-  y: 30;    
+  y: 30;
 }
 
 #hr-count {
@@ -109,16 +109,16 @@
   fill: crimson;
   width: 30;
   height: 30;
-  x:0;
-  y:-10;
+  x: 0;
+  y: -10;
 }
 
 #hr-icon-diastole {
   fill: crimson;
   width: 38;
   height: 38;
-  x:-2;
-  y:-12;
+  x: -2;
+  y: -12;
 }
 
 #battery {
@@ -130,15 +130,15 @@
 #battery-icon {
   width: 18;
   height: 18;
-  x:-18;
-  y:-18;
+  x: -18;
+  y: -18;
 }
 
 #battery-icon-charge {
   width: 18;
   height: 18;
-  x:-18;
-  y:-18;
+  x: -18;
+  y: -18;
 }
 
 #battery-percent {
@@ -147,7 +147,7 @@
   font-family: System-Bold;
   fill: white;
   x: -20;
-  y: 0; 
+  y: 0;
 }
 
 #calendar {
@@ -193,12 +193,12 @@
 
 #activeMinutes-straight {
   display: "none";
-} 
+}
 
 #battery-straight {
   display: "none";
 }
- 
+
 #steps-arc {
   display: "none";
 }
@@ -217,12 +217,12 @@
 
 #activeMinutes-arc {
   display: "none";
-} 
+}
 
 #battery-arc {
   display: "none";
-} 
-  
+}
+
 #steps-ring {
   display: "none";
 }
@@ -265,8 +265,8 @@
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:14%;
-  y:10;
+  x: 14%;
+  y: 10;
 }
 
 #bmi-zone {
@@ -275,59 +275,59 @@
   font-family: System-Bold;
   text-length: 120;
   fill: darkorange;
-  x:14%;
-  y:25;
+  x: 14%;
+  y: 25;
 }
 
 .icon-noProgress {
   width: 23;
   height: 23;
-  x:4;
-  y:5;
+  x: 4;
+  y: 5;
 }
 
 .count-noProgress {
   font-size: 22;
   x: 30;
   y: 25;
-  text-length: 10; 
+  text-length: 10;
   font-family: System-Bold;
 }
 
 .icon {
   width: 20;
   height: 20;
-  x:0;
-  y:0;
+  x: 0;
+  y: 0;
 }
 
 .count {
   font-size: 22;
   x: 26;
   y: 15;
-  text-length: 10; 
+  text-length: 10;
   font-family: System-Bold;
 }
 
 .line {
   width: 28%;
   height: 5;
-  x:0;
-  y:22;
+  x: 0;
+  y: 22;
 }
 
 .icon-arc {
   width: 15;
   height: 15;
-  x:14%-7;
-  y:-4;
+  x: 14%-7;
+  y: -4;
 }
 
 .count-arc {
   font-size: 19;
   x: 14%;
   y: 27;
-  text-length: 10; 
+  text-length: 10;
   font-family: System-Bold;
   text-anchor: middle;
 }
@@ -335,8 +335,8 @@
 .line-arc {
   width: 28%;
   height: 60;
-  x:0;
-  y:-10;  
+  x: 0;
+  y: -10;
   arc-width: 5;
   start-angle: 245;
   sweep-angle: 225;
@@ -345,23 +345,23 @@
 .icon-ring {
   width: 18;
   height: 18;
-  x:8;
-  y:8;
+  x: 8;
+  y: 8;
 }
 
 .count-ring {
   font-size: 21;
   x: 38;
   y: 25;
-  text-length: 10; 
+  text-length: 10;
   font-family: System-Bold;
 }
 
 .line-ring {
   width: 35;
   height: 35;
-  x:0;
-  y:0;  
+  x: 0;
+  y: 0;
   arc-width: 5;
   start-angle: 0;
   sweep-angle: 360;

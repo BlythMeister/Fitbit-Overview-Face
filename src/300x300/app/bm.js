@@ -16,15 +16,15 @@ export let bmPosition = "NONE";
 export let bmiPosition = "NONE";
 export let bmrPosition = "NONE";
 
-export function setBMPosition(pos){
+export function setBMPosition(pos) {
   bmPosition = pos;
 }
 
-export function setBMIPosition(pos){
+export function setBMIPosition(pos) {
   bmiPosition = pos;
 }
 
-export function setBMRPosition(pos){
+export function setBMRPosition(pos) {
   bmrPosition = pos;
 }
 //BM - END
@@ -38,7 +38,7 @@ export function drawBMR() {
 
 export function drawBMI() {
   let bmiLabel = gettext("bmi");
-  var bmi = (user.weight/(user.height*user.height)).toFixed(2);
+  var bmi = (user.weight / (user.height * user.height)).toFixed(2);
   bmiZoneEl.text = `${bmiLabel}: ${bmi}`;
   bmiCountEl.text = `${bmi}`;
 }
