@@ -1,28 +1,28 @@
 <svg id="root">
-  <rect id="background"/> 
-  
+  <rect id="background"/>
+
   <svg id="battery-line" x="0" y="0">
     <rect id="battery-line-back" x="0" y="0" width="100%" height="2%" fill="white" />
-    <rect id="battery-line-front" x="0" y="0" width="100%" height="2%" fill="white" />    
+    <rect id="battery-line-front" x="0" y="0" width="100%" height="2%" fill="white" />
   </svg>
-  
-  <svg id="hr"> 
+
+  <svg id="hr">
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="heart_36px.png" />
     <image id="hr-icon-diastole" class="icon" href="heart_36px.png" />
     <text id="hr-zone" class="count sideCount" />
-  </svg> 
-  
-  <svg id="battery">  
+  </svg>
+
+  <svg id="battery">
     <image id="battery-icon" class="icon" href="battery_full_36px.png" />
     <text id="battery-percent" class="count" />
   </svg>
-  
+
   <svg id="calendar">
     <text id="day"/>
     <text id="date"/>
   </svg>
-  
+
   <svg id="clock">
     <text id="time-hour"/>
     <text id="time-colon"/>
@@ -30,146 +30,146 @@
     <text id="am-pm"/>
     <text id="second"/>
   </svg>
-  
+
   <svg id="bm">
     <text id="bmr-zone" />
     <text id="bmi-zone" />
   </svg>
-  
+
   <svg id="bmi">
     <text id="bmi-count" class="count-noProgress" fill="white" />
     <image id="bmi-icon" class="icon-noProgress" href="bmi_36px.png" fill="white" />
   </svg>
-  
+
   <svg id="bmr">
     <text id="bmr-count" class="count-noProgress" fill="white" />
     <image id="bmr-icon" class="icon-noProgress" href="bmr_36px.png" fill="white" />
-  </svg> 
- 
+  </svg>
+
   <svg id="steps-straight">
     <text id="steps-straight-count" class="count" fill="white" />
     <image id="steps-straight-icon" class="icon" href="steps_36px.png" fill="white" />
     <rect id="steps-straight-line-back" class="line" fill="white" />
     <rect id="steps-straight-line" class="line" fill="white" />
   </svg>
-  
-  <svg id="distance-straight">   
+
+  <svg id="distance-straight">
     <text id="distance-straight-count" class="count" fill="white" />
     <image id="distance-straight-icon" class="icon" href="distance_36px.png" fill="white" />
     <rect id="distance-straight-line-back" class="line" fill="white" />
     <rect id="distance-straight-line" class="line" fill="white" />
   </svg>
-  
-  <svg id="calories-straight">  
+
+  <svg id="calories-straight">
     <text id="calories-straight-count" class="count" fill="white" />
     <image id="calories-straight-icon" class="icon" href="calories_36px.png" fill="white" />
     <rect id="calories-straight-line-back" class="line" fill="white" />
     <rect id="calories-straight-line" class="line" fill="white" />
-  </svg> 
-  
-  <svg id="elevationGain-straight">  
+  </svg>
+
+  <svg id="elevationGain-straight">
     <text id="elevationGain-straight-count" class="count" fill="white" />
     <image id="elevationGain-straight-icon" class="icon" href="floors_36px.png" fill="white" />
     <rect id="elevationGain-straight-line-back" class="line" fill="white" />
     <rect id="elevationGain-straight-line" class="line" fill="white" />
   </svg>
-  
-  <svg id="activeMinutes-straight">   
+
+  <svg id="activeMinutes-straight">
     <text id="activeMinutes-straight-count" class="count" fill="white" />
     <image id="activeMinutes-straight-icon" class="icon" href="azm_36px.png" fill="white" />
     <rect id="activeMinutes-straight-line-back" class="line" fill="white" />
     <rect id="activeMinutes-straight-line" class="line" fill="white" />
   </svg>
-  
-  <svg id="battery-straight">   
+
+  <svg id="battery-straight">
     <text id="battery-straight-count" class="count" fill="white" />
     <image id="battery-straight-icon" class="icon" href="battery_full_36px.png" fill="white" />
     <rect id="battery-straight-line-back" class="line" fill="white" />
     <rect id="battery-straight-line" class="line" fill="white" />
   </svg>
-  
+
   <svg id="steps-arc">
     <text id="steps-arc-count" class="count-arc" fill="white" />
     <image id="steps-arc-icon" class="icon-arc" href="steps_36px.png" fill="white" />
     <arc id="steps-arc-line-back" class="line-arc" fill="white" />
     <arc id="steps-arc-line" class="line-arc" fill="white" />
   </svg>
-  
-  <svg id="distance-arc">   
+
+  <svg id="distance-arc">
     <text id="distance-arc-count" class="count-arc" fill="white" />
     <image id="distance-arc-icon" class="icon-arc" href="distance_36px.png" fill="white" />
     <arc id="distance-arc-line-back" class="line-arc" fill="white" />
     <arc id="distance-arc-line" class="line-arc" fill="white" />
   </svg>
-  
-  <svg id="calories-arc">  
+
+  <svg id="calories-arc">
     <text id="calories-arc-count" class="count-arc" fill="white" />
     <image id="calories-arc-icon" class="icon-arc" href="calories_36px.png" fill="white" />
     <arc id="calories-arc-line-back" class="line-arc" fill="white" />
     <arc id="calories-arc-line" class="line-arc" fill="white" />
-  </svg> 
-  
-  <svg id="elevationGain-arc">  
+  </svg>
+
+  <svg id="elevationGain-arc">
     <text id="elevationGain-arc-count" class="count-arc" fill="white" />
     <image id="elevationGain-arc-icon" class="icon-arc" href="floors_36px.png" fill="white" />
     <arc id="elevationGain-arc-line-back" class="line-arc" fill="white" />
     <arc id="elevationGain-arc-line" class="line-arc" fill="white" />
   </svg>
-  
-  <svg id="activeMinutes-arc">   
+
+  <svg id="activeMinutes-arc">
     <text id="activeMinutes-arc-count" class="count-arc" fill="white" />
     <image id="activeMinutes-arc-icon" class="icon-arc" href="azm_36px.png" fill="white" />
     <arc id="activeMinutes-arc-line-back" class="line-arc" fill="white" />
     <arc id="activeMinutes-arc-line" class="line-arc" fill="white" />
   </svg>
-  <svg id="battery-arc">   
+  <svg id="battery-arc">
     <text id="battery-arc-count" class="count-arc" fill="white" />
     <image id="battery-arc-icon" class="icon-arc" href="battery_full_36px.png" fill="white" />
     <arc id="battery-arc-line-back" class="line-arc" fill="white" />
     <arc id="battery-arc-line" class="line-arc" fill="white" />
   </svg>
-  
+
   <svg id="steps-ring">
     <text id="steps-ring-count" class="count-ring" fill="white" />
     <image id="steps-ring-icon" class="icon-ring" href="steps_36px.png" fill="white" />
     <arc id="steps-ring-line-back" class="line-ring" fill="white" />
     <arc id="steps-ring-line" class="line-ring" fill="white" />
   </svg>
-  
-  <svg id="distance-ring">   
+
+  <svg id="distance-ring">
     <text id="distance-ring-count" class="count-ring" fill="white" />
     <image id="distance-ring-icon" class="icon-ring" href="distance_36px.png" fill="white" />
     <arc id="distance-ring-line-back" class="line-ring" fill="white" />
     <arc id="distance-ring-line" class="line-ring" fill="white" />
   </svg>
-  
-  <svg id="calories-ring">  
+
+  <svg id="calories-ring">
     <text id="calories-ring-count" class="count-ring" fill="white" />
     <image id="calories-ring-icon" class="icon-ring" href="calories_36px.png" fill="white" />
     <arc id="calories-ring-line-back" class="line-ring" fill="white" />
     <arc id="calories-ring-line" class="line-ring" fill="white" />
-  </svg> 
-  
+  </svg>
+
   <svg id="elevationGain-ring">
     <text id="elevationGain-ring-count" class="count-ring" fill="white" />
     <image id="elevationGain-ring-icon" class="icon-ring" href="floors_36px.png" fill="white" />
     <arc id="elevationGain-ring-line-back" class="line-ring" fill="white" />
     <arc id="elevationGain-ring-line" class="line-ring" fill="white" />
   </svg>
-  
+
   <svg id="activeMinutes-ring">
     <text id="activeMinutes-ring-count" class="count-ring" fill="white" />
     <image id="activeMinutes-ring-icon" class="icon-ring" href="azm_36px.png" fill="white" />
     <arc id="activeMinutes-ring-line-back" class="line-ring" fill="white" />
     <arc id="activeMinutes-ring-line" class="line-ring" fill="white" />
   </svg>
-  
+
   <svg id="battery-ring">
     <text id="battery-ring-count" class="count-ring" fill="white" />
     <image id="battery-ring-icon" class="icon-ring" href="battery_full_36px.png" fill="white" />
     <arc id="battery-ring-line-back" class="line-ring" fill="white" />
     <arc id="battery-ring-line" class="line-ring" fill="white" />
   </svg>
-    
+
   <rect id="torch" pointer-events="visible" />
 </svg>

@@ -1,44 +1,61 @@
 import { settingsStorage } from "settings";
 import * as messaging from "messaging";
-import { me } from "companion";
+import { me as companion } from "companion";
 import { device } from "peer";
 
 let initialOpen = true;
 let messageQueue = [];
 let sendingData = null;
-CheckQueue();
+let queueCheckInterval = null;
+
+//Wake every 15 minutes
+companion.wakeInterval = 900000;
+//Check messages every 100ms
+if (queueCheckInterval != null) {
+  clearInterval(queueCheckInterval);
+}
+queueCheckInterval = setInterval(CheckQueue, 100);
 
 function CheckQueue() {
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0) {
-    sendingData = messageQueue.shift();
-    console.log(`Sending Setting - key:${sendingData.key} val:${sendingData.value}`);
-    messaging.peerSocket.send(sendingData);
-    sendingData = null;
+  try {
+    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0) {
+      sendingData = messageQueue.shift();
+      console.log(`Sending: ${JSON.stringify(sendingData)}`);
+      messaging.peerSocket.send(sendingData);
+      sendingData = null;
+    }
+  } catch (e) {
+    console.log(`Error processing queue: ${e}`);
+    if (sendingData != null) {
+      messageQueue.unshift(sendingData);
+      sendingData = null;
+    }
   }
-
-  setTimeout(() => {
-    CheckQueue();
-  }, 200);
 }
 
 // Settings have been changed
-messaging.peerSocket.onerror = function (evt) {
+settingsStorage.addEventListener("change", (evt) => {
+  sendSettingValue(evt.key, evt.newValue);
+});
+
+//Message socket error
+messaging.peerSocket.addEventListener("error", (evt) => {
   console.log(`Companion Socket Error:${evt.message}`);
   if (sendingData != null) {
     messageQueue.unshift(sendingData);
     sendingData = null;
   }
-};
+});
 
-messaging.peerSocket.onclose = function (evt) {
+messaging.peerSocket.addEventListener("close", (evt) => {
   console.log(`Companion Socket Close:${evt.message}`);
   if (sendingData != null) {
     messageQueue.unshift(sendingData);
     sendingData = null;
   }
-};
+});
 
-messaging.peerSocket.onopen = function (evt) {
+messaging.peerSocket.addEventListener("open", (evt) => {
   setDefaultSettings();
   if (initialOpen == true) {
     initialOpen = false;
@@ -49,7 +66,7 @@ messaging.peerSocket.onopen = function (evt) {
       sendSettingValue(key, value);
     }
   }
-};
+});
 
 function setDefaultSettings() {
   console.log("Set Default Settings");
@@ -69,7 +86,7 @@ function setDefaultSettings() {
   setDefaultSetting("showDay", true);
   setDefaultSetting("StatsTL", { values: [{ value: "steps", name: "Steps" }], selected: [4] });
   setDefaultSetting("StatsBL", { values: [{ value: "distance", name: "Distance" }], selected: [5] });
-  setDefaultSetting("StatsTM", { values: [{ value: "BMIBMR", name: "BMR/BMI" }], selected: [1] });
+  setDefaultSetting("StatsTM", { values: [{ value: "BMIBMR", name: "BMR & BMI" }], selected: [1] });
   setDefaultSetting("StatsBM", { values: [{ value: "calories", name: "Calories" }], selected: [7] });
   setDefaultSetting("StatsTR", { values: [{ value: "elevationGain", name: "Floors" }], selected: [6] });
   setDefaultSetting("StatsBR", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [9] });

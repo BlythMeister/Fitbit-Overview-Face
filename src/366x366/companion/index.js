@@ -28,6 +28,10 @@ function CheckQueue() {
     }
   } catch (e) {
     console.log(`Error processing queue: ${e}`);
+    if (sendingData != null) {
+      messageQueue.unshift(sendingData);
+      sendingData = null;
+    }
   }
 }
 

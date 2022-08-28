@@ -77,6 +77,8 @@ function hasTime(props) {
 }
 
 function mySettings(props) {
+  let modelId = JSON.parse(props.settingsStorage.getItem("deviceModelId"));
+
   let colourSet = [
     { color: "mediumvioletred" },
     { color: "deeppink" },
@@ -135,10 +137,38 @@ function mySettings(props) {
     { color: "black" },
   ];
 
-  let modelId = JSON.parse(props.settingsStorage.getItem("deviceModelId"));
+  let timeFormats = [
+    { value: "auto", name: "Automatic (Use Fitbit Setting)" },
+    { value: "12h", name: "12 hour" },
+    { value: "24h", name: "24 hour" },
+  ];
+
+  let dateFormats = [
+    { value: "dd.mm.yy", name: "dd.mm.yy" },
+    { value: "dd mmm yy", name: "dd mmm yy" },
+    { value: "dd mmmm yy", name: "dd mmmm yy" },
+    { value: "dd/mm/yy", name: "dd/mm/yy" },
+    { value: "mm/dd/yy", name: "mm/dd/yy" },
+    { value: "mm.dd.yy", name: "mm.dd.yy" },
+    { value: "mmm dd yy", name: "mmm dd yy" },
+    { value: "mmmm dd yy", name: "mmmm dd yy" },
+    { value: "yy/mm/dd", name: "yy/mm/dd" },
+    { value: "dd.mm.yyyy", name: "dd.mm.yyyy" },
+    { value: "dd mmm yyyy", name: "dd mmm yyyy" },
+    { value: "dd mmmm yyyy", name: "dd mmmm yyyy" },
+    { value: "dd/mm/yyyy", name: "dd/mm/yyyy" },
+    { value: "mm/dd/yyyy", name: "mm/dd/yyyy" },
+    { value: "mm.dd.yyyy", name: "mm.dd.yyyy" },
+    { value: "mmm dd yyyy", name: "mmm dd yyyy" },
+    { value: "mmmm dd yyyy", name: "mmmm dd yyyy" },
+    { value: "yyyy/mm/dd", name: "yyyy/mm/dd" },
+    { value: "mmm dd, yyyy", name: "mmm dd, yyyy" },
+    { value: "mmmm dd, yyyy", name: "mmmm dd, yyyy" },
+  ];
+
   let availiableStats = [
     { value: "NONE", name: "Empty" },
-    { value: "BMIBMR", name: "BMR/BMI" },
+    { value: "BMIBMR", name: "BMI & BMR" },
     { value: "BMI", name: "BMI" },
     { value: "BMR", name: "BMR" },
     { value: "steps", name: "Steps" },
@@ -152,7 +182,7 @@ function mySettings(props) {
   if (modelId === "38") {
     availiableStats = [
       { value: "NONE", name: "Empty" },
-      { value: "BMIBMR", name: "BMR/BMI" },
+      { value: "BMIBMR", name: "BMR & BMI" },
       { value: "BMI", name: "BMI" },
       { value: "BMR", name: "BMR" },
       { value: "steps", name: "Steps" },
@@ -164,6 +194,45 @@ function mySettings(props) {
     ];
   }
 
+  let progressBarsFormat = [
+    { value: "none", name: "None" },
+    { value: "bars", name: "Bars" },
+    { value: "arc", name: "Arc" },
+    { value: "ring", name: "Ring" },
+  ];
+
+  let distanceUnits = [
+    { value: "auto", name: "Automatic (Use Fitbit Setting)" },
+    { value: "m", name: "meters" },
+    { value: "km", name: "kilometers" },
+    { value: "ft", name: "feet" },
+    { value: "mi", name: "miles" },
+  ];
+
+  let weatherRefresh = [
+    { value: "300000", name: "5 minutes" },
+    { value: "600000", name: "10 minutes" },
+    { value: "900000", name: "15 minutes" },
+    { value: "1800000", name: "30 minutes" },
+    { value: "3600000", name: "60 minutes" },
+  ];
+
+  let temperatureUnits = [
+    { value: "auto", name: "Automatic (Use Fitbit Setting)" },
+    { value: "C", name: "Celcius" },
+    { value: "F", name: "Fahrenheit" },
+  ];
+
+  let torchAutoOff = [
+    { value: "-1", name: "Never" },
+    { value: "1", name: "1 Second" },
+    { value: "2", name: "2 Seconds" },
+    { value: "5", name: "5 Seconds" },
+    { value: "15", name: "15 Seconds" },
+    { value: "30", name: "30 Seconds" },
+    { value: "60", name: "60 Seconds" },
+  ];
+
   return (
     <Page>
       <Section title="Clock">
@@ -172,50 +241,18 @@ function mySettings(props) {
         {hasTime(props) && <Toggle settingsKey="showSeconds" label="Show seconds value" />}
         {hasTime(props) && <Toggle settingsKey="showLeadingZero" label="Show leading zero on hours" />}
         {hasTime(props) && <Toggle settingsKey="flashDots" label="Flash the : in time" />}
-        {hasTime(props) && (
-          <Select
-            label="Time Format"
-            settingsKey="timeFormat"
-            options={[
-              { value: "auto", name: "Automatic (Use Fitbit Setting)" },
-              { value: "12h", name: "12 hour" },
-              { value: "24h", name: "24 hour" },
-            ]}
-          />
-        )}
+        {hasTime(props) && <Select label="Time Format" settingsKey="timeFormat" options={timeFormats} />}
       </Section>
 
       <Section title="Date">
         <Toggle settingsKey="showDate" label="Show Date" />
         {hasDate(props) && <Toggle settingsKey="showDay" label="Show Day" />}
-        {hasDate(props) && (
-          <Select
-            label="Date Format"
-            settingsKey="dateFormat"
-            options={[
-              { value: "dd.mm.yy", name: "dd.mm.yy" },
-              { value: "dd mmm yy", name: "dd mmm yy" },
-              { value: "dd mmmm yy", name: "dd mmmm yy" },
-              { value: "dd/mm/yy", name: "dd/mm/yy" },
-              { value: "mm/dd/yy", name: "mm/dd/yy" },
-              { value: "mm.dd.yy", name: "mm.dd.yy" },
-              { value: "mmm dd yy", name: "mmm dd yy" },
-              { value: "mmmm dd yy", name: "mmmm dd yy" },
-              { value: "yy/mm/dd", name: "yy/mm/dd" },
-              { value: "dd.mm.yyyy", name: "dd.mm.yyyy" },
-              { value: "dd mmm yyyy", name: "dd mmm yyyy" },
-              { value: "dd mmmm yyyy", name: "dd mmmm yyyy" },
-              { value: "dd/mm/yyyy", name: "dd/mm/yyyy" },
-              { value: "mm/dd/yyyy", name: "mm/dd/yyyy" },
-              { value: "mm.dd.yyyy", name: "mm.dd.yyyy" },
-              { value: "mmm dd yyyy", name: "mmm dd yyyy" },
-              { value: "mmmm dd yyyy", name: "mmmm dd yyyy" },
-              { value: "yyyy/mm/dd", name: "yyyy/mm/dd" },
-              { value: "mmm dd, yyyy", name: "mmm dd, yyyy" },
-              { value: "mmmm dd, yyyy", name: "mmmm dd, yyyy" },
-            ]}
-          />
-        )}
+        {hasDate(props) && <Select label="Date Format" settingsKey="dateFormat" options={dateFormats} />}
+      </Section>
+
+      <Section title="Battery">
+        <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
+        <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
       </Section>
 
       <Section title="Heart Rate">
@@ -233,58 +270,25 @@ function mySettings(props) {
         <Select label="Bottom Right" settingsKey="StatsBR" options={availiableStats} />
       </Section>
 
-      {hasActivity(props, "distance") && (
-        <Section title="Distance">
-          <Select
-            label="Distance Unit"
-            settingsKey="distanceUnit"
-            options={[
-              { value: "auto", name: "Automatic (Use Fitbit Setting)" },
-              { value: "m", name: "meters" },
-              { value: "km", name: "kilometers" },
-              { value: "ft", name: "feet" },
-              { value: "mi", name: "miles" },
-            ]}
-          />
-        </Section>
-      )}
-
       {hasProgressStat(props) && (
         <Section title="Stats Progress">
-          <Select
-            label="Progress Bars"
-            settingsKey="progressBars"
-            options={[
-              { value: "none", name: "None" },
-              { value: "bars", name: "Bars" },
-              { value: "arc", name: "Arc" },
-              { value: "ring", name: "Ring" },
-            ]}
-          />
+          <Select label="Progress Bars" settingsKey="progressBars" options={progressBarsFormat} />
         </Section>
       )}
 
-      <Section title="Battery">
-        <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
-        <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
-      </Section>
+      {hasActivity(props, "distance") && (
+        <Section title="Distance">
+          <Select label="Distance Unit" settingsKey="distanceUnit" options={distanceUnits} />
+        </Section>
+      )}
 
       <Section title="Torch/Always On">
         <Toggle settingsKey="torchEnabled" label="Enable always on with double tap" />
-        <Select
-          settingsKey="torchAutoOff"
-          label="Automatically off after"
-          options={[
-            { value: "-1", name: "Never" },
-            { value: "1", name: "1 Second" },
-            { value: "2", name: "2 Seconds" },
-            { value: "5", name: "5 Seconds" },
-            { value: "15", name: "15 Seconds" },
-            { value: "30", name: "30 Seconds" },
-            { value: "60", name: "60 Seconds" },
-          ]}
-        />
+        <Select settingsKey="torchAutoOff" label="Automatically off after" options={torchAutoOff} />
         <Toggle settingsKey="torchOverlay" label="Set torch when always on" />
+      </Section>
+      <Section title="Background colour">
+        <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
       </Section>
 
       {hasTime(props) && (
@@ -296,6 +300,24 @@ function mySettings(props) {
       {hasDate(props) && (
         <Section title="Date colour">
           <ColorSelect settingsKey="dateColour" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasHeartRate(props) && (
+        <Section title="Heart colour">
+          <ColorSelect settingsKey="heartColour" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasHeartRate(props) && (
+        <Section title="Heart rate colour">
+          <ColorSelect settingsKey="heartRateColour" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasProgressStat(props) && (
+        <Section title="Progress background colour">
+          <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
         </Section>
       )}
 
@@ -329,18 +351,6 @@ function mySettings(props) {
         </Section>
       )}
 
-      {hasHeartRate(props) && (
-        <Section title="Heart colour">
-          <ColorSelect settingsKey="heartColour" colors={colourSet} />
-        </Section>
-      )}
-
-      {hasHeartRate(props) && (
-        <Section title="Heart rate colour">
-          <ColorSelect settingsKey="heartRateColour" colors={colourSet} />
-        </Section>
-      )}
-
       {hasActivity(props, "BMIBMR") && (
         <Section title="BMI/BMR colour">
           <ColorSelect settingsKey="bmColour" colors={colourSet} />
@@ -362,12 +372,6 @@ function mySettings(props) {
       {hasActivity(props, "BATTERY") && (
         <Section title="Battery Stat colour">
           <ColorSelect settingsKey="batteryStatColour" colors={colourSet} />
-        </Section>
-      )}
-
-      {hasProgressStat(props) && (
-        <Section title="Progress background colour">
-          <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
         </Section>
       )}
 
@@ -396,6 +400,12 @@ function mySettings(props) {
       )}
 
       {hasBatteryBar(props) && (
+        <Section title="Battery bar background colour">
+          <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasBatteryBar(props) && (
         <Section title="Battery Bar 0% - 25% colour">
           <ColorSelect settingsKey="battery0Colour" colors={colourSet} />
         </Section>
@@ -418,16 +428,6 @@ function mySettings(props) {
           <ColorSelect settingsKey="battery75Colour" colors={colourSet} />
         </Section>
       )}
-
-      {hasBatteryBar(props) && (
-        <Section title="Battery bar background colour">
-          <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
-        </Section>
-      )}
-
-      <Section title="Background colour">
-        <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
-      </Section>
     </Page>
   );
 }
