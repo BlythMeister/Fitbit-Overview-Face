@@ -1,29 +1,29 @@
 <svg id="root">
-  <rect id="background"/> 
-  
+  <rect id="background"/>
+
   <svg id="battery-line" x="0" y="0">
     <rect id="battery-line-back" x="0" y="0" width="100%" height="2%" fill="#969696" />
-    <rect id="battery-line-front" x="0" y="0" width="100%" height="2%" fill="#969696" />    
+    <rect id="battery-line-front" x="0" y="0" width="100%" height="2%" fill="#969696" />
   </svg>
-  
-  <svg id="hr"> 
+
+  <svg id="hr">
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="stat_hr_solid_48px.png" />
     <image id="hr-icon-diastole" class="icon" href="stat_hr_solid_48px.png" />
     <text id="hr-zone" class="count sideCount" />
-  </svg> 
-  
-  <svg id="battery">  
+  </svg>
+
+  <svg id="battery">
     <image id="battery-icon" class="icon" href="battery_solid_24px.png" />
     <image id="battery-icon-charge" class="icon" href="battery_charge_solid_24px.png" />
     <text id="battery-percent" class="count" />
   </svg>
-  
+
   <svg id="calendar">
     <text id="day"/>
     <text id="date"/>
   </svg>
-  
+
   <svg id="clock">
     <text id="time-hour"/>
     <text id="time-colon"/>
@@ -31,46 +31,46 @@
     <text id="am-pm"/>
     <text id="second"/>
   </svg>
-  
+
   <svg id="bm">
     <text id="bmr-zone" />
     <text id="bmi-zone" />
   </svg>
- 
+
   <svg id="steps">
     <text id="steps-count" class="count" fill="orangered" />
     <image id="steps-icon" class="icon" href="stat_steps_solid_24px.png" fill="orangered" />
     <rect id="steps-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="steps-line" x="0" y="20" width="50" height="5" fill="orangered" />
   </svg>
-  
-  <svg id="distance">   
+
+  <svg id="distance">
     <text id="distance-count" class="count" fill="forestgreen" />
     <image id="distance-icon" class="icon" href="stat_dist_solid_24px.png" fill="forestgreen" />
     <rect id="distance-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="distance-line" x="0" y="20" width="50" height="5" fill="forestgreen" />
   </svg>
-  
-  <svg id="calories">  
+
+  <svg id="calories">
     <text id="calories-count" class="count" fill="deeppink" />
     <image id="calories-icon" class="icon" href="stat_cals_solid_24px.png" fill="deeppink" />
     <rect id="calories-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="calories-line" x="0" y="20" width="50" height="5" fill="deeppink" />
-  </svg> 
-  
-  <svg id="elevationGain">  
+  </svg>
+
+  <svg id="elevationGain">
     <text id="elevationGain-count" class="count" fill="darkorchid" />
     <image id="elevationGain-icon" class="icon" href="stat_floors_solid_24px.png" fill="darkorchid" />
     <rect id="elevationGain-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="elevationGain-line" x="0" y="20" width="50" height="5" fill="darkorchid" />
   </svg>
-  
-  <svg id="activeMinutes">   
+
+  <svg id="activeMinutes">
     <text id="activeMinutes-count" class="count" fill="deepskyblue" />
     <image id="activeMinutes-icon" class="icon" href="stat_azm_solid_24px.png" fill="deepskyblue" />
     <rect id="activeMinutes-line-back" x="0" y="20" width="28%" height="5" fill="#969696" />
     <rect id="activeMinutes-line" x="0" y="20" width="50" height="5" fill="deepskyblue" />
   </svg>
-  
+
   <rect id="torch" pointer-events="visible" />
 </svg>
