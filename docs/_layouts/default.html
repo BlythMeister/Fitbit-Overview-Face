@@ -8,12 +8,17 @@
     <div class="container container-rounded">
         <div class="row header">
             {% include header.html %}
-        </div>
-        <div class="row">
-            <div id="content" class="col-lg-9 col-md-8 mainFrame no-float dont-break-out">
-                {% include content.html %}                
+        </div>   
+        <div class="row content-row">
+            <div id="content" class="col-lg-9 col-md-8 col-sm-12 no-float mainFrame dont-break-out">
+                {% include content.html %}
             </div>
             <div class="col-lg-3 col-md-4 hidden-sm hidden-xs sidebar no-float" align="center">
+                {% include sidebar.html %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 hidden-md hidden-lg sidebar no-float" align="center">
                 {% include sidebar.html %}
             </div>
         </div>

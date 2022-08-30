@@ -55,7 +55,6 @@ body {
 
 .header {
     margin-top: 5px;
-    margin-bottom: 15px;
     border-bottom: 1px solid grey;
 }
 
@@ -71,6 +70,7 @@ body {
 }
 
 .mainFrame {
+    padding-top: 15px;
     padding-left: 20px;
     margin-bottom: 0;
 }
@@ -78,6 +78,13 @@ body {
 @media (min-width:991px) {
     .mainFrame {
         border-right: 1px solid grey;
+    }
+}
+
+@media (max-width:990px) {
+    .content-row {
+        padding-bottom: 15px;
+        border-bottom: 1px solid grey;
     }
 }
 
@@ -122,10 +129,6 @@ body {
 
 .devide-top {
     border-top: 1px solid grey;
-}
-
-.header-icons {
-    padding-left: 10px;
 }
 
 .fab {
@@ -194,4 +197,22 @@ a.far:hover {
 .fas.fa-cloud-download-alt {
     background: #000000;
     color: #FFFFFF;
+}
+
+@media (max-width:990px) {
+    .gist {
+        display: none;
+    }
+}
+
+@media (min-width:991px) and (max-width:1200px) {
+    .gist {
+        max-width: 600px;
+    }
+}
+
+@media (min-width:1201px) {
+    .gist {
+        max-width: 800px;
+    }
 }
