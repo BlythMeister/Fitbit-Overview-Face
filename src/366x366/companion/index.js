@@ -10,9 +10,9 @@ let sendingData = null;
 let queueCheckInterval = null;
 let lastWeatherUnit = null;
 
-//Wake every 10 minutes
-console.log("Set companion wake interval to 10 minutes");
-companion.wakeInterval = 600000;
+//Wake every 5 minutes
+console.log("Set companion wake interval to 5 minutes");
+companion.wakeInterval = 300000;
 
 // Monitor for significant changes in physical location
 console.log("Enable monitoring of significant location changes");
