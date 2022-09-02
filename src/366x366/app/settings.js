@@ -30,14 +30,12 @@ export let noSettingsTextEl = document.getElementById("noSettingsText");
 export let settings = loadSettings();
 
 export function applySettings() {
-  if (!loadSettings) {
-    console.log("No settings loaded");
-    return;
-  }
-
   if (!settings) {
-    console.log("No settings loaded");
-    return;
+    settings = loadSettings();
+    if (!settings) {
+      console.log("No settings loaded");
+      return;
+    }
   }
 
   if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"]) {
@@ -667,18 +665,29 @@ appbit.addEventListener("unload", saveSettings);
 
 export function loadSettings() {
   try {
-    var fileContent = fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
-    if (fileContent === null || Object.keys(fileContent).length === 0) {
-      return {};
+    if (fs.existsSync(SETTINGS_FILE)) {
+      var fileContent = fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
+      if (fileContent != null || Object.keys(fileContent).length > 0) {
+        return fileContent;
+      }
     }
-    return fileContent;
   } catch (ex) {
     console.log(ex);
-    return {};
+    return null;
   }
+
+  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+    messaging.peerSocket.send({
+      command: "send-settings",
+    });
+  }
+
+  return null;
 }
 
 // Save settings to the filesystem
 export function saveSettings() {
-  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+  if (Object.keys(settings).length > 0) {
+    fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+  }
 }

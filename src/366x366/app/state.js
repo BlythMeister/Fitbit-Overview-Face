@@ -13,6 +13,7 @@ import * as hr from "./hr.js";
 import * as activity from "./activity.js";
 import * as weather from "./weather.js";
 import * as ping from "./ping.js";
+import * as settings from "./settings.js";
 
 const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
@@ -64,6 +65,9 @@ hrm.onreading = (evt) => {
 };
 
 export function reApplyState() {
+  if (!settings.settings) {
+    settings.applySettings();
+  }
   battery.drawBat();
   hr.drawHrm();
   activity.drawAllProgress();

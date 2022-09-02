@@ -124,6 +124,7 @@
 #phone {
   x: 50%;
   y: 25;
+  display: none;
 }
 
 #phone-icon {
@@ -306,6 +307,10 @@
 }
 
 #bmr {
+  display: "none";
+}
+
+#weather {
   display: "none";
 }
 

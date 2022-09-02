@@ -10,7 +10,7 @@
     <image id="battery-icon" class="battery-icon" href="battery_full_36px.png" />
     <text id="battery-percent" />
   </svg>
-  
+
   <svg id="phone">
     <image id="phone-icon" class="icon" href="phone_36px.png" />
   </svg>
