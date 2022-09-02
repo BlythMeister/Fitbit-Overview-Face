@@ -9,30 +9,31 @@ let initialOpen = true;
 let messageQueue = [];
 let sendingData = null;
 let queueCheckInterval = null;
+let lastWeatherUnit = null;
 
 //Wake every 15 minutes
 companion.wakeInterval = 900000;
+
+// Monitor for significant changes in physical location
+companion.monitorSignificantLocationChanges = true;
+
 //Check messages every 100ms
 if (queueCheckInterval != null) {
   clearInterval(queueCheckInterval);
 }
 queueCheckInterval = setInterval(CheckQueue, 100);
 
-function CheckQueue() {
-  try {
-    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0) {
-      sendingData = messageQueue.shift();
-      console.log(`Sending: ${JSON.stringify(sendingData)}`);
-      messaging.peerSocket.send(sendingData);
-      sendingData = null;
-    }
-  } catch (e) {
-    console.log(`Error processing queue: ${e}`);
-    if (sendingData != null) {
-      messageQueue.unshift(sendingData);
-      sendingData = null;
-    }
-  }
+// Listen for the significant location change event
+companion.addEventListener("significantlocationchange", locationChange);
+
+// Listen for the event
+companion.addEventListener("wakeinterval", wokenUp);
+
+// check launch reason
+if (companion.launchReasons.locationChanged) {
+  locationChange();
+} else if (companion.launchReasons.wokenUp) {
+  wokenUp();
 }
 
 // Settings have been changed
@@ -71,7 +72,9 @@ messaging.peerSocket.addEventListener("open", (evt) => {
 });
 
 messaging.peerSocket.addEventListener("message", (evt) => {
-  if (evt.data && evt.data.command === "weather" && companion.permissions.granted("access_location")) {
+  if (evt.data && evt.data.command === "ping") {
+    sendPong();
+  } else if (evt.data && evt.data.command === "weather" && companion.permissions.granted("access_location")) {
     sendWeather(evt.data.unit);
   } else if (evt.data && evt.data.command === "initial-weather" && companion.permissions.granted("access_location")) {
     sendSavedWeather("weatherData");
@@ -104,6 +107,7 @@ function setDefaultSettings() {
   setDefaultSetting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
   setDefaultSetting("showBatteryPercent", true);
   setDefaultSetting("showBatteryBar", true);
+  setDefaultSetting("showPhoneStatus", false);
   setDefaultSetting("torchEnabled", true);
   setDefaultSetting("torchAutoOff", { values: [{ value: "15", name: "15 Seconds" }], selected: [4] });
   setDefaultSetting("torchOverlay", true);
@@ -121,6 +125,9 @@ function setDefaultSettings() {
   setDefaultSetting("bmColour", "gold");
   setDefaultSetting("bmiColour", "gold");
   setDefaultSetting("bmrColour", "gold");
+  setDefaultSetting("phoneStatusDisconnected", "red");
+  setDefaultSetting("phoneStatusProblem", "darkorange");
+  setDefaultSetting("phoneStatusConnected", "lime");
   setDefaultSetting("progressBackgroundColour", "dimgrey");
   setDefaultSetting("batteryIcon0Colour", "red");
   setDefaultSetting("batteryIcon25Colour", "darkorange");
@@ -173,6 +180,7 @@ function sendWeather(unit) {
   if (unit == "F") {
     unitKey = "fahrenheit";
   }
+  lastWeatherUnit = unit;
 
   weather
     .getWeatherData({ temperatureUnit: unitKey })
@@ -219,4 +227,41 @@ function sendSavedWeather(dataType) {
     };
     messageQueue.push(sendData);
   }
+}
+
+function sendPong() {
+  var sendData = {
+    dataType: "pong",
+  };
+  messageQueue.push(sendData);
+}
+
+function CheckQueue() {
+  try {
+    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0) {
+      sendingData = messageQueue.shift();
+      sendingData.remainingMessages = messageQueue.length;
+
+      console.log(`Sending: ${JSON.stringify(sendingData)}`);
+      messaging.peerSocket.send(sendingData);
+      sendingData = null;
+    }
+  } catch (e) {
+    console.log(`Error processing queue: ${e}`);
+    if (sendingData != null) {
+      messageQueue.unshift(sendingData);
+      sendingData = null;
+    }
+  }
+}
+
+function locationChange() {
+  console.log("LocationChangeEvent fired");
+  if (lastWeatherUnit != null) {
+    sendWeather(lastWeatherUnit);
+  }
+}
+
+function wokenUp() {
+  console.log("WakeEvent fired");
 }

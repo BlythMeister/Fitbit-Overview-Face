@@ -12,6 +12,7 @@ import * as time from "./time.js";
 import * as hr from "./hr.js";
 import * as activity from "./activity.js";
 import * as weather from "./weather.js";
+import * as ping from "./ping.js";
 
 const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
@@ -19,6 +20,7 @@ const body = new BodyPresenceSensor();
 clock.granularity = "seconds";
 
 body.start();
+ping.sendPing();
 
 if (body.present) {
   hrm.start();

@@ -10,5 +10,6 @@ import * as settings from "./settings.js";
 import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
+import * as ping from "./ping.js";
 
 settings.applySettings();

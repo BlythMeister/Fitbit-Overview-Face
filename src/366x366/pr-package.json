@@ -13,7 +13,8 @@
       "access_user_profile",
       "access_heart_rate",
       "run_background",
-      "access_location"
+      "access_location",
+      "access_internet"
     ],
     "buildTargets": [
       "vulcan",

@@ -18,6 +18,7 @@ import * as activity from "./activity.js";
 import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
+import * as ping from "./ping.js";
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
@@ -235,6 +236,30 @@ export function applySettings() {
     } else {
       hr.setHrZoneVis(true);
     }
+  }
+
+  if (settings.hasOwnProperty("showPhoneStatus")) {
+    ping.setShowPhoneStatus(!!settings["showPhoneStatus"]);
+  } else {
+    ping.setShowPhoneStatus(false);
+  }
+
+  if (settings.hasOwnProperty("phoneStatusConnected") && settings["phoneStatusConnected"]) {
+    ping.setPhoneIconConnected(settings["phoneStatusConnected"]);
+  } else {
+    ping.setPhoneIconConnected("white");
+  }
+
+  if (settings.hasOwnProperty("phoneStatusProblem") && settings["phoneStatusProblem"]) {
+    ping.setPhoneIconProblem(settings["phoneStatusProblem"]);
+  } else {
+    ping.setPhoneIconProblem("white");
+  }
+
+  if (settings.hasOwnProperty("phoneStatusDisconnected") && settings["phoneStatusDisconnected"]) {
+    ping.setPhoneIconDisconnected(settings["phoneStatusDisconnected"]);
+  } else {
+    ping.setPhoneIconDisconnected("white");
   }
 
   if (settings.hasOwnProperty("showBatteryPercent")) {

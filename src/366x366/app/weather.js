@@ -10,7 +10,6 @@ export let temperatureUnit = "C";
 export let weatherInterval = 60000;
 export let weatherLastUpdate = null;
 export let weatherLastRequest = null;
-export let unansweredRequests = 0;
 
 export function setWeatherPosition(pos) {
   weatherPosition = pos;
@@ -37,8 +36,17 @@ export function setRefreshInterval(interval) {
 
 export function fetchWeather() {
   var currentDate = new Date();
-  if (weatherPosition != "NONE" && (weatherLastRequest == null || currentDate - weatherLastRequest > 2000)) {
-    if (weatherIconEl.href == "weather_36px.png" || weatherLastUpdate == null || currentDate - weatherLastUpdate > weatherInterval) {
+  var currentWeatherAge = weatherLastUpdate == null ? -1 : currentDate - weatherLastUpdate;
+  var lastRequestAge = weatherLastRequest == null ? -1 : currentDate - weatherLastRequest;
+
+  if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval + 120000) {
+    weatherCountEl.text = "----";
+    weatherIconEl.href = "weather_36px.png";
+    weatherLastRequest = null;
+  }
+
+  if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000)) {
+    if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge == -1 || currentWeatherAge >= weatherInterval) {
       try {
         if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
           let sendCommand = "weather";
@@ -50,21 +58,13 @@ export function fetchWeather() {
           if (sendUnit == "auto") {
             sendUnit = units.temperature;
           }
+
           messaging.peerSocket.send({
             command: sendCommand,
             unit: sendUnit,
           });
+
           weatherLastRequest = new Date();
-          unansweredRequests++;
-          if (unansweredRequests >= 10) {
-            weatherCountEl.text = "----";
-            weatherIconEl.href = "weather_36px.png";
-            weatherLastRequest = null;
-          }
-        } else {
-          weatherCountEl.text = "----";
-          weatherIconEl.href = "weather_36px.png";
-          weatherLastRequest = null;
         }
       } catch (e) {
         console.log(`Weather error: ${e}`);
@@ -90,7 +90,6 @@ messaging.peerSocket.addEventListener("open", (evt) => {
 
 messaging.peerSocket.addEventListener("message", (evt) => {
   if (evt.data && (evt.data.dataType === "weatherUpdate" || evt.data.dataType === "weatherData")) {
-    unansweredRequests = 0;
     processWeatherData(evt.data);
   }
 });

@@ -80,6 +80,10 @@ function hasTime(props) {
   return hasSetting(props, "showTime", true);
 }
 
+function hasPhoneStatus(props) {
+  return hasSetting(props, "showPhoneStatus", true);
+}
+
 function mySettings(props) {
   let colourSet = [
     { color: "mediumvioletred" },
@@ -250,6 +254,10 @@ function mySettings(props) {
         {hasHeartRate(props) && <Toggle settingsKey="heartRateZoneVis" label="Show heart rate zone" />}
       </Section>
 
+      <Section title="Connection">
+        <Toggle settingsKey="showPhoneStatus" label="Show phone connection status" />
+      </Section>
+
       <Section title="Stats">
         <Select label="Top Left" settingsKey="StatsTL" options={availiableStats} />
         <Select label="Bottom Left" settingsKey="StatsBL" options={availiableStats} />
@@ -382,6 +390,24 @@ function mySettings(props) {
       {hasActivity(props, "WEATHER") && (
         <Section title="Weather colour">
           <ColorSelect settingsKey="weatherColour" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasPhoneStatus(props) && (
+        <Section title="Phone Connected colour">
+          <ColorSelect settingsKey="phoneStatusConnected" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasPhoneStatus(props) && (
+        <Section title="Phone Connection Problem colour">
+          <ColorSelect settingsKey="phoneStatusProblem" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasPhoneStatus(props) && (
+        <Section title="Phone Disconnected colour">
+          <ColorSelect settingsKey="phoneStatusDisconnected" colors={colourSet} />
         </Section>
       )}
 

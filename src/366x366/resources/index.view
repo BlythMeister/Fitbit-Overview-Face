@@ -10,6 +10,10 @@
     <image id="battery-icon" class="battery-icon" href="battery_full_36px.png" />
     <text id="battery-percent" />
   </svg>
+  
+  <svg id="phone">
+    <image id="phone-icon" class="icon" href="phone_36px.png" />
+  </svg>
 
   <svg id="hr">
     <text id="hr-count" class="count sideCount" />
@@ -40,13 +44,13 @@
   </svg>
 
   <svg id="bmi">
-    <text id="bmi-count" class="count-noProgress" fill="white" />
-    <image id="bmi-icon" class="icon-noProgress" href="bmi_36px.png" fill="white" />
+    <text id="bmi-count" class="count-noProgressMediumIcon" fill="white" />
+    <image id="bmi-icon" class="icon-noProgressMediumIcon" href="bmi_36px.png" fill="white" />
   </svg>
 
   <svg id="bmr">
-    <text id="bmr-count" class="count-noProgress" fill="white" />
-    <image id="bmr-icon" class="icon-noProgress" href="bmr_36px.png" fill="white" />
+    <text id="bmr-count" class="count-noProgressMediumIcon" fill="white" />
+    <image id="bmr-icon" class="icon-noProgressMediumIcon" href="bmr_36px.png" fill="white" />
   </svg>
 
   <svg id="weather">
