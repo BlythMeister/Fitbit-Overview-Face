@@ -42,13 +42,9 @@ if (companion.launchReasons.locationChanged) {
   locationChange(true);
 } else if (companion.launchReasons.wokenUp) {
   wokenUp(true);
-} else {
-  sendSettingsWithDefaults();
 }
 
-if (settingsStorage.length == 0) {
-  sendSettingsWithDefaults();
-}
+sendSettingsWithDefaults();
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {

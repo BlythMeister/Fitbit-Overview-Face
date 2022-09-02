@@ -1,12 +1,12 @@
 function hasActivity(props, activity) {
   try {
-    let statsTL = JSON.parse(props.settingsStorage.getItem("StatsTL")).values[0].value;
-    let statsBL = JSON.parse(props.settingsStorage.getItem("StatsBL")).values[0].value;
-    let statsTM = JSON.parse(props.settingsStorage.getItem("StatsTM")).values[0].value;
-    let statsMM = JSON.parse(props.settingsStorage.getItem("StatsMM")).values[0].value;
-    let statsBM = JSON.parse(props.settingsStorage.getItem("StatsBM")).values[0].value;
-    let statsTR = JSON.parse(props.settingsStorage.getItem("StatsTR")).values[0].value;
-    let statsBR = JSON.parse(props.settingsStorage.getItem("StatsBR")).values[0].value;
+    let statsTL = getStatValue(props, "TL");
+    let statsBL = getStatValue(props, "BL");
+    let statsTM = getStatValue(props, "TM");
+    let statsMM = getStatValue(props, "MM");
+    let statsBM = getStatValue(props, "BM");
+    let statsTR = getStatValue(props, "TR");
+    let statsBR = getStatValue(props, "BR");
 
     //console.log(`statsTL: ${statsTL}`);
     //console.log(`statsBL: ${statsBL}`);
@@ -26,13 +26,13 @@ function hasActivity(props, activity) {
 
 function hasProgressStat(props) {
   try {
-    let statsTL = JSON.parse(props.settingsStorage.getItem("StatsTL")).values[0].value;
-    let statsBL = JSON.parse(props.settingsStorage.getItem("StatsBL")).values[0].value;
-    let statsTM = JSON.parse(props.settingsStorage.getItem("StatsTM")).values[0].value;
-    let statsMM = JSON.parse(props.settingsStorage.getItem("StatsMM")).values[0].value;
-    let statsBM = JSON.parse(props.settingsStorage.getItem("StatsBM")).values[0].value;
-    let statsTR = JSON.parse(props.settingsStorage.getItem("StatsTR")).values[0].value;
-    let statsBR = JSON.parse(props.settingsStorage.getItem("StatsBR")).values[0].value;
+    let statsTL = getStatValue(props, "TL");
+    let statsBL = getStatValue(props, "BL");
+    let statsTM = getStatValue(props, "TM");
+    let statsMM = getStatValue(props, "MM");
+    let statsBM = getStatValue(props, "BM");
+    let statsTR = getStatValue(props, "TR");
+    let statsBR = getStatValue(props, "BR");
 
     //console.log(`statsTL: ${statsTL}`);
     //console.log(`statsBL: ${statsBL}`);
@@ -51,37 +51,56 @@ function hasProgressStat(props) {
   }
 }
 
-function hasSetting(props, key, defaultValue) {
+function getStatValue(props, position) {
   try {
-    return JSON.parse(props.settingsStorage.getItem(key));
+    var setting = props.settingsStorage.getItem(`Stats${position}`);
+    if (!setting) {
+      console.log(`No setting for stat ${position}`);
+      return "NONE";
+    }
+    return JSON.parse(setting).values[0].value;
   } catch (e) {
-    console.log(`Error on ${key}: ${e}`);
+    console.log(`Error getting setting for stat ${position} - ${e}`);
+    return "NONE";
+  }
+}
+
+function getSetting(props, key, defaultValue) {
+  try {
+    var setting = props.settingsStorage.getItem(key);
+    if (!setting) {
+      console.log(`No setting for ${key}`);
+      return defaultValue;
+    }
+    return JSON.parse(setting);
+  } catch (e) {
+    console.log(`Error getting setting for ${key} - ${e}`);
     return defaultValue;
   }
 }
 
 function hasBatteryIcon(props) {
-  return hasSetting(props, "showBatteryPercent", true);
+  return getSetting(props, "showBatteryPercent", true);
 }
 
 function hasBatteryBar(props) {
-  return hasSetting(props, "showBatteryBar", true);
+  return getSetting(props, "showBatteryBar", true);
 }
 
 function hasHeartRate(props) {
-  return hasSetting(props, "showHeartRate", true);
+  return getSetting(props, "showHeartRate", true);
 }
 
 function hasDate(props) {
-  return hasSetting(props, "showDate", true);
+  return getSetting(props, "showDate", true);
 }
 
 function hasTime(props) {
-  return hasSetting(props, "showTime", true);
+  return getSetting(props, "showTime", true);
 }
 
 function hasPhoneStatus(props) {
-  return hasSetting(props, "showPhoneStatus", true);
+  return getSetting(props, "showPhoneStatus", true);
 }
 
 function mySettings(props) {
