@@ -128,7 +128,7 @@ function setDefaultSettings() {
   setDefaultSetting("phoneStatusDisconnected", "red");
   setDefaultSetting("phoneStatusProblem", "darkorange");
   setDefaultSetting("phoneStatusConnected", "lime");
-  setDefaultSetting("progressBackgroundColour", "dimgrey");
+  setDefaultSetting("progressBackgroundColour", "dimgray");
   setDefaultSetting("batteryIcon0Colour", "red");
   setDefaultSetting("batteryIcon25Colour", "darkorange");
   setDefaultSetting("batteryIcon50Colour", "gold");
@@ -137,7 +137,7 @@ function setDefaultSettings() {
   setDefaultSetting("battery25Colour", "darkorange");
   setDefaultSetting("battery50Colour", "gold");
   setDefaultSetting("battery75Colour", "lime");
-  setDefaultSetting("batteryBackgroundColour", "dimgrey");
+  setDefaultSetting("batteryBackgroundColour", "dimgray");
   setDefaultSetting("backgroundColour", "black");
   setDefaultSetting("weatherColour", "tan");
   setDefaultSetting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [3] });
