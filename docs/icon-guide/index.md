@@ -18,7 +18,7 @@ Some of these may be difficult to understand the purpose, so this page details e
 | ![icon]({{ site.url }}/images/app_icons/battery_full_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | Battery Full |
 | ![icon]({{ site.url }}/images/app_icons/heart_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | Heart Beat |
 | ![icon]({{ site.url }}/images/app_icons/phone_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | Phone Connection |
-| ![icon]({{ site.url }}/images/app_icons/azm7_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | Active Zone Minutes (7 (Daytime)s) |
+| ![icon]({{ site.url }}/images/app_icons/azm7_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | Active Zone Minutes (7 (Days) |
 | ![icon]({{ site.url }}/images/app_icons/azm_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | Active Zone Minutes (Today) |
 | ![icon]({{ site.url }}/images/app_icons/bmi_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | BMI |
 | ![icon]({{ site.url }}/images/app_icons/bmr_36px.png){: style="float:left; padding-right:10px; padding-top:5px; padding-bottom:5px" } | BMR |
