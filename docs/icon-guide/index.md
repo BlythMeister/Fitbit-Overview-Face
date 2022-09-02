@@ -10,7 +10,7 @@ The Fitbit Overview watch face has a number of different icons for stats and wat
 Some of these may be difficult to understand the purpose, so this page details each icon and what it means
 
 | Icon | Description |
-| --- | --- |
+| ------- | ------- |
 | ![icon]({{ site.url }}/images/app_icons/azm7_36px.png) | Active Zone Minutes (7 Days) |
 | ![icon]({{ site.url }}/images/app_icons/azm_36px.png) | Active Zone Minutes (Today) |
 | ![icon]({{ site.url }}/images/app_icons/battery_charging_36px.png) | Battery Charging |
