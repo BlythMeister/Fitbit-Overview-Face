@@ -11,5 +11,17 @@ import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
 import * as ping from "./ping.js";
+import { asap } from "./lib-fitbit-asap.js";
 
 settings.applySettings();
+asap.cancel();
+
+asap.onmessage = (message) => {
+  if (message.dataType === "weatherUpdate" || message.dataType === "weatherData") {
+    weather.processWeatherData(message);
+  } else if (message.dataType === "pong") {
+    ping.gotPong();
+  } else if (message.dataType === "settingChange") {
+    settings.settingUpdate(message);
+  }
+};

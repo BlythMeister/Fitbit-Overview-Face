@@ -1,30 +1,36 @@
 import { settingsStorage } from "settings";
 import { localStorage } from "local-storage";
-import * as messaging from "messaging";
 import { me as companion } from "companion";
 import { device } from "peer";
 import { weather, WeatherCondition } from "weather";
 
-let messageQueue = [];
-let sendingData = null;
-let queueCheckInterval = null;
+import { asap } from "./lib-fitbit-asap.js";
+
 let lastWeatherUnit = null;
 
-//Wake every 10 minutes
-console.log("Set companion wake interval to 10 minutes");
-companion.wakeInterval = 600000;
+//Cancel all previous messages
+asap.cancel();
+
+//Wake every 15 minutes
+console.log("Set companion wake interval to 15 minutes");
+companion.wakeInterval = 900000;
 
 // Monitor for significant changes in physical location
 console.log("Enable monitoring of significant location changes");
 companion.monitorSignificantLocationChanges = true;
 
-//Check messages every 100ms
-if (queueCheckInterval != null) {
-  console.log("Clearing queue check interval");
-  clearInterval(queueCheckInterval);
-}
-console.log("Set queue check interval to 100ms");
-queueCheckInterval = setInterval(checkQueue, 100);
+asap.onmessage = (message) => {
+  if (message.command === "send-settings") {
+    sendSettingsWithDefaults();
+  } else if (message.command === "ping") {
+    sendPong();
+  } else if (message.command === "weather" && companion.permissions.granted("access_location")) {
+    sendWeather(message.unit);
+  } else if (message.command === "initial-weather" && companion.permissions.granted("access_location")) {
+    sendSavedWeather("weatherData");
+    sendWeather(message.unit);
+  }
+};
 
 // Listen for the significant location change event
 companion.addEventListener("significantlocationchange", (evt) => {
@@ -49,36 +55,6 @@ sendSettingsWithDefaults();
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
   sendSettingValue(evt.key, evt.newValue);
-});
-
-//Message socket error
-messaging.peerSocket.addEventListener("error", (evt) => {
-  console.log(`Companion Socket Error:${evt.message}`);
-  if (sendingData != null) {
-    messageQueue.unshift(sendingData);
-    sendingData = null;
-  }
-});
-
-messaging.peerSocket.addEventListener("close", (evt) => {
-  console.log(`Companion Socket Close:${evt.message}`);
-  if (sendingData != null) {
-    messageQueue.unshift(sendingData);
-    sendingData = null;
-  }
-});
-
-messaging.peerSocket.addEventListener("message", (evt) => {
-  if (evt.data && evt.data.command === "send-settings") {
-    sendSettingsWithDefaults();
-  } else if (evt.data && evt.data.command === "ping") {
-    sendPong();
-  } else if (evt.data && evt.data.command === "weather" && companion.permissions.granted("access_location")) {
-    sendWeather(evt.data.unit);
-  } else if (evt.data && evt.data.command === "initial-weather" && companion.permissions.granted("access_location")) {
-    sendSavedWeather("weatherData");
-    sendWeather(evt.data.unit);
-  }
 });
 
 function sendSettingsWithDefaults() {
@@ -125,7 +101,6 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("bmiColour", "gold");
   setDefaultSettingOrSendExisting("bmrColour", "gold");
   setDefaultSettingOrSendExisting("phoneStatusDisconnected", "red");
-  setDefaultSettingOrSendExisting("phoneStatusProblem", "darkorange");
   setDefaultSettingOrSendExisting("phoneStatusConnected", "lime");
   setDefaultSettingOrSendExisting("progressBackgroundColour", "dimgray");
   setDefaultSettingOrSendExisting("batteryIcon0Colour", "red");
@@ -139,7 +114,7 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("batteryBackgroundColour", "dimgray");
   setDefaultSettingOrSendExisting("backgroundColour", "black");
   setDefaultSettingOrSendExisting("weatherColour", "tan");
-  setDefaultSettingOrSendExisting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [3] });
+  setDefaultSettingOrSendExisting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [2] });
   setDefaultSettingOrSendExisting("weatherTemperatureUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
 }
 
@@ -169,7 +144,7 @@ function sendSettingValue(key, val) {
     };
 
     console.log(`Queue Sending Setting - key:${data.key} val:${data.value}`);
-    pushToMessageQueue(data);
+    asap.send(data);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -225,7 +200,7 @@ function sendSavedWeather(dataType) {
       unit: savedData.unit,
       condition: savedData.condition,
     };
-    pushToMessageQueue(sendData);
+    asap.send(sendData);
   }
 }
 
@@ -233,33 +208,7 @@ function sendPong() {
   var sendData = {
     dataType: "pong",
   };
-  pushToMessageQueue(sendData);
-}
-
-function checkQueue() {
-  try {
-    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN && messageQueue.length > 0) {
-      sendingData = messageQueue.shift();
-      if (sendingData.dataType === "pong") {
-        sendingData.remainingMessages = messageQueue.length;
-      }
-
-      console.log(`MQ Send (size ${messageQueue.length}): ${JSON.stringify(sendingData)}`);
-      messaging.peerSocket.send(sendingData);
-      sendingData = null;
-    }
-  } catch (e) {
-    console.log(`Error processing queue: ${e}`);
-    if (sendingData != null) {
-      messageQueue.unshift(sendingData);
-      sendingData = null;
-    }
-  }
-}
-
-function pushToMessageQueue(message) {
-  messageQueue.push(message);
-  console.log(`MQ Add (size ${messageQueue.length}): ${JSON.stringify(message)}`);
+  asap.send(sendData);
 }
 
 function locationChange(initial) {

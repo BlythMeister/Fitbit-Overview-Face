@@ -3,7 +3,6 @@ import { preferences } from "user-settings";
 import { units } from "user-settings";
 import { user } from "user-profile";
 import * as fs from "fs";
-import * as messaging from "messaging";
 import { me as appbit } from "appbit";
 import { me as device } from "device";
 import { locale } from "user-settings";
@@ -19,6 +18,7 @@ import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
 import * as ping from "./ping.js";
+import { asap } from "./lib-fitbit-asap.js";
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
@@ -246,12 +246,6 @@ export function applySettings() {
     ping.setPhoneIconConnected(settings["phoneStatusConnected"]);
   } else {
     ping.setPhoneIconConnected("white");
-  }
-
-  if (settings.hasOwnProperty("phoneStatusProblem") && settings["phoneStatusProblem"]) {
-    ping.setPhoneIconProblem(settings["phoneStatusProblem"]);
-  } else {
-    ping.setPhoneIconProblem("white");
   }
 
   if (settings.hasOwnProperty("phoneStatusDisconnected") && settings["phoneStatusDisconnected"]) {
@@ -637,29 +631,27 @@ export function onsettingschange(data) {
   time.drawTime(new Date());
 }
 
-messaging.peerSocket.addEventListener("message", function (evt) {
-  if (evt.data.dataType === "settingChange") {
-    if (!settings) {
-      settings = {};
-    }
-
-    var newValue = "";
-    if (typeof evt.data.value === "object") {
-      newValue = evt.data.value.values[0].value;
-    } else {
-      newValue = evt.data.value;
-    }
-
-    if (settings[evt.data.key] != newValue) {
-      console.log(`Setting update - key:${evt.data.key} value:${newValue}`);
-      settings[evt.data.key] = newValue;
-    } else {
-      return;
-    }
-
-    onsettingschange(settings);
+export function settingUpdate(message) {
+  if (!settings) {
+    settings = {};
   }
-});
+
+  var newValue = "";
+  if (typeof message.value === "object") {
+    newValue = message.value.values[0].value;
+  } else {
+    newValue = message.value;
+  }
+
+  if (settings[message.key] != newValue) {
+    console.log(`Setting update - key:${message.key} value:${newValue}`);
+    settings[message.key] = newValue;
+  } else {
+    return;
+  }
+
+  onsettingschange(settings);
+}
 
 appbit.addEventListener("unload", saveSettings);
 
@@ -676,11 +668,9 @@ export function loadSettings() {
     return null;
   }
 
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    messaging.peerSocket.send({
-      command: "send-settings",
-    });
-  }
+  asap.send({
+    command: "send-settings",
+  });
 
   return null;
 }

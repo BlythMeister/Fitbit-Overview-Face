@@ -222,7 +222,6 @@ function mySettings(props) {
   ];
 
   let weatherRefresh = [
-    { value: "300000", name: "5 minutes" },
     { value: "600000", name: "10 minutes" },
     { value: "900000", name: "15 minutes" },
     { value: "1800000", name: "30 minutes" },
@@ -415,12 +414,6 @@ function mySettings(props) {
       {hasPhoneStatus(props) && (
         <Section title="Phone Connected colour">
           <ColorSelect settingsKey="phoneStatusConnected" colors={colourSet} />
-        </Section>
-      )}
-
-      {hasPhoneStatus(props) && (
-        <Section title="Phone Connection Problem colour">
-          <ColorSelect settingsKey="phoneStatusProblem" colors={colourSet} />
         </Section>
       )}
 

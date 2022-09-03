@@ -1,6 +1,6 @@
 import * as document from "document";
-import * as messaging from "messaging";
 import { units } from "user-settings";
+import { asap } from "./lib-fitbit-asap.js";
 
 export let weatherEl = document.getElementById("weather");
 export let weatherCountEl = document.getElementById("weather-count");
@@ -39,7 +39,7 @@ export function fetchWeather() {
   var currentWeatherAge = weatherLastUpdate == null ? -1 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? -1 : currentDate - weatherLastRequest;
 
-  if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval + 120000) {
+  if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval + 300000) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
     weatherLastRequest = null;
@@ -48,24 +48,27 @@ export function fetchWeather() {
   if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000)) {
     if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge == -1 || currentWeatherAge >= weatherInterval) {
       try {
-        if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-          let sendCommand = "weather";
-          if (weatherIconEl.href == "weather_36px.png") {
-            sendCommand = "initial-weather";
-          }
+        let sendCommand = "weather";
+        if (weatherIconEl.href == "weather_36px.png") {
+          sendCommand = "initial-weather";
+        }
 
-          let sendUnit = temperatureUnit;
-          if (sendUnit == "auto") {
-            sendUnit = units.temperature;
-          }
+        let sendUnit = temperatureUnit;
+        if (sendUnit == "auto") {
+          sendUnit = units.temperature;
+        }
 
-          messaging.peerSocket.send({
+        asap.send(
+          {
             command: sendCommand,
             unit: sendUnit,
-          });
+          },
+          {
+            timeout: 30000,
+          }
+        );
 
-          weatherLastRequest = new Date();
-        }
+        weatherLastRequest = new Date();
       } catch (e) {
         console.log(`Weather error: ${e}`);
       }
@@ -73,7 +76,7 @@ export function fetchWeather() {
   }
 }
 
-function processWeatherData(data) {
+export function processWeatherData(data) {
   if (data.condition == null) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
@@ -84,16 +87,4 @@ function processWeatherData(data) {
   }
 }
 
-messaging.peerSocket.addEventListener("open", (evt) => {
-  fetchWeather();
-});
-
-messaging.peerSocket.addEventListener("message", (evt) => {
-  if (evt.data && (evt.data.dataType === "weatherUpdate" || evt.data.dataType === "weatherData")) {
-    processWeatherData(evt.data);
-  }
-});
-
-messaging.peerSocket.addEventListener("error", (err) => {
-  console.error(`Connection error: ${err.code} - ${err.message}`);
-});
+setTimeout(fetchWeather, 2000);
