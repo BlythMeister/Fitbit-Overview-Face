@@ -24,9 +24,9 @@ asap.onmessage = (message) => {
     sendSettingsWithDefaults();
   } else if (message.command === "ping") {
     sendPong();
-  } else if (message.command === "weather" && companion.permissions.granted("access_location")) {
+  } else if (message.command === "weather") {
     sendWeather(message.unit);
-  } else if (message.command === "initial-weather" && companion.permissions.granted("access_location")) {
+  } else if (message.command === "initial-weather") {
     sendSavedWeather("weatherData");
     sendWeather(message.unit);
   }
