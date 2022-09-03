@@ -45,7 +45,7 @@ export function fetchWeather() {
     weatherLastRequest = null;
   }
 
-  if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000)) {
+  if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000 || currentWeatherAge == -1)) {
     if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge == -1 || currentWeatherAge >= weatherInterval) {
       try {
         let sendCommand = "weather";
@@ -86,5 +86,3 @@ export function processWeatherData(data) {
     weatherLastUpdate = new Date();
   }
 }
-
-setTimeout(fetchWeather, 2000);

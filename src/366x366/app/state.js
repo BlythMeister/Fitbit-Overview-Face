@@ -70,4 +70,5 @@ export function reApplyState() {
   bm.drawBMR();
   bm.drawBMI();
   weather.fetchWeather();
+  ping.sendPing();
 }

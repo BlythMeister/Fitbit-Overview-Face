@@ -3,7 +3,7 @@ import { asap } from "./lib-fitbit-asap.js";
 
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
-let pingInterval = null;
+let lastPing = null;
 let lastPong = null;
 let connectedColour = "white";
 let disconnectedColour = "white";
@@ -23,16 +23,13 @@ export function setShowPhoneStatus(visibility) {
   sendPing();
 }
 
-if (pingInterval != null) {
-  clearInterval(pingInterval);
-}
-pingInterval = setInterval(sendPing, 60000);
-
 export function sendPing() {
-  if (phoneEl.style.display === "inline") {
+  var lastPingAge = lastPing == null ? -1 : new Date() - lastPing;
+  if (phoneEl.style.display === "inline" && (lastPingAge == -1 || lastPingAge >= 60000 || lastPong == null)) {
     updateForPong();
     try {
       asap.send({ command: "ping" }, { timeout: 60000 });
+      lastPing = new Date();
     } catch (e) {
       console.log(`Ping error: ${e}`);
       lastPong = null;
@@ -53,5 +50,3 @@ function updateForPong() {
     phoneIconEl.style.fill = connectedColour;
   }
 }
-
-setTimeout(sendPing, 2000);
