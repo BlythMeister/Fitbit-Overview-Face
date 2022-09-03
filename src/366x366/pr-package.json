@@ -8,8 +8,18 @@
     "appDisplayName": "Overview (Pre-Release)",
     "iconFile": "resources/icon.png",
     "wipeColor": "",
-    "requestedPermissions": ["access_activity", "access_user_profile", "access_heart_rate", "run_background", "access_location", "access_internet"],
-    "buildTargets": ["vulcan", "atlas"],
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_heart_rate",
+      "run_background",
+      "access_location",
+      "access_internet"
+    ],
+    "buildTargets": [
+      "vulcan",
+      "atlas"
+    ],
     "i18n": {
       "en-US": {
         "name": "Overview (Pre-Release)"
