@@ -72,12 +72,12 @@ export function fetchWeather() {
 }
 
 export function processWeatherData(data) {
-  if (data.condition === "error") {
+  if (data.condition === -1) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
-    weatherIconEl.href = `weather_${data.condition}_36px.png`;
+    weatherIconEl.href = data.image;
     weatherLastUpdate = new Date();
   }
 }
