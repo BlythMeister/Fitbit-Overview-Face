@@ -38,7 +38,13 @@ export function drawBMR() {
 
 export function drawBMI() {
   let bmiLabel = gettext("bmi");
-  var bmi = (user.weight / (user.height * user.height)).toFixed(2);
+  var bmi = "---";
+  if (user.weight > 0 && user.height > 0) {
+    bmi = (user.weight / (user.height * user.height)).toFixed(2);
+  }
+  if (bmi > 100) {
+    bmi = "---";
+  }
   bmiZoneEl.text = `${bmiLabel}: ${bmi}`;
   bmiCountEl.text = `${bmi}`;
 }
