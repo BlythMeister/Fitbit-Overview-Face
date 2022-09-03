@@ -1,5 +1,4 @@
 import { settingsStorage } from "settings";
-import { localStorage } from "local-storage";
 import { me as companion } from "companion";
 import { device } from "peer";
 import { weather, WeatherCondition } from "weather";
@@ -25,9 +24,6 @@ asap.onmessage = (message) => {
   } else if (message.command === "ping") {
     sendPong();
   } else if (message.command === "weather") {
-    sendWeather(message.unit);
-  } else if (message.command === "initial-weather") {
-    sendSavedWeather("weatherData");
     sendWeather(message.unit);
   }
 };
@@ -162,45 +158,31 @@ function sendWeather(unit) {
     .then((data) => {
       if (data.locations.length > 0) {
         var sendData = {
+          dataType: "weather",
           temperature: Math.floor(data.locations[0].currentWeather.temperature),
           unit: data.temperatureUnit,
           condition: findWeatherConditionName(WeatherCondition, data.locations[0].currentWeather.weatherCondition),
         };
-        let jsonValue = JSON.stringify(sendData);
-        localStorage.setItem("weather", jsonValue);
-        sendSavedWeather("weatherUpdate");
+        asap.send(sendData);
       }
     })
     .catch((ex) => {
       console.error(ex.message);
       var sendData = {
-        temperature: 0,
+        dataType: "weather",
+        temperature: -999,
         unit: "celcius",
-        condition: null,
+        condition: "error",
       };
-      let jsonValue = JSON.stringify(sendData);
-      localStorage.setItem("weather", jsonValue);
-      sendSavedWeather("weatherUpdate");
+      asap.send(sendData);
     });
 }
 
 function findWeatherConditionName(WeatherCondition, conditionCode) {
   for (const condition of Object.keys(WeatherCondition)) {
-    if (conditionCode === WeatherCondition[condition]) return condition;
-  }
-}
-
-function sendSavedWeather(dataType) {
-  var savedWeather = localStorage.getItem("weather");
-  if (savedWeather != null) {
-    var savedData = JSON.parse(savedWeather);
-    var sendData = {
-      dataType: dataType,
-      temperature: savedData.temperature,
-      unit: savedData.unit,
-      condition: savedData.condition,
-    };
-    asap.send(sendData);
+    if (conditionCode === WeatherCondition[condition]) {
+      return condition;
+    }
   }
 }
 

@@ -48,27 +48,22 @@ export function fetchWeather() {
   if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000 || currentWeatherAge == -1)) {
     if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge == -1 || currentWeatherAge >= weatherInterval) {
       try {
-        let sendCommand = "weather";
-        if (weatherIconEl.href == "weather_36px.png") {
-          sendCommand = "initial-weather";
-        }
-
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
           sendUnit = units.temperature;
         }
 
+        weatherLastRequest = new Date();
+
         asap.send(
           {
-            command: sendCommand,
+            command: "weather",
             unit: sendUnit,
           },
           {
             timeout: 30000,
           }
         );
-
-        weatherLastRequest = new Date();
       } catch (e) {
         console.log(`Weather error: ${e}`);
       }
@@ -77,7 +72,7 @@ export function fetchWeather() {
 }
 
 export function processWeatherData(data) {
-  if (data.condition == null) {
+  if (data.condition === "error") {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
   } else {

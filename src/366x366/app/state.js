@@ -16,11 +16,11 @@ import * as ping from "./ping.js";
 
 const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
+let displayOffInterval = null;
 
 clock.granularity = "seconds";
 
 body.start();
-ping.sendPing();
 
 if (body.present) {
   hrm.start();
@@ -69,6 +69,22 @@ export function reApplyState() {
   activity.drawAllProgress();
   bm.drawBMR();
   bm.drawBMI();
+  weather.fetchWeather();
+  ping.sendPing();
+
+  if (display.on) {
+    if (displayOffInterval != null) {
+      clearInterval(displayOffInterval);
+      displayOffInterval = null;
+      console.log("Stop display off interval");
+    }
+  } else {
+    displayOffInterval = setInterval(reApplyStateDisplayOff, 120000);
+    console.log("Start display off interval");
+  }
+}
+
+export function reApplyStateDisplayOff() {
   weather.fetchWeather();
   ping.sendPing();
 }

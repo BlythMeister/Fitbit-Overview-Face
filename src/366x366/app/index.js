@@ -17,7 +17,7 @@ settings.applySettings();
 asap.cancel();
 
 asap.onmessage = (message) => {
-  if (message.dataType === "weatherUpdate" || message.dataType === "weatherData") {
+  if (message.dataType === "weather") {
     weather.processWeatherData(message);
   } else if (message.dataType === "pong") {
     ping.gotPong();
