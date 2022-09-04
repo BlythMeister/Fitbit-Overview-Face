@@ -87,7 +87,13 @@ function dequeue(id) {
 // Process Queue
 //====================================================================================================
 
+let retryTimeout = null;
+
 function process() {
+  if (retryTimeout != null) {
+    clearTimeout(retryTimeout);
+    retryTimeout = null;
+  }
   // If the queue is not empty
   if (queue.length > 0) {
     // Get the next message ID
@@ -108,6 +114,7 @@ function process() {
           peerSocket.send(message);
         } catch (error) {
           console.log(error);
+          retryTimeout = setTimeout(process, 5000);
         }
       }
     } catch {
@@ -121,6 +128,7 @@ function process() {
 // Begin processing the queue when a connection opens
 peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
+  // Begin processing the queue
   process();
 });
 
