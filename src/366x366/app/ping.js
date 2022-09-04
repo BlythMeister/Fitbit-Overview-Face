@@ -26,7 +26,7 @@ export function setShowPhoneStatus(visibility) {
 export function sendPing() {
   var lastPingAge = lastPing == null ? -1 : new Date() - lastPing;
   updateForPong();
-  if (phoneEl.style.display === "inline" && (lastPingAge == -1 || lastPingAge >= 60000 || lastPong == null)) {
+  if (phoneEl.style.display === "inline" && (lastPingAge == -1 || lastPingAge >= 60000)) {
     try {
       asap.send({ command: "ping" }, { timeout: 60000 });
       lastPing = new Date();

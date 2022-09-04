@@ -70,9 +70,9 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("showDay", true);
   setDefaultSettingOrSendExisting("StatsTL", { values: [{ value: "steps", name: "Steps" }], selected: [4] });
   setDefaultSettingOrSendExisting("StatsBL", { values: [{ value: "distance", name: "Distance" }], selected: [5] });
-  setDefaultSettingOrSendExisting("StatsTM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
-  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" }], selected: [9] });
-  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
+  setDefaultSettingOrSendExisting("StatsTM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
+  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
+  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" }], selected: [9] });
   setDefaultSettingOrSendExisting("StatsTR", { values: [{ value: "elevationGain", name: "Floors" }], selected: [6] });
   setDefaultSettingOrSendExisting("StatsBR", { values: [{ value: "calories", name: "Calories" }], selected: [7] });
   setDefaultSettingOrSendExisting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
@@ -89,7 +89,7 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("elevationGainColour", "darkviolet");
   setDefaultSettingOrSendExisting("caloriesColour", "deeppink");
   setDefaultSettingOrSendExisting("activeMinutesColour", "deepskyblue");
-  setDefaultSettingOrSendExisting("activeMinutesWeekColour", "deepskyblue");
+  setDefaultSettingOrSendExisting("activeMinutesWeekColour", "gold");
   setDefaultSettingOrSendExisting("batteryStatColour", "lime");
   setDefaultSettingOrSendExisting("heartColour", "crimson");
   setDefaultSettingOrSendExisting("heartRateColour", "white");

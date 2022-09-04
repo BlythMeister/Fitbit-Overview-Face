@@ -45,7 +45,7 @@ export function fetchWeather() {
     weatherLastRequest = null;
   }
 
-  if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000 || currentWeatherAge == -1)) {
+  if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000)) {
     if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge == -1 || currentWeatherAge >= weatherInterval) {
       try {
         let sendUnit = temperatureUnit;
