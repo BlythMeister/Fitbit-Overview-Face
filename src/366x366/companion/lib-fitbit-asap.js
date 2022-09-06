@@ -22,11 +22,24 @@ try {
 }
 
 //====================================================================================================
+// Helpers
+//====================================================================================================
+
+function CreateUUID() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+}
+
+//====================================================================================================
 // Enqueue
 //====================================================================================================
 
 function enqueue(message, options) {
-  const id = queue.length > 0 ? Math.max(...queue) + 1 : 1;
+  const id = CreateUUID();
   const timeout = Date.now() + (options && options.timeout ? options.timeout : 86400000);
   // Construct the message
   const data = ["asap_message", id, timeout, message];
@@ -41,7 +54,7 @@ function enqueue(message, options) {
     // Begin processing the queue
     process();
   }
-  console.log("Enqueued message #" + id + " - " + JSON.stringify(message));
+  console.log("Enqueued message " + id + " - " + JSON.stringify(message));
 }
 
 //====================================================================================================
@@ -62,7 +75,7 @@ function dequeue(id) {
         break;
       }
     }
-    console.log("Dequeued message #" + id);
+    console.log("Dequeued message " + id);
   }
   // If an ID is not provided
   else {
@@ -141,7 +154,7 @@ peerSocket.addEventListener("message", (event) => {
   const message = event.data[3];
   // If this is a message
   if (type == "asap_message") {
-    console.log("Process message #" + id + " - " + JSON.stringify(message));
+    console.log("Process message " + id + " - " + JSON.stringify(message));
     asap.onmessage(message);
     // Send a receipt
     try {
