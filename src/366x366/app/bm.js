@@ -40,7 +40,7 @@ export function drawBMR() {
 export function drawBMI() {
   let bmiLabel = gettext("bmi");
   var bmi = "---";
-  if (user.weight > 0 && user.height > 0) {
+  if (user.weight && user.weight > 0 && user.height && user.height > 0) {
     bmi = (user.weight / (user.height * user.height)).toFixed(2);
   }
   if (bmi > 100) {
