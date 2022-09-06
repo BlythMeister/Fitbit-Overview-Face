@@ -32,8 +32,9 @@ export function setBMRPosition(pos) {
 //BM Draw - START
 export function drawBMR() {
   let bmrLabel = gettext("bmr");
-  bmrZoneEl.text = `${bmrLabel}: ${user.bmr}`;
-  bmrCountEl.text = `${user.bmr}`;
+  let bmr = user.bmr ? user.bmr : "---";
+  bmrZoneEl.text = `${bmrLabel}: ${bmr}`;
+  bmrCountEl.text = `${bmr}`;
 }
 
 export function drawBMI() {
