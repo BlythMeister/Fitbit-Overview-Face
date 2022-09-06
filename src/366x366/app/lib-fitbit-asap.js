@@ -14,7 +14,7 @@ try {
   if (!Array.isArray(queue)) {
     queue = [];
   }
-} catch (error) {
+} catch (e) {
   // If a saved queue could not be loaded
   // Continue with an empty queue
   queue = [];
@@ -25,25 +25,30 @@ try {
 //====================================================================================================
 
 function CreateUUID() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+   function s4() {  
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);  
+   }  
+   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();  
 }
 
 //====================================================================================================
 // Enqueue
 //====================================================================================================
 
-function enqueue(message, options) {
-  const id = CreateUUID();
-  const timeout = Date.now() + (options && options.timeout ? options.timeout : 86400000);
+function enqueue(messageKey, message, timeout=86400000) {
+  const uuid = CreateUUID();
+  const id = `${messageKey}_${uuid}`;
+  const timeoutDate = new Date() + timeout;
   // Construct the message
-  const data = ["asap_message", id, timeout, message];
+  const data = ["asap_message", id, timeoutDate, messageKey, message];
   // Save the message to disk
   writeFileSync("_asap_" + id, data, "cbor");
+  // Dequeue previous instances of this key
+  queue.forEach(id => {
+    if(id.startsWith(`${messageKey}_`)){
+      dequeue(id);
+    }
+  });
   // Add the message ID to the queue
   queue.push(id);
   // Persist the queue to disk
@@ -53,7 +58,7 @@ function enqueue(message, options) {
     // Begin processing the queue
     process();
   }
-  console.log("Enqueued message " + id + " - " + JSON.stringify(message));
+  console.log("Enqueued message " + id + " - " + messageKey + " - " + JSON.stringify(message));
 }
 
 //====================================================================================================
@@ -70,8 +75,8 @@ function dequeue(id) {
         // Delete the message from disk
         try {
           unlinkSync("_asap_" + id);
-        } catch (error) {
-          console.log(error);
+        } catch (e) {
+          console.error(e, e.stack);
         }
         // Remove the message ID from the queue
         queue.splice(i, 1);
@@ -103,9 +108,16 @@ function dequeue(id) {
 let retryTimeout = null;
 
 function process() {
+  //Clear previous retry timeout
   if (retryTimeout != null) {
     clearTimeout(retryTimeout);
     retryTimeout = null;
+  }
+  //Check if socket is ready
+  if (peerSocket.readyState != peerSocket.OPEN) {
+    console.log("Socket is closed");
+    retryTimeout = setTimeout(process, 5000);
+    return;
   }
   // If the queue is not empty
   if (queue.length > 0) {
@@ -116,7 +128,7 @@ function process() {
       const message = readFileSync("_asap_" + id, "cbor");
       const timeout = message[2];
       // If the message has expired
-      if (timeout < Date.now()) {
+      if (timeout < new Date()) {
         // Dequeue the message
         dequeue(id);
       }
@@ -125,8 +137,8 @@ function process() {
         // Attempt to send the message
         try {
           peerSocket.send(message);
-        } catch (error) {
-          console.log(error);
+        } catch (e) {
+          console.error(e, e.stack);
           retryTimeout = setTimeout(process, 5000);
         }
       }
@@ -138,6 +150,10 @@ function process() {
   }
 }
 
+//====================================================================================================
+// Socket handling
+//====================================================================================================
+
 // Begin processing the queue when a connection opens
 peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
@@ -145,25 +161,36 @@ peerSocket.addEventListener("open", () => {
   process();
 });
 
-//====================================================================================================
-// Incoming Messages
-//====================================================================================================
+// Log closed socket
+peerSocket.addEventListener("closed", () => {
+  console.log("Peer socket closed");
+});
+
+// Log socket error
+peerSocket.addEventListener("error", () => {
+  console.error("Peer socket error");
+});
 
 // When a message is recieved from the peer
 peerSocket.addEventListener("message", (event) => {
   const type = event.data[0];
   const id = event.data[1];
   const timeout = event.data[2];
-  const message = event.data[3];
+  const messageKey = event.data[3];
+  const message = event.data[4];
   // If this is a message
   if (type == "asap_message") {
-    console.log("Process message " + id + " - " + JSON.stringify(message));
-    asap.onmessage(message);
+    console.log("Process message " + id + " - " + messageKey + " - " + JSON.stringify(message));
+    try {
+      asap.onmessage(messageKey, message);
+    } catch (e) {
+      console.error(e, e.stack);
+    }
     // Send a receipt
     try {
       peerSocket.send(["asap_receipt", id]);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.error(e, e.stack);
     }
   }
   // If this is a receipt
@@ -180,7 +207,7 @@ peerSocket.addEventListener("message", (event) => {
 const asap = {
   send: enqueue,
   cancel: dequeue,
-  onmessage: () => {},
+  onmessage: (messageKey, message) => {console.log(`Unprocessed asap key: ${messageKey} - ${JSON.stringify(message)}`)},
 };
 
 export { asap };

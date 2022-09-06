@@ -628,7 +628,7 @@ export function onsettingschange(data) {
   settings = data;
   applySettings();
   saveSettings();
-  time.drawTime(Date.now());
+  time.drawTime(new Date());
 }
 
 export function settingUpdate(message) {
@@ -663,14 +663,12 @@ export function loadSettings() {
         return fileContent;
       }
     }
-  } catch (ex) {
-    console.log(ex);
+  } catch (e) {
+    console.error(e, e.stack);
     return null;
   }
 
-  asap.send({
-    command: "send-settings",
-  });
+  asap.send("send-settings", {}, 60000);
 
   return null;
 }

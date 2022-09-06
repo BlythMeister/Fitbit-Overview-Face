@@ -35,9 +35,9 @@ export function setRefreshInterval(interval) {
 }
 
 export function fetchWeather() {
-  var currentDate = Date.now();
-  var currentWeatherAge = weatherLastUpdate == null ? -1 : currentDate - weatherLastUpdate;
-  var lastRequestAge = weatherLastRequest == null ? -1 : currentDate - weatherLastRequest;
+  var currentDate = new Date();
+  var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
+  var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
   if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval + 300000) {
     weatherCountEl.text = "----";
@@ -45,19 +45,17 @@ export function fetchWeather() {
     weatherLastRequest = null;
   }
 
-  if (weatherPosition != "NONE" && (lastRequestAge == -1 || lastRequestAge >= 30000)) {
-    if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge == -1 || currentWeatherAge >= weatherInterval) {
+  if (weatherPosition != "NONE" && lastRequestAge >= 30000) {
+    if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge >= weatherInterval) {
       try {
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
           sendUnit = units.temperature;
         }
 
-        weatherLastRequest = Date.now();
-
-        asap.send(
+        weatherLastRequest = new Date();
+        asap.send("weather",
           {
-            command: "weather",
             unit: sendUnit,
           },
           {
@@ -65,7 +63,7 @@ export function fetchWeather() {
           }
         );
       } catch (e) {
-        console.log(`Weather error: ${e}`);
+        console.error(e, e.stack);
       }
     }
   }
@@ -75,9 +73,10 @@ export function processWeatherData(data) {
   if (data.condition === -1) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
+    weatherLastUpdate = null;
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
     weatherIconEl.href = data.image;
-    weatherLastUpdate = Date.now();
+    weatherLastUpdate = new Date();
   }
 }

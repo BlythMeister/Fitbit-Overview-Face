@@ -18,12 +18,12 @@ companion.wakeInterval = 900000;
 console.log("Enable monitoring of significant location changes");
 companion.monitorSignificantLocationChanges = true;
 
-asap.onmessage = (message) => {
-  if (message.command === "send-settings") {
+asap.onmessage = (messageKey, message) => {
+  if (messageKey === "send-settings") {
     sendSettingsWithDefaults();
-  } else if (message.command === "ping") {
+  } else if (messageKey === "ping") {
     sendPong();
-  } else if (message.command === "weather") {
+  } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
 };
@@ -134,13 +134,11 @@ function setSetting(key, value) {
 function sendSettingValue(key, val) {
   if (val) {
     var data = {
-      dataType: "settingChange",
       key: key,
       value: JSON.parse(val),
     };
 
-    console.log(`Queue Sending Setting - key:${data.key} val:${data.value}`);
-    asap.send(data);
+    asap.send(`settingChange_${data.key}`, data);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -158,33 +156,28 @@ function sendWeather(unit) {
     .then((data) => {
       if (data.locations.length > 0) {
         var sendData = {
-          dataType: "weather",
           temperature: Math.floor(data.locations[0].currentWeather.temperature),
           unit: data.temperatureUnit,
           condition: data.locations[0].currentWeather.weatherCondition,
           image: weatherConditions[data.locations[0].currentWeather.weatherCondition],
         };
-        asap.send(sendData);
+        asap.send("weather", sendData, 30000);
       }
     })
     .catch((ex) => {
       console.error(ex.message);
       var sendData = {
-        dataType: "weather",
         temperature: -999,
         unit: "celcius",
         condition: -1,
         image: "weather_36px.png",
       };
-      asap.send(sendData);
+      asap.send("weather", sendData, 30000);
     });
 }
 
 function sendPong() {
-  var sendData = {
-    dataType: "pong",
-  };
-  asap.send(sendData);
+  asap.send("pong", {}, 60000);
 }
 
 function locationChange(initial) {

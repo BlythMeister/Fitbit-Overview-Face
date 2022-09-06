@@ -16,12 +16,13 @@ import { asap } from "./lib-fitbit-asap.js";
 settings.applySettings();
 asap.cancel();
 
-asap.onmessage = (message) => {
-  if (message.dataType === "weather") {
+asap.onmessage = (messageKey, message) => { 
+  var key = messageKey.split("_")[0];     
+  if (key === "weather") {
     weather.processWeatherData(message);
-  } else if (message.dataType === "pong") {
+  } else if (key === "pong") {
     ping.gotPong();
-  } else if (message.dataType === "settingChange") {
+  } else if (key === "settingChange") {
     settings.settingUpdate(message);
   }
 };

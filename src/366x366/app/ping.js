@@ -24,14 +24,14 @@ export function setShowPhoneStatus(visibility) {
 }
 
 export function sendPing() {
-  var lastPingAge = lastPing == null ? -1 : Date.now() - lastPing;
+  var lastPingAge = lastPing == null ? 99999999 : new Date() - lastPing;
   updateForPong();
-  if (phoneEl.style.display === "inline" && (lastPingAge == -1 || lastPingAge >= 60000)) {
+  if (phoneEl.style.display === "inline" && lastPingAge >= 60000) {
     try {
-      asap.send({ command: "ping" }, { timeout: 60000 });
-      lastPing = Date.now();
+      lastPing = new Date();
+      asap.send("ping", {}, 60000);      
     } catch (e) {
-      console.log(`Ping error: ${e}`);
+      console.error(e, e.stack);
       lastPong = null;
       updateForPong();
     }
@@ -39,14 +39,13 @@ export function sendPing() {
 }
 
 export function gotPong() {
-  lastPong = Date.now();
+  lastPong = new Date();
   updateForPong();
 }
 
 function updateForPong() {
-  var currentDate = Date.now();
-  var lastPongAge = lastPong == null ? -1 : Date.now() - lastPong;
-  if (lastPongAge == -1 || lastPongAge >= 300000) {
+  var lastPongAge = lastPong == null ? 99999999 : new Date() - lastPong;
+  if (lastPongAge >= 300000) {
     phoneIconEl.style.fill = disconnectedColour;
   } else {
     phoneIconEl.style.fill = connectedColour;
