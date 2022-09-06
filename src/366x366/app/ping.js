@@ -1,5 +1,5 @@
 import * as document from "document";
-import { asap } from "./lib-fitbit-asap.js";
+import { asap } from "./asap.js";
 
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
@@ -24,12 +24,12 @@ export function setShowPhoneStatus(visibility) {
 }
 
 export function sendPing() {
-  var lastPingAge = lastPing == null ? 99999999 : new Date() - lastPing;
+  var lastPingAge = lastPing == null ? 99999999 : Date.now() - lastPing;
   updateForPong();
   if (phoneEl.style.display === "inline" && lastPingAge >= 60000) {
     try {
-      lastPing = new Date();
-      asap.send("ping", {}, 60000);      
+      lastPing = Date.now();
+      asap.send("ping", {}, 60000);
     } catch (e) {
       console.error(e, e.stack);
       lastPong = null;
@@ -39,12 +39,12 @@ export function sendPing() {
 }
 
 export function gotPong() {
-  lastPong = new Date();
+  lastPong = Date.now();
   updateForPong();
 }
 
 function updateForPong() {
-  var lastPongAge = lastPong == null ? 99999999 : new Date() - lastPong;
+  var lastPongAge = lastPong == null ? 99999999 : Date.now() - lastPong;
   if (lastPongAge >= 300000) {
     phoneIconEl.style.fill = disconnectedColour;
   } else {

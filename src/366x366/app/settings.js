@@ -18,7 +18,7 @@ import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
 import * as ping from "./ping.js";
-import { asap } from "./lib-fitbit-asap.js";
+import { asap } from "./asap.js";
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";
@@ -449,28 +449,34 @@ export function applySettings() {
   for (var i = 0; i < positions.length; i++) {
     var position = positions[i];
 
+    var positionProp = "Stats" + position;
+    var stat = "";
+    if (settings.hasOwnProperty(positionProp) && settings[positionProp]) {
+      stat = settings[positionProp];
+    }
+
     //Remove item from position
-    if (bm.bmPosition == position) {
+    if (bm.bmPosition == position && stat != "BMIBMR") {
       setStatsLocation(bm.bmEl, "NONE");
       bm.setBMPosition("NONE");
     }
 
-    if (bm.bmiPosition == position) {
+    if (bm.bmiPosition == position && stat != "BMI") {
       setStatsLocation(bm.bmiEl, "NONE");
       bm.setBMIPosition("NONE");
     }
 
-    if (bm.bmrPosition == position) {
+    if (bm.bmrPosition == position && stat != "BMR") {
       setStatsLocation(bm.bmrEl, "NONE");
       bm.setBMRPosition("NONE");
     }
 
-    if (weather.weatherPosition == position) {
+    if (weather.weatherPosition == position && stat != "WEATHER") {
       setStatsLocation(weather.weatherEl, "NONE");
       weather.setWeatherPosition("NONE");
     }
 
-    if (battery.batteryStatposition == position) {
+    if (battery.batteryStatposition == position && stat != "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
       setStatsLocation(battery.batteryStatContainerArc, "NONE");
@@ -479,7 +485,7 @@ export function applySettings() {
     }
 
     for (var x = 0; x < activity.goalTypes.length; x++) {
-      if (activity.progressEls[x].position == position) {
+      if (activity.progressEls[x].position == position && stat != activity.progressEls[x].prefix) {
         setStatsLocation(activity.progressEls[x].containerNoProgress, "NONE");
         setStatsLocation(activity.progressEls[x].containerStraight, "NONE");
         setStatsLocation(activity.progressEls[x].containerArc, "NONE");
@@ -667,8 +673,6 @@ export function loadSettings() {
     console.error(e, e.stack);
     return null;
   }
-
-  asap.send("send-settings", {}, 60000);
 
   return null;
 }

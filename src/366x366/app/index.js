@@ -1,5 +1,6 @@
 import * as document from "document";
 
+import { asap } from "./asap.js";
 import * as bm from "./bm.js";
 import * as date from "./date.js";
 import * as battery from "./battery.js";
@@ -11,13 +12,12 @@ import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
 import * as ping from "./ping.js";
-import { asap } from "./lib-fitbit-asap.js";
 
 settings.applySettings();
-asap.cancel();
+asap.send("send-settings", {});
 
-asap.onmessage = (messageKey, message) => { 
-  var key = messageKey.split("_")[0];     
+asap.onmessage = (messageKey, message) => {
+  var key = messageKey.split(":")[0];
   if (key === "weather") {
     weather.processWeatherData(message);
   } else if (key === "pong") {

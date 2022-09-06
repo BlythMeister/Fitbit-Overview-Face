@@ -55,7 +55,7 @@ function getStatValue(props, position) {
   try {
     var setting = props.settingsStorage.getItem(`Stats${position}`);
     if (!setting) {
-      console.log(`No setting for stat ${position}`);
+      //console.log(`No setting for stat ${position}`);
       return "NONE";
     }
     return JSON.parse(setting).values[0].value;
@@ -69,7 +69,7 @@ function getSetting(props, key, defaultValue) {
   try {
     var setting = props.settingsStorage.getItem(key);
     if (!setting) {
-      console.log(`No setting for ${key}`);
+      //console.log(`No setting for ${key}`);
       return defaultValue;
     }
     return JSON.parse(setting);

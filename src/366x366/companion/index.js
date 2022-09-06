@@ -3,12 +3,9 @@ import { me as companion } from "companion";
 import { device } from "peer";
 import { weather, WeatherCondition } from "weather";
 
-import { asap } from "./lib-fitbit-asap.js";
+import { asap } from "./asap.js";
 
 let lastWeatherUnit = null;
-
-//Cancel all previous messages
-asap.cancel();
 
 //Wake every 15 minutes
 console.log("Set companion wake interval to 15 minutes");
@@ -33,20 +30,11 @@ companion.addEventListener("significantlocationchange", (evt) => {
   locationChange(false);
 });
 
-// Listen for the event
-companion.addEventListener("wakeinterval", (evt) => {
-  wokenUp(false);
-});
-
 // check launch reason
 console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}`);
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
-} else if (companion.launchReasons.wokenUp) {
-  wokenUp(true);
 }
-
-sendSettingsWithDefaults();
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
@@ -138,7 +126,7 @@ function sendSettingValue(key, val) {
       value: JSON.parse(val),
     };
 
-    asap.send(`settingChange_${data.key}`, data);
+    asap.send(`settingChange:${data.key}`, data);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -181,14 +169,9 @@ function sendPong() {
 }
 
 function locationChange(initial) {
-  console.log(`LocationChangeEvent fired. - Initial: ${initial}`);
   if (lastWeatherUnit != null) {
     sendWeather(lastWeatherUnit);
   }
-}
-
-function wokenUp(initial) {
-  console.log(`WakeEvent fired. - Initial: ${initial}`);
 }
 
 var weatherConditions = {};

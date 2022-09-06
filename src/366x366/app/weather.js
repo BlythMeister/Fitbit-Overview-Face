@@ -1,6 +1,6 @@
 import * as document from "document";
 import { units } from "user-settings";
-import { asap } from "./lib-fitbit-asap.js";
+import { asap } from "./asap.js";
 
 export let weatherEl = document.getElementById("weather");
 export let weatherCountEl = document.getElementById("weather-count");
@@ -30,12 +30,15 @@ export function setRefreshInterval(interval) {
   if (interval < 60000) {
     interval = 60000;
   }
-  weatherInterval = interval;
-  fetchWeather();
+
+  if (interval != weatherInterval) {
+    weatherInterval = interval;
+    fetchWeather();
+  }
 }
 
 export function fetchWeather() {
-  var currentDate = new Date();
+  var currentDate = Date.now();
   var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
@@ -50,11 +53,12 @@ export function fetchWeather() {
       try {
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
-          sendUnit = units.temperature;
+          sendUnit = units.temperature ? units.temperature : "C";
         }
 
-        weatherLastRequest = new Date();
-        asap.send("weather",
+        weatherLastRequest = Date.now();
+        asap.send(
+          "weather",
           {
             unit: sendUnit,
           },
@@ -77,6 +81,6 @@ export function processWeatherData(data) {
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
     weatherIconEl.href = data.image;
-    weatherLastUpdate = new Date();
+    weatherLastUpdate = Date.now();
   }
 }
