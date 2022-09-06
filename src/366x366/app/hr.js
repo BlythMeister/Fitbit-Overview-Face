@@ -85,13 +85,14 @@ export function newHrm(rate) {
 }
 
 export function drawHrm() {
+  var restingHr = user.restingHeartRate ? user.restingHeartRate : "---";
   if (hrmRate == null || hrmRate <= 0 || !hrMonitoring) {
-    hrCountEl.text = `-- (${user.restingHeartRate})`;
+    hrCountEl.text = `-- (${restingHr})`;
     hrZoneEl.text = "";
     stopHrAnimation();
   } else {
     if (hrmRate) {
-      hrCountEl.text = `${hrmRate} (${user.restingHeartRate})`;
+      hrCountEl.text = `${hrmRate} (${restingHr})`;
       hrZoneEl.text = `${gettext(user.heartRateZone(hrmRate))}`;
 
       if (!prevHrmRate) {
