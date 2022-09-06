@@ -628,7 +628,7 @@ export function onsettingschange(data) {
   settings = data;
   applySettings();
   saveSettings();
-  time.drawTime(new Date());
+  time.drawTime(Date.now());
 }
 
 export function settingUpdate(message) {

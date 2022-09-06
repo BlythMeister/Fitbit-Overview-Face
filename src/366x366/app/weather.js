@@ -35,7 +35,7 @@ export function setRefreshInterval(interval) {
 }
 
 export function fetchWeather() {
-  var currentDate = new Date();
+  var currentDate = Date.now();
   var currentWeatherAge = weatherLastUpdate == null ? -1 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? -1 : currentDate - weatherLastRequest;
 
@@ -53,7 +53,7 @@ export function fetchWeather() {
           sendUnit = units.temperature;
         }
 
-        weatherLastRequest = new Date();
+        weatherLastRequest = Date.now();
 
         asap.send(
           {
@@ -78,6 +78,6 @@ export function processWeatherData(data) {
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
     weatherIconEl.href = data.image;
-    weatherLastUpdate = new Date();
+    weatherLastUpdate = Date.now();
   }
 }
