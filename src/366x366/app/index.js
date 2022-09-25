@@ -1,6 +1,6 @@
 import * as document from "document";
 
-import { asap } from "./asap.js";
+import { msgq } from "./msgq.js";
 import * as bm from "./bm.js";
 import * as date from "./date.js";
 import * as battery from "./battery.js";
@@ -14,9 +14,9 @@ import * as weather from "./weather.js";
 import * as ping from "./ping.js";
 
 settings.applySettings();
-asap.send("send-settings", {});
+msgq.send("send-settings", {});
 
-asap.onmessage = (messageKey, message) => {
+msgq.onmessage = (messageKey, message) => {
   var key = messageKey.split(":")[0];
   if (key === "weather") {
     weather.processWeatherData(message);

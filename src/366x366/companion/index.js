@@ -3,7 +3,7 @@ import { me as companion } from "companion";
 import { device } from "peer";
 import { weather, WeatherCondition } from "weather";
 
-import { asap } from "./asap.js";
+import { msgq } from "./msgq.js";
 
 let lastWeatherUnit = null;
 
@@ -15,7 +15,7 @@ companion.wakeInterval = 900000;
 console.log("Enable monitoring of significant location changes");
 companion.monitorSignificantLocationChanges = true;
 
-asap.onmessage = (messageKey, message) => {
+msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-settings") {
     sendSettingsWithDefaults();
   } else if (messageKey === "ping") {
@@ -126,7 +126,7 @@ function sendSettingValue(key, val) {
       value: JSON.parse(val),
     };
 
-    asap.send(`settingChange:${data.key}`, data);
+    msgq.send(`settingChange:${data.key}`, data);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -149,7 +149,7 @@ function sendWeather(unit) {
           condition: data.locations[0].currentWeather.weatherCondition,
           image: weatherConditions[data.locations[0].currentWeather.weatherCondition],
         };
-        asap.send("weather", sendData, 30000);
+        msgq.send("weather", sendData, 30000);
       }
     })
     .catch((ex) => {
@@ -160,12 +160,12 @@ function sendWeather(unit) {
         condition: -1,
         image: "weather_36px.png",
       };
-      asap.send("weather", sendData, 30000);
+      msgq.send("weather", sendData, 30000);
     });
 }
 
 function sendPong() {
-  asap.send("pong", {}, 60000);
+  msgq.send("pong", {}, 60000);
 }
 
 function locationChange(initial) {

@@ -1,6 +1,6 @@
 import * as document from "document";
 import { units } from "user-settings";
-import { asap } from "./asap.js";
+import { msgq } from "./msgq.js";
 
 export let weatherEl = document.getElementById("weather");
 export let weatherCountEl = document.getElementById("weather-count");
@@ -57,7 +57,7 @@ export function fetchWeather() {
         }
 
         weatherLastRequest = Date.now();
-        asap.send(
+        msgq.send(
           "weather",
           {
             unit: sendUnit,

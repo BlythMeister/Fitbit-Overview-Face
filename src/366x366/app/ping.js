@@ -1,5 +1,5 @@
 import * as document from "document";
-import { asap } from "./asap.js";
+import { msgq } from "./msgq.js";
 
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
@@ -29,7 +29,7 @@ export function sendPing() {
   if (phoneEl.style.display === "inline" && lastPingAge >= 60000) {
     try {
       lastPing = Date.now();
-      asap.send("ping", {}, 60000);
+      msgq.send("ping", {}, 60000);
     } catch (e) {
       console.error(e, e.stack);
       lastPong = null;

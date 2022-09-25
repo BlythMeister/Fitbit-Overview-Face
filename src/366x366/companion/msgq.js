@@ -100,7 +100,7 @@ function process() {
     } else {
       try {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
-        peerSocket.send({ asapType: "asap_message", asapMessage: queueItem });
+        peerSocket.send({ msgqType: "msgq_message", msgqMessage: queueItem });
       } catch (e) {
         console.error(e, e.stack);
         retryTimeout = setTimeout(process, 2500);
@@ -127,27 +127,27 @@ peerSocket.addEventListener("error", () => {
 });
 
 peerSocket.addEventListener("message", (event) => {
-  const type = event.data.asapType;
+  const type = event.data.msgqType;
 
-  if (type == "asap_message") {
-    const id = event.data.asapMessage.id;
-    const messageKey = event.data.asapMessage.messageKey;
-    const message = event.data.asapMessage.message;
+  if (type == "msgq_message") {
+    const id = event.data.msgqMessage.id;
+    const messageKey = event.data.msgqMessage.messageKey;
+    const message = event.data.msgqMessage.message;
 
     console.log(`Recieved message ${id} - ${messageKey} - ${JSON.stringify(message)}`);
     try {
-      asap.onmessage(messageKey, message);
+      msgq.onmessage(messageKey, message);
     } catch (e) {
       console.error(e, e.stack);
     }
 
     try {
       console.log(`Sending receipt for ${id}`);
-      peerSocket.send({ asapType: "asap_receipt", id: id });
+      peerSocket.send({ msgqType: "msgq_receipt", id: id });
     } catch (e) {
       console.error(e, e.stack);
     }
-  } else if (type == "asap_receipt") {
+  } else if (type == "msgq_receipt") {
     const id = event.data.id;
     console.log(`Got receipt for ${id}`);
     dequeue(id, null);
@@ -159,11 +159,11 @@ peerSocket.addEventListener("message", (event) => {
 // Exports
 //====================================================================================================
 
-const asap = {
+const msgq = {
   send: enqueue,
   onmessage: (messageKey, message) => {
-    console.log(`Unprocessed asap key: ${messageKey} - ${JSON.stringify(message)}`);
+    console.log(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
 };
 
-export { asap };
+export { msgq };
