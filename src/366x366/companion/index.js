@@ -7,6 +7,52 @@ import { msgq } from "./msgq.js";
 
 let lastWeatherUnit = null;
 
+var weatherConditions = {};
+weatherConditions[1] = "weather_Sunny_36px.png";
+weatherConditions[2] = "weather_IntermittentCloudyDay_36px.png";
+weatherConditions[3] = "weather_IntermittentCloudyDay_36px.png";
+weatherConditions[4] = "weather_IntermittentCloudyDay_36px.png";
+weatherConditions[5] = "weather_HazySunshine_36px.png";
+weatherConditions[6] = "weather_IntermittentCloudyDay_36px.png";
+weatherConditions[7] = "weather_Cloudy_36px.png";
+weatherConditions[8] = "weather_Cloudy_36px.png";
+weatherConditions[9] = "weather_36px.png";
+weatherConditions[10] = "weather_36px.png";
+weatherConditions[11] = "weather_Fog_36px.png";
+weatherConditions[12] = "weather_Showers_36px.png";
+weatherConditions[13] = "weather_CloudyWithShowersDay_36px.png";
+weatherConditions[14] = "weather_CloudyWithShowersDay_36px.png";
+weatherConditions[15] = "weather_Thunderstorms_36px.png";
+weatherConditions[16] = "weather_CloudyWithThunderstormsDay_36px.png";
+weatherConditions[17] = "weather_CloudyWithThunderstormsDay_36px.png";
+weatherConditions[18] = "weather_Rain_36px.png";
+weatherConditions[19] = "weather_Sleet_36px.png";
+weatherConditions[20] = "weather_CloudyWithSleetDay_36px.png";
+weatherConditions[21] = "weather_CloudyWithSleetDay_36px.png";
+weatherConditions[22] = "weather_Snow_36px.png";
+weatherConditions[23] = "weather_CloudyWithSnowDay_36px.png";
+weatherConditions[24] = "weather_Ice_36px.png";
+weatherConditions[25] = "weather_Sleet_36px.png";
+weatherConditions[26] = "weather_FreezingRain_36px.png";
+weatherConditions[27] = "weather_36px.png";
+weatherConditions[28] = "weather_36px.png";
+weatherConditions[29] = "weather_RainAndSnow_36px.png";
+weatherConditions[30] = "weather_Hot_36px.png";
+weatherConditions[31] = "weather_Cold_36px.png";
+weatherConditions[32] = "weather_Windy_36px.png";
+weatherConditions[33] = "weather_ClearNight_36px.png";
+weatherConditions[34] = "weather_IntermittentCloudyNight_36px.png";
+weatherConditions[35] = "weather_IntermittentCloudyNight_36px.png";
+weatherConditions[36] = "weather_IntermittentCloudyNight_36px.png";
+weatherConditions[37] = "weather_HazyMoonlight_36px.png";
+weatherConditions[38] = "weather_IntermittentCloudyNight_36px.png";
+weatherConditions[39] = "weather_CloudyWithShowersNight_36px.png";
+weatherConditions[40] = "weather_CloudyWithShowersNight_36px.png";
+weatherConditions[41] = "weather_CloudyWithThunderstormsNight_36px.png";
+weatherConditions[42] = "weather_CloudyWithThunderstormsNight_36px.png";
+weatherConditions[43] = "weather_CloudyWithSleetNight_36px.png";
+weatherConditions[44] = "weather_CloudyWithSnowNight_36px.png";
+
 //Wake every 15 minutes
 console.log("Set companion wake interval to 15 minutes");
 companion.wakeInterval = 900000;
@@ -18,8 +64,10 @@ companion.monitorSignificantLocationChanges = true;
 msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-settings") {
     sendSettingsWithDefaults();
-  } else if (messageKey === "ping") {
+  } else if (messageKey === "app-ping") {
     sendPong();
+  } else if (messageKey === "comp-pong") {
+    console.log("Got a pong");
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -30,11 +78,17 @@ companion.addEventListener("significantlocationchange", (evt) => {
   locationChange(false);
 });
 
+companion.addEventListener("wakeinterval", (evt) => {
+  sendPing();
+});
+
 // check launch reason
 console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}`);
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
+
+sendPing();
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
@@ -66,7 +120,7 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
   setDefaultSettingOrSendExisting("showBatteryPercent", true);
   setDefaultSettingOrSendExisting("showBatteryBar", true);
-  setDefaultSettingOrSendExisting("showPhoneStatus", false);
+  setDefaultSettingOrSendExisting("showPhoneStatus", true);
   setDefaultSettingOrSendExisting("torchEnabled", true);
   setDefaultSettingOrSendExisting("torchAutoOff", { values: [{ value: "15", name: "15 Seconds" }], selected: [4] });
   setDefaultSettingOrSendExisting("torchOverlay", true);
@@ -165,7 +219,11 @@ function sendWeather(unit) {
 }
 
 function sendPong() {
-  msgq.send("pong", {}, 60000);
+  msgq.send("app-pong", {}, 60000);
+}
+
+function sendPing() {
+  msgq.send("comp-ping", {}, 60000);
 }
 
 function locationChange(initial) {
@@ -173,49 +231,3 @@ function locationChange(initial) {
     sendWeather(lastWeatherUnit);
   }
 }
-
-var weatherConditions = {};
-weatherConditions[1] = "weather_Sunny_36px.png";
-weatherConditions[2] = "weather_IntermittentCloudyDay_36px.png";
-weatherConditions[3] = "weather_IntermittentCloudyDay_36px.png";
-weatherConditions[4] = "weather_IntermittentCloudyDay_36px.png";
-weatherConditions[5] = "weather_HazySunshine_36px.png";
-weatherConditions[6] = "weather_IntermittentCloudyDay_36px.png";
-weatherConditions[7] = "weather_Cloudy_36px.png";
-weatherConditions[8] = "weather_Cloudy_36px.png";
-weatherConditions[9] = "weather_36px.png";
-weatherConditions[10] = "weather_36px.png";
-weatherConditions[11] = "weather_Fog_36px.png";
-weatherConditions[12] = "weather_Showers_36px.png";
-weatherConditions[13] = "weather_CloudyWithShowersDay_36px.png";
-weatherConditions[14] = "weather_CloudyWithShowersDay_36px.png";
-weatherConditions[15] = "weather_Thunderstorms_36px.png";
-weatherConditions[16] = "weather_CloudyWithThunderstormsDay_36px.png";
-weatherConditions[17] = "weather_CloudyWithThunderstormsDay_36px.png";
-weatherConditions[18] = "weather_Rain_36px.png";
-weatherConditions[19] = "weather_Sleet_36px.png";
-weatherConditions[20] = "weather_CloudyWithSleetDay_36px.png";
-weatherConditions[21] = "weather_CloudyWithSleetDay_36px.png";
-weatherConditions[22] = "weather_Snow_36px.png";
-weatherConditions[23] = "weather_CloudyWithSnowDay_36px.png";
-weatherConditions[24] = "weather_Ice_36px.png";
-weatherConditions[25] = "weather_Sleet_36px.png";
-weatherConditions[26] = "weather_FreezingRain_36px.png";
-weatherConditions[27] = "weather_36px.png";
-weatherConditions[28] = "weather_36px.png";
-weatherConditions[29] = "weather_RainAndSnow_36px.png";
-weatherConditions[30] = "weather_Hot_36px.png";
-weatherConditions[31] = "weather_Cold_36px.png";
-weatherConditions[32] = "weather_Windy_36px.png";
-weatherConditions[33] = "weather_ClearNight_36px.png";
-weatherConditions[34] = "weather_IntermittentCloudyNight_36px.png";
-weatherConditions[35] = "weather_IntermittentCloudyNight_36px.png";
-weatherConditions[36] = "weather_IntermittentCloudyNight_36px.png";
-weatherConditions[37] = "weather_HazyMoonlight_36px.png";
-weatherConditions[38] = "weather_IntermittentCloudyNight_36px.png";
-weatherConditions[39] = "weather_CloudyWithShowersNight_36px.png";
-weatherConditions[40] = "weather_CloudyWithShowersNight_36px.png";
-weatherConditions[41] = "weather_CloudyWithThunderstormsNight_36px.png";
-weatherConditions[42] = "weather_CloudyWithThunderstormsNight_36px.png";
-weatherConditions[43] = "weather_CloudyWithSleetNight_36px.png";
-weatherConditions[44] = "weather_CloudyWithSnowNight_36px.png";

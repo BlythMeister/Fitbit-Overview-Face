@@ -3,19 +3,20 @@ import { msgq } from "./msgq.js";
 
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
-let lastPing = null;
-let lastPong = null;
+let lastPingSent = null;
+let lastPongReceived = null;
+let lastPingReceived = null;
 let connectedColour = "white";
 let disconnectedColour = "white";
 
 export function setPhoneIconConnected(colour) {
   connectedColour = colour;
-  updateForPong();
+  updateConnectionIndicator();
 }
 
 export function setPhoneIconDisconnected(colour) {
   disconnectedColour = colour;
-  updateForPong();
+  updateConnectionIndicator();
 }
 
 export function setShowPhoneStatus(visibility) {
@@ -24,28 +25,32 @@ export function setShowPhoneStatus(visibility) {
 }
 
 export function sendPing() {
-  var lastPingAge = lastPing == null ? 99999999 : Date.now() - lastPing;
-  updateForPong();
+  var lastPingAge = lastPingSent == null ? 99999999 : Date.now() - lastPingSent;
+  updateConnectionIndicator();
   if (phoneEl.style.display === "inline" && lastPingAge >= 60000) {
     try {
-      lastPing = Date.now();
-      msgq.send("ping", {}, 60000);
+      msgq.send("app-ping", {}, 60000);
+      lastPingSent = Date.now();
     } catch (e) {
       console.error(e, e.stack);
-      lastPong = null;
-      updateForPong();
     }
   }
 }
 
 export function gotPong() {
-  lastPong = Date.now();
-  updateForPong();
+  lastPongReceived = Date.now();
+  updateConnectionIndicator();
 }
 
-function updateForPong() {
-  var lastPongAge = lastPong == null ? 99999999 : Date.now() - lastPong;
-  if (lastPongAge >= 300000) {
+export function gotPing() {
+  lastPingReceived = Date.now();
+  updateConnectionIndicator();
+}
+
+function updateConnectionIndicator() {
+  var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
+  var lastPingAge = lastPingReceived == null ? 99999999 : Date.now() - lastPingReceived;
+  if (lastPongAge >= 300000 || lastPingAge >= 1200000) {
     phoneIconEl.style.fill = disconnectedColour;
   } else {
     phoneIconEl.style.fill = connectedColour;

@@ -80,18 +80,18 @@ function dequeue(id, messageKey) {
 let retryTimeout = null;
 
 function process() {
-  if (retryTimeout != null) {
-    clearTimeout(retryTimeout);
-    retryTimeout = null;
-  }
-
-  if (peerSocket.readyState != peerSocket.OPEN) {
-    console.log("Socket is closed");
-    retryTimeout = setTimeout(process, 2500);
-    return;
-  }
-
   if (queue.length > 0) {
+    if (retryTimeout != null) {
+      clearTimeout(retryTimeout);
+      retryTimeout = null;
+    }
+
+    if (peerSocket.readyState != peerSocket.OPEN) {
+      console.log("Socket is closed");
+      retryTimeout = setTimeout(process, 1000);
+      return;
+    }
+
     const queueItem = queue[0];
     if (queueItem.timeout < Date.now()) {
       console.log(`Message timeout: ${queueItem.id}`);
@@ -103,7 +103,7 @@ function process() {
         peerSocket.send({ msgqType: "msgq_message", msgqMessage: queueItem });
       } catch (e) {
         console.error(e, e.stack);
-        retryTimeout = setTimeout(process, 2500);
+        retryTimeout = setTimeout(process, 1000);
       }
     }
   }

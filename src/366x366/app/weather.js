@@ -56,7 +56,6 @@ export function fetchWeather() {
           sendUnit = units.temperature ? units.temperature : "C";
         }
 
-        weatherLastRequest = Date.now();
         msgq.send(
           "weather",
           {
@@ -66,6 +65,7 @@ export function fetchWeather() {
             timeout: 30000,
           }
         );
+        weatherLastRequest = Date.now();
       } catch (e) {
         console.error(e, e.stack);
       }

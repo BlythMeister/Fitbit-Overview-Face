@@ -20,8 +20,10 @@ msgq.onmessage = (messageKey, message) => {
   var key = messageKey.split(":")[0];
   if (key === "weather") {
     weather.processWeatherData(message);
-  } else if (key === "pong") {
+  } else if (key === "app-pong") {
     ping.gotPong();
+  } else if (key === "comp-ping") {
+    ping.gotPing();
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
   }
