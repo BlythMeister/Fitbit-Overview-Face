@@ -2,7 +2,7 @@
   <rect id="background"/>
 
   <svg id="pr">
-    <text id="pr-text" class="prText">Pre-Release</text>
+    <text id="pr-text" class="prText">PRE</text>
   </svg>
 
   <svg id="battery-line" x="0" y="0">
