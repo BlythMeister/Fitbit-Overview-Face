@@ -154,14 +154,14 @@ peerSocket.addEventListener("open", () => {
   process();
 });
 
-peerSocket.addEventListener("closed", () => {
-  console.log("Peer socket closed");
+peerSocket.addEventListener("closed", (event) => {
+  console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForReceipt = false;
   process();
 });
 
-peerSocket.addEventListener("error", () => {
-  console.error("Peer socket error");
+peerSocket.addEventListener("error", (event) => {
+  console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForReceipt = false;
   process();
 });
