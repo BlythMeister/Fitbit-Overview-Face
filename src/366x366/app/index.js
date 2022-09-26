@@ -35,6 +35,10 @@ let prereleaseEl = document.getElementById("pr");
 
 if (appbit.applicationId == "6d80c169-94c5-4105-b9dc-98df99b798cd") {
   prereleaseEl.style.display = "inline";
+  prereleaseEl.text = "PRE";
+} else if (appbit.applicationId == "cdef6b20-1559-44a5-a574-3441154e8ebd") {
+  prereleaseEl.style.display = "inline";
+  prereleaseEl.text = "SIDE";
 } else {
   prereleaseEl.style.display = "none";
 }

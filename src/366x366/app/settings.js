@@ -679,7 +679,7 @@ export function loadSettings() {
 
 // Save settings to the filesystem
 export function saveSettings() {
-  if (Object.keys(settings).length > 0) {
+  if (settings != null && Object.keys(settings) != null && Object.keys(settings).length > 0) {
     fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
   }
 }

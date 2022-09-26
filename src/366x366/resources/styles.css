@@ -21,18 +21,13 @@
 }
 
 #pr {
-  x: 100%-30;
-  y: 85;
-  display: none;
-}
-
-#pr-text {
   font-size: 20;
   font-family: System-Bold;
   text-length: 55;
   text-anchor: end;
-  x: 0;
-  y: 0;
+  x: 100%-30;
+  y: 85;
+  display: none;
   fill: red;
 }
 
