@@ -42,10 +42,9 @@ export function fetchWeather() {
   var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
-  if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval + 300000) {
+  if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval * 2) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
-    weatherLastRequest = null;
   }
 
   if (weatherPosition != "NONE" && lastRequestAge >= 30000) {
