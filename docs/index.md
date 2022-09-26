@@ -68,6 +68,6 @@ The watch face for Ionic, Versa, Versa Lite & Versa 2 devices has been deprecate
 
 ## Videos
 
-* [Edit Settings]({{ site.url }}/images/show-settings.mp4)
-* [Edit Permissions]({{ site.url }}/images/show-permissions.mp4)
-* [Show Details]({{ site.url }}/images/show-details.mp4)
+* [Edit Settings]({{ site.url }}/videos/show-settings.mp4)
+* [Edit Permissions]({{ site.url }}/videos/show-permissions.mp4)
+* [Show Details]({{ site.url }}/videos/show-details.mp4)
