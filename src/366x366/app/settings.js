@@ -670,7 +670,7 @@ export function loadSettings() {
       }
     }
   } catch (e) {
-    console.error(e, e.stack);
+    console.error(e.message);
     return null;
   }
 

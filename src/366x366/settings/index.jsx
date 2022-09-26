@@ -19,7 +19,7 @@ function hasActivity(props, activity) {
 
     return statsTL === activity || statsBL === activity || statsTM === activity || statsMM === activity || statsBM === activity || statsTR === activity || statsBR === activity;
   } catch (e) {
-    console.error(e, e.stack);
+    console.error(e.message);
     return true;
   }
 }
@@ -46,7 +46,7 @@ function hasProgressStat(props) {
 
     return progressStats.includes(statsTL) || progressStats.includes(statsBL) || progressStats.includes(statsTM) || progressStats.includes(statsMM) || progressStats.includes(statsBM) || progressStats.includes(statsTR) || progressStats.includes(statsBR);
   } catch (e) {
-    console.error(e, e.stack);
+    console.error(e.message);
     return true;
   }
 }
@@ -60,7 +60,7 @@ function getStatValue(props, position) {
     }
     return JSON.parse(setting).values[0].value;
   } catch (e) {
-    console.error(e, e.stack);
+    console.error(e.message);
     return "NONE";
   }
 }
@@ -74,7 +74,7 @@ function getSetting(props, key, defaultValue) {
     }
     return JSON.parse(setting);
   } catch (e) {
-    console.error(e, e.stack);
+    console.error(e.message);
     return defaultValue;
   }
 }
@@ -483,5 +483,5 @@ function mySettings(props) {
 try {
   registerSettingsPage(mySettings);
 } catch (e) {
-  console.error(e, e.stack);
+  console.error(e.message);
 }

@@ -31,7 +31,7 @@ export function sendPing() {
       msgq.send("ping", {}, 60000);
       lastPingSent = Date.now();
     } catch (e) {
-      console.error(e, e.stack);
+      console.error(e.message);
     }
   }
 }
@@ -43,7 +43,7 @@ export function gotPong() {
 
 function updateConnectionIndicator() {
   var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
-  if (lastPongAge >= 300000) {
+  if (lastPongAge >= 600000) {
     phoneIconEl.style.fill = disconnectedColour;
   } else {
     phoneIconEl.style.fill = connectedColour;

@@ -66,7 +66,7 @@ export function fetchWeather() {
         );
         weatherLastRequest = Date.now();
       } catch (e) {
-        console.error(e, e.stack);
+        console.error(e.message);
       }
     }
   }

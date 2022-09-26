@@ -94,7 +94,7 @@ function dequeue(id, messageKey) {
 // Process Queue
 //====================================================================================================
 
-function process(retryAttempt = 0) {
+function process() {
   if (queue.length > 0) {
     if (waitingForReceipt == true) {
       if (lastSend == null || Date.now() - lastSend >= 60000) {
@@ -131,14 +131,10 @@ function process(retryAttempt = 0) {
       } catch (e) {
         waitingForReceipt = false;
         console.warn(e.message);
-        var retryDelay = retryAttempt * 250;
-        if (retryDelay > 10000) {
-          retryDelay = 10000;
-        }
         if (debugMessages) {
-          console.log(`Retry in ${retryDelay}`);
+          console.log(`Call process again in 2 seconds`);
         }
-        retryTimeout = setTimeout(() => process(retryAttempt + 1), retryDelay);
+        retryTimeout = setTimeout(process, 2000);
       }
     }
   }

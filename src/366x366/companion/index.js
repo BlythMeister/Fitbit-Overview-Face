@@ -54,8 +54,8 @@ weatherConditions[43] = "weather_CloudyWithSleetNight_36px.png";
 weatherConditions[44] = "weather_CloudyWithSnowNight_36px.png";
 
 //Wake every 15 minutes
-console.log("Set companion wake interval to 15 minutes");
-companion.wakeInterval = 900000;
+console.log("Set companion wake interval to 10 minutes");
+companion.wakeInterval = 600000;
 
 // Monitor for significant changes in physical location
 console.log("Enable monitoring of significant location changes");
