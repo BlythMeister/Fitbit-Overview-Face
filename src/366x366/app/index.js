@@ -1,4 +1,5 @@
 import * as document from "document";
+import { me as appbit } from "appbit";
 
 import { msgq } from "./msgq.js";
 import * as bm from "./bm.js";
@@ -13,6 +14,9 @@ import * as torch from "./torch.js";
 import * as weather from "./weather.js";
 import * as ping from "./ping.js";
 
+console.log(`Application ID: ${appbit.applicationId}`);
+console.log(`Build ID: ${appbit.buildId}`);
+
 settings.applySettings();
 msgq.send("send-settings", {});
 
@@ -26,3 +30,11 @@ msgq.onmessage = (messageKey, message) => {
     settings.settingUpdate(message);
   }
 };
+
+let prereleaseEl = document.getElementById("pr");
+
+if (appbit.applicationId == "6d80c169-94c5-4105-b9dc-98df99b798cd") {
+  prereleaseEl.style.display = "inline";
+} else {
+  prereleaseEl.style.display = "none";
+}

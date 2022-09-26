@@ -1,6 +1,10 @@
 <svg id="root">
   <rect id="background"/>
 
+  <svg id="pr">
+    <text id="pr-text" class="prText">Pre-Release</text>
+  </svg>
+
   <svg id="battery-line" x="0" y="0">
     <arc id="battery-line-back" x="0" y="0" width="100%" height="90" fill="white" arc-width="20" start-angle="270" sweep-angle="180" />
     <arc id="battery-line-front"x="0" y="0" width="100%" height="90" fill="white" arc-width="20" start-angle="270" sweep-angle="180" />

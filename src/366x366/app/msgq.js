@@ -4,14 +4,16 @@ import { peerSocket } from "messaging";
 // Initialize
 //====================================================================================================
 
+let debugMessages = false;
 let queue = [];
 let waitingForReceipt = false;
 let lastSend = null;
 let retryTimeout = null;
+let aliveType = "app-msgq-alive";
 
-enqueue("app-msgq-alive", {}, 60000);
+enqueue(aliveType, {}, 60000);
 setInterval(function () {
-  enqueue("app-msgq-alive", {}, 60000);
+  enqueue(aliveType, {}, 60000);
 }, 300000);
 
 //====================================================================================================
@@ -44,7 +46,9 @@ function enqueue(messageKey, message, timeout = 1800000) {
 
   process();
 
-  console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
+  if (debugMessages) {
+    console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
+  }
 }
 
 //====================================================================================================
@@ -61,10 +65,12 @@ function dequeue(id, messageKey) {
         break;
       }
     }
-    if (dequeueResult) {
-      console.log(`Dequeued message ${id} - QueueSize: ${queue.length}`);
-    } else {
-      console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
+    if (debugMessages) {
+      if (dequeueResult) {
+        console.log(`Dequeued message ${id} - QueueSize: ${queue.length}`);
+      } else {
+        console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
+      }
     }
   } else if (messageKey) {
     for (let i in queue) {
@@ -72,11 +78,15 @@ function dequeue(id, messageKey) {
       var key = messageId.split("_")[0];
       if (key === messageKey) {
         queue.splice(i, 1);
-        console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
+        if (debugMessages) {
+          console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
+        }
       }
     }
   } else {
-    console.log("No ID or MessageKey to dequeue");
+    if (debugMessages) {
+      console.log("No ID or MessageKey to dequeue");
+    }
   }
 }
 
@@ -88,7 +98,9 @@ function process(retryAttempt = 0) {
   if (queue.length > 0) {
     if (waitingForReceipt == true) {
       if (lastSend == null || Date.now() - lastSend >= 60000) {
-        console.log("Waiting for receipt for over 1 minute, giving up!");
+        if (debugMessages) {
+          console.log("Waiting for receipt for over 1 minute, giving up!");
+        }
         waitingForReceipt = false;
       } else {
         return;
@@ -102,7 +114,9 @@ function process(retryAttempt = 0) {
 
     const queueItem = queue[0];
     if (queueItem.timeout < Date.now()) {
-      console.log(`Message timeout: ${queueItem.id}`);
+      if (debugMessages) {
+        console.log(`Message timeout: ${queueItem.id}`);
+      }
       dequeue(queueItem.id, null);
       waitingForReceipt = false;
       process();
@@ -110,16 +124,20 @@ function process(retryAttempt = 0) {
       try {
         waitingForReceipt = true;
         lastSend = Date.now();
-        console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
+        if (debugMessages) {
+          console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
+        }
         peerSocket.send({ msgqType: "msgq_message", msgqMessage: queueItem });
       } catch (e) {
         waitingForReceipt = false;
-        console.error(e.message);
+        console.warn(e.message);
         var retryDelay = retryAttempt * 250;
-        if (retryDelay > 30000) {
-          retryDelay = 30000;
+        if (retryDelay > 10000) {
+          retryDelay = 10000;
         }
-        console.log(`Retry in ${retryDelay}`);
+        if (debugMessages) {
+          console.log(`Retry in ${retryDelay}`);
+        }
         retryTimeout = setTimeout(() => process(retryAttempt + 1), retryDelay);
       }
     }
@@ -156,7 +174,9 @@ peerSocket.addEventListener("message", (event) => {
     const messageKey = event.data.msgqMessage.messageKey;
     const message = event.data.msgqMessage.message;
 
-    console.log(`Recieved message ${id} - ${messageKey} - ${JSON.stringify(message)}`);
+    if (debugMessages) {
+      console.log(`Recieved message ${id} - ${messageKey} - ${JSON.stringify(message)}`);
+    }
     try {
       msgq.onmessage(messageKey, message);
     } catch (e) {
@@ -164,14 +184,18 @@ peerSocket.addEventListener("message", (event) => {
     }
 
     try {
-      console.log(`Sending receipt for ${id}`);
+      if (debugMessages) {
+        console.log(`Sending receipt for ${id}`);
+      }
       peerSocket.send({ msgqType: "msgq_receipt", id: id });
     } catch (e) {
       console.error(e.message);
     }
   } else if (type == "msgq_receipt") {
     const id = event.data.id;
-    console.log(`Got receipt for ${id}`);
+    if (debugMessages) {
+      console.log(`Got receipt for ${id}`);
+    }
     dequeue(id, null);
     waitingForReceipt = false;
     process();

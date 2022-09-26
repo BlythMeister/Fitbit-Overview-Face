@@ -88,7 +88,6 @@ settingsStorage.addEventListener("change", (evt) => {
 });
 
 function sendSettingsWithDefaults() {
-  console.log("Set Default Settings");
   setDefaultSettingOrSendExisting("distanceUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
   setDefaultSettingOrSendExisting("dateFormat", { values: [{ value: "dd mmmm yyyy", name: "dd mmmm yyyy" }], selected: [11] });
   setDefaultSettingOrSendExisting("timeFormat", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
@@ -131,7 +130,7 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("bmiColour", "gold");
   setDefaultSettingOrSendExisting("bmrColour", "gold");
   setDefaultSettingOrSendExisting("phoneStatusDisconnected", "red");
-  setDefaultSettingOrSendExisting("phoneStatusConnected", "lime");
+  setDefaultSettingOrSendExisting("phoneStatusConnected", "black");
   setDefaultSettingOrSendExisting("progressBackgroundColour", "dimgray");
   setDefaultSettingOrSendExisting("batteryIcon0Colour", "red");
   setDefaultSettingOrSendExisting("batteryIcon25Colour", "darkorange");
@@ -153,14 +152,14 @@ function setDefaultSettingOrSendExisting(key, value) {
   if (existingValue == null) {
     setSetting(key, value);
   } else {
-    console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
+    //console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
     sendSettingValue(key, existingValue);
   }
 }
 
 function setSetting(key, value) {
   let jsonValue = JSON.stringify(value);
-  console.log(`Companion Set - key:${key} val:${jsonValue}`);
+  //console.log(`Companion Set - key:${key} val:${jsonValue}`);
   settingsStorage.setItem(key, jsonValue);
   sendSettingValue(key, jsonValue);
 }
