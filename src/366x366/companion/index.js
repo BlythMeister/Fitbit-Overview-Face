@@ -64,10 +64,8 @@ companion.monitorSignificantLocationChanges = true;
 msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-settings") {
     sendSettingsWithDefaults();
-  } else if (messageKey === "app-ping") {
+  } else if (messageKey === "ping") {
     sendPong();
-  } else if (messageKey === "comp-pong") {
-    console.log("Got a pong");
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -78,17 +76,11 @@ companion.addEventListener("significantlocationchange", (evt) => {
   locationChange(false);
 });
 
-companion.addEventListener("wakeinterval", (evt) => {
-  sendPing();
-});
-
 // check launch reason
 console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}`);
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
-
-sendPing();
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
@@ -219,11 +211,7 @@ function sendWeather(unit) {
 }
 
 function sendPong() {
-  msgq.send("app-pong", {}, 60000);
-}
-
-function sendPing() {
-  msgq.send("comp-ping", {}, 60000);
+  msgq.send("pong", {}, 60000);
 }
 
 function locationChange(initial) {

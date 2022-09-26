@@ -5,7 +5,6 @@ export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
 let lastPingSent = null;
 let lastPongReceived = null;
-let lastPingReceived = null;
 let connectedColour = "white";
 let disconnectedColour = "white";
 
@@ -29,7 +28,7 @@ export function sendPing() {
   updateConnectionIndicator();
   if (phoneEl.style.display === "inline" && lastPingAge >= 60000) {
     try {
-      msgq.send("app-ping", {}, 60000);
+      msgq.send("ping", {}, 60000);
       lastPingSent = Date.now();
     } catch (e) {
       console.error(e, e.stack);
@@ -42,15 +41,9 @@ export function gotPong() {
   updateConnectionIndicator();
 }
 
-export function gotPing() {
-  lastPingReceived = Date.now();
-  updateConnectionIndicator();
-}
-
 function updateConnectionIndicator() {
   var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
-  var lastPingAge = lastPingReceived == null ? 99999999 : Date.now() - lastPingReceived;
-  if (lastPongAge >= 300000 || lastPingAge >= 1200000) {
+  if (lastPongAge >= 300000) {
     phoneIconEl.style.fill = disconnectedColour;
   } else {
     phoneIconEl.style.fill = connectedColour;
