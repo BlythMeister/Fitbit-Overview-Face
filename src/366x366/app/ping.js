@@ -7,6 +7,7 @@ let lastPingSent = null;
 let lastPongReceived = null;
 let connectedColour = "white";
 let disconnectedColour = "white";
+let firstTouch = false;
 
 export function setPhoneIconConnected(colour) {
   connectedColour = colour;
@@ -23,10 +24,23 @@ export function setShowPhoneStatus(visibility) {
   sendPing();
 }
 
-export function sendPing() {
+phoneIconEl.onclick = function (e) {
+  if (phoneEl.style.display === "inline" && phoneIconEl.style.fill === disconnectedColour) {
+    if (firstTouch) {
+      sendPing(true);
+    } else {
+      firstTouch = true;
+      setTimeout(function () {
+        firstTouch = false;
+      }, 500);
+    }
+  }
+};
+
+export function sendPing(force = false) {
   var lastPingAge = lastPingSent == null ? 99999999 : Date.now() - lastPingSent;
   updateConnectionIndicator();
-  if (phoneEl.style.display === "inline" && lastPingAge >= 60000) {
+  if (force || (phoneEl.style.display === "inline" && lastPingAge >= 60000)) {
     try {
       msgq.send("ping", {}, 60000);
       lastPingSent = Date.now();

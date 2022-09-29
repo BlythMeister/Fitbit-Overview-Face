@@ -14,7 +14,7 @@
   </svg>
 
   <svg id="phone">
-    <image id="phone-icon" class="icon" href="phone_36px.png" />
+    <image id="phone-icon" class="icon" href="phone_36px.png" pointer-events="visible" />
   </svg>
 
   <svg id="hr">

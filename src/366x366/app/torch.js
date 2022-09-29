@@ -49,7 +49,7 @@ export function TurnOnTorch() {
   if (torchOverlay) {
     torchEl.style.opacity = 1;
     torchEl.style.fill = "white";
-  }  
+  }
   torchEl.height = 336;
   torchEl.width = 336;
   torchEl.x = 0;
