@@ -2,10 +2,13 @@ import * as document from "document";
 import { units } from "user-settings";
 import { msgq } from "./msgq.js";
 
+export let weatherLocationEl = document.getElementById("weather-location");
+export let weatherLocationTextEl = document.getElementById("weather-location-text");
 export let weatherEl = document.getElementById("weather");
 export let weatherCountEl = document.getElementById("weather-count");
 export let weatherIconEl = document.getElementById("weather-icon");
 export let weatherPosition = "NONE";
+export let weatherLocationPosition = "NONE";
 export let temperatureUnit = "C";
 export let weatherInterval = 60000;
 export let weatherLastUpdate = null;
@@ -14,6 +17,14 @@ export let weatherLastRequest = null;
 export function setWeatherPosition(pos) {
   weatherPosition = pos;
   if (weatherPosition == "NONE") {
+    weatherLastUpdate = null;
+  }
+  fetchWeather();
+}
+
+export function setWeatherLocationPosition(pos) {
+  weatherLocationPosition = pos;
+  if (weatherLocationPosition == "NONE") {
     weatherLastUpdate = null;
   }
   fetchWeather();
@@ -76,10 +87,12 @@ export function processWeatherData(data) {
   if (data.condition === -1) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
+    weatherLocationTextEl.text = "----";
     weatherLastUpdate = null;
   } else {
     weatherCountEl.text = `${data.temperature}°${data.unit.charAt(0)}`;
     weatherIconEl.href = data.image;
+    weatherLocationTextEl.text = data.location;
     weatherLastUpdate = Date.now();
   }
 }

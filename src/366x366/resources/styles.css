@@ -325,6 +325,10 @@
   display: "none";
 }
 
+#weather-location {
+  display: "none";
+}
+
 #bmr-zone {
   text-anchor: middle;
   font-size: 16;
@@ -350,6 +354,15 @@
   height: 25;
   x: 0;
   y: 7;
+}
+
+.bottomMiddle-textOnly {
+  font-size: 26;
+  x: 0;
+  y: 28;
+  text-length: 30;
+  text-anchor: middle;
+  font-family: System-Bold;
 }
 
 .count-noProgress {

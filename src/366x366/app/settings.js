@@ -351,6 +351,12 @@ export function applySettings() {
     weather.weatherIconEl.style.fill = "white";
   }
 
+  if (settings.hasOwnProperty("weatherLocationColour") && settings["weatherLocationColour"]) {
+    weather.weatherLocationTextEl.style.fill = settings["weatherLocationColour"];
+  } else {
+    weather.weatherLocationTextEl.style.fill = "white";
+  }
+
   if (settings.hasOwnProperty("weatherRefreshInterval") && settings["weatherRefreshInterval"]) {
     weather.setRefreshInterval(settings["weatherRefreshInterval"]);
   } else {
@@ -476,6 +482,11 @@ export function applySettings() {
       weather.setWeatherPosition("NONE");
     }
 
+    if (weather.weatherLocationPosition == position && stat != "WEATHER-LOCATION") {
+      setStatsLocation(weather.weatherLocationEl, "NONE");
+      weather.setWeatherLocationPosition("NONE");
+    }
+
     if (battery.batteryStatposition == position && stat != "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
@@ -526,6 +537,9 @@ export function applySettings() {
     } else if (stat == "WEATHER") {
       weather.setWeatherPosition(position);
       setStatsLocation(weather.weatherEl, position);
+    } else if (stat == "WEATHER-LOCATION") {
+      weather.setWeatherLocationPosition(position);
+      setStatsLocation(weather.weatherLocationEl, position, true);
     } else if (stat == "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
@@ -569,9 +583,10 @@ export function applySettings() {
 
 applySettings();
 
-export function setStatsLocation(element, location) {
+export function setStatsLocation(element, location, centre = false) {
   var maxWidth = device.screen.width;
   var maxHeight = device.screen.height;
+
   if (location == "TL") {
     element.style.display = "inline";
     element.x = (5 * maxWidth) / 100;
@@ -597,6 +612,13 @@ export function setStatsLocation(element, location) {
     element.style.display = "inline";
     element.x = (36 * maxWidth) / 100;
     element.y = maxHeight - 76;
+    return;
+  }
+
+  if (location == "BM" && centre) {
+    element.style.display = "inline";
+    element.x = maxWidth / 2;
+    element.y = maxHeight - 37;
     return;
   }
 

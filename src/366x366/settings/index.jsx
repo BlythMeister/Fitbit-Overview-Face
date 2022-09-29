@@ -191,7 +191,7 @@ function mySettings(props) {
     { value: "mmmm dd, yyyy", name: "mmmm dd, yyyy" },
   ];
 
-  let availiableStats = [
+  let availableStats = [
     { value: "NONE", name: "Empty" },
     { value: "BMIBMR", name: "BMI & BMR" },
     { value: "BMI", name: "BMI" },
@@ -204,6 +204,22 @@ function mySettings(props) {
     { value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" },
     { value: "BATTERY", name: "Battery" },
     { value: "WEATHER", name: "Weather" },
+  ];
+
+  let availableStatsBottomMiddleOnly = [
+    { value: "NONE", name: "Empty" },
+    { value: "BMIBMR", name: "BMI & BMR" },
+    { value: "BMI", name: "BMI" },
+    { value: "BMR", name: "BMR" },
+    { value: "steps", name: "Steps" },
+    { value: "distance", name: "Distance" },
+    { value: "elevationGain", name: "Floors" },
+    { value: "calories", name: "Calories" },
+    { value: "activeMinutes", name: "Active Zone Minutes" },
+    { value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" },
+    { value: "BATTERY", name: "Battery" },
+    { value: "WEATHER", name: "Weather" },
+    { value: "WEATHER-LOCATION", name: "Weather Location" },
   ];
 
   let progressBarsFormat = [
@@ -277,13 +293,13 @@ function mySettings(props) {
       </Section>
 
       <Section title="Stats">
-        <Select label="Top Left" settingsKey="StatsTL" options={availiableStats} />
-        <Select label="Bottom Left" settingsKey="StatsBL" options={availiableStats} />
-        <Select label="Top Middle" settingsKey="StatsTM" options={availiableStats} />
-        <Select label="Middle Middle" settingsKey="StatsMM" options={availiableStats} />
-        <Select label="Bottom Middle" settingsKey="StatsBM" options={availiableStats} />
-        <Select label="Top Right" settingsKey="StatsTR" options={availiableStats} />
-        <Select label="Bottom Right" settingsKey="StatsBR" options={availiableStats} />
+        <Select label="Top Left" settingsKey="StatsTL" options={availableStats} />
+        <Select label="Bottom Left" settingsKey="StatsBL" options={availableStats} />
+        <Select label="Top Middle" settingsKey="StatsTM" options={availableStats} />
+        <Select label="Middle Middle" settingsKey="StatsMM" options={availableStats} />
+        <Select label="Bottom Middle" settingsKey="StatsBM" options={availableStatsBottomMiddleOnly} />
+        <Select label="Top Right" settingsKey="StatsTR" options={availableStats} />
+        <Select label="Bottom Right" settingsKey="StatsBR" options={availableStats} />
       </Section>
 
       {hasProgressStat(props) && (
@@ -298,10 +314,10 @@ function mySettings(props) {
         </Section>
       )}
 
-      {hasActivity(props, "WEATHER") && (
+      {(hasActivity(props, "WEATHER") || hasActivity(props, "WEATHER-LOCATION")) && (
         <Section title="Weather">
           <Select label="Refresh Interval" settingsKey="weatherRefreshInterval" options={weatherRefresh} />
-          <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={temperatureUnits} c />
+          {hasActivity(props, "WEATHER") && <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={temperatureUnits} />}
         </Section>
       )}
 
@@ -408,6 +424,12 @@ function mySettings(props) {
       {hasActivity(props, "WEATHER") && (
         <Section title="Weather colour">
           <ColorSelect settingsKey="weatherColour" colors={colourSet} />
+        </Section>
+      )}
+
+      {hasActivity(props, "WEATHER-LOCATION") && (
+        <Section title="Weather Location colour">
+          <ColorSelect settingsKey="weatherLocationColour" colors={colourSet} />
         </Section>
       )}
 
