@@ -56,6 +56,7 @@ export function fetchWeather() {
   if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval * 2) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
+    weatherLocationTextEl.text = "----";
   }
 
   if (weatherPosition != "NONE" && lastRequestAge >= 30000) {
