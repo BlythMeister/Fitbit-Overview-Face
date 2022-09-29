@@ -13,6 +13,10 @@ let retryTimeout = null;
 let aliveType = "msgq-alive-app";
 let socketClosedSince = null;
 
+if (peerSocket.readyState != peerSocket.OPEN) {
+  socketClosedSince = Date.now();
+}
+
 enqueue(aliveType, {}, 30000);
 setInterval(function () {
   enqueue(aliveType, {}, 30000);
@@ -106,14 +110,17 @@ function process() {
     return;
   }
 
-  if (peerSocket.readyState != peerSocket.OPEN && socketClosedDuration != null) {
-    var socketClosedDuration = Date.now() - socketClosedSince;
-    if (socketClosedDuration > 300000) {
-      if (debugMessages) {
-        console.log(`Socket not open for over 5 minutes, killing app`);
+  if (peerSocket.readyState != peerSocket.OPEN) {
+    if (socketClosedSince != null) {
+      var socketClosedDuration = Date.now() - socketClosedSince;
+      if (socketClosedDuration > 300000) {
+        if (debugMessages) {
+          console.log(`Socket not open for over 5 minutes, killing app`);
+        }
+        appbit.exit();
       }
-      appbit.exit();
     }
+
     if (debugMessages) {
       console.log(`Socket not open, call process again in 1 seconds`);
     }
