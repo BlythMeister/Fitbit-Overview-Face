@@ -48,7 +48,12 @@ display.onchange = (evt) => {
 export function TurnOnTorch() {
   if (torchOverlay) {
     torchEl.style.opacity = 1;
-  }
+    torchEl.style.fill = "white";
+  }  
+  torchEl.height = 336;
+  torchEl.width = 336;
+  torchEl.x = 0;
+  torchEl.y = 0;
   display.brightnessOverride = "max";
   display.autoOff = false;
   display.on = true;
@@ -68,6 +73,10 @@ export function TurnOnTorch() {
 
 export function TurnOffTorch() {
   torchEl.style.opacity = 0;
+  torchEl.height = 120;
+  torchEl.width = 336;
+  torchEl.x = 0;
+  torchEl.y = 90;
   display.brightnessOverride = undefined;
   display.autoOff = true;
   torchOn = false;
