@@ -203,7 +203,7 @@ function mySettings(props) {
     { value: "activeMinutes", name: "Active Zone Minutes" },
     { value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" },
     { value: "BATTERY", name: "Battery" },
-    { value: "WEATHER", name: "Weather Now" },
+    { value: "WEATHER", name: "Weather" },
   ];
 
   let availableStatsBottomMiddleOnly = [
@@ -218,9 +218,8 @@ function mySettings(props) {
     { value: "activeMinutes", name: "Active Zone Minutes" },
     { value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" },
     { value: "BATTERY", name: "Battery" },
-    { value: "WEATHER", name: "Weather Now" },
+    { value: "WEATHER", name: "Weather" },
     { value: "WEATHER-LOCATION", name: "Weather Location" },
-    { value: "WEATHER-AGE", name: "Weather Age" },
   ];
 
   let progressBarsFormat = [
@@ -315,7 +314,7 @@ function mySettings(props) {
         </Section>
       )}
 
-      {(hasActivity(props, "WEATHER") || hasActivity(props, "WEATHER-LOCATION") || hasActivity(props, "WEATHER-AGE")) && (
+      {(hasActivity(props, "WEATHER") || hasActivity(props, "WEATHER-LOCATION")) && (
         <Section title="Weather">
           <Select label="Refresh Interval" settingsKey="weatherRefreshInterval" options={weatherRefresh} />
           {hasActivity(props, "WEATHER") && <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={temperatureUnits} />}
@@ -434,11 +433,6 @@ function mySettings(props) {
         </Section>
       )}
 
-      {hasActivity(props, "WEATHER-AGE") && (
-        <Section title="Weather Date Colour">
-          <ColorSelect settingsKey="weatherAgeColour" colors={colourSet} />
-        </Section>
-      )}
       {hasPhoneStatus(props) && (
         <Section title="Phone Connected Colour">
           <ColorSelect settingsKey="phoneStatusConnected" colors={colourSet} />

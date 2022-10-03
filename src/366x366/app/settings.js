@@ -358,12 +358,6 @@ export function applySettings() {
     weather.weatherLocationTextEl.style.fill = "white";
   }
 
-  if (settings.hasOwnProperty("weatherAgeColour") && settings["weatherAgeColour"]) {
-    weather.weatherAgeTextEl.style.fill = settings["weatherAgeColour"];
-  } else {
-    weather.weatherAgeTextEl.style.fill = "white";
-  }
-
   if (settings.hasOwnProperty("weatherRefreshInterval") && settings["weatherRefreshInterval"]) {
     weather.setRefreshInterval(settings["weatherRefreshInterval"]);
   } else {
@@ -494,11 +488,6 @@ export function applySettings() {
       weather.setWeatherLocationPosition("NONE");
     }
 
-    if (weather.weatherAgePosition == position && stat != "WEATHER-AGE") {
-      setStatsLocation(weather.weatherAgeEl, "NONE");
-      weather.setWeatherAgePosition("NONE");
-    }
-
     if (battery.batteryStatposition == position && stat != "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
@@ -552,9 +541,6 @@ export function applySettings() {
     } else if (stat == "WEATHER-LOCATION") {
       weather.setWeatherLocationPosition(position);
       setStatsLocation(weather.weatherLocationEl, position, true);
-    } else if (stat == "WEATHER-AGE") {
-      weather.setWeatherAgePosition(position);
-      setStatsLocation(weather.weatherAgeEl, position, true);
     } else if (stat == "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");

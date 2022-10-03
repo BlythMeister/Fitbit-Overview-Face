@@ -64,10 +64,6 @@
     <text id="weather-location-text" class="textOnly-bottomMiddle" fill="white">----</text>
   </svg>
 
-  <svg id="weather-age">
-    <text id="weather-age-text" class="textOnly-bottomMiddle" fill="white">----</text>
-  </svg>
-
   <svg id="steps-noProgress">
     <text id="steps-noProgress-count" class="count-noProgress" fill="white" />
     <image id="steps-noProgress-icon" class="icon-noProgress" href="steps_36px.png" fill="white" />

@@ -4,14 +4,11 @@ import { msgq } from "./msgq.js";
 
 export let weatherLocationEl = document.getElementById("weather-location");
 export let weatherLocationTextEl = document.getElementById("weather-location-text");
-export let weatherAgeEl = document.getElementById("weather-age");
-export let weatherAgeTextEl = document.getElementById("weather-age-text");
 export let weatherEl = document.getElementById("weather");
 export let weatherCountEl = document.getElementById("weather-count");
 export let weatherIconEl = document.getElementById("weather-icon");
 export let weatherPosition = "NONE";
 export let weatherLocationPosition = "NONE";
-export let weatherAgePosition = "NONE";
 export let temperatureUnit = "C";
 export let weatherInterval = 60000;
 export let weatherLastUpdate = null;
@@ -29,14 +26,6 @@ export function setWeatherPosition(pos) {
 export function setWeatherLocationPosition(pos) {
   weatherLocationPosition = pos;
   if (weatherLocationPosition == "NONE") {
-    weatherLastUpdate = null;
-  }
-  fetchWeather();
-}
-
-export function setWeatherAgePosition(pos) {
-  weatherAgePosition = pos;
-  if (weatherAgePosition == "NONE") {
     weatherLastUpdate = null;
   }
   fetchWeather();
@@ -102,7 +91,7 @@ export function processWeatherData(data) {
     weatherLastUpdate = null;
   } else {
     currentWeatherData = data;
-    weatherLastUpdate = new Date(data.epochTime * 1000);
+    weatherLastUpdate = Date.now();
   }
   DrawWeather();
 }
@@ -112,30 +101,10 @@ export function DrawWeather() {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
     weatherLocationTextEl.text = "----";
-    weatherAgeTextEl.text = "----";
   } else {
     var age = new Date() - new Date(currentWeatherData.epochTime * 1000);
     weatherCountEl.text = `${currentWeatherData.temperature}°${currentWeatherData.unit.charAt(0)}`;
     weatherIconEl.href = currentWeatherData.image;
     weatherLocationTextEl.text = currentWeatherData.location;
-    weatherAgeTextEl.text = msToTime(age);
   }
-}
-
-function msToTime(s) {
-  var ms = s % 1000;
-  s = (s - ms) / 1000;
-  var secs = s % 60;
-  s = (s - secs) / 60;
-  var mins = s % 60;
-  var hrs = (s - mins) / 60;
-
-  return `${zeroPad(hrs)}:${zeroPad(mins)}:${zeroPad(secs)}`;
-}
-
-function zeroPad(i) {
-  if (i < 10) {
-    i = "0" + i;
-  }
-  return i;
 }
