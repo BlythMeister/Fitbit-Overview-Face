@@ -102,7 +102,6 @@ export function DrawWeather() {
     weatherIconEl.href = "weather_36px.png";
     weatherLocationTextEl.text = "----";
   } else {
-    var age = new Date() - new Date(currentWeatherData.epochTime * 1000);
     weatherCountEl.text = `${currentWeatherData.temperature}°${currentWeatherData.unit.charAt(0)}`;
     weatherIconEl.href = currentWeatherData.image;
     weatherLocationTextEl.text = currentWeatherData.location;
