@@ -10,11 +10,16 @@ let waitingForReceipt = false;
 let lastSend = null;
 let retryTimeout = null;
 let aliveType = "msgq-alive-companion";
+let socketClosedSince = null;
+
+if (peerSocket.readyState != peerSocket.OPEN) {
+  socketClosedSince = Date.now();
+}
 
 enqueue(aliveType, {}, 30000);
 setInterval(function () {
   enqueue(aliveType, {}, 30000);
-}, 150000);
+}, 120000);
 
 //====================================================================================================
 // Helpers
@@ -65,12 +70,12 @@ function dequeue(id, messageKey) {
         break;
       }
     }
-    if (debugMessages) {
-      if (dequeueResult) {
+    if (dequeueResult) {
+      if (debugMessages) {
         console.log(`Dequeued message ${id} - QueueSize: ${queue.length}`);
-      } else {
-        console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
       }
+    } else {
+      console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
     }
   } else if (messageKey) {
     for (let i in queue) {
@@ -105,17 +110,21 @@ function process() {
   }
 
   if (peerSocket.readyState != peerSocket.OPEN) {
-    if (debugMessages) {
-      console.log(`Socket not open, call process again in 1 seconds`);
+    if (socketClosedSince != null) {
+      var socketClosedDuration = Date.now() - socketClosedSince;
+      if (socketClosedDuration > 300000) {
+        console.log(`Socket not open for over 5 minutes, killing app`);
+      }
     }
+
+    console.log(`Socket not open, call process again in 1 seconds`);
     retryTimeout = setTimeout(process, 1000);
+    return;
   }
 
   if (waitingForReceipt == true) {
-    if (lastSend == null || Date.now() - lastSend >= 15000) {
-      if (debugMessages) {
-        console.log("Waiting for receipt for over 15 seconds, giving up!");
-      }
+    if (lastSend == null || Date.now() - lastSend >= 10000) {
+      console.log("Waiting for receipt for over 10 seconds, giving up!");
       waitingForReceipt = false;
     } else {
       return;
@@ -124,9 +133,7 @@ function process() {
 
   const queueItem = queue[0];
   if (queueItem.timeout < Date.now()) {
-    if (debugMessages) {
-      console.log(`Message timeout: ${queueItem.id}`);
-    }
+    console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
     waitingForReceipt = false;
     process();
@@ -141,9 +148,7 @@ function process() {
     } catch (e) {
       waitingForReceipt = false;
       console.warn(e.message);
-      if (debugMessages) {
-        console.log(`Socket send error, call process again in 2 seconds`);
-      }
+      console.log(`Socket send error, call process again in 2 seconds`);
       retryTimeout = setTimeout(process, 2000);
     }
   }
@@ -156,18 +161,21 @@ function process() {
 peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
   waitingForReceipt = false;
+  socketClosedSince = null;
   process();
 });
 
 peerSocket.addEventListener("closed", (event) => {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForReceipt = false;
+  socketClosedSince = Date.now();
   process();
 });
 
 peerSocket.addEventListener("error", (event) => {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForReceipt = false;
+  socketClosedSince = Date.now();
   process();
 });
 
