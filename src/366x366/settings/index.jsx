@@ -203,7 +203,7 @@ function mySettings(props) {
     { value: "activeMinutes", name: "Active Zone Minutes" },
     { value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" },
     { value: "BATTERY", name: "Battery" },
-    { value: "WEATHER", name: "Weather" },
+    { value: "WEATHER", name: "Weather Now" },
   ];
 
   let availableStatsBottomMiddleOnly = [
@@ -218,8 +218,9 @@ function mySettings(props) {
     { value: "activeMinutes", name: "Active Zone Minutes" },
     { value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" },
     { value: "BATTERY", name: "Battery" },
-    { value: "WEATHER", name: "Weather" },
+    { value: "WEATHER", name: "Weather Now" },
     { value: "WEATHER-LOCATION", name: "Weather Location" },
+    { value: "WEATHER-AGE", name: "Weather Age" },
   ];
 
   let progressBarsFormat = [
@@ -264,10 +265,10 @@ function mySettings(props) {
     <Page>
       <Section title="Clock">
         <Toggle settingsKey="showTime" label="Show Time" />
-        {hasTime(props) && <Toggle settingsKey="isAmPm" label="AM/PM indication on 12-hour clock" />}
-        {hasTime(props) && <Toggle settingsKey="showSeconds" label="Show seconds value" />}
-        {hasTime(props) && <Toggle settingsKey="showLeadingZero" label="Show leading zero on hours" />}
-        {hasTime(props) && <Toggle settingsKey="flashDots" label="Flash the : in time" />}
+        {hasTime(props) && <Toggle settingsKey="isAmPm" label="AM/PM Indication On 12hr Clock" />}
+        {hasTime(props) && <Toggle settingsKey="showSeconds" label="Show Seconds Balue" />}
+        {hasTime(props) && <Toggle settingsKey="showLeadingZero" label="Show Leading Zero On Hours" />}
+        {hasTime(props) && <Toggle settingsKey="flashDots" label="Flash : In Time" />}
         {hasTime(props) && <Select label="Time Format" settingsKey="timeFormat" options={timeFormats} />}
       </Section>
 
@@ -278,14 +279,14 @@ function mySettings(props) {
       </Section>
 
       <Section title="Battery">
-        <Toggle settingsKey="showBatteryPercent" label="Show battery percentage" />
-        <Toggle settingsKey="showBatteryBar" label="Show battery bar" />
+        <Toggle settingsKey="showBatteryPercent" label="Show Battery Percentage" />
+        <Toggle settingsKey="showBatteryBar" label="Show Battery Bar" />
       </Section>
 
       <Section title="Heart Rate">
-        <Toggle settingsKey="showHeartRate" label="Show Heart rate" />
-        {hasHeartRate(props) && <Toggle settingsKey="isHeartbeatAnimation" label="Heartbeat animation" />}
-        {hasHeartRate(props) && <Toggle settingsKey="heartRateZoneVis" label="Show heart rate zone" />}
+        <Toggle settingsKey="showHeartRate" label="Show Heart Rate" />
+        {hasHeartRate(props) && <Toggle settingsKey="isHeartbeatAnimation" label="Heartbeat Animation" />}
+        {hasHeartRate(props) && <Toggle settingsKey="heartRateZoneVis" label="Show Heart Rate Zone" />}
       </Section>
 
       <Section title="Connection">
@@ -314,7 +315,7 @@ function mySettings(props) {
         </Section>
       )}
 
-      {(hasActivity(props, "WEATHER") || hasActivity(props, "WEATHER-LOCATION")) && (
+      {(hasActivity(props, "WEATHER") || hasActivity(props, "WEATHER-LOCATION") || hasActivity(props, "WEATHER-AGE")) && (
         <Section title="Weather">
           <Select label="Refresh Interval" settingsKey="weatherRefreshInterval" options={weatherRefresh} />
           {hasActivity(props, "WEATHER") && <Select label="Temperature Unit" settingsKey="weatherTemperatureUnit" options={temperatureUnits} />}
@@ -327,174 +328,179 @@ function mySettings(props) {
         <Toggle settingsKey="torchOverlay" label="Set torch when always on" />
       </Section>
 
-      <Section title="Background colour">
+      <Section title="Background Colour">
         <ColorSelect settingsKey="backgroundColour" colors={colourSet} />
       </Section>
 
       {hasTime(props) && (
-        <Section title="Time colour">
+        <Section title="Time Colour">
           <ColorSelect settingsKey="timeColour" colors={colourSet} />
         </Section>
       )}
 
       {hasDate(props) && (
-        <Section title="Date colour">
+        <Section title="Date Colour">
           <ColorSelect settingsKey="dateColour" colors={colourSet} />
         </Section>
       )}
 
       {hasHeartRate(props) && (
-        <Section title="Heart colour">
+        <Section title="Heart Colour">
           <ColorSelect settingsKey="heartColour" colors={colourSet} />
         </Section>
       )}
 
       {hasHeartRate(props) && (
-        <Section title="Heart rate colour">
+        <Section title="Heart Rate Colour">
           <ColorSelect settingsKey="heartRateColour" colors={colourSet} />
         </Section>
       )}
 
       {hasProgressStat(props) && (
-        <Section title="Progress background colour">
+        <Section title="Progress Background Colour">
           <ColorSelect settingsKey="progressBackgroundColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "steps") && (
-        <Section title="Steps colour">
+        <Section title="Steps Colour">
           <ColorSelect settingsKey="stepsColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "distance") && (
-        <Section title="Distance colour">
+        <Section title="Distance Colour">
           <ColorSelect settingsKey="distanceColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "elevationGain") && (
-        <Section title="Floors colour">
+        <Section title="Floors Colour">
           <ColorSelect settingsKey="elevationGainColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "calories") && (
-        <Section title="Calories colour">
+        <Section title="Calories Colour">
           <ColorSelect settingsKey="caloriesColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "activeMinutes") && (
-        <Section title="Active Zone Minutes colour">
+        <Section title="Active Zone Minutes Colour">
           <ColorSelect settingsKey="activeMinutesColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "activeMinutesWeek") && (
-        <Section title="Weekly Active Zone Minutes colour">
+        <Section title="Weekly Active Zone Minutes Colour">
           <ColorSelect settingsKey="activeMinutesWeekColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "BMIBMR") && (
-        <Section title="BMI/BMR colour">
+        <Section title="BMI/BMR Colour">
           <ColorSelect settingsKey="bmColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "BMI") && (
-        <Section title="BMI colour">
+        <Section title="BMI Colour">
           <ColorSelect settingsKey="bmiColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "BMR") && (
-        <Section title="BMR colour">
+        <Section title="BMR Colour">
           <ColorSelect settingsKey="bmrColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "BATTERY") && (
-        <Section title="Battery Stat colour">
+        <Section title="Battery Stat Colour">
           <ColorSelect settingsKey="batteryStatColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "WEATHER") && (
-        <Section title="Weather colour">
+        <Section title="Weather Colour">
           <ColorSelect settingsKey="weatherColour" colors={colourSet} />
         </Section>
       )}
 
       {hasActivity(props, "WEATHER-LOCATION") && (
-        <Section title="Weather Location colour">
+        <Section title="Weather Location Colour">
           <ColorSelect settingsKey="weatherLocationColour" colors={colourSet} />
         </Section>
       )}
 
+      {hasActivity(props, "WEATHER-AGE") && (
+        <Section title="Weather Date Colour">
+          <ColorSelect settingsKey="weatherAgeColour" colors={colourSet} />
+        </Section>
+      )}
       {hasPhoneStatus(props) && (
-        <Section title="Phone Connected colour">
+        <Section title="Phone Connected Colour">
           <ColorSelect settingsKey="phoneStatusConnected" colors={colourSet} />
         </Section>
       )}
 
       {hasPhoneStatus(props) && (
-        <Section title="Phone Disconnected colour">
+        <Section title="Phone Disconnected Colour">
           <ColorSelect settingsKey="phoneStatusDisconnected" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryIcon(props) && (
-        <Section title="Battery Icon 0% - 25% colour">
+        <Section title="Battery Icon 0% - 25% Colour">
           <ColorSelect settingsKey="batteryIcon0Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryIcon(props) && (
-        <Section title="Battery Icon 25% - 50% colour">
+        <Section title="Battery Icon 25% - 50% Colour">
           <ColorSelect settingsKey="batteryIcon25Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryIcon(props) && (
-        <Section title="Battery Icon 50% - 75% colour">
+        <Section title="Battery Icon 50% - 75% Colour">
           <ColorSelect settingsKey="batteryIcon50Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryIcon(props) && (
-        <Section title="Battery Icon 75% - 100% colour">
+        <Section title="Battery Icon 75% - 100% Colour">
           <ColorSelect settingsKey="batteryIcon75Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryBar(props) && (
-        <Section title="Battery bar background colour">
+        <Section title="Battery bar background Colour">
           <ColorSelect settingsKey="batteryBackgroundColour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryBar(props) && (
-        <Section title="Battery Bar 0% - 25% colour">
+        <Section title="Battery Bar 0% - 25% Colour">
           <ColorSelect settingsKey="battery0Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryBar(props) && (
-        <Section title="Battery Bar 25% - 50% colour">
+        <Section title="Battery Bar 25% - 50% Colour">
           <ColorSelect settingsKey="battery25Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryBar(props) && (
-        <Section title="Battery Bar 50% - 75% colour">
+        <Section title="Battery Bar 50% - 75% Colour">
           <ColorSelect settingsKey="battery50Colour" colors={colourSet} />
         </Section>
       )}
 
       {hasBatteryBar(props) && (
-        <Section title="Battery Bar 75% - 100% colour">
+        <Section title="Battery Bar 75% - 100% Colour">
           <ColorSelect settingsKey="battery75Colour" colors={colourSet} />
         </Section>
       )}

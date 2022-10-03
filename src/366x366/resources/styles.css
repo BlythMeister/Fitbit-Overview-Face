@@ -329,6 +329,10 @@
   display: "none";
 }
 
+#weather-age {
+  display: "none";
+}
+
 #bmr-zone {
   text-anchor: middle;
   font-size: 16;
@@ -349,14 +353,7 @@
   y: 25;
 }
 
-.icon-noProgress {
-  width: 25;
-  height: 25;
-  x: 0;
-  y: 7;
-}
-
-.bottomMiddle-textOnly {
+.textOnly-bottomMiddle {
   font-size: 26;
   x: 0;
   y: 28;
@@ -365,11 +362,33 @@
   font-family: System-Bold;
 }
 
+.icon-bottomMiddle {
+  width: 36;
+  height: 36;
+  x: 0-80;
+  y: 0;
+}
+
+.count-bottomMiddle {
+  font-size: 26;
+  x: -40;
+  y: 26;
+  text-length: 15;
+  font-family: System-Bold;
+}
+
+.icon-noProgress {
+  width: 25;
+  height: 25;
+  x: 0;
+  y: 7;
+}
+
 .count-noProgress {
   font-size: 26;
   x: 26;
   y: 28;
-  text-length: 10;
+  text-length: 15;
   font-family: System-Bold;
 }
 
@@ -384,7 +403,7 @@
   font-size: 26;
   x: 30;
   y: 26;
-  text-length: 10;
+  text-length: 15;
   font-family: System-Bold;
 }
 
@@ -399,7 +418,7 @@
   font-size: 26;
   x: 40;
   y: 26;
-  text-length: 10;
+  text-length: 15;
   font-family: System-Bold;
 }
 

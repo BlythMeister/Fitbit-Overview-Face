@@ -104,8 +104,8 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("StatsTL", { values: [{ value: "steps", name: "Steps" }], selected: [4] });
   setDefaultSettingOrSendExisting("StatsBL", { values: [{ value: "distance", name: "Distance" }], selected: [5] });
   setDefaultSettingOrSendExisting("StatsTM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
-  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
-  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "WEATHER-LOCATION", name: "Weather Location" }], selected: [12] });
+  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "WEATHER", name: "Weather Now" }], selected: [11] });
+  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "WEATHER-AGE", name: "Weather Age" }], selected: [13] });
   setDefaultSettingOrSendExisting("StatsTR", { values: [{ value: "elevationGain", name: "Floors" }], selected: [6] });
   setDefaultSettingOrSendExisting("StatsBR", { values: [{ value: "calories", name: "Calories" }], selected: [7] });
   setDefaultSettingOrSendExisting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
@@ -142,8 +142,9 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("battery75Colour", "lime");
   setDefaultSettingOrSendExisting("batteryBackgroundColour", "dimgray");
   setDefaultSettingOrSendExisting("backgroundColour", "black");
-  setDefaultSettingOrSendExisting("weatherLocationColour", "tan");
   setDefaultSettingOrSendExisting("weatherColour", "tan");
+  setDefaultSettingOrSendExisting("weatherLocationColour", "tan");
+  setDefaultSettingOrSendExisting("weatherAgeColour", "tan");
   setDefaultSettingOrSendExisting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [2] });
   setDefaultSettingOrSendExisting("weatherTemperatureUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
 }
@@ -188,14 +189,17 @@ function sendWeather(unit) {
   weather
     .getWeatherData({ temperatureUnit: unitKey })
     .then((data) => {
+      //console.log(`RawWeather:${JSON.stringify(data)}`);
       if (data.locations.length > 0) {
         var sendData = {
-          temperature: Math.floor(data.locations[0].currentWeather.temperature),
           unit: data.temperatureUnit,
+          temperature: Math.floor(data.locations[0].currentWeather.temperature),
           condition: data.locations[0].currentWeather.weatherCondition,
-          location: data.locations[0].name,
           image: weatherConditions[data.locations[0].currentWeather.weatherCondition],
+          location: data.locations[0].name,
+          epochTime: data.locations[0].currentWeather.epochTime,
         };
+        //console.log(`Weather:${JSON.stringify(sendData)}`);
         msgq.send("weather", sendData, 30000);
       }
     })
