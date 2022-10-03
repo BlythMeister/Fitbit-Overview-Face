@@ -110,20 +110,6 @@ function process() {
     return;
   }
 
-  if (peerSocket.readyState != peerSocket.OPEN) {
-    if (socketClosedSince != null) {
-      var socketClosedDuration = Date.now() - socketClosedSince;
-      if (socketClosedDuration > 300000) {
-        console.log(`Socket not open for over 5 minutes, killing app`);
-        appbit.exit();
-      }
-    }
-
-    console.log(`Socket not open, call process again in 1 seconds`);
-    retryTimeout = setTimeout(process, 1000);
-    return;
-  }
-
   if (waitingForReceipt == true) {
     if (lastSend == null || Date.now() - lastSend >= 10000) {
       console.log("Waiting for receipt for over 10 seconds, giving up!");
@@ -131,6 +117,22 @@ function process() {
     } else {
       return;
     }
+  }
+
+  if (peerSocket.readyState != peerSocket.OPEN) {
+    if (socketClosedSince != null) {
+      var socketClosedDuration = Date.now() - socketClosedSince;
+      if (socketClosedDuration > 180000) {
+        console.log(`Socket not open for over 3 minutes, killing app`);
+        appbit.exit();
+      }
+    } else {
+      socketClosedSince = Date.now();
+    }
+
+    console.log(`Socket not open, call process again in 1 seconds`);
+    retryTimeout = setTimeout(process, 1000);
+    return;
   }
 
   const queueItem = queue[0];
