@@ -60,8 +60,32 @@
     <image id="weather-icon" class="icon-noProgressLargeIcon" href="weather_36px.png" fill="white" />
   </svg>
 
+  <svg id="weather-thisHour">
+    <text id="weather-thisHour-count" class="count-noProgressLargeIcon" fill="white">----</text>
+    <image id="weather-thisHour-icon" class="icon-noProgressLargeIcon" href="weather_36px.png" fill="white" />
+  </svg>
+
+  <svg id="weather-nextHour">
+    <text id="weather-nextHour-count" class="count-noProgressLargeIcon" fill="white">----</text>
+    <image id="weather-nextHour-icon" class="icon-noProgressLargeIcon" href="weather_36px.png" fill="white" />
+  </svg>
+
+  <svg id="weather-today">
+    <text id="weather-today-count" class="count-bottomMiddle" fill="white">----</text>
+    <image id="weather-today-icon" class="icon-bottomMiddle" href="weather_36px.png" fill="white" />
+  </svg>
+
   <svg id="weather-location">
-    <text id="weather-location-text" class="bottomMiddle-textOnly" fill="white">----</text>
+    <text id="weather-location-text" class="textOnly-bottomMiddle" fill="white">----</text>
+  </svg>
+
+  <svg id="weather-age">
+    <text id="weather-age-text" class="textOnly-bottomMiddle" fill="white">----</text>
+  </svg>
+
+  <svg id="weather-rain">
+    <text id="weather-rain-count" class="count-noProgressLargeIcon" fill="white">----</text>
+    <image id="weather-rain-icon" class="icon-noProgressLargeIcon" href="weather_Rain_36px.png" fill="white" />
   </svg>
 
   <svg id="steps-noProgress">

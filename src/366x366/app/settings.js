@@ -343,6 +343,7 @@ export function applySettings() {
     bm.bmrCountEl.style.fill = "white";
     bm.bmrIconEl.style.fill = "white";
   }
+
   if (settings.hasOwnProperty("weatherColour") && settings["weatherColour"]) {
     weather.weatherCountEl.style.fill = settings["weatherColour"];
     weather.weatherIconEl.style.fill = settings["weatherColour"];
@@ -351,10 +352,48 @@ export function applySettings() {
     weather.weatherIconEl.style.fill = "white";
   }
 
+  if (settings.hasOwnProperty("weatherThisHourColour") && settings["weatherThisHourColour"]) {
+    weather.weatherThisHourCountEl.style.fill = settings["weatherThisHourColour"];
+    weather.weatherThisHourIconEl.style.fill = settings["weatherThisHourColour"];
+  } else {
+    weather.weatherThisHourCountEl.style.fill = "white";
+    weather.weatherThisHourIconEl.style.fill = "white";
+  }
+
+  if (settings.hasOwnProperty("weatherNextHourColour") && settings["weatherNextHourColour"]) {
+    weather.weatherNextHourCountEl.style.fill = settings["weatherNextHourColour"];
+    weather.weatherNextHourIconEl.style.fill = settings["weatherNextHourColour"];
+  } else {
+    weather.weatherNextHourCountEl.style.fill = "white";
+    weather.weatherNextHourIconEl.style.fill = "white";
+  }
+
+  if (settings.hasOwnProperty("weatherTodayColour") && settings["weatherTodayColour"]) {
+    weather.weatherTodayCountEl.style.fill = settings["weatherTodayColour"];
+    weather.weatherTodayIconEl.style.fill = settings["weatherTodayColour"];
+  } else {
+    weather.weatherTodayCountEl.style.fill = "white";
+    weather.weatherTodayIconEl.style.fill = "white";
+  }
+
+  if (settings.hasOwnProperty("weatherRainColour") && settings["weatherRainColour"]) {
+    weather.weatherRainCountEl.style.fill = settings["weatherRainColour"];
+    weather.weatherRainIconEl.style.fill = settings["weatherRainColour"];
+  } else {
+    weather.weatherRainCountEl.style.fill = "white";
+    weather.weatherRainIconEl.style.fill = "white";
+  }
+
   if (settings.hasOwnProperty("weatherLocationColour") && settings["weatherLocationColour"]) {
     weather.weatherLocationTextEl.style.fill = settings["weatherLocationColour"];
   } else {
     weather.weatherLocationTextEl.style.fill = "white";
+  }
+
+  if (settings.hasOwnProperty("weatherAgeColour") && settings["weatherAgeColour"]) {
+    weather.weatherAgeTextEl.style.fill = settings["weatherAgeColour"];
+  } else {
+    weather.weatherAgeTextEl.style.fill = "white";
   }
 
   if (settings.hasOwnProperty("weatherRefreshInterval") && settings["weatherRefreshInterval"]) {
@@ -482,9 +521,34 @@ export function applySettings() {
       weather.setWeatherPosition("NONE");
     }
 
+    if (weather.weatherThisHourPosition == position && stat != "WEATHER-THISHOUR") {
+      setStatsLocation(weather.weatherThisHourEl, "NONE");
+      weather.setWeatherThisHourPosition("NONE");
+    }
+
+    if (weather.weatherNextHourPosition == position && stat != "WEATHER-NEXTHOUR") {
+      setStatsLocation(weather.weatherNextHourEl, "NONE");
+      weather.setWeatherNextHourPosition("NONE");
+    }
+
+    if (weather.weatherTodayPosition == position && stat != "WEATHER-TODAY") {
+      setStatsLocation(weather.weatherTodayEl, "NONE");
+      weather.setWeatherTodayPosition("NONE");
+    }
+
+    if (weather.weatherRainPosition == position && stat != "WEATHER-RAIN") {
+      setStatsLocation(weather.weatherRainEl, "NONE");
+      weather.setWeatherRainPosition("NONE");
+    }
+
     if (weather.weatherLocationPosition == position && stat != "WEATHER-LOCATION") {
       setStatsLocation(weather.weatherLocationEl, "NONE");
       weather.setWeatherLocationPosition("NONE");
+    }
+
+    if (weather.weatherAgePosition == position && stat != "WEATHER-AGE") {
+      setStatsLocation(weather.weatherAgeEl, "NONE");
+      weather.setWeatherAgePosition("NONE");
     }
 
     if (battery.batteryStatposition == position && stat != "BATTERY") {
@@ -537,9 +601,24 @@ export function applySettings() {
     } else if (stat == "WEATHER") {
       weather.setWeatherPosition(position);
       setStatsLocation(weather.weatherEl, position);
+    } else if (stat == "WEATHER-THISHOUR") {
+      weather.setWeatherThisHourPosition(position);
+      setStatsLocation(weather.weatherThisHourEl, position);
+    } else if (stat == "WEATHER-NEXTHOUR") {
+      weather.setWeatherNextHourPosition(position);
+      setStatsLocation(weather.weatherNextHourEl, position);
+    } else if (stat == "WEATHER-TODAY") {
+      weather.setWeatherTodayPosition(position);
+      setStatsLocation(weather.weatherTodayEl, position, true);
+    } else if (stat == "WEATHER-RAIN") {
+      weather.setWeatherRainPosition(position);
+      setStatsLocation(weather.weatherRainEl, position);
     } else if (stat == "WEATHER-LOCATION") {
       weather.setWeatherLocationPosition(position);
       setStatsLocation(weather.weatherLocationEl, position, true);
+    } else if (stat == "WEATHER-AGE") {
+      weather.setWeatherAgePosition(position);
+      setStatsLocation(weather.weatherAgeEl, position, true);
     } else if (stat == "BATTERY") {
       setStatsLocation(battery.batteryStatContainerNoProgress, "NONE");
       setStatsLocation(battery.batteryStatContainerStraight, "NONE");
