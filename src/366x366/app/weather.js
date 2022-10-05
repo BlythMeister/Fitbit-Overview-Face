@@ -68,15 +68,7 @@ export function fetchWeather() {
           sendUnit = units.temperature ? units.temperature : "C";
         }
 
-        msgq.send(
-          "weather",
-          {
-            unit: sendUnit,
-          },
-          {
-            timeout: 30000,
-          }
-        );
+        msgq.send("weather", { unit: sendUnit });
         weatherLastRequest = Date.now();
       } catch (e) {
         console.error(e.message);

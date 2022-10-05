@@ -5,11 +5,11 @@ import { peerSocket } from "messaging";
 // Initialize
 //====================================================================================================
 
-let debugMessages = false;
+let debugMessages = true;
 let queue = [];
 let waitingForReceipt = false;
 let lastSend = null;
-let retryTimeout = null;
+let delayedProcessCallTimeout = null;
 let aliveType = "msgq-alive-app";
 let socketClosedSince = null;
 
@@ -17,9 +17,9 @@ if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedSince = Date.now();
 }
 
-enqueue(aliveType, {}, 30000);
+enqueue(aliveType, {});
 setInterval(function () {
-  enqueue(aliveType, {}, 30000);
+  enqueue(aliveType, {});
 }, 120000);
 
 //====================================================================================================
@@ -101,9 +101,9 @@ function dequeue(id, messageKey) {
 //====================================================================================================
 
 function process() {
-  if (retryTimeout != null) {
-    clearTimeout(retryTimeout);
-    retryTimeout = null;
+  if (delayedProcessCallTimeout != null) {
+    clearTimeout(delayedProcessCallTimeout);
+    delayedProcessCallTimeout = null;
   }
 
   if (queue.length === 0) {
@@ -122,16 +122,16 @@ function process() {
   if (peerSocket.readyState != peerSocket.OPEN) {
     if (socketClosedSince != null) {
       var socketClosedDuration = Date.now() - socketClosedSince;
-      if (socketClosedDuration > 180000) {
-        console.log(`Socket not open for over 3 minutes, killing app`);
+      if (socketClosedDuration > 600000) {
+        console.log(`Socket not open for over 10 minutes, killing app`);
         appbit.exit();
       }
     } else {
       socketClosedSince = Date.now();
     }
 
-    console.log(`Socket not open, call process again in 1 seconds`);
-    retryTimeout = setTimeout(process, 1000);
+    console.log(`Socket not open, call process again in 5 seconds`);
+    delayedProcessCallTimeout = setTimeout(process, 5000);
     return;
   }
 
@@ -149,11 +149,12 @@ function process() {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
       peerSocket.send({ msgqType: "msgq_message", msgqMessage: queueItem });
+      delayedProcessCallTimeout = setTimeout(process, 15000);
     } catch (e) {
       waitingForReceipt = false;
       console.warn(e.message);
       console.log(`Socket send error, call process again in 2 seconds`);
-      retryTimeout = setTimeout(process, 2000);
+      delayedProcessCallTimeout = setTimeout(process, 2000);
     }
   }
 }

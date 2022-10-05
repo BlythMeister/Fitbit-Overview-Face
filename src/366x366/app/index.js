@@ -18,6 +18,7 @@ console.log(`Application ID: ${appbit.applicationId}`);
 console.log(`Build ID: ${appbit.buildId}`);
 
 settings.applySettings();
+msgq.send("app-launch", {});
 msgq.send("send-settings", {});
 
 msgq.onmessage = (messageKey, message) => {

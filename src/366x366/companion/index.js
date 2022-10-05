@@ -53,9 +53,9 @@ weatherConditions[42] = "weather_CloudyWithThunderstormsNight_36px.png";
 weatherConditions[43] = "weather_CloudyWithSleetNight_36px.png";
 weatherConditions[44] = "weather_CloudyWithSnowNight_36px.png";
 
-//Wake every 15 minutes
-console.log("Set companion wake interval to 10 minutes");
-companion.wakeInterval = 600000;
+//Wake every 5 minutes
+console.log("Set companion wake interval to 5 minutes");
+companion.wakeInterval = 300000;
 
 // Monitor for significant changes in physical location
 console.log("Enable monitoring of significant location changes");
@@ -81,6 +81,7 @@ console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
+msgq.send("companion-launch", companion.launchReasons);
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
@@ -198,7 +199,7 @@ function sendWeather(unit) {
           location: data.locations[0].name,
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData, 30000);
+        msgq.send("weather", sendData);
       }
     })
     .catch((ex) => {
@@ -209,12 +210,12 @@ function sendWeather(unit) {
         condition: -1,
         image: "weather_36px.png",
       };
-      msgq.send("weather", sendData, 30000);
+      msgq.send("weather", sendData);
     });
 }
 
 function sendPong() {
-  msgq.send("pong", {}, 60000);
+  msgq.send("pong", {});
 }
 
 function locationChange(initial) {
