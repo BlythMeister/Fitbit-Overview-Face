@@ -16,7 +16,7 @@ import * as ping from "./ping.js";
 
 const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
-let backgroundRefreshInterval = setInterval(reApplyStateBackground, 120000);
+let backgroundRefreshInterval = setInterval(reApplyStateBackground, 300000); //5 minutes
 
 clock.granularity = "seconds";
 
@@ -64,15 +64,23 @@ hrm.onreading = (evt) => {
 };
 
 export function reApplyState() {
-  battery.drawBat();
-  hr.drawHrm();
-  activity.drawAllProgress();
-  bm.drawBMR();
-  bm.drawBMI();
-  reApplyStateBackground();
+  try {
+    battery.drawBat();
+    hr.drawHrm();
+    activity.drawAllProgress();
+    bm.drawBMR();
+    bm.drawBMI();
+    reApplyStateBackground();
+  } catch (e) {
+    //Do Nothing
+  }
 }
 
 export function reApplyStateBackground() {
-  weather.fetchWeather();
-  ping.sendPing();
+  try {
+    weather.fetchWeather();
+    ping.sendPing();
+  } catch (e) {
+    //Do Nothing
+  }
 }

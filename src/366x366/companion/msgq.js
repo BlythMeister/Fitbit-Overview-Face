@@ -18,8 +18,12 @@ if (peerSocket.readyState != peerSocket.OPEN) {
 
 enqueue(aliveType, {});
 setInterval(function () {
-  enqueue(aliveType, {});
-}, 120000);
+  try {
+    enqueue(aliveType, {});
+  } catch (e) {
+    //Do Nothing
+  }
+}, 180000);
 
 //====================================================================================================
 // Helpers
