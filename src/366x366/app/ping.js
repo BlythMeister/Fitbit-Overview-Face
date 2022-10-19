@@ -27,7 +27,7 @@ export function setShowPhoneStatus(visibility) {
 phoneIconEl.onclick = function (e) {
   if (phoneEl.style.display === "inline" && phoneIconEl.style.fill === disconnectedColour) {
     if (firstTouch) {
-      sendPing(true);
+      appbit.exit();
     } else {
       firstTouch = true;
       setTimeout(function () {
@@ -37,10 +37,10 @@ phoneIconEl.onclick = function (e) {
   }
 };
 
-export function sendPing(force = false) {
+export function sendPing() {
   var lastPingAge = lastPingSent == null ? 99999999 : Date.now() - lastPingSent;
   updateConnectionIndicator();
-  if (force || (phoneEl.style.display === "inline" && lastPingAge >= 60000)) {
+  if (phoneEl.style.display === "inline" && lastPingAge >= 120000) {
     try {
       msgq.send("ping", {});
       lastPingSent = Date.now();
