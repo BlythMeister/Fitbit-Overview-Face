@@ -13,10 +13,6 @@
     <text id="battery-percent" />
   </svg>
 
-  <svg id="phone">
-    <image id="phone-icon" class="icon" href="phone_36px.png" pointer-events="visible" />
-  </svg>
-
   <svg id="hr">
     <text id="hr-count" class="count sideCount" />
     <image id="hr-icon-systole" class="icon" href="heart_36px.png" />
@@ -25,6 +21,10 @@
       <text id="hr-resting" class="count sideCount" />
       <text id="hr-zone" class="count sideCount" />
     </svg>
+  </svg>
+
+  <svg id="phone">
+    <image id="phone-icon" class="icon" href="phone_36px.png" pointer-events="visible" />
   </svg>
 
   <svg id="calendar">

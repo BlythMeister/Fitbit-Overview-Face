@@ -1,4 +1,6 @@
 import * as document from "document";
+import { me as appbit } from "appbit";
+import { vibration } from "haptics";
 import { msgq } from "./msgq.js";
 
 export let phoneEl = document.getElementById("phone");
@@ -7,6 +9,7 @@ let lastPingSent = null;
 let lastPongReceived = null;
 let connectedColour = "white";
 let disconnectedColour = "white";
+let disconnected = true;
 let firstTouch = false;
 
 export function setPhoneIconConnected(colour) {
@@ -25,8 +28,10 @@ export function setShowPhoneStatus(visibility) {
 }
 
 phoneIconEl.onclick = function (e) {
-  if (phoneEl.style.display === "inline" && phoneIconEl.style.fill === disconnectedColour) {
+  if (disconnected) {
     if (firstTouch) {
+      console.log("Restarting");
+      vibration.start("nudge-max");
       appbit.exit();
     } else {
       firstTouch = true;
@@ -58,8 +63,10 @@ export function gotPong() {
 function updateConnectionIndicator() {
   var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
   if (lastPongAge >= 600000) {
+    disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
   } else {
+    disconnected = false;
     phoneIconEl.style.fill = connectedColour;
   }
 }

@@ -115,8 +115,8 @@ function process() {
   }
 
   if (waitingForReceipt == true) {
-    if (lastSend == null || Date.now() - lastSend >= 10000) {
-      console.log("Waiting for receipt for over 10 seconds, giving up!");
+    if (lastSend == null || Date.now() - lastSend >= 30000) {
+      console.log("Waiting for receipt for over 30 seconds, giving up!");
       waitingForReceipt = false;
     } else {
       return;
@@ -152,7 +152,7 @@ function process() {
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
-      peerSocket.send({ msgqType: "msgq_message", msgqMessage: queueItem });
+      peerSocket.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
       delayedProcessCallTimeout = setTimeout(process, 15000);
     } catch (e) {
       waitingForReceipt = false;
@@ -190,14 +190,18 @@ peerSocket.addEventListener("error", (event) => {
 
 peerSocket.addEventListener("message", (event) => {
   const type = event.data.msgqType;
+  const id = event.data.id;
+
+  if (debugMessages) {
+    console.log(`Got message ${id} - type ${type}`);
+  }
 
   if (type == "msgq_message") {
-    const id = event.data.msgqMessage.id;
     const messageKey = event.data.msgqMessage.messageKey;
     const message = event.data.msgqMessage.message;
 
     if (debugMessages) {
-      console.log(`Recieved message ${id} - ${messageKey} - ${JSON.stringify(message)}`);
+      console.log(`Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
     try {
       if (debugMessages) {
@@ -216,7 +220,6 @@ peerSocket.addEventListener("message", (event) => {
       }
     }
   } else if (type == "msgq_receipt") {
-    const id = event.data.id;
     if (debugMessages) {
       console.log(`Got receipt for ${id}`);
     }
