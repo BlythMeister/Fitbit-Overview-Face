@@ -62,7 +62,7 @@ export function gotPong() {
 
 function updateConnectionIndicator() {
   var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
-  if (lastPongAge >= 600000) {
+  if (lastPongAge >= 900000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
   } else {

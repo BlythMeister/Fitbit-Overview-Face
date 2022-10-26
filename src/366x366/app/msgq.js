@@ -111,6 +111,8 @@ function process() {
   }
 
   if (queue.length === 0) {
+    console.log(`Queue empty, call process again in 30 seconds`);
+    delayedProcessCallTimeout = setTimeout(process, 30000);
     return;
   }
 
@@ -119,6 +121,8 @@ function process() {
       console.log("Waiting for receipt for over 30 seconds, giving up!");
       waitingForReceipt = false;
     } else {
+      console.log(`Waiting for a receipt, call process again in 10 seconds`);
+      delayedProcessCallTimeout = setTimeout(process, 10000);
       return;
     }
   }
@@ -126,8 +130,8 @@ function process() {
   if (peerSocket.readyState != peerSocket.OPEN) {
     if (socketClosedSince != null) {
       var socketClosedDuration = Date.now() - socketClosedSince;
-      if (socketClosedDuration > 600000) {
-        console.log(`Socket not open for over 10 minutes, killing app`);
+      if (socketClosedDuration > 900000) {
+        console.log(`Socket not open for over 15 minutes, killing app`);
         appbit.exit();
       }
     } else {
