@@ -10,7 +10,7 @@ Based on the [ANDv2 clock face](https://github.com/ahsandar/ANDv2).
 ## Installation
 
 * [Fitbit listing](https://gallery.fitbit.com/details/7c4f7506-8ed8-4eb9-84e3-28b85671f26b)
-* [Pre-Release Fitbit listing](https://gallery.fitbit.com/details/6d80c169-94c5-4105-b9dc-98df99b798cd)
+* [Pre-Release Fitbit listing](https://gallery.fitbit.com/details/6d80c169-94c5-4105-b9dc-98df99b798cd?key=7bea714b-f597-4be0-8c8a-84ccf1dc7c7c)
 * Scan this QR Code for release version
 
 ![QRCode]({{ site.url }}/images/QR.png)
