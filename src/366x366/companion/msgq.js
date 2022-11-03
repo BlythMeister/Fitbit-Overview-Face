@@ -1,4 +1,4 @@
-
+//import { me as appbit } from "appbit";
 import { peerSocket } from "messaging";
 
 //====================================================================================================
@@ -10,11 +10,11 @@ let queue = [];
 let waitingForReceipt = false;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
-let aliveType = "msgq-alive-companion";
-let socketClosedSince = null;
+let aliveType = "msgq-alive-app";
+let socketClosedOrErrorSince = null;
 
 if (peerSocket.readyState != peerSocket.OPEN) {
-  socketClosedSince = Date.now();
+  socketClosedOrErrorSince = Date.now();
 }
 
 enqueue(aliveType, {});
@@ -116,6 +116,23 @@ function process() {
     return;
   }
 
+  if (peerSocket.readyState != peerSocket.OPEN || socketClosedOrErrorSince != null) {
+    if (socketClosedOrErrorSince == null) {
+      socketClosedOrErrorSince = Date.now();
+    }
+
+    var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
+    if (socketClosedDuration >= 900000) {
+      console.log("Socket not open for over 15 minutes");
+      //console.log("Force exit app");
+      //appbit.exit();
+    } else {
+      console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in 5 seconds`);
+      delayedProcessCallTimeout = setTimeout(process, 5000);
+      return;
+    }
+  }
+
   if (waitingForReceipt == true) {
     if (lastSend == null || Date.now() - lastSend >= 30000) {
       console.log("Waiting for receipt for over 30 seconds, giving up!");
@@ -125,21 +142,6 @@ function process() {
       delayedProcessCallTimeout = setTimeout(process, 10000);
       return;
     }
-  }
-
-  if (peerSocket.readyState != peerSocket.OPEN) {
-    if (socketClosedSince != null) {
-      var socketClosedDuration = Date.now() - socketClosedSince;
-      if (socketClosedDuration > 900000) {
-        console.log(`Socket not open for over 15 minutes`);
-      }
-    } else {
-      socketClosedSince = Date.now();
-    }
-
-    console.log(`Socket not open, call process again in 5 seconds`);
-    delayedProcessCallTimeout = setTimeout(process, 5000);
-    return;
   }
 
   const queueItem = queue[0];
@@ -156,10 +158,12 @@ function process() {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
       peerSocket.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
+      socketClosedOrErrorSince = null;
       delayedProcessCallTimeout = setTimeout(process, 15000);
     } catch (e) {
       waitingForReceipt = false;
       console.warn(e.message);
+      socketClosedOrErrorSince = Date.now();
       console.log(`Socket send error, call process again in 2 seconds`);
       delayedProcessCallTimeout = setTimeout(process, 2000);
     }
@@ -173,25 +177,26 @@ function process() {
 peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
   waitingForReceipt = false;
-  socketClosedSince = null;
+  socketClosedOrErrorSince = null;
   process();
 });
 
 peerSocket.addEventListener("closed", (event) => {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForReceipt = false;
-  socketClosedSince = Date.now();
+  socketClosedOrErrorSince = Date.now();
   process();
 });
 
 peerSocket.addEventListener("error", (event) => {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForReceipt = false;
-  socketClosedSince = Date.now();
+  socketClosedOrErrorSince = Date.now();
   process();
 });
 
 peerSocket.addEventListener("message", (event) => {
+  socketClosedOrErrorSince = null;
   const type = event.data.msgqType;
   const id = event.data.id;
   if (debugMessages) {
