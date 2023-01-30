@@ -265,7 +265,7 @@ function mySettings(props) {
       <Section title="Clock">
         <Toggle settingsKey="showTime" label="Show Time" />
         {hasTime(props) && <Toggle settingsKey="isAmPm" label="AM/PM Indication On 12hr Clock" />}
-        {hasTime(props) && <Toggle settingsKey="showSeconds" label="Show Seconds Balue" />}
+        {hasTime(props) && <Toggle settingsKey="showSeconds" label="Show Seconds Value" />}
         {hasTime(props) && <Toggle settingsKey="showLeadingZero" label="Show Leading Zero On Hours" />}
         {hasTime(props) && <Toggle settingsKey="flashDots" label="Flash : In Time" />}
         {hasTime(props) && <Select label="Time Format" settingsKey="timeFormat" options={timeFormats} />}

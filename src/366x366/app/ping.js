@@ -47,8 +47,8 @@ export function sendPing() {
   updateConnectionIndicator();
   if (phoneEl.style.display === "inline" && lastPingAge >= 120000) {
     try {
-      msgq.send("ping", {});
       lastPingSent = Date.now();
+      msgq.send("ping", {});
     } catch (e) {
       console.error(e.message);
     }

@@ -10,6 +10,7 @@ let queue = [];
 let waitingForReceipt = false;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
+let delayedProcessCallAt = null;
 let aliveType = "msgq-alive-app";
 let socketClosedOrErrorSince = null;
 
@@ -54,7 +55,7 @@ function enqueue(messageKey, message, timeout = 1800000) {
 
   queue.push(data);
 
-  process();
+  delayedProcess(100);
 
   if (debugMessages) {
     console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
@@ -104,15 +105,43 @@ function dequeue(id, messageKey) {
 // Process Queue
 //====================================================================================================
 
+function delayedProcess(delay) {
+  let setNewTime = false;
+  if (delayedProcessCallTimeout == null) {
+    setNewTime = true;
+  } else {
+    let msToEnd = delayedProcessCallAt - new Date().getTime();
+    if (msToEnd > delay) {
+      setNewTime = true;
+    }
+  }
+
+  if (setNewTime) {
+    if (debugMessages) {
+      console.log(`Calling process in ${delay}ms`);
+    }
+
+    if (delayedProcessCallTimeout != null) {
+      clearTimeout(delayedProcessCallTimeout);
+      delayedProcessCallTimeout = null;
+      delayedProcessCallAt = null;
+    }
+
+    delayedProcessCallTimeout = setTimeout(process, delay);
+    delayedProcessCallAt = new Date().getTime() + delay;
+  }
+}
+
 function process() {
   if (delayedProcessCallTimeout != null) {
     clearTimeout(delayedProcessCallTimeout);
     delayedProcessCallTimeout = null;
+    delayedProcessCallAt = null;
   }
 
   if (queue.length === 0) {
-    console.log(`Queue empty, call process again in 30 seconds`);
-    delayedProcessCallTimeout = setTimeout(process, 30000);
+    console.log(`Queue empty, call process again in 60 seconds`);
+    delayedProcess(60000);
     return;
   }
 
@@ -128,7 +157,7 @@ function process() {
       appbit.exit();
     } else {
       console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in 5 seconds`);
-      delayedProcessCallTimeout = setTimeout(process, 5000);
+      delayedProcess(5000);
       return;
     }
   }
@@ -139,7 +168,7 @@ function process() {
       waitingForReceipt = false;
     } else {
       console.log(`Waiting for a receipt, call process again in 10 seconds`);
-      delayedProcessCallTimeout = setTimeout(process, 10000);
+      delayedProcess(10000);
       return;
     }
   }
@@ -149,7 +178,7 @@ function process() {
     console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
     waitingForReceipt = false;
-    process();
+    delayedProcess(100);
   } else {
     try {
       waitingForReceipt = true;
@@ -159,13 +188,13 @@ function process() {
       }
       peerSocket.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
       socketClosedOrErrorSince = null;
-      delayedProcessCallTimeout = setTimeout(process, 15000);
+      delayedProcess(15000);
     } catch (e) {
       waitingForReceipt = false;
       console.warn(e.message);
       socketClosedOrErrorSince = Date.now();
       console.log(`Socket send error, call process again in 2 seconds`);
-      delayedProcessCallTimeout = setTimeout(process, 2000);
+      delayedProcess(2000);
     }
   }
 }
@@ -178,21 +207,21 @@ peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
   waitingForReceipt = false;
   socketClosedOrErrorSince = null;
-  process();
+  delayedProcess(100);
 });
 
 peerSocket.addEventListener("closed", (event) => {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForReceipt = false;
   socketClosedOrErrorSince = Date.now();
-  process();
+  delayedProcess(100);
 });
 
 peerSocket.addEventListener("error", (event) => {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForReceipt = false;
   socketClosedOrErrorSince = Date.now();
-  process();
+  delayedProcess(100);
 });
 
 peerSocket.addEventListener("message", (event) => {
@@ -232,7 +261,7 @@ peerSocket.addEventListener("message", (event) => {
     }
     dequeue(id, null);
     waitingForReceipt = false;
-    process();
+    delayedProcess(100);
   }
 });
 
