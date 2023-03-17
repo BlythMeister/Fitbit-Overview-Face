@@ -17,17 +17,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: install
+      - name: checkout
         uses: actions/checkout@v3
+      - name: setup
         uses: actions/setup-node@v3
         with:
           node-version: 14
+      - name: install
         run: npm ci
-      - name: install
-        uses: actions/checkout@v3
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
+      - name: build
         run: npx fitbit-build
       - name: Upload fba
         uses: actions/upload-artifact@v3
