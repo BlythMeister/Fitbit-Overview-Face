@@ -31,5 +31,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: fitbit-overview
-          path: |
-            build
+          path: src/366x366/build/*.fba
