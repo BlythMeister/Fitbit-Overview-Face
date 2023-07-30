@@ -248,6 +248,12 @@ export function applySettings() {
     ping.setQueueSize(false);
   }
 
+  if (settings.hasOwnProperty("showLastMsg")) {
+    ping.setShowLastMsg(!!settings["showLastMsg"]);
+  } else {
+    ping.setShowLastMsg(false);
+  }
+
   if (settings.hasOwnProperty("phoneStatusConnected") && settings["phoneStatusConnected"]) {
     ping.setPhoneIconConnected(settings["phoneStatusConnected"]);
   } else {

@@ -114,6 +114,7 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("showBatteryBar", true);
   setDefaultSettingOrSendExisting("showPhoneStatus", true);
   setDefaultSettingOrSendExisting("showMsgQSize", false);
+  setDefaultSettingOrSendExisting("showLastMsg", false);
   setDefaultSettingOrSendExisting("torchEnabled", true);
   setDefaultSettingOrSendExisting("torchAutoOff", { values: [{ value: "15", name: "15 Seconds" }], selected: [4] });
   setDefaultSettingOrSendExisting("torchOverlay", true);

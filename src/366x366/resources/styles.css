@@ -143,16 +143,26 @@
   width: 36;
   height: 36;
   x: -18;
-  y: 0;
+  y: 6;
+}
+
+#last-msg {
+  text-anchor: start;
+  font-size: 18;
+  font-family: System-Bold;
+  fill: white;
+  x: 15;
+  y: 20;
+  text-length: 10;
 }
 
 #queue-size {
   text-anchor: start;
-  font-size: 20;
+  font-size: 18;
   font-family: System-Bold;
   fill: white;
-  x:  18;
-  y: 30;
+  x: 15;
+  y: 40;
   text-length: 10;
 }
 
