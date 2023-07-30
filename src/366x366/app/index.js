@@ -26,7 +26,7 @@ msgq.onmessage = (messageKey, message) => {
   if (key === "weather") {
     weather.processWeatherData(message);
   } else if (key === "pong") {
-    ping.gotPong();
+    ping.gotPong(message);
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
   }

@@ -5,8 +5,10 @@ import { msgq } from "./msgq.js";
 
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
+export let queueSizeEl = document.getElementById("queue-size");
 let lastPingSent = null;
 let lastPongReceived = null;
+let lastPongQueueSize = 0;
 let connectedColour = "white";
 let disconnectedColour = "white";
 let disconnected = true;
@@ -25,6 +27,10 @@ export function setPhoneIconDisconnected(colour) {
 export function setShowPhoneStatus(visibility) {
   phoneEl.style.display = !visibility ? "none" : "inline";
   sendPing();
+}
+
+export function setQueueSize(visibility) {
+  queueSizeEl.style.display = !visibility ? "none" : "inline";
 }
 
 phoneIconEl.onclick = function (e) {
@@ -55,18 +61,22 @@ export function sendPing() {
   }
 }
 
-export function gotPong() {
+export function gotPong(message) {
+  lastPongQueueSize = message.size;
   lastPongReceived = Date.now();
   updateConnectionIndicator();
 }
 
 function updateConnectionIndicator() {
+  queueSizeEl.text = `${msgq.getQueueSize()}/${lastPongQueueSize}`;
   var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
   if (lastPongAge >= 900000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
+    queueSizeEl.style.fill = disconnectedColour;
   } else {
     disconnected = false;
-    phoneIconEl.style.fill = connectedColour;
+    phoneIconEl.style.fill = connectedColour;    
+    queueSizeEl.style.fill = connectedColour;
   }
 }

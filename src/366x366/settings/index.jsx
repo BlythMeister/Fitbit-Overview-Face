@@ -290,6 +290,7 @@ function mySettings(props) {
 
       <Section title="Connection">
         <Toggle settingsKey="showPhoneStatus" label="Show phone connection status" />
+        <Toggle settingsKey="showMsgQSize" label="Show MsgQ size (Debug)" />
       </Section>
 
       <Section title="Stats">

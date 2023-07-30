@@ -7,7 +7,7 @@ import { peerSocket } from "messaging";
 
 let debugMessages = true;
 let queue = [];
-let waitingForReceipt = false;
+let waitingForId = null;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
@@ -30,6 +30,9 @@ setInterval(function () {
 //====================================================================================================
 // Helpers
 //====================================================================================================
+function GetQueueSize() {
+  return queue.length;
+}
 
 function CreateUUID() {
   function s4() {
@@ -162,10 +165,11 @@ function process() {
     }
   }
 
-  if (waitingForReceipt == true) {
+  if (waitingForId != null) {
     if (lastSend == null || Date.now() - lastSend >= 30000) {
       console.log("Waiting for receipt for over 30 seconds, giving up!");
-      waitingForReceipt = false;
+      dequeue(waitingForId, null)
+      waitingForId = null;
     } else {
       console.log(`Waiting for a receipt, call process again in 10 seconds`);
       delayedProcess(10000);
@@ -174,14 +178,20 @@ function process() {
   }
 
   const queueItem = queue[0];
+  
+  if(queueItem == null) {
+    console.log(`Top queue item is null, call process again in 2 seconds`);
+      delayedProcess(2000);
+  }
+
   if (queueItem.timeout < Date.now()) {
     console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
-    waitingForReceipt = false;
+    waitingForId = null;
     delayedProcess(100);
   } else {
     try {
-      waitingForReceipt = true;
+      waitingForId = queueItem.id;
       lastSend = Date.now();
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
@@ -190,7 +200,7 @@ function process() {
       socketClosedOrErrorSince = null;
       delayedProcess(15000);
     } catch (e) {
-      waitingForReceipt = false;
+      waitingForId = null;
       console.warn(e.message);
       socketClosedOrErrorSince = Date.now();
       console.log(`Socket send error, call process again in 2 seconds`);
@@ -205,21 +215,21 @@ function process() {
 
 peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
-  waitingForReceipt = false;
+  waitingForId = null;
   socketClosedOrErrorSince = null;
   delayedProcess(100);
 });
 
 peerSocket.addEventListener("closed", (event) => {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
-  waitingForReceipt = false;
+  waitingForId = null;
   socketClosedOrErrorSince = Date.now();
   delayedProcess(100);
 });
 
 peerSocket.addEventListener("error", (event) => {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
-  waitingForReceipt = false;
+  waitingForId = null;
   socketClosedOrErrorSince = Date.now();
   delayedProcess(100);
 });
@@ -260,7 +270,7 @@ peerSocket.addEventListener("message", (event) => {
       console.log(`Got receipt for ${id}`);
     }
     dequeue(id, null);
-    waitingForReceipt = false;
+    waitingForId = null;
     delayedProcess(100);
   }
 });
@@ -274,6 +284,7 @@ const msgq = {
   onmessage: (messageKey, message) => {
     console.log(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
+  getQueueSize: GetQueueSize
 };
 
 export { msgq };

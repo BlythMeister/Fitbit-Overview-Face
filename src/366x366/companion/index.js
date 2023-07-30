@@ -113,6 +113,7 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("showBatteryPercent", true);
   setDefaultSettingOrSendExisting("showBatteryBar", true);
   setDefaultSettingOrSendExisting("showPhoneStatus", true);
+  setDefaultSettingOrSendExisting("showMsgQSize", false);
   setDefaultSettingOrSendExisting("torchEnabled", true);
   setDefaultSettingOrSendExisting("torchAutoOff", { values: [{ value: "15", name: "15 Seconds" }], selected: [4] });
   setDefaultSettingOrSendExisting("torchOverlay", true);
@@ -215,7 +216,7 @@ function sendWeather(unit) {
 }
 
 function sendPong() {
-  msgq.send("pong", {});
+  msgq.send("pong", {size:msgq.getQueueSize()-1});
 }
 
 function locationChange(initial) {

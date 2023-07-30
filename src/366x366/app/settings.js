@@ -242,6 +242,12 @@ export function applySettings() {
     ping.setShowPhoneStatus(false);
   }
 
+  if (settings.hasOwnProperty("showMsgQSize")) {
+    ping.setQueueSize(!!settings["showMsgQSize"]);
+  } else {
+    ping.setQueueSize(false);
+  }
+
   if (settings.hasOwnProperty("phoneStatusConnected") && settings["phoneStatusConnected"]) {
     ping.setPhoneIconConnected(settings["phoneStatusConnected"]);
   } else {
