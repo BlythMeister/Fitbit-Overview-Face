@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 14
       - name: install
-        run: npm ci
+        run: npm install
       - name: build
         run: npx fitbit-build
       - name: Upload fba
