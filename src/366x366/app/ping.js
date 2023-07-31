@@ -80,16 +80,16 @@ function updateConnectionIndicator() {
   
   var pingAgeDisplay = (lastPingAge/1000)/60; 
   if(pingAgeDisplay >= 100) {
-    lastMsgPingEl.text = `>> 100+`;
+    lastMsgPingEl.text = `<< 100+`;
   } else {
-    lastMsgPingEl.text = `>> ${pingAgeDisplay.toFixed(1)}`;
+    lastMsgPingEl.text = `<< ${pingAgeDisplay.toFixed(1)}`;
   }
 
   var pongAgeDisplay = (lastPongAge/1000)/60;
   if(pongAgeDisplay >= 100) {
-    lastMsgPongEl.text = `<< 100+`;
+    lastMsgPongEl.text = `>> 100+`;
   } else {
-    lastMsgPongEl.text = `<< ${pongAgeDisplay.toFixed(1)}`;
+    lastMsgPongEl.text = `>> ${pongAgeDisplay.toFixed(1)}`;
   }
 
   queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${lastPongQueueSize}`;
