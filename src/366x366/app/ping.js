@@ -75,10 +75,23 @@ export function gotPong(message) {
 }
 
 function updateConnectionIndicator() {
-  var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
   var lastPingAge = lastPingSent == null ? 99999999 : Date.now() - lastPingSent;
-  lastMsgPingEl.text = `>> ${((lastPingAge/1000)/60).toFixed(1)}`
-  lastMsgPongEl.text = `<< ${((lastPongAge/1000)/60).toFixed(1)}`
+  var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
+  
+  var pingAgeDisplay = (lastPingAge/1000)/60; 
+  if(pingAgeDisplay >= 100) {
+    lastMsgPingEl.text = `>> 100+`;
+  } else {
+    lastMsgPingEl.text = `>> ${pingAgeDisplay.toFixed(1)}`;
+  }
+
+  var pongAgeDisplay = (lastPongAge/1000)/60;
+  if(pongAgeDisplay >= 100) {
+    lastMsgPongEl.text = `<< 100+`;
+  } else {
+    lastMsgPongEl.text = `<< ${pongAgeDisplay.toFixed(1)}`;
+  }
+
   queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${lastPongQueueSize}`;
   if (lastPongAge >= 1800000) {
     disconnected = true;
