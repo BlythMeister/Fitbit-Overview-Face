@@ -1,7 +1,6 @@
 import { settingsStorage } from "settings";
 import { me as companion } from "companion";
-import { device } from "peer";
-import { weather, WeatherCondition } from "weather";
+import { weather } from "weather";
 
 import { msgq } from "./msgq.js";
 

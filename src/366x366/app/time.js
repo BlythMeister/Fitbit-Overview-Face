@@ -1,6 +1,5 @@
 import * as document from "document";
 import { preferences } from "user-settings";
-import { me as device } from "device";
 
 export let root = document.getElementById("root");
 export let timeHourEl = document.getElementById("time-hour");

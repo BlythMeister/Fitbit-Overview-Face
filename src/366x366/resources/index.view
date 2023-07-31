@@ -26,7 +26,8 @@
   <svg id="phone">
     <image id="phone-icon" class="icon" href="phone_36px.png" pointer-events="visible" />
     <text id="queue-size"/>
-    <text id="last-msg"/>
+    <text id="last-msg-ping"/>
+    <text id="last-msg-pong"/>
   </svg>
 
   <svg id="calendar">

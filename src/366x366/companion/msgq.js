@@ -5,13 +5,13 @@ import { peerSocket } from "messaging";
 // Initialize
 //====================================================================================================
 
-let debugMessages = true;
+let debugMessages = false;
 let queue = [];
 let waitingForId = null;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
-let aliveType = "msgq-alive-app";
+let aliveType = "msgq_alive_companion";
 let socketClosedOrErrorSince = null;
 
 if (peerSocket.readyState != peerSocket.OPEN) {
@@ -58,7 +58,7 @@ function enqueue(messageKey, message, timeout = 1800000) {
 
   queue.push(data);
 
-  delayedProcess(100);
+  delayedProcess(250);
 
   if (debugMessages) {
     console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
@@ -143,8 +143,8 @@ function process() {
   }
 
   if (queue.length === 0) {
-    console.log(`Queue empty, call process again in 60 seconds`);
-    delayedProcess(60000);
+    console.log(`Queue empty, call process again in 30 seconds`);
+    delayedProcess(30000);
     return;
   }
 
@@ -182,13 +182,14 @@ function process() {
   if(queueItem == null) {
     console.log(`Top queue item is null, call process again in 2 seconds`);
       delayedProcess(2000);
+      return;
   }
 
   if (queueItem.timeout < Date.now()) {
     console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
     waitingForId = null;
-    delayedProcess(100);
+    delayedProcess(250);
   } else {
     try {
       waitingForId = queueItem.id;
@@ -217,21 +218,21 @@ peerSocket.addEventListener("open", () => {
   console.log("Peer socket opened");
   waitingForId = null;
   socketClosedOrErrorSince = null;
-  delayedProcess(100);
+  delayedProcess(250);
 });
 
 peerSocket.addEventListener("closed", (event) => {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForId = null;
   socketClosedOrErrorSince = Date.now();
-  delayedProcess(100);
+  delayedProcess(250);
 });
 
 peerSocket.addEventListener("error", (event) => {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForId = null;
   socketClosedOrErrorSince = Date.now();
-  delayedProcess(100);
+  delayedProcess(250);
 });
 
 peerSocket.addEventListener("message", (event) => {
@@ -258,7 +259,7 @@ peerSocket.addEventListener("message", (event) => {
       console.error(e.message);
     }
 
-    if (messageKey.substring(10) != "msgq-alive") {
+    if (messageKey.substring(10) != "msgq_alive") {
       try {
         msgq.onmessage(messageKey, message);
       } catch (e) {
@@ -271,7 +272,7 @@ peerSocket.addEventListener("message", (event) => {
     }
     dequeue(id, null);
     waitingForId = null;
-    delayedProcess(100);
+    delayedProcess(250);
   }
 });
 

@@ -6,7 +6,8 @@ import { msgq } from "./msgq.js";
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");
 export let queueSizeEl = document.getElementById("queue-size");
-export let lastMsgEl = document.getElementById("last-msg");
+export let lastMsgPingEl = document.getElementById("last-msg-ping");
+export let lastMsgPongEl = document.getElementById("last-msg-pong");
 let lastPingSent = null;
 let lastPongReceived = null;
 let lastPongQueueSize = 0;
@@ -35,7 +36,8 @@ export function setQueueSize(visibility) {
 }
 
 export function setShowLastMsg(visibility) {
-  lastMsgEl.style.display = !visibility ? "none" : "inline";
+  lastMsgPingEl.style.display = !visibility ? "none" : "inline";
+  lastMsgPongEl.style.display = !visibility ? "none" : "inline";
 }
 
 phoneIconEl.onclick = function (e) {
@@ -73,18 +75,22 @@ export function gotPong(message) {
 }
 
 function updateConnectionIndicator() {
-  queueSizeEl.text = `${msgq.getQueueSize()}/${lastPongQueueSize}`;
   var lastPongAge = lastPongReceived == null ? 99999999 : Date.now() - lastPongReceived;
-  lastMsgEl.text = `${((lastPongAge/1000)/60).toFixed(1)}`
+  var lastPingAge = lastPingSent == null ? 99999999 : Date.now() - lastPingSent;
+  lastMsgPingEl.text = `>> ${((lastPingAge/1000)/60).toFixed(1)}`
+  lastMsgPongEl.text = `<< ${((lastPongAge/1000)/60).toFixed(1)}`
+  queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${lastPongQueueSize}`;
   if (lastPongAge >= 900000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
     queueSizeEl.style.fill = disconnectedColour;
-    lastMsgEl.style.fill = disconnectedColour;
+    lastMsgPingEl.style.fill = disconnectedColour;
+    lastMsgPongEl.style.fill = disconnectedColour;
   } else {
     disconnected = false;
     phoneIconEl.style.fill = connectedColour;    
     queueSizeEl.style.fill = connectedColour;
-    lastMsgEl.style.fill = connectedColour;
+    lastMsgPingEl.style.fill = connectedColour;
+    lastMsgPongEl.style.fill = connectedColour;
   }
 }

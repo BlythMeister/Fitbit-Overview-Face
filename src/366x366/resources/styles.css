@@ -134,7 +134,7 @@
 
 #phone {
   x: 50%;
-  y: 25;
+  y: 20;
   display: none;
 }
 
@@ -146,7 +146,7 @@
   y: 6;
 }
 
-#last-msg {
+#last-msg-ping {
   text-anchor: start;
   font-size: 18;
   font-family: System-Bold;
@@ -156,13 +156,23 @@
   text-length: 10;
 }
 
-#queue-size {
+#last-msg-pong {
   text-anchor: start;
   font-size: 18;
   font-family: System-Bold;
   fill: white;
   x: 15;
   y: 40;
+  text-length: 10;
+}
+
+#queue-size {
+  text-anchor: start;
+  font-size: 18;
+  font-family: System-Bold;
+  fill: white;
+  x: -10;
+  y: 60;
   text-length: 10;
 }
 
