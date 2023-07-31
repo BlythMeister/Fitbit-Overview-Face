@@ -58,7 +58,7 @@ phoneIconEl.onclick = function (e) {
 export function sendPing() {
   var lastPingAge = lastPingSent == null ? 99999999 : Date.now() - lastPingSent;
   updateConnectionIndicator();
-  if (phoneEl.style.display === "inline" && lastPingAge >= 120000) {
+  if (phoneEl.style.display === "inline" && lastPingAge >= 300000) {
     try {
       lastPingSent = Date.now();
       msgq.send("ping", {});
@@ -80,7 +80,7 @@ function updateConnectionIndicator() {
   lastMsgPingEl.text = `>> ${((lastPingAge/1000)/60).toFixed(1)}`
   lastMsgPongEl.text = `<< ${((lastPongAge/1000)/60).toFixed(1)}`
   queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${lastPongQueueSize}`;
-  if (lastPongAge >= 900000) {
+  if (lastPongAge >= 1800000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
     queueSizeEl.style.fill = disconnectedColour;
