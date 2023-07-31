@@ -22,30 +22,29 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14         
+          node-version: 14
       - name: Delete package.json 
         run: rm -f src/366x366/package.json
-      - name: Move Pre-Release package.json 
+      - name: Move Pre-Release package.json
         run: rm -f mv src/366x366/pr-package.json src/366x366/package.json
       - name: Pre-Release Install
-        run: npm install      
+        run: npm install
       - name: Pre-Release Build
         run: npx fitbit-build
-      - name: Upload Pre-Release fba
-        uses: actions/upload-artifact@v3
-        with:
-          name: pr-fitbit-overview
-          path: src/366x366/build/app.fba         
+      - name: Rename Pre-Release fba
+        run: rm -f mv src/366x366/build/app.fba src/366x366/publish/pr-fitbit-overview.fba
       - name: Delete package.json 
         run: rm -f src/366x366/package.json
-      - name: Move Release package.json 
+      - name: Move Release package.json
         run: rm -f mv src/366x366/real-package.json src/366x366/package.json
       - name: Release Install
-        run: npm install      
+        run: npm install
       - name: Release Build
         run: npx fitbit-build
-      - name: Upload Release fba
+      - name: Rename Pre-Release fba
+        run: rm -f mv src/366x366/build/app.fba src/366x366/publish/fitbit-overview.fba
+      - name: Upload Publish Files
         uses: actions/upload-artifact@v3
         with:
           name: fitbit-overview
-          path: src/366x366/build/app.fba
+          path: src/366x366/publish/*.fba
