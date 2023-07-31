@@ -24,27 +24,27 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p src/366x366/publish
+        run: mkdir -p publish
       - name: Delete package.json 
-        run: rm -f src/366x366/package.json
+        run: rm -f package.json
       - name: Move Pre-Release package.json
-        run: rm -f mv src/366x366/pr-package.json src/366x366/package.json
+        run: mv pr-package.json package.json
       - name: Pre-Release Install
         run: npm install
       - name: Pre-Release Build
         run: npx fitbit-build
       - name: Rename Pre-Release fba
-        run: rm -f mv src/366x366/build/app.fba src/366x366/publish/pr-fitbit-overview.fba
+        run: mv build/app.fba publish/pr-fitbit-overview.fba
       - name: Delete package.json 
-        run: rm -f src/366x366/package.json
+        run: rm -f package.json
       - name: Move Release package.json
-        run: rm -f mv src/366x366/real-package.json src/366x366/package.json
+        run: mv real-package.json package.json
       - name: Release Install
         run: npm install
       - name: Release Build
         run: npx fitbit-build
       - name: Rename Pre-Release fba
-        run: rm -f mv src/366x366/build/app.fba src/366x366/publish/fitbit-overview.fba
+        run: mv build/app.fba publish/fitbit-overview.fba
       - name: Upload Publish Files
         uses: actions/upload-artifact@v3
         with:
