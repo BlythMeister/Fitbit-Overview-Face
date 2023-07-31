@@ -17,9 +17,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: setup
+      - name: Setup
         uses: actions/setup-node@v3
         with:
           node-version: 14         
@@ -27,11 +27,11 @@ jobs:
         run: rm -f src/366x366/package.json
       - name: Move Pre-Release package.json 
         run: rm -f mv src/366x366/pr-package.json src/366x366/package.json
-      - name: install
+      - name: Pre-Release Install
         run: npm install      
-      - name: build
+      - name: Pre-Release Build
         run: npx fitbit-build
-      - name: Upload fba
+      - name: Upload Pre-Release fba
         uses: actions/upload-artifact@v3
         with:
           name: pr-fitbit-overview
@@ -40,11 +40,11 @@ jobs:
         run: rm -f src/366x366/package.json
       - name: Move Release package.json 
         run: rm -f mv src/366x366/real-package.json src/366x366/package.json
-      - name: install
+      - name: Release Install
         run: npm install      
-      - name: build
+      - name: Release Build
         run: npx fitbit-build
-      - name: Upload fba
+      - name: Upload Release fba
         uses: actions/upload-artifact@v3
         with:
           name: fitbit-overview
