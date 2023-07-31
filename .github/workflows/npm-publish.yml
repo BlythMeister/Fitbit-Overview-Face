@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
+      - name: Create publish directory
+        run: mkdir -p src/366x366/publish
       - name: Delete package.json 
         run: rm -f src/366x366/package.json
       - name: Move Pre-Release package.json
