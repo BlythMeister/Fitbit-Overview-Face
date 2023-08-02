@@ -11,21 +11,11 @@ let waitingForId = null;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
-let aliveType = "msgq_alive_app";
 let socketClosedOrErrorSince = null;
 
 if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedOrErrorSince = Date.now();
 }
-
-enqueue(aliveType, {});
-setInterval(function () {
-  try {
-    enqueue(aliveType, {});
-  } catch (e) {
-    //Do Nothing
-  }
-}, 120000);
 
 //====================================================================================================
 // Helpers
@@ -47,7 +37,7 @@ function CreateUUID() {
 // Enqueue
 //====================================================================================================
 
-function enqueue(messageKey, message, timeout = 1800000) {
+function enqueue(messageKey, message, timeout = 600000) {
   const uuid = CreateUUID();
   const id = `${messageKey}_${uuid}`;
   const timeoutDate = Date.now() + timeout;
@@ -105,6 +95,58 @@ function dequeue(id, messageKey) {
 }
 
 //====================================================================================================
+// Requeue
+//====================================================================================================
+
+function requeue(id, messageKey) {
+  if (id) {
+    var requeueResult = false;
+    for (let i in queue) {
+      if (queue[i].id === id) {
+        let messages = queue.splice(i, 1);
+        queue.push(messages);
+        requeueResult = true;
+        break;
+      }
+    }
+    if (requeueResult) {
+      if (debugMessages) {
+        console.log(`Requeued message ${id} - QueueSize: ${queue.length}`);
+      }
+    } else {
+      console.log(`Unable to requeue message ${id} - QueueSize: ${queue.length}`);
+    }
+  } else if (messageKey) {
+    for (let i in queue) {
+      var messageId = queue[i].id;
+      var key = messageId.split("_")[0];
+      if (key === messageKey) {
+        let messages = queue.splice(i, 1);
+        queue.push(messages);
+        if (debugMessages) {
+          console.log(`requeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
+        }
+      }
+    }
+  } else {
+    if (debugMessages) {
+      console.log("No ID or MessageKey to requeue");
+    }
+  }
+}
+
+//====================================================================================================
+// Clear Queue
+//====================================================================================================
+
+function clearQueue() {
+  if (debugMessages) {
+    console.log(`Pre Clear QueueSize: ${queue.length}`);
+    queue = [];
+  }
+}
+
+//====================================================================================================
 // Process Queue
 //====================================================================================================
 
@@ -143,8 +185,8 @@ function process() {
   }
 
   if (queue.length === 0) {
-    console.log(`Queue empty, call process again in 30 seconds`);
-    delayedProcess(30000);
+    console.log(`Queue empty, call process again in 1 minute`);
+    delayedProcess(60000);
     return;
   }
 
@@ -154,10 +196,13 @@ function process() {
     }
 
     var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
-    if (socketClosedDuration >= 900000) {
-      console.log("Socket not open for over 15 minutes");
-      console.log("Force exit app");
+    if (socketClosedDuration >= 1800000) {
+      console.log("Socket not open for over 30 minutes. - Force exit app");
       appbit.exit();
+    } if (socketClosedDuration >= 900000) {
+      console.log("Socket not open for over 15 minutes. - Clear queue");
+      clearQueue();
+      delayedProcess(5000);
     } else {
       console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in 5 seconds`);
       delayedProcess(5000);
@@ -166,13 +211,13 @@ function process() {
   }
 
   if (waitingForId != null) {
-    if (lastSend == null || Date.now() - lastSend >= 30000) {
-      console.log("Waiting for receipt for over 30 seconds, giving up!");
-      dequeue(waitingForId, null);
+    if (lastSend == null || Date.now() - lastSend >= 15000) {
+      console.log("Waiting for receipt for over 15 seconds, giving up!");
+      requeue(waitingForId, null);
       waitingForId = null
     } else {
-      console.log(`Waiting for a receipt, call process again in 10 seconds`);
-      delayedProcess(10000);
+      console.log(`Waiting for a receipt, call process again in 5 seconds`);
+      delayedProcess(5000);
       return;
     }
   }
@@ -223,7 +268,7 @@ peerSocket.addEventListener("open", () => {
 
 peerSocket.addEventListener("closed", (event) => {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
-  waitingForId = nul;
+  waitingForId = null;
   socketClosedOrErrorSince = Date.now();
   delayedProcess(250);
 });
@@ -231,7 +276,7 @@ peerSocket.addEventListener("closed", (event) => {
 peerSocket.addEventListener("error", (event) => {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForId = null;
-  socketClosedOrErrorSince = Date.now();push
+  socketClosedOrErrorSince = Date.now();
   delayedProcess(250);
 });
 
@@ -258,13 +303,11 @@ peerSocket.addEventListener("message", (event) => {
     } catch (e) {
       console.error(e.message);
     }
-
-    if (messageKey.substring(10) != "msgq_alive") {
-      try {
-        msgq.onmessage(messageKey, message);
-      } catch (e) {
-        console.error(e.message);
-      }
+    
+    try {
+      msgq.onmessage(messageKey, message);
+    } catch (e) {
+      console.error(e.message);
     }
   } else if (type == "msgq_receipt") {
     if (debugMessages) {
