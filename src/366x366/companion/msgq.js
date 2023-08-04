@@ -7,6 +7,7 @@ import { peerSocket } from "messaging";
 
 let debugMessages = false;
 let queue = [];
+let otherQueueSize = 0;
 let waitingForId = null;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
@@ -18,10 +19,10 @@ if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedOrErrorSince = Date.now();
 }
 
-enqueue(aliveType, {});
+enqueue(aliveType, {size:queue.length});
 setInterval(function () {
   try {
-    enqueue(aliveType, {});
+    enqueue(aliveType, {size:queue.length});
   } catch (e) {
     //Do Nothing
   }
@@ -32,6 +33,10 @@ setInterval(function () {
 //====================================================================================================
 function GetQueueSize() {
   return queue.length;
+}
+
+function GetCompanionResponderQueueSize() {
+  return otherQueueSize;
 }
 
 function CreateUUID() {
@@ -259,7 +264,9 @@ peerSocket.addEventListener("message", (event) => {
       console.error(e.message);
     }
 
-    if (messageKey.substring(10) != "msgq_alive") {
+    if (messageKey.substring(10) == "msgq_alive") {
+      otherQueueSize = message.size;
+    } else {
       try {
         msgq.onmessage(messageKey, message);
       } catch (e) {
@@ -286,6 +293,7 @@ const msgq = {
     console.log(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
   getQueueSize: GetQueueSize,
+  getCompanionResponderQueueSize: GetCompanionResponderQueueSize
 };
 
 export { msgq };

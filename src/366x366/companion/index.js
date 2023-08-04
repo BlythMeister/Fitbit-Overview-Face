@@ -216,7 +216,7 @@ function sendWeather(unit) {
 }
 
 function sendPong() {
-  msgq.send("pong", {size:msgq.getQueueSize()});
+  msgq.send("pong");
 }
 
 function locationChange(initial) {

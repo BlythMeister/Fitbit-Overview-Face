@@ -10,7 +10,6 @@ export let lastMsgPingEl = document.getElementById("last-msg-ping");
 export let lastMsgPongEl = document.getElementById("last-msg-pong");
 let lastPingSent = null;
 let lastPongReceived = null;
-let lastPongQueueSize = 0;
 let connectedColour = "white";
 let disconnectedColour = "white";
 let disconnected = true;
@@ -69,7 +68,6 @@ export function sendPing() {
 }
 
 export function gotPong(message) {
-  lastPongQueueSize = message.size;
   lastPongReceived = Date.now();
   updateConnectionIndicator();
 }
@@ -92,7 +90,7 @@ function updateConnectionIndicator() {
     lastMsgPongEl.text = `>> ${pongAgeDisplay.toFixed(1)}`;
   }
 
-  queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${lastPongQueueSize}`;
+  queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${msgq.getCompanionResponderQueueSize()}`;
   if (lastPongAge >= 1800000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
