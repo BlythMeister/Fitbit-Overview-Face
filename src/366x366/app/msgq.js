@@ -11,11 +11,21 @@ let waitingForId = null;
 let lastSend = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
+let aliveType = "msgq_alive_app";
 let socketClosedOrErrorSince = null;
 
 if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedOrErrorSince = Date.now();
 }
+
+enqueue(aliveType, {});
+setInterval(function () {
+  try {
+    enqueue(aliveType, {});
+  } catch (e) {
+    //Do Nothing
+  }
+}, 120000);
 
 //====================================================================================================
 // Helpers
@@ -90,47 +100,6 @@ function dequeue(id, messageKey) {
   } else {
     if (debugMessages) {
       console.log("No ID or MessageKey to dequeue");
-    }
-  }
-}
-
-//====================================================================================================
-// Requeue
-//====================================================================================================
-
-function requeue(id, messageKey) {
-  if (id) {
-    var requeueResult = false;
-    for (let i in queue) {
-      if (queue[i].id === id) {
-        let messages = queue.splice(i, 1);
-        queue.push(messages);
-        requeueResult = true;
-        break;
-      }
-    }
-    if (requeueResult) {
-      if (debugMessages) {
-        console.log(`Requeued message ${id} - QueueSize: ${queue.length}`);
-      }
-    } else {
-      console.log(`Unable to requeue message ${id} - QueueSize: ${queue.length}`);
-    }
-  } else if (messageKey) {
-    for (let i in queue) {
-      var messageId = queue[i].id;
-      var key = messageId.split("_")[0];
-      if (key === messageKey) {
-        let messages = queue.splice(i, 1);
-        queue.push(messages);
-        if (debugMessages) {
-          console.log(`requeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
-        }
-      }
-    }
-  } else {
-    if (debugMessages) {
-      console.log("No ID or MessageKey to requeue");
     }
   }
 }
@@ -213,7 +182,7 @@ function process() {
   if (waitingForId != null) {
     if (lastSend == null || Date.now() - lastSend >= 15000) {
       console.log("Waiting for receipt for over 15 seconds, giving up!");
-      requeue(waitingForId, null);
+      dequeue(waitingForId, null);
       waitingForId = null
     } else {
       console.log(`Waiting for a receipt, call process again in 5 seconds`);
@@ -303,11 +272,13 @@ peerSocket.addEventListener("message", (event) => {
     } catch (e) {
       console.error(e.message);
     }
-    
-    try {
-      msgq.onmessage(messageKey, message);
-    } catch (e) {
-      console.error(e.message);
+
+    if (messageKey.substring(10) != "msgq_alive") {
+      try {
+        msgq.onmessage(messageKey, message);
+      } catch (e) {
+        console.error(e.message);
+      }
     }
   } else if (type == "msgq_receipt") {
     if (debugMessages) {
