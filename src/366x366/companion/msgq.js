@@ -14,6 +14,7 @@ let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
 let aliveType = "msgq_alive_companion";
 let socketClosedOrErrorSince = null;
+let consecutiveQueueEmpty = 0;
 
 if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedOrErrorSince = Date.now();
@@ -148,9 +149,18 @@ function process() {
   }
 
   if (queue.length === 0) {
-    console.log(`Queue empty, call process again in 1 minute`);
-    delayedProcess(60000);
+    consecutiveQueueEmpty++;
+    if(consecutiveQueueEmpty >= 3) {
+      return;
+    }
+
+    if (debugMessages) {
+      console.log(`Queue empty, call process again in 30 seconds`);
+    }
+    delayedProcess(30000);
     return;
+  } else {
+    consecutiveQueueEmpty = 0;
   }
 
   if (peerSocket.readyState != peerSocket.OPEN || socketClosedOrErrorSince != null) {
