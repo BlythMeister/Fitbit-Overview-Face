@@ -78,9 +78,9 @@ function enqueue(messageKey, message, timeout = 600000) {
 function dequeue(id, messageKey) {
   if (id) {
     var dequeueResult = false;
-    for (let i in queue) {
+    for (var i = 0; i < queue.length; i++) 
       if (queue[i].id === id) {
-        queue.splice(i, 1);
+        queue.splice(i--, 1);
         dequeueResult = true;
         break;
       }
@@ -93,11 +93,11 @@ function dequeue(id, messageKey) {
       console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
     }
   } else if (messageKey) {
-    for (let i in queue) {
+    for (var i = 0; i < queue.length; i++) 
       var messageId = queue[i].id;
       var key = messageId.split("_")[0];
       if (key === messageKey) {
-        queue.splice(i, 1);
+        queue.splice(i--, 1);
         if (debugMessages) {
           console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
         }
