@@ -93,11 +93,11 @@ function dequeue(id, messageKey) {
       console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
     }
   } else if (messageKey) {
-    for (var i = 0; i < queue.length; i++) 
+    for (var i = data.length-1; i >= 0; i--) {
       var messageId = queue[i].id;
       var key = messageId.split("_")[0];
       if (key === messageKey) {
-        queue.splice(i--, 1);
+        queue.splice(i, 1);
         if (debugMessages) {
           console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
         }
