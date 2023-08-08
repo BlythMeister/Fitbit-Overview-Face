@@ -94,8 +94,7 @@ function dequeue(id, messageKey) {
     }
   } else if (messageKey) {
     for (var i = queue.length-1; i >= 0; i--) {
-      var messageId = queue[i].id;
-      var key = messageId.split("_")[0];
+      var key = queue[i].messageKey;
       if (key === messageKey) {
         queue.splice(i, 1);
         if (debugMessages) {
