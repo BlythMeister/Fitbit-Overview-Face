@@ -78,9 +78,9 @@ function enqueue(messageKey, message, timeout = 600000) {
 function dequeue(id, messageKey) {
   if (id) {
     var dequeueResult = false;
-    for (var i = 0; i < queue.length; i++) 
+    for (var i = data.length-1; i >= 0; i--) {
       if (queue[i].id === id) {
-        queue.splice(i--, 1);
+        queue.splice(i, 1);
         dequeueResult = true;
         break;
       }
