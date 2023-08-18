@@ -40,9 +40,11 @@ function GetQueueSize() {
 function GetCompanionResponderQueueSize() {
   return otherQueueSize;
 }
+
 function GetLastSent() {
   return lastSent;
 }
+
 function GetLastReceived() {
   return lastReceived;
 }
@@ -62,7 +64,7 @@ function CreateUUID() {
 
 function enqueue(messageKey, message, timeout = 600000) {
   const uuid = CreateUUID();
-  const id = `${messageKey}_${uuid}`;
+  const id = `${messageKey}#${uuid}`;
   const timeoutDate = Date.now() + timeout;
 
   const data = { id: id, timeout: timeoutDate, messageKey: messageKey, message: message };
@@ -117,12 +119,17 @@ function dequeue(id, messageKey) {
 }
 
 //====================================================================================================
+// Clear Queue
+//====================================================================================================
+
 function clearQueue() {
   if (debugMessages) {
     console.log(`Pre Clear QueueSize: ${queue.length}`);
     queue = [];
   }
 }
+
+//====================================================================================================
 // Process Queue
 //====================================================================================================
 
