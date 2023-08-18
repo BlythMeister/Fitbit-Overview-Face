@@ -297,7 +297,7 @@ peerSocket.addEventListener("message", (event) => {
       console.error(e.message);
     }
 
-    if (messageKey.substring(0, 10) == "msgq_alive") {
+    if (messageKey.length >10 && messageKey.substring(0, 10) == "msgq_alive") {
       otherQueueSize = message.size;
     } else {
       try {
