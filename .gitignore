@@ -3,3 +3,4 @@
 /.download-from-studio/
 /src/*/build/*
 /src/*/node_modules/*
+*.orig

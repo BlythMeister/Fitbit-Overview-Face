@@ -64,7 +64,7 @@ function CreateUUID() {
 
 function enqueue(messageKey, message, timeout = 600000) {
   const uuid = CreateUUID();
-  const id = `${messageKey}_${uuid}`;
+  const id = `${messageKey}#${uuid}`;
   const timeoutDate = Date.now() + timeout;
 
   const data = { id: id, timeout: timeoutDate, messageKey: messageKey, message: message };
@@ -87,7 +87,7 @@ function enqueue(messageKey, message, timeout = 600000) {
 function dequeue(id, messageKey) {
   if (id) {
     var dequeueResult = false;
-    for (let i in queue) {
+    for (var i = queue.length-1; i >= 0; i--) {
       if (queue[i].id === id) {
         queue.splice(i, 1);
         dequeueResult = true;
@@ -102,9 +102,8 @@ function dequeue(id, messageKey) {
       console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
     }
   } else if (messageKey) {
-    for (let i in queue) {
-      var messageId = queue[i].id;
-      var key = messageId.split("_")[0];
+    for (var i = queue.length-1; i >= 0; i--) {
+      var key = queue[i].messageKey;
       if (key === messageKey) {
         queue.splice(i, 1);
         if (debugMessages) {
