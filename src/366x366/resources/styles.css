@@ -146,9 +146,9 @@
   y: 6;
 }
 
-#last-msg-ping {
+#last-msg-sent {
   text-anchor: start;
-  font-size: 18;
+  font-size: 16;
   font-family: System-Bold;
   fill: white;
   x: 15;
@@ -156,9 +156,9 @@
   text-length: 10;
 }
 
-#last-msg-pong {
+#last-msg-received {
   text-anchor: start;
-  font-size: 18;
+  font-size: 16;
   font-family: System-Bold;
   fill: white;
   x: 15;
@@ -168,7 +168,7 @@
 
 #queue-size {
   text-anchor: start;
-  font-size: 18;
+  font-size: 16;
   font-family: System-Bold;
   fill: white;
   x: -10;

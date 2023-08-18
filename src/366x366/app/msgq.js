@@ -9,7 +9,8 @@ let debugMessages = false;
 let queue = [];
 let otherQueueSize = 0;
 let waitingForId = null;
-let lastSend = null;
+let lastSent = null;
+let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
 let aliveType = "msgq_alive_app";
@@ -38,6 +39,14 @@ function GetQueueSize() {
 
 function GetCompanionResponderQueueSize() {
   return otherQueueSize;
+}
+
+function GetLastSent() {
+  return lastSent;
+}
+
+function GetLastReceived() {
+  return lastReceived;
 }
 
 function CreateUUID() {
@@ -195,7 +204,7 @@ function process() {
   }
 
   if (waitingForId != null) {
-    if (lastSend == null || Date.now() - lastSend >= 15000) {
+    if (lastSent == null || Date.now() - lastSent >= 15000) {
       console.log("Waiting for receipt for over 15 seconds, giving up!");
       dequeue(waitingForId, null);
       waitingForId = null
@@ -222,7 +231,7 @@ function process() {
   } else {
     try {
       waitingForId = queueItem.id;
-      lastSend = Date.now();
+      lastSent = Date.now();
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
@@ -266,6 +275,7 @@ peerSocket.addEventListener("error", (event) => {
 
 peerSocket.addEventListener("message", (event) => {
   socketClosedOrErrorSince = null;
+  lastReceived = Date.now();
   const type = event.data.msgqType;
   const id = event.data.id;
   if (debugMessages) {
@@ -288,7 +298,7 @@ peerSocket.addEventListener("message", (event) => {
       console.error(e.message);
     }
 
-    if (messageKey.substring(10) == "msgq_alive") {
+    if (messageKey.substring(0, 10) == "msgq_alive") {
       otherQueueSize = message.size;
     } else {
       try {
@@ -317,7 +327,9 @@ const msgq = {
     console.log(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
   getQueueSize: GetQueueSize,
-  getCompanionResponderQueueSize: GetCompanionResponderQueueSize
+  getCompanionResponderQueueSize: GetCompanionResponderQueueSize,
+  getLastSent: GetLastSent,
+  getLastReceived: GetLastReceived
 };
 
 export { msgq };

@@ -9,7 +9,8 @@ let debugMessages = false;
 let queue = [];
 let otherQueueSize = 0;
 let waitingForId = null;
-let lastSend = null;
+let lastSent = null;
+let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
 let aliveType = "msgq_alive_companion";
@@ -38,6 +39,12 @@ function GetQueueSize() {
 
 function GetCompanionResponderQueueSize() {
   return otherQueueSize;
+}
+function GetLastSent() {
+  return lastSent;
+}
+function GetLastReceived() {
+  return lastReceived;
 }
 
 function CreateUUID() {
@@ -111,6 +118,12 @@ function dequeue(id, messageKey) {
 }
 
 //====================================================================================================
+function clearQueue() {
+  if (debugMessages) {
+    console.log(`Pre Clear QueueSize: ${queue.length}`);
+    queue = [];
+  }
+}
 // Process Queue
 //====================================================================================================
 
@@ -170,9 +183,9 @@ function process() {
 
     var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
     if (socketClosedDuration >= 900000) {
-      console.log("Socket not open for over 15 minutes");
-      //console.log("Force exit app");
-      //appbit.exit();
+      console.log("Socket not open for over 15 minutes. - Clear queue");
+      clearQueue();
+      delayedProcess(5000);
     } else {
       console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in 5 seconds`);
       delayedProcess(5000);
@@ -181,10 +194,10 @@ function process() {
   }
 
   if (waitingForId != null) {
-    if (lastSend == null || Date.now() - lastSend >= 15000) {
+    if (lastSent == null || Date.now() - lastSent >= 15000) {
       console.log("Waiting for receipt for over 15 seconds, giving up!");
       dequeue(waitingForId, null);
-      waitingForId = null;
+      waitingForId = null
     } else {
       console.log(`Waiting for a receipt, call process again in 5 seconds`);
       delayedProcess(5000);
@@ -208,7 +221,7 @@ function process() {
   } else {
     try {
       waitingForId = queueItem.id;
-      lastSend = Date.now();
+      lastSent = Date.now();
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
@@ -252,6 +265,7 @@ peerSocket.addEventListener("error", (event) => {
 
 peerSocket.addEventListener("message", (event) => {
   socketClosedOrErrorSince = null;
+  lastReceived = Date.now();
   const type = event.data.msgqType;
   const id = event.data.id;
   if (debugMessages) {
@@ -303,7 +317,9 @@ const msgq = {
     console.log(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
   getQueueSize: GetQueueSize,
-  getCompanionResponderQueueSize: GetCompanionResponderQueueSize
+  getCompanionResponderQueueSize: GetCompanionResponderQueueSize,
+  getLastSent: GetLastSent,
+  getLastReceived: GetLastReceived
 };
 
 export { msgq };

@@ -12,7 +12,7 @@ import * as settings from "./settings.js";
 import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
-import * as ping from "./ping.js";
+import * as connectivity from "./connectivity.js";
 
 console.log(`Application ID: ${appbit.applicationId}`);
 console.log(`Build ID: ${appbit.buildId}`);
@@ -25,8 +25,6 @@ msgq.onmessage = (messageKey, message) => {
   var key = messageKey.split(":")[0];
   if (key === "weather") {
     weather.processWeatherData(message);
-  } else if (key === "pong") {
-    ping.gotPong(message);
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
   }

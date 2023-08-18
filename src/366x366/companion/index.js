@@ -63,8 +63,6 @@ companion.monitorSignificantLocationChanges = true;
 msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-settings") {
     sendSettingsWithDefaults();
-  } else if (messageKey === "ping") {
-    sendPong();
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -213,10 +211,6 @@ function sendWeather(unit) {
       };
       msgq.send("weather", sendData);
     });
-}
-
-function sendPong() {
-  msgq.send("pong");
 }
 
 function locationChange(initial) {

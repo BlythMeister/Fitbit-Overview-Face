@@ -12,7 +12,7 @@ import * as time from "./time.js";
 import * as hr from "./hr.js";
 import * as activity from "./activity.js";
 import * as weather from "./weather.js";
-import * as ping from "./ping.js";
+import * as connectivity from "./connectivity.js";
 
 const hrm = new HeartRateSensor();
 const body = new BodyPresenceSensor();
@@ -69,7 +69,8 @@ export function reApplyState() {
     hr.drawHrm();
     activity.drawAllProgress();
     bm.drawBMR();
-    bm.drawBMI();
+    bm.drawBMI();    
+    connectivity.drawState();
     reApplyStateBackground();
   } catch (e) {
     //Do Nothing
@@ -79,7 +80,6 @@ export function reApplyState() {
 export function reApplyStateBackground() {
   try {
     weather.fetchWeather();
-    ping.sendPing();
   } catch (e) {
     //Do Nothing
   }

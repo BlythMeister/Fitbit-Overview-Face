@@ -17,7 +17,7 @@ import * as activity from "./activity.js";
 import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
-import * as ping from "./ping.js";
+import * as connectivity from "./connectivity.js";
 import { msgq } from "./msgq.js";
 
 // SETTINGS
@@ -237,33 +237,33 @@ export function applySettings() {
   }
 
   if (settings.hasOwnProperty("showPhoneStatus")) {
-    ping.setShowPhoneStatus(!!settings["showPhoneStatus"]);
+    connectivity.setShowPhoneStatus(!!settings["showPhoneStatus"]);
   } else {
-    ping.setShowPhoneStatus(false);
+    connectivity.setShowPhoneStatus(false);
   }
 
   if (settings.hasOwnProperty("showMsgQSize")) {
-    ping.setQueueSize(!!settings["showMsgQSize"]);
+    connectivity.setQueueSize(!!settings["showMsgQSize"]);
   } else {
-    ping.setQueueSize(false);
+    connectivity.setQueueSize(false);
   }
 
   if (settings.hasOwnProperty("showLastMsg")) {
-    ping.setShowLastMsg(!!settings["showLastMsg"]);
+    connectivity.setShowLastMsg(!!settings["showLastMsg"]);
   } else {
-    ping.setShowLastMsg(false);
+    connectivity.setShowLastMsg(false);
   }
 
   if (settings.hasOwnProperty("phoneStatusConnected") && settings["phoneStatusConnected"]) {
-    ping.setPhoneIconConnected(settings["phoneStatusConnected"]);
+    connectivity.setPhoneIconConnected(settings["phoneStatusConnected"]);
   } else {
-    ping.setPhoneIconConnected("white");
+    connectivity.setPhoneIconConnected("white");
   }
 
   if (settings.hasOwnProperty("phoneStatusDisconnected") && settings["phoneStatusDisconnected"]) {
-    ping.setPhoneIconDisconnected(settings["phoneStatusDisconnected"]);
+    connectivity.setPhoneIconDisconnected(settings["phoneStatusDisconnected"]);
   } else {
-    ping.setPhoneIconDisconnected("white");
+    connectivity.setPhoneIconDisconnected("white");
   }
 
   if (settings.hasOwnProperty("showBatteryPercent")) {
