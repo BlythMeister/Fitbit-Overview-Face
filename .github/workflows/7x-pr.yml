@@ -1,0 +1,44 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Build (Pre-Release SDK 7.X)
+
+on:
+  push:
+    branches:
+    - master
+    
+defaults:
+  run:
+    shell: bash
+    working-directory: src/366x366
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Create publish directory
+        run: mkdir -p publish
+      - name: Delete package-lock.json 
+        run: rm -f package-lock.json
+      - name: Delete package.json 
+        run: rm -f package.json
+      - name: Move Pre-Release package.json
+        run: mv 7x-pr-package.json package.json
+      - name: NPM Install
+        run: npm install
+      - name: Build
+        run: npx fitbit-build
+      - name: Rename fba
+        run: mv build/app.fba publish/7x-pr-fitbit-overview.fba
+      - name: Upload Publish Files
+        uses: actions/upload-artifact@v3
+        with:
+          name: fitbit-overview
+          path: src/366x366/publish/*.fba

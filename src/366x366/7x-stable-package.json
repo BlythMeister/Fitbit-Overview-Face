@@ -1,0 +1,85 @@
+{
+  "devDependencies": {
+    "@fitbit/sdk": "~7.2.0-pre.0",
+    "@fitbit/sdk-cli": "^1.7.3"
+  },
+  "fitbit": {
+    "appUUID": "7c4f7506-8ed8-4eb9-84e3-28b85671f26b",
+    "appType": "clockface",
+    "appDisplayName": "Overview",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_heart_rate",
+      "run_background",
+      "access_location"
+    ],
+    "buildTargets": [
+      "rhea",
+      "hera"
+    ],
+    "i18n": {
+      "en-US": {
+        "name": "Overview"
+      },
+      "de-DE": {
+        "name": "Overview"
+      },
+      "es-ES": {
+        "name": "Overview"
+      },
+      "fr-FR": {
+        "name": "Overview"
+      },
+      "it-IT": {
+        "name": "Overview"
+      },
+      "ja-JP": {
+        "name": "Overview"
+      },
+      "ko-KR": {
+        "name": "Overview"
+      },
+      "nl-NL": {
+        "name": "Overview"
+      },
+      "sv-SE": {
+        "name": "Overview"
+      },
+      "zh-CN": {
+        "name": "Overview"
+      },
+      "zh-TW": {
+        "name": "Overview"
+      },
+      "pt-BR": {
+        "name": "Overview"
+      },
+      "id-ID": {
+        "name": "Overview"
+      },
+      "ro-RO": {
+        "name": "Overview"
+      },
+      "ru-RU": {
+        "name": "Overview"
+      },
+      "pl-PL": {
+        "name": "Overview"
+      },
+      "cs-CZ": {
+        "name": "Overview"
+      },
+      "nb-NO": {
+        "name": "Overview"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "scripts": {
+    "build": "fitbit-build"
+  }
+}
+ 
