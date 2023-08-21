@@ -36,5 +36,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: 7x-stable-fitbit-overview.fba
-          path: build/app.fba
+          name: 7x-stable-fitbit-overview-${{ github.run_number }}.fba
+          path: src/366x366/build/app.fba
