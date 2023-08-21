@@ -25,6 +25,8 @@ jobs:
           node-version: 14
       - name: Create publish directory
         run: mkdir -p publish
+      - name: Delete package-lock.json 
+        run: rm -f package-lock.json
       - name: Delete package.json 
         run: rm -f package.json
       - name: Move Pre-Release package.json
@@ -37,6 +39,8 @@ jobs:
         run: mv build/app.fba publish/pr-fitbit-overview.fba
       - name: Delete package.json 
         run: rm -f package.json
+      - name: Delete package-lock.json 
+        run: rm -f package-lock.json
       - name: Move Release package.json
         run: mv real-package.json package.json
       - name: Release Install
