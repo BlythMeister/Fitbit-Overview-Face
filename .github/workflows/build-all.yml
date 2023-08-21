@@ -1,7 +1,7 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: Build & Puiblish (All)
+name: fba-build-publish
 
 on:
   push:
@@ -102,7 +102,7 @@ jobs:
   build-7x-stable:
     runs-on: ubuntu-latest
     steps:
-     - name: Checkout
+      - name: Checkout
         uses: actions/checkout@v3
       - name: Setup
         uses: actions/setup-node@v3
