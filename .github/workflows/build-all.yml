@@ -1,0 +1,86 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Build & Puiblish (All)
+
+on:
+  push:
+    branches:
+    - master
+    
+defaults:
+  run:
+    shell: bash
+    working-directory: src/366x366
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+#SETUP
+      - name: (Setup) Checkout
+        uses: actions/checkout@v3
+      - name: (Setup) Setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: (Setup) Create publish directory
+        run: mkdir -p publish
+# 6.X PR        
+      - name: (6X Pre-Release) Delete package-lock.json 
+        run: rm -f package-lock.json
+      - name: (6X Pre-Release) Delete package.json 
+        run: rm -f package.json
+      - name: (6X Pre-Release) Move Correct package.json
+        run: mv 6x-pr-package.json package.json
+      - name: (6X Pre-Release) NPM Install
+        run: npm install
+      - name: (6X Pre-Release) FitBit Build
+        run: npx fitbit-build
+      - name: (6X Pre-Release) Rename & Move fba
+        run: mv build/app.fba publish/6x-pr-fitbit-overview.fba
+# 6.X STABLE       
+      - name: (6X Stable) Delete package-lock.json 
+        run: rm -f package-lock.json
+      - name: (6X Stable) Delete package.json 
+        run: rm -f package.json
+      - name: (6X Stable) Move Correct package.json
+        run: mv 6x-stable-package.json package.json
+      - name: (6X Stable) NPM Install
+        run: npm install
+      - name: (6X Stable) FitBit Build
+        run: npx fitbit-build
+      - name: (6X Stable) Rename & Move fba
+        run: mv build/app.fba publish/6x-stable-fitbit-overview.fba
+# 7.X PR        
+      - name: (7X Pre-Release) Delete package-lock.json 
+        run: rm -f package-lock.json
+      - name: (7X Pre-Release) Delete package.json 
+        run: rm -f package.json
+      - name: (7X Pre-Release) Move Correct package.json
+        run: mv 7x-pr-package.json package.json
+      - name: (7X Pre-Release) NPM Install
+        run: npm install
+      - name: (7X Pre-Release) FitBit Build
+        run: npx fitbit-build
+      - name: (7X Pre-Release) Rename & Move fba
+        run: mv build/app.fba publish/7x-pr-fitbit-overview.fba
+# 7.X STABLE       
+      - name: (7X Stable) Delete package-lock.json 
+        run: rm -f package-lock.json
+      - name: (7X Stable) Delete package.json 
+        run: rm -f package.json
+      - name: (7X Stable) Move Correct package.json
+        run: mv 7x-stable-package.json package.json
+      - name: (7X Stable) NPM Install
+        run: npm install
+      - name: (7X Stable) FitBit Build
+        run: npx fitbit-build
+      - name: (7X Stable) Rename & Move fba
+        run: mv build/app.fba publish/7x-stable-fitbit-overview.fba
+# PUBLISH ALL        
+      - name: (Publish) Upload Publish Files
+        uses: actions/upload-artifact@v3
+        with:
+          name: fitbit-overview-${{ github.run_number }}
+          path: src/366x366/publish/*.fba
