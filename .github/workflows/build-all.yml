@@ -13,7 +13,7 @@ defaults:
     shell: bash
 
 jobs:
-  348x250-4x-pr:
+  fba-348x250-4x-pr:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -45,7 +45,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/348x250/publish/**
           if-no-files-found: error
-  348x250-4x-stable:
+  fba-348x250-4x-stable:
     runs-on: ubuntu-latest    
     defaults:
       run:
@@ -77,7 +77,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/348x250/publish/**
           if-no-files-found: error
-  300x300-4x-pr:
+  fba-300x300-4x-pr:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -109,7 +109,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/300x300/publish/**
           if-no-files-found: error
-  300x300-4x-stable:
+  fba-300x300-4x-stable:
     runs-on: ubuntu-latest    
     defaults:
       run:
@@ -141,7 +141,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/300x300/publish/**
           if-no-files-found: error
-  366x366-6x-pr:
+  fba-366x366-6x-pr:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -173,7 +173,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
           if-no-files-found: error
-  366x366-6x-stable:
+  fba-366x366-6x-stable:
     runs-on: ubuntu-latest    
     defaults:
       run:
@@ -205,7 +205,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
           if-no-files-found: error
-  366x366-7x-pr:
+  fba-366x366-7x-pr:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -237,7 +237,7 @@ jobs:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
           if-no-files-found: error
-  366x366-7x-stable:
+  fba-366x366-7x-stable:
     runs-on: ubuntu-latest
     defaults:
       run:
