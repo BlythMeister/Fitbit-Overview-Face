@@ -4,9 +4,9 @@
     "@fitbit/sdk-cli": "^1.7.3"
   },
   "fitbit": {
-    "appUUID": "7c4f7506-8ed8-4eb9-84e3-28b85671f26b",
+    "appUUID": "cdef6b20-1559-44a5-a574-3441154e8ebd",
     "appType": "clockface",
-    "appDisplayName": "Overview",
+    "appDisplayName": "Overview (Sideload)",
     "iconFile": "resources/icon.png",
     "wipeColor": "",
     "requestedPermissions": [
@@ -22,55 +22,55 @@
     ],
     "i18n": {
       "en-US": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "de-DE": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "es-ES": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "fr-FR": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "it-IT": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "ja-JP": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "ko-KR": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "nl-NL": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "sv-SE": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "zh-CN": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "zh-TW": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "pt-BR": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "id-ID": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "ro-RO": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "ru-RU": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "pl-PL": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       },
       "cs-CZ": {
-        "name": "Overview"
+        "name": "Overview (Sideload)"
       }
     },
     "defaultLanguage": "en-US"
