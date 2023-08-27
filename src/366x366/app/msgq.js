@@ -182,6 +182,13 @@ function process() {
     consecutiveQueueEmpty = 0;
   }
 
+  var timeSinceLastReceived = Date.now() - lastReceived;
+  var timeSinceLastSent = Date.now() - lastSent;
+  if (timeSinceLastSent >= 1800000 && timeSinceLastReceived >= 1800000) {
+    console.log("No message in or out for 30 minutes. - Force exit app");
+    appbit.exit();
+  }
+
   if (peerSocket.readyState != peerSocket.OPEN || socketClosedOrErrorSince != null) {
     if (socketClosedOrErrorSince == null) {
       socketClosedOrErrorSince = Date.now();
