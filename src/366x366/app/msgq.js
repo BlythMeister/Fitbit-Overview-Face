@@ -224,8 +224,9 @@ function process() {
 
   if(queueItem == null) {
     console.log(`Top queue item is null, call process again in 2 seconds`);
-      delayedProcess(2000);
-      return;
+    queue.splice(0, 1);
+    delayedProcess(2000);
+    return;
   }
 
   if (queueItem.timeout < Date.now()) {
