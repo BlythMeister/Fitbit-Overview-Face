@@ -14,7 +14,7 @@ let lastSent = null;
 let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
-let aliveType = "msgq_alive_app";
+let aliveType = "msgq_alive_companion";
 let socketClosedOrErrorSince = null;
 let consecutiveQueueEmpty = 0;
 
