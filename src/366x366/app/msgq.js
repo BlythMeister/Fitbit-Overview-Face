@@ -209,8 +209,8 @@ function process() {
       dequeue(waitingForId, null);
       waitingForId = null
       timesGivenUp = timesGivenUp + 1
-      if(timesGivenUp > 10) {
-        console.log("More than 10 messages gone unanswered. - Force exit app");
+      if(timesGivenUp > 3) {
+        console.log("More than 3 messages gone unanswered. - Force exit app");
         appbit.exit();
       }
     } else {
