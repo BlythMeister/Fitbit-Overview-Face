@@ -8,6 +8,7 @@ import { peerSocket } from "messaging";
 let debugMessages = false;
 let queue = [];
 let otherQueueSize = 0;
+let timesGivenUp = 0;
 let waitingForId = null;
 let lastSent = null;
 let lastReceived = null;
@@ -182,15 +183,6 @@ function process() {
     consecutiveQueueEmpty = 0;
   }
 
-  if(lastSent != null && lastReceived != null) {
-    var timeSinceLastSent = Date.now() - lastSent;
-    var timeSinceLastReceived = Date.now() - lastReceived;
-    if (timeSinceLastSent >= 1800000 && timeSinceLastReceived >= 1800000) {
-      console.log("No message in or out for 30 minutes. - Force exit app");
-      appbit.exit();
-    }
-  }
-
   if (peerSocket.readyState != peerSocket.OPEN || socketClosedOrErrorSince != null) {
     if (socketClosedOrErrorSince == null) {
       socketClosedOrErrorSince = Date.now();
@@ -216,6 +208,11 @@ function process() {
       console.log("Waiting for receipt for over 15 seconds, giving up!");
       dequeue(waitingForId, null);
       waitingForId = null
+      timesGivenUp = timesGivenUp + 1
+      if(timesGivenUp > 10) {
+        console.log("More than 10 messages gone unanswered. - Force exit app");
+        appbit.exit();
+      }
     } else {
       console.log(`Waiting for a receipt, call process again in 5 seconds`);
       delayedProcess(5000);
@@ -234,16 +231,15 @@ function process() {
   if (queueItem.timeout < Date.now()) {
     console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
-    waitingForId = null;
     delayedProcess(250);
   } else {
     try {
-      waitingForId = queueItem.id;
-      lastSent = Date.now();
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
       peerSocket.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
+      waitingForId = queueItem.id;
+      lastSent = Date.now();
       socketClosedOrErrorSince = null;
       delayedProcess(15000);
     } catch (e) {
@@ -284,6 +280,7 @@ peerSocket.addEventListener("error", (event) => {
 peerSocket.addEventListener("message", (event) => {
   socketClosedOrErrorSince = null;
   lastReceived = Date.now();
+  timesGivenUp = 0
   const type = event.data.msgqType;
   const id = event.data.id;
   if (debugMessages) {
