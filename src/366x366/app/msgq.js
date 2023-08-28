@@ -63,7 +63,7 @@ function CreateUUID() {
 // Enqueue
 //====================================================================================================
 
-function enqueue(messageKey, message, timeout = 600000) {
+function enqueue(messageKey, message, timeout = 60000) {
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
   const timeoutDate = Date.now() + timeout;
