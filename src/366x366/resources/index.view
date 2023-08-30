@@ -250,4 +250,12 @@
   </svg>
 
   <rect id="torch" pointer-events="visible" />
+  
+  <svg id="starting">
+    <rect id="starting-back" />
+    <g transform="translate(50%,50%)">
+      <animateTransform attributeType="rotate" from="0" to="360" begin="activate;load;enable" dur="3" repeatCount="100" />
+      <arc id="starting-spin" x="$-100" y="$-100" width="200" height="200" fill="white" />
+    </g>
+  </svg>
 </svg>

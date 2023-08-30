@@ -17,9 +17,18 @@ import * as connectivity from "./connectivity.js";
 console.log(`Application ID: ${appbit.applicationId}`);
 console.log(`Build ID: ${appbit.buildId}`);
 
+let startingEl = document.getElementById("starting");
+
+startingEl.style.display = "inline";
+
 settings.applySettings();
+
+if(settings.hasSettings()){
+  startingEl.style.display = "none";
+}
+
 msgq.send("app-launch", {});
-msgq.send("send-settings", {});
+msgq.send("send-all-settings", {});
 
 msgq.onmessage = (messageKey, message) => {
   var key = messageKey.split(":")[0];
@@ -27,6 +36,8 @@ msgq.onmessage = (messageKey, message) => {
     weather.processWeatherData(message);
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
+  } else if (key === "all-settings-sent") {
+    startingEl.style.display = "none";
   }
 };
 

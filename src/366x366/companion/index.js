@@ -61,8 +61,9 @@ console.log("Enable monitoring of significant location changes");
 companion.monitorSignificantLocationChanges = true;
 
 msgq.onmessage = (messageKey, message) => {
-  if (messageKey === "send-settings") {
+  if (messageKey === "send-all-settings") {
     sendSettingsWithDefaults();
+    msgq.send(`all-settings-sent`, {});
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -173,6 +174,12 @@ function sendSettingValue(key, val) {
     };
 
     msgq.send(`settingChange:${data.key}`, data);
+    var sleepComplete = false;
+    setTimeout(() => sleepComplete = true, 200);
+    while(!sleepComplete)
+    {
+      //console.log(`Sleeping after sending...`);
+    }
   } else {
     console.log(`value was null, not sending ${key}`);
   }

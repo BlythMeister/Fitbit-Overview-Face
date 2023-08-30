@@ -25,9 +25,14 @@ export const SETTINGS_TYPE = "cbor";
 export const SETTINGS_FILE = "settingsV1.cbor";
 export let root = document.getElementById("root");
 export let backgroundEl = document.getElementById("background");
-export let noSettingsEl = document.getElementById("noSettings");
-export let noSettingsTextEl = document.getElementById("noSettingsText");
 export let settings = loadSettings();
+
+export function hasSettings(){
+  if (!settings) {
+    return false;
+  }
+  return true;
+}
 
 export function applySettings() {
   if (!settings) {

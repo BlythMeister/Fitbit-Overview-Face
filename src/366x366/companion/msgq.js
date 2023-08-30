@@ -308,6 +308,9 @@ peerSocket.addEventListener("message", (event) => {
 
     if (messageKey.length >10 && messageKey.substring(0, 10) == "msgq_alive") {
       otherQueueSize = message.size;
+      if (debugMessages) {
+        console.log(`Other queue size = ${otherQueueSize}`);
+      }
     } else {
       try {
         msgq.onmessage(messageKey, message);
