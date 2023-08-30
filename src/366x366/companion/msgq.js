@@ -22,10 +22,10 @@ if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedOrErrorSince = Date.now();
 }
 
-enqueue(aliveType, {size:queue.length});
+enqueue(aliveType, { size: queue.length });
 setInterval(function () {
   try {
-    enqueue(aliveType, {size:queue.length});
+    enqueue(aliveType, { size: queue.length });
   } catch (e) {
     //Do Nothing
   }
@@ -88,7 +88,7 @@ function enqueue(messageKey, message, timeout = 60000) {
 function dequeue(id, messageKey) {
   if (id) {
     var dequeueResult = false;
-    for (var i = queue.length-1; i >= 0; i--) {
+    for (var i = queue.length - 1; i >= 0; i--) {
       if (queue[i].id === id) {
         queue.splice(i, 1);
         dequeueResult = true;
@@ -103,7 +103,7 @@ function dequeue(id, messageKey) {
       console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
     }
   } else if (messageKey) {
-    for (var i = queue.length-1; i >= 0; i--) {
+    for (var i = queue.length - 1; i >= 0; i--) {
       var key = queue[i].messageKey;
       if (key === messageKey) {
         queue.splice(i, 1);
@@ -170,7 +170,7 @@ function process() {
 
   if (queue.length === 0) {
     consecutiveQueueEmpty++;
-    if(consecutiveQueueEmpty >= 3) {
+    if (consecutiveQueueEmpty >= 3) {
       return;
     }
 
@@ -194,7 +194,8 @@ function process() {
       //appbit.exit();
       clearQueue();
       delayedProcess(10000);
-    } if (socketClosedDuration >= 900000) {
+    }
+    if (socketClosedDuration >= 900000) {
       console.log("Socket not open for over 15 minutes. - Clear queue");
       clearQueue();
       delayedProcess(5000);
@@ -209,9 +210,9 @@ function process() {
     if (lastSent == null || Date.now() - lastSent >= 15000) {
       console.log("Waiting for receipt for over 15 seconds, giving up!");
       dequeue(waitingForId, null);
-      waitingForId = null
-      timesGivenUp = timesGivenUp + 1
-      if(timesGivenUp > 10) {
+      waitingForId = null;
+      timesGivenUp = timesGivenUp + 1;
+      if (timesGivenUp > 10) {
         console.log("More than 10 messages gone unanswered. - Force exit app");
         //appbit.exit();
       }
@@ -224,7 +225,7 @@ function process() {
 
   const queueItem = queue[0];
 
-  if(queueItem == null) {
+  if (queueItem == null) {
     console.log(`Top queue item is null, call process again in 2 seconds`);
     queue.splice(0, 1);
     delayedProcess(2000);
@@ -283,7 +284,7 @@ peerSocket.addEventListener("error", (event) => {
 peerSocket.addEventListener("message", (event) => {
   socketClosedOrErrorSince = null;
   lastReceived = Date.now();
-  timesGivenUp = 0
+  timesGivenUp = 0;
   const type = event.data.msgqType;
   const id = event.data.id;
   if (debugMessages) {
@@ -306,7 +307,7 @@ peerSocket.addEventListener("message", (event) => {
       console.error(e.message);
     }
 
-    if (messageKey.length >10 && messageKey.substring(0, 10) == "msgq_alive") {
+    if (messageKey.length > 10 && messageKey.substring(0, 10) == "msgq_alive") {
       otherQueueSize = message.size;
       if (debugMessages) {
         console.log(`Other queue size = ${otherQueueSize}`);
@@ -340,7 +341,7 @@ const msgq = {
   getQueueSize: GetQueueSize,
   getCompanionResponderQueueSize: GetCompanionResponderQueueSize,
   getLastSent: GetLastSent,
-  getLastReceived: GetLastReceived
+  getLastReceived: GetLastReceived,
 };
 
 export { msgq };

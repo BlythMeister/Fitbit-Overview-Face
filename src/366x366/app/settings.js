@@ -27,7 +27,7 @@ export let root = document.getElementById("root");
 export let backgroundEl = document.getElementById("background");
 export let settings = loadSettings();
 
-export function hasSettings(){
+export function hasSettings() {
   if (!settings) {
     return false;
   }

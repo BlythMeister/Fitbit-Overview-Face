@@ -23,7 +23,7 @@ startingEl.style.display = "inline";
 
 settings.applySettings();
 
-if(settings.hasSettings()){
+if (settings.hasSettings()) {
   startingEl.style.display = "none";
 }
 

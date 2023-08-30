@@ -57,16 +57,16 @@ export function drawState() {
 
   var lastSentAge = lastSent == null ? 99999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 99999999 : Date.now() - lastReceived;
-  
-  var sentAgeDisplay = (lastSentAge/1000)/60; 
-  if(sentAgeDisplay >= 100) {
+
+  var sentAgeDisplay = lastSentAge / 1000 / 60;
+  if (sentAgeDisplay >= 100) {
     lastMsgSentEl.text = `<< 100+`;
   } else {
     lastMsgSentEl.text = `<< ${sentAgeDisplay.toFixed(1)}`;
   }
 
-  var receivedAgeDisplay = (lastReceivedAge/1000)/60;
-  if(receivedAgeDisplay >= 100) {
+  var receivedAgeDisplay = lastReceivedAge / 1000 / 60;
+  if (receivedAgeDisplay >= 100) {
     lastMsgReceivedEl.text = `>> 100+`;
   } else {
     lastMsgReceivedEl.text = `>> ${receivedAgeDisplay.toFixed(1)}`;
@@ -81,7 +81,7 @@ export function drawState() {
     lastMsgReceivedEl.style.fill = disconnectedColour;
   } else {
     disconnected = false;
-    phoneIconEl.style.fill = connectedColour;    
+    phoneIconEl.style.fill = connectedColour;
     queueSizeEl.style.fill = connectedColour;
     lastMsgSentEl.style.fill = connectedColour;
     lastMsgReceivedEl.style.fill = connectedColour;

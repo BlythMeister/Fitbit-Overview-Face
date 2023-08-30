@@ -69,7 +69,7 @@ export function reApplyState() {
     hr.drawHrm();
     activity.drawAllProgress();
     bm.drawBMR();
-    bm.drawBMI();    
+    bm.drawBMI();
     connectivity.drawState();
     reApplyStateBackground();
   } catch (e) {

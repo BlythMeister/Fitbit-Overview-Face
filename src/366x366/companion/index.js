@@ -175,9 +175,8 @@ function sendSettingValue(key, val) {
 
     msgq.send(`settingChange:${data.key}`, data);
     var sleepComplete = false;
-    setTimeout(() => sleepComplete = true, 200);
-    while(!sleepComplete)
-    {
+    setTimeout(() => (sleepComplete = true), 200);
+    while (!sleepComplete) {
       //console.log(`Sleeping after sending...`);
     }
   } else {
