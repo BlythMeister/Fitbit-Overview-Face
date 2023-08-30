@@ -62,7 +62,7 @@ Screenshots availiable on website:
 * [Versa & Versa 2](https://fitbit-overview.blyth.me.uk/screenshots/300x300)
 * [Versa Lite](https://fitbit-overview.blyth.me.uk/screenshots/300x300_Lite)
 
-## Versa 3 & Sense Devices
+## Versa 3,  Versa 4, Sense & Sense 2 Devices
 
 ![336x336](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/1.base.png)
 ![336x336-24h](https://raw.githubusercontent.com/BlythMeister/Fitbit-Overview-Face/master/docs/images/336x336/2.24h.png)

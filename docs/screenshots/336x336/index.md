@@ -1,9 +1,9 @@
 ---
-title: Versa 3 & Sense
-description: "Versa 3 & Sense Screenshots"
+title: Versa 3,  Versa 4, Sense & Sense 2 Devices
+description: "Versa 3,  Versa 4, Sense & Sense 2 Devices Screenshots"
 ---
 
-# Versa 3 & Sense
+# Versa 3,  Versa 4, Sense & Sense 2 Devices
 
 ## Default
 
