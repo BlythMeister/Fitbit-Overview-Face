@@ -1,6 +1,6 @@
 import * as document from "document";
 import { units } from "user-settings";
-import { msgq } from "./msgq.js";
+import { msgq } from "./../shared/msgq.js";
 
 export let weatherLocationEl = document.getElementById("weather-location");
 export let weatherLocationTextEl = document.getElementById("weather-location-text");

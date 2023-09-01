@@ -18,7 +18,7 @@ import * as state from "./state.js";
 import * as torch from "./torch.js";
 import * as weather from "./weather.js";
 import * as connectivity from "./connectivity.js";
-import { msgq } from "./msgq.js";
+import { msgq } from "./../shared/msgq.js";
 
 // SETTINGS
 export const SETTINGS_TYPE = "cbor";

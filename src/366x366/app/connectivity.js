@@ -1,7 +1,7 @@
 import * as document from "document";
 import { me as appbit } from "appbit";
 import { vibration } from "haptics";
-import { msgq } from "./msgq.js";
+import { msgq } from "./../shared/msgq.js";
 
 export let phoneEl = document.getElementById("phone");
 export let phoneIconEl = document.getElementById("phone-icon");

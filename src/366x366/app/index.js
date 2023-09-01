@@ -1,7 +1,7 @@
 import * as document from "document";
 import { me as appbit } from "appbit";
 
-import { msgq } from "./msgq.js";
+import { msgq } from "./../shared/msgq.js";
 import * as bm from "./bm.js";
 import * as date from "./date.js";
 import * as battery from "./battery.js";

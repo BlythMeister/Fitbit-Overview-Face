@@ -1,4 +1,3 @@
-import { me as appbit } from "appbit";
 import { peerSocket } from "messaging";
 
 //====================================================================================================
@@ -8,13 +7,11 @@ import { peerSocket } from "messaging";
 let debugMessages = false;
 let queue = [];
 let otherQueueSize = 0;
-let timesGivenUp = 0;
 let waitingForId = null;
 let lastSent = null;
 let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
-let aliveType = "msgq_alive_app";
 let socketClosedOrErrorSince = null;
 let consecutiveQueueEmpty = 0;
 
@@ -22,10 +19,10 @@ if (peerSocket.readyState != peerSocket.OPEN) {
   socketClosedOrErrorSince = Date.now();
 }
 
-enqueue(aliveType, { size: queue.length });
+enqueue("msgq_alive", {size:null}, 120000);
 setInterval(function () {
   try {
-    enqueue(aliveType, { size: queue.length });
+    enqueue("msgq_alive", {size:null}, 120000);
   } catch (e) {
     //Do Nothing
   }
@@ -120,13 +117,39 @@ function dequeue(id, messageKey) {
 }
 
 //====================================================================================================
-// Clear Queue
+// Requeue
 //====================================================================================================
 
-function clearQueue() {
-  if (debugMessages) {
-    console.log(`Pre Clear QueueSize: ${queue.length}`);
-    queue = [];
+function requeue(id) {
+  if (queue.length == 1) {
+    if (debugMessages) {
+      console.log(`Requeue when 1 message has no impact - QueueSize: ${queue.length}`);
+    }
+    return;
+  }
+
+  var data = null;
+  for (var i = queue.length - 1; i >= 0; i--) {
+    if (queue[i].id === id) {
+      data = queue.splice(i, 1)[0];
+      break;
+    }
+  }
+
+  if (data != null) {
+    if (debugMessages) {
+      console.log(`Dequeued message (for requeue) ${id} - QueueSize: ${queue.length}`);
+    }
+
+    queue.push(data);
+
+    delayedProcess(250);
+
+    if (debugMessages) {
+      console.log(`Enqueued message (for requeue) ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
+    }
+  } else {
+    console.log(`Unable to dequeue message (for requeue) ${id} - QueueSize: ${queue.length}`);
   }
 }
 
@@ -189,34 +212,27 @@ function process() {
     }
 
     var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
+    var delayTime = 0;
     if (socketClosedDuration >= 1800000) {
-      console.log("Socket not open for over 30 minutes. - Force exit app");
-      appbit.exit();
-    }
-    if (socketClosedDuration >= 900000) {
-      console.log("Socket not open for over 15 minutes. - Clear queue");
-      clearQueue();
-      delayedProcess(5000);
+      delayTime = 30;
+    } else if (socketClosedDuration >= 900000) {
+      delayTime = 15;
     } else {
-      console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in 5 seconds`);
-      delayedProcess(5000);
-      return;
+      delayTime = 5;
     }
+
+    console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in ${delayTime} seconds`);
+    delayedProcess(delayTime * 1000);
   }
 
   if (waitingForId != null) {
-    if (lastSent == null || Date.now() - lastSent >= 15000) {
-      console.log("Waiting for receipt for over 15 seconds, giving up!");
-      dequeue(waitingForId, null);
+    if (lastSent == null || Date.now() - lastSent >= 10000) {
+      console.log("Waiting for receipt for over 10 seconds, resending!");
+      requeue(waitingForId);
       waitingForId = null;
-      timesGivenUp = timesGivenUp + 1;
-      if (timesGivenUp > 3) {
-        console.log("More than 3 messages gone unanswered. - Force exit app");
-        appbit.exit();
-      }
     } else {
-      console.log(`Waiting for a receipt, call process again in 5 seconds`);
-      delayedProcess(5000);
+      console.log(`Waiting for a receipt, call process again in 2 seconds`);
+      delayedProcess(2000);
       return;
     }
   }
@@ -236,6 +252,10 @@ function process() {
     delayedProcess(250);
   } else {
     try {
+      if(queueItem.messageKey == "msgq_alive") {
+        // Update queue length at time of sending
+        queueItem.message.size = queue.length
+      }
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
@@ -282,7 +302,6 @@ peerSocket.addEventListener("error", (event) => {
 peerSocket.addEventListener("message", (event) => {
   socketClosedOrErrorSince = null;
   lastReceived = Date.now();
-  timesGivenUp = 0;
   const type = event.data.msgqType;
   const id = event.data.id;
   if (debugMessages) {
@@ -305,7 +324,7 @@ peerSocket.addEventListener("message", (event) => {
       console.error(e.message);
     }
 
-    if (messageKey.length > 10 && messageKey.substring(0, 10) == "msgq_alive") {
+    if (messageKey == "msgq_alive") {
       otherQueueSize = message.size;
       if (debugMessages) {
         console.log(`Other queue size = ${otherQueueSize}`);

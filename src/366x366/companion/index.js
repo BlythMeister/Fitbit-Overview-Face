@@ -2,7 +2,7 @@ import { settingsStorage } from "settings";
 import { me as companion } from "companion";
 import { weather } from "weather";
 
-import { msgq } from "./msgq.js";
+import { msgq } from "./../shared/msgq.js";
 
 let lastWeatherUnit = null;
 
