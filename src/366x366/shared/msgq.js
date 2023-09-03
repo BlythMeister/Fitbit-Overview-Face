@@ -211,27 +211,32 @@ function process() {
       socketClosedOrErrorSince = Date.now();
     }
 
+    var ehloSuccess = true;
     try {
       if (debugMessages) {
         console.log(`Try waking socket`);
       }
       peerSocket.send({ msgqType: "msgq_ehlo" });
+      socketClosedOrErrorSince = null;
     } catch (e) {
       console.error(e.message);
+      ehloSuccess = false;
     }
 
-    var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
-    var delayTime = 0;
-    if (socketClosedDuration >= 1800000) {
-      delayTime = 30;
-    } else if (socketClosedDuration >= 900000) {
-      delayTime = 15;
-    } else {
-      delayTime = 5;
-    }
+    if(!ehloSuccess) {
+      var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
+      var delayTime = 0;
+      if (socketClosedDuration >= 1800000) {
+        delayTime = 30;
+      } else if (socketClosedDuration >= 900000) {
+        delayTime = 15;
+      } else {
+        delayTime = 5;
+      }
 
-    console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in ${delayTime} seconds`);
-    delayedProcess(delayTime * 1000);
+      console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in ${delayTime} seconds`);
+      delayedProcess(delayTime * 1000);
+    }
   }
 
   if (waitingForId != null) {
