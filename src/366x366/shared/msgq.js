@@ -211,6 +211,15 @@ function process() {
       socketClosedOrErrorSince = Date.now();
     }
 
+    try {
+      if (debugMessages) {
+        console.log(`Try waking socket`);
+      }
+      peerSocket.send({ msgqType: "msgq_ehlo" });
+    } catch (e) {
+      console.error(e.message);
+    }
+
     var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
     var delayTime = 0;
     if (socketClosedDuration >= 1800000) {
