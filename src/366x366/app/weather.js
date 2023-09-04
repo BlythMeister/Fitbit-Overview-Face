@@ -20,7 +20,7 @@ export function setWeatherPosition(pos) {
   if (weatherPosition == "NONE") {
     weatherLastUpdate = null;
   }
-  fetchWeather();
+  forceFetchWeather();
 }
 
 export function setWeatherLocationPosition(pos) {
@@ -28,13 +28,13 @@ export function setWeatherLocationPosition(pos) {
   if (weatherLocationPosition == "NONE") {
     weatherLastUpdate = null;
   }
-  fetchWeather();
+  forceFetchWeather();
 }
 
 export function setTemperatureUnit(unit) {
   if (unit != temperatureUnit) {
     temperatureUnit = unit;
-    fetchWeather();
+    forceFetchWeather();
   }
 }
 
@@ -45,8 +45,14 @@ export function setRefreshInterval(interval) {
 
   if (interval != weatherInterval) {
     weatherInterval = interval;
-    fetchWeather();
+    forceFetchWeather();
   }
+}
+
+export function forceFetchWeather() {
+  weatherLastUpdate = null;
+  weatherLastRequest = null;
+  fetchWeather();
 }
 
 export function fetchWeather() {
