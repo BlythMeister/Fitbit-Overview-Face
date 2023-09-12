@@ -60,11 +60,10 @@ export function fetchWeather() {
   var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
-  if (weatherPosition != "NONE" && currentWeatherAge >= weatherInterval * 2) {
+  if (weatherPosition != "NONE" && currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
     currentWeatherData = null;
+    DrawWeather();
   }
-
-  DrawWeather();
 
   if (weatherPosition != "NONE" && lastRequestAge >= 30000) {
     if (weatherIconEl.href == "weather_36px.png" || currentWeatherAge >= weatherInterval) {
