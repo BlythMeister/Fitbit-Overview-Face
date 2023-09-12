@@ -211,9 +211,10 @@ function sendWeather(unit) {
       console.error(ex.message);
       var sendData = {
         temperature: -999,
-        unit: "celcius",
+        unit: unitKey,
         condition: -1,
         image: "weather_36px.png",
+        location: "ERROR"
       };
       msgq.send("weather", sendData);
     });
