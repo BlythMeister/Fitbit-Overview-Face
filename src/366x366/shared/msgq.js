@@ -216,7 +216,9 @@ function process() {
       if (debugMessages) {
         console.log(`Try waking socket`);
       }
-      peerSocket.send({ msgqType: "msgq_ehlo" });
+      const ehloUuid = CreateUUID();
+      const ehloId = `ehlo#${uuid}`;
+      peerSocket.send({ msgqType: "msgq_ehlo", id: ehloId });
       socketClosedOrErrorSince = null;
     } catch (e) {
       console.error(e.message);
@@ -357,6 +359,10 @@ peerSocket.addEventListener("message", (event) => {
     dequeue(id, null);
     waitingForId = null;
     delayedProcess(250);
+  } else if (type == "msgq_ehlo") {
+    if(debugMessages) {
+      console.log(`Got elho for ${id}`);
+    }
   }
 });
 
