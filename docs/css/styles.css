@@ -200,6 +200,13 @@ a.far:hover {
     color: #FFFFFF;
 }
 
+.icon-guide {
+    float:left; 
+    padding-right:10px; 
+    padding-top:5px;
+    padding-bottom:5px
+}
+
 @media (max-width:990px) {
     .gist {
         display: none;

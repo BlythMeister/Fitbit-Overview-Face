@@ -270,7 +270,8 @@ function process() {
     try {
       if(queueItem.messageKey == "msgq_alive") {
         // Update queue length at time of sending
-        queueItem.message.size = queue.length
+        // Don't count the msgq_alive message being sent
+        queueItem.message.size = queue.length - 1 
       }
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
