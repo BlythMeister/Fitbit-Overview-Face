@@ -296,27 +296,59 @@ function process() {
 //====================================================================================================
 
 peerSocket.addEventListener("open", () => {
+  try {
+    onSocketOpen();
+  } catch (e) {
+    console.warn(e.message);
+  }
+});
+
+peerSocket.addEventListener("closed", (event) => {
+  try {
+    onSocketClosed(event);
+  } catch (e) {
+    console.warn(e.message);
+  }
+});
+
+peerSocket.addEventListener("error", (event) => {
+  try {
+    onSocketError(event);
+  } catch (e) {
+    console.warn(e.message);
+  }
+});
+
+peerSocket.addEventListener("message", (event) => {
+  try {
+    onSocketMessage(event);
+  } catch (e) {
+    console.warn(e.message);
+  }
+});
+
+function onSocketOpen() {
   console.log("Peer socket opened");
   waitingForId = null;
   socketClosedOrErrorSince = null;
   delayedProcess(250);
-});
+}
 
-peerSocket.addEventListener("closed", (event) => {
+function onSocketClosed(event) {
   console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForId = null;
   socketClosedOrErrorSince = Date.now();
   delayedProcess(250);
-});
+}
 
-peerSocket.addEventListener("error", (event) => {
+function onSocketError(event) {
   console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
   waitingForId = null;
   socketClosedOrErrorSince = Date.now();
   delayedProcess(250);
-});
+}
 
-peerSocket.addEventListener("message", (event) => {
+function onSocketMessage(event) {
   socketClosedOrErrorSince = null;
   lastReceived = Date.now();
   const type = event.data.msgqType;
@@ -365,7 +397,7 @@ peerSocket.addEventListener("message", (event) => {
       console.log(`Got elho for ${id}`);
     }
   }
-});
+}
 
 //====================================================================================================
 // Exports
