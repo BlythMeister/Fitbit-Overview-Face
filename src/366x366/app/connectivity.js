@@ -73,7 +73,7 @@ export function drawState() {
   }
 
   queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${msgq.getCompanionResponderQueueSize()}`;
-  if (lastReceivedAge >= 1800000) {
+  if (lastReceivedAge >= 900000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
     queueSizeEl.style.fill = disconnectedColour;
