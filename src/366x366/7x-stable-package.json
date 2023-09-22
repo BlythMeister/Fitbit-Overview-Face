@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fitbit/sdk": "~7.2.0-pre.0",
+    "@fitbit/sdk": "~7.1.0-pre.1",
     "@fitbit/sdk-cli": "^1.7.3"
   },
   "fitbit": {
