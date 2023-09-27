@@ -210,7 +210,9 @@ function process() {
   if(lastSentAge < 300)
   {
     var delay = 300 - lastSentAge;
-    console.log(`Less than 300ms since last send, backoff ${delay}ms`);
+    if (debugMessages) {
+      console.log(`Less than 300ms since last send, backoff ${delay}ms`);
+    }
     delayedProcess(delay);
     return;
   }
