@@ -35,7 +35,7 @@ function GetQueueSize() {
   return queue.length;
 }
 
-function GetCompanionResponderQueueSize() {
+function GetOtherQueueSize() {
   return otherQueueSize;
 }
 
@@ -204,6 +204,15 @@ function process() {
     return;
   } else {
     consecutiveQueueEmpty = 0;
+  }
+
+  var lastSentAge = Date.now() - lastSent
+  if(lastSentAge < 300)
+  {
+    var delay = 300 - lastSentAge;
+    console.log(`Less than 300ms since last send, backoff ${delay}ms`);
+    delayedProcess(delay);
+    return;
   }
 
   if (peerSocket.readyState != peerSocket.OPEN || socketClosedOrErrorSince != null) {
@@ -391,7 +400,7 @@ function onSocketMessage(event) {
     }
     dequeue(id, null);
     waitingForId = null;
-    delayedProcess(250);
+    delayedProcess(100);
   } else if (type == "msgq_ehlo") {
     if(debugMessages) {
       console.log(`Got elho for ${id}`);
@@ -409,7 +418,7 @@ const msgq = {
     console.log(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
   getQueueSize: GetQueueSize,
-  getCompanionResponderQueueSize: GetCompanionResponderQueueSize,
+  getOtherQueueSize: GetOtherQueueSize,
   getLastSent: GetLastSent,
   getLastReceived: GetLastReceived,
 };
