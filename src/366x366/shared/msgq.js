@@ -207,13 +207,19 @@ function process() {
   }
 
   var lastSentAge = Date.now() - lastSent
-  if(lastSentAge < 300)
+  if(lastSentAge < 50)
   {
-    var delay = 300 - lastSentAge;
+    var delay = 50 - lastSentAge;
     if (debugMessages) {
-      console.log(`Less than 300ms since last send, backoff ${delay}ms`);
+      console.log(`Less than 50ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
+    return;
+  }
+
+  if (peerSocket.bufferedAmount != 0) {
+    console.log(`Socket already in use, delay 500ms`);
+    delayedProcess(500);
     return;
   }
 
@@ -249,6 +255,7 @@ function process() {
 
       console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in ${delayTime} seconds`);
       delayedProcess(delayTime * 1000);
+      return;
     }
   }
 
@@ -277,6 +284,7 @@ function process() {
     console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
     delayedProcess(250);
+    return;
   } else {
     try {
       if(queueItem.messageKey == "msgq_alive") {
@@ -292,12 +300,14 @@ function process() {
       lastSent = Date.now();
       socketClosedOrErrorSince = null;
       delayedProcess(15000);
+      return;
     } catch (e) {
       waitingForId = null;
       console.warn(e.message);
       socketClosedOrErrorSince = Date.now();
       console.log(`Socket send error, call process again in 2 seconds`);
       delayedProcess(2000);
+      return;
     }
   }
 }
