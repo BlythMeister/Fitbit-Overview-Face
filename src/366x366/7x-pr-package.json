@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fitbit/sdk": "~7.2.0-pre.0",
+    "@fitbit/sdk": "~7.0.0-pre.6",
     "@fitbit/sdk-cli": "^1.7.3"
   },
   "fitbit": {
@@ -18,8 +18,8 @@
       "run_background"
     ],
     "buildTargets": [
-      "rhea",
-      "hera"
+      "vulcan",
+      "atlas"
     ],
     "i18n": {
       "en-US": {
