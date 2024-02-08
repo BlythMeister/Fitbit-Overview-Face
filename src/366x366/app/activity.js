@@ -24,7 +24,7 @@ export function getProgressEl(prefix, officialType, dayWeek) {
   return {
     prefix: prefix,
     type: officialType,
-    doTotal: prefix == "activeMinutes",
+    doTotal: officialType == "activeZoneMinutes",
     dayWeek: dayWeek,
     prevProgressVal: null,
     containerNoProgress: containerNoProgressEl,
