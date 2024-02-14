@@ -202,9 +202,9 @@ function process() {
     }
 
     if (debugMessages) {
-      console.log(`Queue empty, call process again in 30 seconds`);
+      console.log(`Queue empty, call process again in 5 seconds`);
     }
-    delayedProcess(30000);
+    delayedProcess(5000);
     return;
   } else {
     consecutiveQueueEmpty = 0;
@@ -238,7 +238,7 @@ function process() {
         console.log(`Try waking socket`);
       }
       const ehloUuid = CreateUUID();
-      const ehloId = `ehlo#${uuid}`;
+      const ehloId = `ehlo#${ehloUuid}`;
       peerSocket.send({ msgqType: "msgq_ehlo", id: ehloId });
       socketClosedOrErrorSince = null;
     } catch (e) {
@@ -250,9 +250,9 @@ function process() {
       var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
       var delayTime = 0;
       if (socketClosedDuration >= 1800000) {
-        delayTime = 30;
-      } else if (socketClosedDuration >= 900000) {
         delayTime = 15;
+      } else if (socketClosedDuration >= 900000) {
+        delayTime = 10;
       } else {
         delayTime = 5;
       }
@@ -303,15 +303,85 @@ function process() {
       waitingForId = queueItem.id;
       lastSent = Date.now();
       socketClosedOrErrorSince = null;
-      delayedProcess(15000);
-      return;
     } catch (e) {
       waitingForId = null;
       console.warn(e.message);
       socketClosedOrErrorSince = Date.now();
       console.log(`Socket send error, call process again in 2 seconds`);
       delayedProcess(2000);
-      return;
+    }
+  }
+}
+
+function onSocketOpen() {
+  console.log("Peer socket opened");
+  waitingForId = null;
+  socketClosedOrErrorSince = null;
+  delayedProcess(250);
+}
+
+function onSocketClosed(event) {
+  console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
+  waitingForId = null;
+  socketClosedOrErrorSince = Date.now();
+  delayedProcess(250);
+}
+
+function onSocketError(event) {
+  console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
+  waitingForId = null;
+  socketClosedOrErrorSince = Date.now();
+  delayedProcess(250);
+}
+
+function onSocketMessage(event) {
+  socketClosedOrErrorSince = null;
+  lastReceived = Date.now();
+  const type = event.data.msgqType;
+  const id = event.data.id;
+  if (debugMessages) {
+    console.log(`Got message ${id} - type ${type}`);
+  }
+
+  if (type == "msgq_message") {
+    const messageKey = event.data.msgqMessage.messageKey;
+    const message = event.data.msgqMessage.message;
+
+    if (debugMessages) {
+      console.log(`Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
+    }
+    
+    if (messageKey == "msgq_alive") {
+      otherQueueSize = message.size;
+      if (debugMessages) {
+        console.log(`Other queue size = ${otherQueueSize}`);
+      }
+    } else {
+      try {
+        msgq.onmessage(messageKey, message);
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+
+    try {
+      if (debugMessages) {
+        console.log(`Sending receipt for ${id}`);
+      }
+      peerSocket.send({ msgqType: "msgq_receipt", id: id });
+    } catch (e) {
+      console.error(e.message);
+    }
+  } else if (type == "msgq_receipt") {
+    if (debugMessages) {
+      console.log(`Got receipt for ${id}`);
+    }
+    dequeue(id, null);
+    waitingForId = null;
+    delayedProcess(500);
+  } else if (type == "msgq_ehlo") {
+    if(debugMessages) {
+      console.log(`Got elho for ${id}`);
     }
   }
 }
@@ -351,78 +421,6 @@ peerSocket.addEventListener("message", (event) => {
     console.warn(e.message);
   }
 });
-
-function onSocketOpen() {
-  console.log("Peer socket opened");
-  waitingForId = null;
-  socketClosedOrErrorSince = null;
-  delayedProcess(250);
-}
-
-function onSocketClosed(event) {
-  console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
-  waitingForId = null;
-  socketClosedOrErrorSince = Date.now();
-  delayedProcess(250);
-}
-
-function onSocketError(event) {
-  console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
-  waitingForId = null;
-  socketClosedOrErrorSince = Date.now();
-  delayedProcess(250);
-}
-
-function onSocketMessage(event) {
-  socketClosedOrErrorSince = null;
-  lastReceived = Date.now();
-  const type = event.data.msgqType;
-  const id = event.data.id;
-  if (debugMessages) {
-    console.log(`Got message ${id} - type ${type}`);
-  }
-
-  if (type == "msgq_message") {
-    const messageKey = event.data.msgqMessage.messageKey;
-    const message = event.data.msgqMessage.message;
-
-    if (debugMessages) {
-      console.log(`Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
-    }
-    try {
-      if (debugMessages) {
-        console.log(`Sending receipt for ${id}`);
-      }
-      peerSocket.send({ msgqType: "msgq_receipt", id: id });
-    } catch (e) {
-      console.error(e.message);
-    }
-
-    if (messageKey == "msgq_alive") {
-      otherQueueSize = message.size;
-      if (debugMessages) {
-        console.log(`Other queue size = ${otherQueueSize}`);
-      }
-    } else {
-      try {
-        msgq.onmessage(messageKey, message);
-      } catch (e) {
-        console.error(e.message);
-      }
-    }
-  } else if (type == "msgq_receipt") {
-    if (debugMessages) {
-      console.log(`Got receipt for ${id}`);
-    }
-    dequeue(id, null);
-    waitingForId = null;
-    delayedProcess(100);
-  } else if (type == "msgq_ehlo") {
-    if(debugMessages) {
-      console.log(`Got elho for ${id}`);
-    }
-  }
-}
 
 //====================================================================================================
 // Exports
