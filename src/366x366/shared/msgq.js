@@ -47,6 +47,10 @@ function GetLastReceived() {
   return lastReceived;
 }
 
+function IsWaitingForResponse() {
+  return waitingForId != null;
+}
+
 function CreateUUID() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -433,6 +437,7 @@ const msgq = {
   getOtherQueueSize: GetOtherQueueSize,
   getLastSent: GetLastSent,
   getLastReceived: GetLastReceived,
+  getIsWaitingForResponse: IsWaitingForResponse
 };
 
 export { msgq };
