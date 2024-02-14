@@ -71,8 +71,13 @@ export function drawState() {
   } else {
     lastMsgReceivedEl.text = `>> ${receivedAgeDisplay.toFixed(1)}`;
   }
-
+   
   queueSizeEl.text = `A:${msgq.getQueueSize()} / C:${msgq.getOtherQueueSize()}`;
+  if(msgq.getIsWaitingForResponse())
+  {
+    queueSizeEl.text += " / W"
+  }
+  
   if (lastReceivedAge >= 900000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
