@@ -59,7 +59,6 @@ body {
 }
 
 .footer {
-    margin-top: 15px;
     margin-bottom: 5px;
     border-top: 1px solid grey;
     padding-top: 10px;
@@ -72,6 +71,7 @@ body {
 .mainFrame {
     padding-top: 15px;
     padding-left: 20px;
+    padding-bottom: 15px;
     margin-bottom: 0;
 }
 
@@ -118,6 +118,7 @@ body {
 .sidebar .bottomItem {
     border-top: 1px solid grey;
     padding-top: 10px;
+    padding-bottom: 15px;
 }
 
 .sidebar .media-underline {
