@@ -277,15 +277,15 @@ function process() {
   }
 
   if (waitingForId != null) {
-    if (lastSent == null || Date.now() - lastSent >= 10000) {
-      console.log(`Waiting for receipt (${waitingForId}) for over 10 seconds, resending!`);
+    if (lastSent == null || Date.now() - lastSent >= 4000) {
+      console.log(`Waiting for receipt (${waitingForId}) for over 4 seconds, resending!`);
       var requeueId = waitingForId;
       waitingForId = null;
       requeue(requeueId);
       delayedProcess(50);
     } else {
-      console.log(`Waiting for a receipt (${waitingForId}) call process again in 1 second`);
-      delayedProcess(1000);
+      console.log(`Waiting for a receipt (${waitingForId}) call process again in 500ms`);
+      delayedProcess(500);
     }
     return;
   }
