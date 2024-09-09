@@ -177,7 +177,7 @@ function sendWeather(unit, retry=false) {
             temperature: -999,
             unit: unitKey,
             condition: -1,
-            location: "ERROR"
+            location: ex.message
           };
           msgq.send("weather", sendData, 60000, false);
         }
@@ -192,7 +192,7 @@ function sendWeather(unit, retry=false) {
         temperature: -999,
         unit: unitKey,
         condition: -1,
-        location: "ERROR"
+        location: ex.message
       };
       msgq.send("weather", sendData, 60000, false);
     }
