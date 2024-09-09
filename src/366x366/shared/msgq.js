@@ -1,4 +1,4 @@
-import { peerSocket } from "messaging";
+import { peerSocket } from "fitbit-file-messaging";
 
 //====================================================================================================
 // Initialize
@@ -12,12 +12,7 @@ let lastSent = null;
 let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
-let socketClosedOrErrorSince = null;
 let consecutiveQueueEmpty = 0;
-
-if (peerSocket.readyState != peerSocket.OPEN) {
-  socketClosedOrErrorSince = Date.now();
-}
 
 enqueue("msgq_alive", {size:null}, 120000);
 setInterval(function () {
@@ -221,48 +216,6 @@ function process() {
     return;
   }
 
-  if (peerSocket.bufferedAmount != 0) {
-    console.log(`Socket already in use, delay 500ms`);
-    delayedProcess(500);
-    return;
-  }
-
-  if (peerSocket.readyState != peerSocket.OPEN || socketClosedOrErrorSince != null) {
-    if (socketClosedOrErrorSince == null) {
-      socketClosedOrErrorSince = Date.now();
-    }
-
-    var ehloSuccess = true;
-    try {
-      if (debugMessages) {
-        console.log(`Try waking socket`);
-      }
-      const ehloUuid = CreateUUID();
-      const ehloId = `ehlo#${ehloUuid}`;
-      peerSocket.send({ msgqType: "msgq_ehlo", id: ehloId });
-      socketClosedOrErrorSince = null;
-    } catch (e) {
-      console.error(e.message);
-      ehloSuccess = false;
-    }
-
-    if(!ehloSuccess) {
-      var socketClosedDuration = Date.now() - socketClosedOrErrorSince;
-      var delayTime = 0;
-      if (socketClosedDuration >= 1800000) {
-        delayTime = 15;
-      } else if (socketClosedDuration >= 900000) {
-        delayTime = 10;
-      } else {
-        delayTime = 5;
-      }
-
-      console.log(`Socket not open (Closed for ${socketClosedDuration}ms) call process again in ${delayTime} seconds`);
-      delayedProcess(delayTime * 1000);
-      return;
-    }
-  }
-
   if (waitingForId != null) {
     if (lastSent == null || Date.now() - lastSent >= 10000) {
       console.log("Waiting for receipt for over 10 seconds, resending!");
@@ -302,40 +255,34 @@ function process() {
       peerSocket.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
       waitingForId = queueItem.id;
       lastSent = Date.now();
-      socketClosedOrErrorSince = null;
     } catch (e) {
       waitingForId = null;
       console.warn(e.message);
-      socketClosedOrErrorSince = Date.now();
-      console.log(`Socket send error, call process again in 2 seconds`);
+      console.log(`Send error, call process again in 2 seconds`);
       delayedProcess(2000);
     }
   }
 }
 
-function onSocketOpen() {
-  console.log("Peer socket opened");
+function onMessagingOpen() {
+  console.log("Messaging opened");
   waitingForId = null;
-  socketClosedOrErrorSince = null;
   delayedProcess(250);
 }
 
-function onSocketClosed(event) {
-  console.log(`Peer socket closed. - Code ${event.code}. Message ${event.reason}`);
+function onMessagingClosed(event) {
+  console.log(`Messaging closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForId = null;
-  socketClosedOrErrorSince = Date.now();
   delayedProcess(250);
 }
 
-function onSocketError(event) {
-  console.error(`Peer socket error. - Code ${event.code}. Message ${event.message}`);
+function onMessagingError(event) {
+  console.error(`Messaging error. - Code ${event.code}. Message ${event.message}`);
   waitingForId = null;
-  socketClosedOrErrorSince = Date.now();
   delayedProcess(250);
 }
 
-function onSocketMessage(event) {
-  socketClosedOrErrorSince = null;
+function onMessage(event) {
   lastReceived = Date.now();
   const type = event.data.msgqType;
   const id = event.data.id;
@@ -387,12 +334,12 @@ function onSocketMessage(event) {
 }
 
 //====================================================================================================
-// Socket handling
+// Messaging handling
 //====================================================================================================
 
 peerSocket.addEventListener("open", () => {
   try {
-    onSocketOpen();
+    onMessagingOpen();
   } catch (e) {
     console.warn(e.message);
   }
@@ -400,7 +347,7 @@ peerSocket.addEventListener("open", () => {
 
 peerSocket.addEventListener("closed", (event) => {
   try {
-    onSocketClosed(event);
+    onMessagingClosed(event);
   } catch (e) {
     console.warn(e.message);
   }
@@ -408,7 +355,7 @@ peerSocket.addEventListener("closed", (event) => {
 
 peerSocket.addEventListener("error", (event) => {
   try {
-    onSocketError(event);
+    onMessagingError(event);
   } catch (e) {
     console.warn(e.message);
   }
@@ -416,7 +363,7 @@ peerSocket.addEventListener("error", (event) => {
 
 peerSocket.addEventListener("message", (event) => {
   try {
-    onSocketMessage(event);
+    onMessage(event);
   } catch (e) {
     console.warn(e.message);
   }
