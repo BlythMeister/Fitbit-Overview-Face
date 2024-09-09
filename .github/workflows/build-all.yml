@@ -269,3 +269,13 @@ jobs:
           name: fitbit-overview-366x366-7X-${{ github.run_number }}.fba
           path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
+  merge:
+    runs-on: ubuntu-latest
+    needs: [fba-348x250-4x-pr,fba-348x250-4x-stable,fba-300x300-4x-pr,fba-300x300-4x-stable,fba-366x366-6x-pr,fba-366x366-6x-stable,fba-366x366-7x-pr,fba-366x366-7x-stable]
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: fba-files-${{ github.run_number }}
+          delete-merged: true
+        
