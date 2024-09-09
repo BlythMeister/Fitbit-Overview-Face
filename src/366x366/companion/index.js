@@ -140,7 +140,7 @@ function sendSettingValue(key, val, updatedValue) {
   }
 }
 
-function sendWeather(unit, attempt=1) {
+function sendWeather(unit, retry=false) {
   let unitKey = "celsius";
   if (unit == "F") {
     unitKey = "fahrenheit";
@@ -168,9 +168,9 @@ function sendWeather(unit, attempt=1) {
         msgq.send("weather", sendData, 60000, false);       
       })
       .catch((ex) => {
-        if(attempt < 3) {
-          console.log(`Retry weather after attempt ${attempt}`);
-          sendWeather(unit, attempt + 1);
+        if(!retry) {
+          console.log(`Retry weather...`);
+          sendWeather(unit, true);
         } else {
           console.error(ex);
           var sendData = {
@@ -183,9 +183,9 @@ function sendWeather(unit, attempt=1) {
         }
       });
   } catch (ex) {
-    if(attempt < 3) {
-      console.log(`Retry weather after attempt ${attempt}`);
-      sendWeather(unit, attempt + 1);
+    if(!retry) {
+      console.log(`Retry weather...`);
+      sendWeather(unit, true);
     } else {
       console.error(ex);
       var sendData = {
