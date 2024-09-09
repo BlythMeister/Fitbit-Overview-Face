@@ -122,7 +122,7 @@ export function fetchWeather() {
         weatherLastRequest = Date.now();
         msgq.send("weather", { unit: sendUnit });
       } catch (e) {
-        console.error(e.message);
+        console.error(e);
       }
     }
   }

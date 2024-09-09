@@ -133,7 +133,7 @@ function sendSettingValue(key, val) {
   }
 }
 
-function sendWeather(unit, attempt=0) {
+function sendWeather(unit, attempt=1) {
   let unitKey = "celsius";
   if (unit == "F") {
     unitKey = "fahrenheit";
@@ -144,35 +144,53 @@ function sendWeather(unit, attempt=0) {
     weather
       .getWeatherData({ temperatureUnit: unitKey })
       .then((data) => {
-        //console.log(`RawWeather:${JSON.stringify(data)}`);
-        if (data.locations.length == 0) {
-          throw new Error("No locations");
-        }
+        try
+        {
+          //console.log(`RawWeather:${JSON.stringify(data)}`);
+          if (data.locations.length == 0) {
+            throw new Error("No locations");
+          }
 
-        var location = data.locations[0];
+          var location = data.locations[0];
 
-        var sendData = {
-          unit: data.temperatureUnit,
-          temperature: Math.floor(location.currentWeather.temperature),
-          condition: location.currentWeather.weatherCondition,
-          location: location.name,
-        };
-        //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData);
+          var sendData = {
+            unit: data.temperatureUnit,
+            temperature: Math.floor(location.currentWeather.temperature),
+            condition: location.currentWeather.weatherCondition,
+            location: location.name,
+          };
+          //console.log(`Weather:${JSON.stringify(sendData)}`);
+          msgq.send("weather", sendData);
+        } catch (ex) {
+          if(attempt < 3) {
+            console.log(`Retry weather after attempt ${attempt}`);
+            sendWeather(unit, attempt + 1);
+          } else {
+            console.error(ex);
+            var sendData = {
+              temperature: -999,
+              unit: unitKey,
+              condition: -1,
+              location: "ERROR"
+            };
+            msgq.send("weather", sendData);
+          }
+        }        
       });
   } catch (ex) {
     if(attempt < 3) {
+      console.log(`Retry weather after attempt ${attempt}`);
       sendWeather(unit, attempt + 1);
-      return;
+    } else {
+      console.error(ex);
+      var sendData = {
+        temperature: -999,
+        unit: unitKey,
+        condition: -1,
+        location: "ERROR"
+      };
+      msgq.send("weather", sendData);
     }
-    console.error(ex.message);
-    var sendData = {
-      temperature: -999,
-      unit: unitKey,
-      condition: -1,
-      location: "ERROR"
-    };
-    msgq.send("weather", sendData);
   }
 }
 

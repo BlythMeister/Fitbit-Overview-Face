@@ -1,10 +1,10 @@
-import { peerSocket } from "fitbit-file-messaging";
+import { messaging } from "./fitbit-file-messaging.js";
 
 //====================================================================================================
 // Initialize
 //====================================================================================================
 
-let debugMessages = false;
+let debugMessages = true;
 let queue = [];
 let otherQueueSize = 0;
 let waitingForId = null;
@@ -104,7 +104,7 @@ function dequeue(id, messageKey) {
       if (key === messageKey) {
         queue.splice(i, 1);
         if (debugMessages) {
-          console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
+          console.log(`Dequeued message ${id} from key ${messageKey} - QueueSize: ${queue.length}`);
         }
       }
     }
@@ -142,10 +142,10 @@ function requeue(id) {
 
     queue.push(data);
 
-    delayedProcess(250);
+    process();
 
     if (debugMessages) {
-      console.log(`Enqueued message (for requeue) ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
+      console.log(`Enqueued message (for requeue) ${id} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
     }
   } else {
     console.log(`Unable to dequeue message (for requeue) ${id} - QueueSize: ${queue.length}`);
@@ -159,9 +159,15 @@ function requeue(id) {
 function delayedProcess(delay) {
   let setNewTime = false;
   if (delayedProcessCallTimeout == null) {
+    if (debugMessages) {
+      console.log(`no current delay`);
+    }
     setNewTime = true;
   } else {
     let msToEnd = delayedProcessCallAt - new Date().getTime();
+    if (debugMessages) {
+      console.log(`prev delay end ${msToEnd}ms`);
+    }
     if (msToEnd > delay) {
       setNewTime = true;
     }
@@ -217,8 +223,8 @@ function process() {
   }
 
   if (waitingForId != null) {
-    if (lastSent == null || Date.now() - lastSent >= 10000) {
-      console.log("Waiting for receipt for over 10 seconds, resending!");
+    if (lastSent == null || Date.now() - lastSent >= 30000) {
+      console.log("Waiting for receipt for over 30 seconds, resending!");
       requeue(waitingForId);
       waitingForId = null;
     } else {
@@ -252,7 +258,7 @@ function process() {
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
-      peerSocket.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
+      messaging.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
       waitingForId = queueItem.id;
       lastSent = Date.now();
     } catch (e) {
@@ -267,13 +273,13 @@ function process() {
 function onMessagingOpen() {
   console.log("Messaging opened");
   waitingForId = null;
-  delayedProcess(250);
+  delayedProcess(50);
 }
 
 function onMessagingClosed(event) {
   console.log(`Messaging closed. - Code ${event.code}. Message ${event.reason}`);
   waitingForId = null;
-  delayedProcess(250);
+  delayedProcess(50);
 }
 
 function onMessagingError(event) {
@@ -315,7 +321,7 @@ function onMessage(event) {
       if (debugMessages) {
         console.log(`Sending receipt for ${id}`);
       }
-      peerSocket.send({ msgqType: "msgq_receipt", id: id });
+      messaging.send({ msgqType: "msgq_receipt", id: id });
     } catch (e) {
       console.error(e.message);
     }
@@ -326,10 +332,6 @@ function onMessage(event) {
     dequeue(id, null);
     waitingForId = null;
     delayedProcess(500);
-  } else if (type == "msgq_ehlo") {
-    if(debugMessages) {
-      console.log(`Got elho for ${id}`);
-    }
   }
 }
 
@@ -337,7 +339,7 @@ function onMessage(event) {
 // Messaging handling
 //====================================================================================================
 
-peerSocket.addEventListener("open", () => {
+messaging.addEventListener("open", () => {
   try {
     onMessagingOpen();
   } catch (e) {
@@ -345,7 +347,7 @@ peerSocket.addEventListener("open", () => {
   }
 });
 
-peerSocket.addEventListener("closed", (event) => {
+messaging.addEventListener("close", (event) => {
   try {
     onMessagingClosed(event);
   } catch (e) {
@@ -353,7 +355,7 @@ peerSocket.addEventListener("closed", (event) => {
   }
 });
 
-peerSocket.addEventListener("error", (event) => {
+messaging.addEventListener("error", (event) => {
   try {
     onMessagingError(event);
   } catch (e) {
@@ -361,7 +363,7 @@ peerSocket.addEventListener("error", (event) => {
   }
 });
 
-peerSocket.addEventListener("message", (event) => {
+messaging.addEventListener("message", (event) => {
   try {
     onMessage(event);
   } catch (e) {

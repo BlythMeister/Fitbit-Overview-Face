@@ -29,9 +29,9 @@ if (settings.hasSettings()) {
   setTimeout(() => {
     if(startingEl.style.display == "inline") {
       startingEl.style.display = "none";
-      console.log(`Hiding loading spinner after 60 seconds if still shown`);
+      console.log(`Hiding loading spinner after 120 seconds if still shown`);
     }  
-  }, 60000);
+  }, 120000);
 }
 
 msgq.send("app-launch", {});
