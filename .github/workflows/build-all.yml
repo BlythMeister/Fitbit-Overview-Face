@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/348x250/4x  
+        run: mkdir -p publish
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -38,12 +38,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/348x250/4x/pr-fitbit-overview.fba      
+        run: mv build/app.fba publish/fitbit-overview.fba      
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/348x250/publish/**
+          name: pr-fitbit-overview-348x250-${{ github.run_number }}.fba
+          path: src/348x250/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-348x250-4x-stable:
     runs-on: ubuntu-latest    
@@ -58,7 +58,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/348x250/4x
+        run: mkdir -p publish
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -70,12 +70,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/348x250/4x/stable-fitbit-overview.fba
+        run: mv build/app.fba publish/fitbit-overview.fba
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/348x250/publish/**
+          name: fitbit-overview-348x250-${{ github.run_number }}.fba
+          path: src/348x250/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-300x300-4x-pr:
     runs-on: ubuntu-latest
@@ -90,7 +90,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/300x300/4x  
+        run: mkdir -p publish 
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -102,12 +102,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/300x300/4x/pr-fitbit-overview.fba      
+        run: mv build/app.fba publish/fitbit-overview.fba      
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/300x300/publish/**
+          name: pr-fitbit-overview-300x300-${{ github.run_number }}.fba
+          path: src/300x300/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-300x300-4x-stable:
     runs-on: ubuntu-latest    
@@ -122,7 +122,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/300x300/4x
+        run: mkdir -p publish
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -134,12 +134,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/300x300/4x/stable-fitbit-overview.fba
+        run: mv build/app.fba publish/fitbit-overview.fba
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/300x300/publish/**
+          name: fitbit-overview-300x300-${{ github.run_number }}.fba
+          path: src/300x300/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-6x-pr:
     runs-on: ubuntu-latest
@@ -154,7 +154,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/366x366/6x  
+        run: mkdir -p publish  
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -166,12 +166,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/366x366/6x/pr-fitbit-overview.fba      
+        run: mv build/app.fba publish/fitbit-overview.fba      
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/366x366/publish/**
+          name: pr-fitbit-overview-366x366-6X-${{ github.run_number }}.fba
+          path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-6x-stable:
     runs-on: ubuntu-latest    
@@ -186,7 +186,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/366x366/6x
+        run: mkdir -p publish
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -198,12 +198,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/366x366/6x/stable-fitbit-overview.fba
+        run: mv build/app.fba publish/fitbit-overview.fba
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/366x366/publish/**
+          name: fitbit-overview-366x366-6X-${{ github.run_number }}.fba
+          path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-7x-pr:
     runs-on: ubuntu-latest
@@ -218,7 +218,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/366x366/7x
+        run: mkdir -p publish
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -230,12 +230,12 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/366x366/7x/pr-fitbit-overview.fba      
+        run: mv build/app.fba publish/fitbit-overview.fba      
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/366x366/publish/**
+          name: pr-fitbit-overview-366x366-7X-${{ github.run_number }}.fba
+          path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-7x-stable:
     runs-on: ubuntu-latest
@@ -250,7 +250,7 @@ jobs:
         with:
           node-version: 14
       - name: Create publish directory
-        run: mkdir -p publish/366x366/7x
+        run: mkdir -p publish
       - name: Delete package-lock.json 
         run: rm -f package-lock.json
       - name: Delete package.json 
@@ -262,10 +262,10 @@ jobs:
       - name: FitBit Build
         run: npx fitbit-build
       - name: Rename & Move fba
-        run: mv build/app.fba publish/366x366/7x/stable-fitbit-overview.fba
+        run: mv build/app.fba publish/fitbit-overview.fba
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-${{ github.run_number }}
-          path: src/366x366/publish/**
+          name: fitbit-overview-366x366-7X-${{ github.run_number }}.fba
+          path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
