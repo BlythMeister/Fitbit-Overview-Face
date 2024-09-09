@@ -13,6 +13,7 @@ let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
 let consecutiveQueueEmpty = 0;
+let messageOpen = false;
 
 enqueue("msgq_alive", {size:null}, 120000);
 setInterval(function () {
@@ -59,10 +60,10 @@ function CreateUUID() {
 // Enqueue
 //====================================================================================================
 
-function enqueue(messageKey, message, timeout = 60000) {
+function enqueue(messageKey, message, timeout) {
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
-  const timeoutDate = Date.now() + timeout;
+  const timeoutDate = (timeout > 0 ? Date.now() + timeout : null);
 
   const data = { id: id, timeout: timeoutDate, messageKey: messageKey, message: message };
 
@@ -82,6 +83,13 @@ function enqueue(messageKey, message, timeout = 60000) {
 //====================================================================================================
 
 function dequeue(messageId, messageKey) {
+  if(queue.length == 0) {
+    if (debugMessages) {
+      console.log("Dequeue when queue empty, skipping");
+    }
+    return;
+  }
+
   if (messageId) {
     if (debugMessages) {
       console.log(`Try dequeue message ${messageId}`);
@@ -97,9 +105,6 @@ function dequeue(messageId, messageKey) {
     } else {
       for (var i = queue.length - 1; i >= 0; i--) {
         var id = queue[i].id
-        if (debugMessages) {
-          console.log(`Checking message at position ${i} which has id ${messageId}`);
-        }
         if (id === messageId) {
           queue.splice(i, 1);
           dequeueResult = true;
@@ -121,9 +126,6 @@ function dequeue(messageId, messageKey) {
     }
     for (var i = queue.length - 1; i >= 0; i--) {
       var key = queue[i].messageKey;
-      if (debugMessages) {
-        console.log(`Checking message at position ${i} which has key ${key}`);
-      }
       if (key === messageKey) {
         queue.splice(i, 1);
         if (debugMessages) {
@@ -142,7 +144,14 @@ function dequeue(messageId, messageKey) {
 // Requeue
 //====================================================================================================
 
-function requeue(id) {
+function requeue(messageId) {
+  if(queue.length == 0) {
+    if (debugMessages) {
+      console.log("Requeue when queue empty, skipping");
+    }
+    return;
+  }
+
   if (queue.length == 1) {
     if (debugMessages) {
       console.log(`Requeue when 1 message has no impact - QueueSize: ${queue.length}`);
@@ -151,27 +160,33 @@ function requeue(id) {
   }
 
   var data = null;
-  for (var i = queue.length - 1; i >= 0; i--) {
-    if (queue[i].id === id) {
-      data = queue.splice(i, 1)[0];
-      break;
+  if(queue[0].id == messageId) {
+    if (debugMessages) {
+      console.log(`Top message in queue is match for id ${messageId}`);
+    }
+    data = queue.splice(0, 1)[0];
+  } else {
+    for (var i = queue.length - 1; i >= 0; i--) {
+      var id = queue[i].id
+      if (id === messageId) {
+        data = queue.splice(i, 1);
+        break;
+      }
     }
   }
 
-   if (data != null) {
+  if (data != null) {
     if (debugMessages) {
-      console.log(`Dequeued message (for requeue) ${id} - QueueSize: ${queue.length}`);
+      console.log(`Dequeued message (for requeue) ${messageId} - QueueSize: ${queue.length}`);
     }
 
     queue.push(data);
 
-    delayedProcess(50);
-
     if (debugMessages) {
-      console.log(`Enqueued message (for requeue) ${id} - ${JSON.stringify(data)} - QueueSize: ${queue.length}`);
+      console.log(`Enqueued message (for requeue) ${messageId} - ${JSON.stringify(data)} - QueueSize: ${queue.length}`);
     }
   } else {
-    console.log(`Unable to dequeue message (for requeue) ${id} - QueueSize: ${queue.length}`);
+    console.log(`Unable to dequeue message (for requeue) ${messageId} - QueueSize: ${queue.length}`);
   }
 }
 
@@ -224,6 +239,13 @@ function process() {
     delayedProcessCallAt = null;
   }
 
+  if(!messageOpen) {
+    if (debugMessages) {
+      console.log("Messaging not open, try process again in 1 sec");
+    }
+    delayedProcess(1000);
+  }
+
   if (queue.length === 0) {
     consecutiveQueueEmpty++;
     if (consecutiveQueueEmpty >= 3) {
@@ -240,25 +262,26 @@ function process() {
   }
 
   var lastSentAge = Date.now() - lastSent
-  if(lastSentAge < 25)
+  if(lastSentAge < 50)
   {
-    var delay = 25 - lastSentAge;
+    var delay = 50 - lastSentAge;
     if (debugMessages) {
-      console.log(`Less than 25ms since last send, backoff ${delay}ms`);
+      console.log(`Less than 50ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
     return;
   }
 
   if (waitingForId != null) {
-    if (lastSent == null || Date.now() - lastSent >= 30000) {
-      console.log(`Waiting for receipt (${waitingForId}) for over 30 seconds, resending!`);
+    if (lastSent == null || Date.now() - lastSent >= 10000) {
+      console.log(`Waiting for receipt (${waitingForId}) for over 10 seconds, resending!`);
       var requeueId = waitingForId;
       waitingForId = null;
       requeue(requeueId);
+      delayedProcess(50);
     } else {
-      console.log(`Waiting for a receipt (${waitingForId}) call process again in 2 seconds`);
-      delayedProcess(2000);
+      console.log(`Waiting for a receipt (${waitingForId}) call process again in 1 second`);
+      delayedProcess(1000);
     }
     return;
   }
@@ -266,13 +289,13 @@ function process() {
   const queueItem = queue[0];
 
   if (queueItem == null) {
-    console.log(`Top queue item is null, call process again in 2 seconds`);
+    console.log(`Top queue item is null, call process again in 1 second`);
     queue.splice(0, 1);
-    delayedProcess(2000);
+    delayedProcess(1000);
     return;
   }
 
-  if (queueItem.timeout < Date.now()) {
+  if (queueItem.timeout != null && queueItem.timeout < Date.now()) {
     console.log(`Message timeout: ${queueItem.id}`);
     dequeue(queueItem.id, null);
     delayedProcess(250);
@@ -293,20 +316,22 @@ function process() {
     } catch (e) {
       waitingForId = null;
       console.warn(e.message);
-      console.log(`Send error, call process again in 2 seconds`);
-      delayedProcess(2000);
+      console.log(`Send error, call process again in 1 seconds`);
+      delayedProcess(1000);
     }
   }
 }
 
 function onMessagingOpen() {
   console.log("Messaging opened");
+  messageOpen = true;
   waitingForId = null;
   delayedProcess(50);
 }
 
 function onMessagingClosed() {
   console.log(`Messaging closed.`);
+  messageOpen = false;
   waitingForId = null;
   delayedProcess(50);
 }
@@ -314,7 +339,7 @@ function onMessagingClosed() {
 function onMessagingError(event) {
   console.error(`Messaging error. - ${event}.`);
   waitingForId = null;
-  delayedProcess(250);
+  delayedProcess(50);
 }
 
 function onMessage(event) {
@@ -360,7 +385,7 @@ function onMessage(event) {
     }
     dequeue(id, null);
     waitingForId = null;
-    process();
+    delayedProcess(100);
   }
 }
 

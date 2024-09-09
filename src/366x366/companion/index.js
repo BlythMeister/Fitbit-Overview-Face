@@ -18,7 +18,7 @@ companion.monitorSignificantLocationChanges = true;
 msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-all-settings") {
     sendSettingsWithDefaults();
-    msgq.send(`all-settings-sent`, {});
+    msgq.send(`all-settings-sent`, {}, -1);
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -115,14 +115,14 @@ function setDefaultSettingOrSendExisting(key, value) {
   if (existingValue == null) {
     setSetting(key, value);
   } else {
-    //console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
+    console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
     sendSettingValue(key, existingValue);
   }
 }
 
 function setSetting(key, value) {
   let jsonValue = JSON.stringify(value);
-  //console.log(`Companion Set - key:${key} val:${jsonValue}`);
+  console.log(`Companion Set - key:${key} val:${jsonValue}`);
   settingsStorage.setItem(key, jsonValue);
   sendSettingValue(key, jsonValue);
 }
@@ -134,7 +134,7 @@ function sendSettingValue(key, val) {
       value: JSON.parse(val),
     };
 
-    msgq.send(`settingChange:${data.key}`, data);
+    msgq.send(`settingChange:${data.key}`, data, -1);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -165,7 +165,7 @@ function sendWeather(unit, attempt=1) {
           location: location.name,
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData);       
+        msgq.send("weather", sendData, 60000);       
       })
       .catch((ex) => {
         if(attempt < 3) {
@@ -179,7 +179,7 @@ function sendWeather(unit, attempt=1) {
             condition: -1,
             location: "ERROR"
           };
-          msgq.send("weather", sendData);
+          msgq.send("weather", sendData, 60000);
         }
       });
   } catch (ex) {
@@ -194,7 +194,7 @@ function sendWeather(unit, attempt=1) {
         condition: -1,
         location: "ERROR"
       };
-      msgq.send("weather", sendData);
+      msgq.send("weather", sendData, 60000);
     }
   }
 }

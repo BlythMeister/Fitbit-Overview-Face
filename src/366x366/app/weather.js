@@ -7,6 +7,7 @@ export let weatherLocationTextEl = document.getElementById("weather-location-tex
 export let weatherEl = document.getElementById("weather");
 export let weatherCountEl = document.getElementById("weather-count");
 export let weatherIconEl = document.getElementById("weather-icon");
+export let startingEl = document.getElementById("starting");
 export let weatherPosition = "NONE";
 export let weatherLocationPosition = "NONE";
 export let temperatureUnit = "C";
@@ -97,35 +98,40 @@ export function setRefreshInterval(interval) {
 
 export function forceFetchWeather() {
   weatherLastUpdate = null;
-  weatherLastRequest = null;
   fetchWeather();
 }
 
 export function fetchWeather() {
+  if(startingEl.style.display == "inline" || weatherPosition == "NONE") {
+    // Don't try and get weather when starting or hidden
+    return;
+  }
+
   var currentDate = Date.now();
   var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
-  if (weatherPosition != "NONE" && currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
+  if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
     currentWeatherData = null;
     DrawWeather();
   }
 
-  if (weatherPosition != "NONE" && lastRequestAge >= 30000) {
+  if (lastRequestAge >= 30000) {
+
+    weatherLastRequest = Date.now();
+
     if (currentWeatherData == null || currentWeatherAge >= weatherInterval) {
       try {
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
           sendUnit = units.temperature ? units.temperature.charAt(0).toUpperCase() : "C";
-        }
-
-        weatherLastRequest = Date.now();
-        msgq.send("weather", { unit: sendUnit });
+        }        
+        msgq.send("weather", { unit: sendUnit }, 60000);
       } catch (e) {
         console.error(e);
       }
     }
-  }
+  }  
 }
 
 export function processWeatherData(data) {

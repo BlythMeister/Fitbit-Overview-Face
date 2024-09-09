@@ -1,10 +1,11 @@
 import { inbox, outbox } from 'file-transfer';
 import { encode } from 'cbor';
 
-const MESSAGE_FILE_NAME = 'messaging4d9b79c40abe.cbor';
+const MESSAGE_FILE_NAME = 'messaging08ds3kj4hn25dxa9';
 
-let fileUid = -1;
-const MAX_FILE_UIDS = 9;
+let debugMessages = false;
+let fileUid = 0;
+
 
 // event handler for messages
 const eventHandlers = {
@@ -15,7 +16,10 @@ const eventHandlers = {
 }
 
 // when incoming data arrives - calls all "onmessage" handlers and passes the data
-function onMessage(payload) {
+function onMessage(payload) {    
+    if (debugMessages) {
+        console.log(`FM::OnMessage: ${JSON.stringify(payload)}`);
+    }
     for (let handler of eventHandlers.message) {
         handler(payload)
     }
@@ -55,13 +59,12 @@ export const messaging = {
     // simulation of `messaging.peerSocket.send` - sends data externally
     // from device to phone or from phone to device via file transfer
     send: function (data) {
-        fileUid++; if (fileUid > MAX_FILE_UIDS) fileUid = 0;
-        outbox.enqueue(`${fileUid}${MESSAGE_FILE_NAME}`, encode(data))
-            .catch(err => {
-                for (let handler of eventHandlers.error) {
-                    handler(`Error queueing transfer: ${err}`)
-                }
-            });
+        fileUid++;
+        let name = `${MESSAGE_FILE_NAME}.${fileUid}.cbor`;
+        if (debugMessages) {
+            console.log(`FM::Send '${name}' : ${JSON.stringify(data)}`);
+        }
+        outbox.enqueue(name, encode(data));
     },
 
 }
@@ -94,7 +97,11 @@ if (inbox.pop) { // this is a companion
         }
         let file;
         while (file = await inbox.prevPop()) {
-            if (file.name.substring(1) === MESSAGE_FILE_NAME) {
+            let fileName = file.name.substring(0, file.name.indexOf("."));
+            if (debugMessages) {
+                console.log(`FM::Pop file '${file.name}' search: ${fileName}`);
+            }
+            if (fileName === MESSAGE_FILE_NAME) {
                 myFiles.push(file)
             }
             else {
@@ -110,7 +117,11 @@ if (inbox.pop) { // this is a companion
         }
         let file;
         while (file = await inbox.prevPop()) {
-            if (file.name.substring(1) === MESSAGE_FILE_NAME) {
+            let fileName = file.name.substring(0, file.name.indexOf("."));
+            if (debugMessages) {
+                console.log(`FM::getNextMyFile '${file.name}' search: ${fileName}`);
+            }
+            if (fileName === MESSAGE_FILE_NAME) {
                 return file;
             }
             otherFiles.push(file);
@@ -119,9 +130,6 @@ if (inbox.pop) { // this is a companion
     }
 
     init();
-
-
-
 
 } else { // this is a device
     const { readFileSync } = require("fs");
@@ -147,13 +155,17 @@ if (inbox.pop) { // this is a companion
         if (otherFiles.length > 0) {
             return otherFiles.pop();
         }
-        let fileName;
-        while (fileName = inbox.prevNextFile()) {
-            if (fileName.substring(1) === MESSAGE_FILE_NAME) {
-                myFiles.push(fileName)
+        let file;
+        while (file = inbox.prevNextFile()) {
+            let fileName = file.substring(0, file.indexOf("."));
+            if (debugMessages) {
+                console.log(`FM::inbox.next '${file}' search: ${fileName}`);
+            }        
+            if (fileName === MESSAGE_FILE_NAME) {
+                myFiles.push(file)
             }
             else {
-                return fileName;
+                return file;
             }
         }
         return undefined;
@@ -163,12 +175,16 @@ if (inbox.pop) { // this is a companion
         if (myFiles.length > 0) {
             return myFiles.pop()
         }
-        let fileName;
-        while (fileName = inbox.prevNextFile()) {
-            if (fileName.substring(1) === MESSAGE_FILE_NAME) {
-                return fileName;
+        let file;
+        while (file = inbox.prevNextFile()) {
+            let fileName = file.substring(0, file.indexOf("."));
+            if (debugMessages) {
+                console.log(`FM::getNextMyFile '${file}' search: ${fileName}`);
+            }        
+            if (fileName === MESSAGE_FILE_NAME) {
+                return file;
             }
-            otherFiles.push(fileName);
+            otherFiles.push(file);
         }
         return undefined;
     }
