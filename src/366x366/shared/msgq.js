@@ -70,7 +70,7 @@ function enqueue(messageKey, message, timeout = 60000) {
 
   queue.push(data);
 
-  delayedProcess(250);
+  process();
 
   if (debugMessages) {
     console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
