@@ -278,4 +278,5 @@ jobs:
         with:
           name: fba-files-${{ github.run_number }}
           delete-merged: true
+          separate-directories: true
         
