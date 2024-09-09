@@ -120,7 +120,7 @@ export function fetchWeather() {
 
     weatherLastRequest = Date.now();
 
-    if (currentWeatherData == null || currentWeatherAge >= weatherInterval) {
+    if (currentWeatherData == null || currentWeatherData.condition === -1 || currentWeatherAge >= weatherInterval) {
       try {
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
@@ -136,12 +136,7 @@ export function fetchWeather() {
 
 export function processWeatherData(data) {
   weatherLastUpdate = Date.now();
-
-  if (data.condition === -1) {
-    currentWeatherData = null;
-  } else {
-    currentWeatherData = data;    
-  }
+  currentWeatherData = data;
   DrawWeather();
 }
 
@@ -150,6 +145,10 @@ export function DrawWeather() {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
     weatherLocationTextEl.text = "----";
+  } else if (currentWeatherData.condition === -1) {
+    weatherCountEl.text = "----";
+    weatherIconEl.href = "weather_36px.png";
+    weatherLocationTextEl.text = currentWeatherData.location;
   } else {
     if(currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
       weatherIconEl.href = weatherConditions[currentWeatherData.condition];
