@@ -4,7 +4,7 @@ import { messaging } from "./fitbit-file-messaging.js";
 // Initialize
 //====================================================================================================
 
-let debugMessages = true;
+let debugMessages = false;
 let queue = [];
 let otherQueueSize = 0;
 let waitingForId = null;
@@ -70,41 +70,64 @@ function enqueue(messageKey, message, timeout = 60000) {
 
   queue.push(data);
 
-  process();
-
   if (debugMessages) {
     console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
   }
+
+  delayedProcess(100);  
 }
 
 //====================================================================================================
 // Dequeue
 //====================================================================================================
 
-function dequeue(id, messageKey) {
-  if (id) {
-    var dequeueResult = false;
-    for (var i = queue.length - 1; i >= 0; i--) {
-      if (queue[i].id === id) {
-        queue.splice(i, 1);
-        dequeueResult = true;
-        break;
-      }
+function dequeue(messageId, messageKey) {
+  if (messageId) {
+    if (debugMessages) {
+      console.log(`Try dequeue message ${messageId}`);
     }
+
+    var dequeueResult = false;
+    if(queue[0].id == messageId) {
+      if (debugMessages) {
+        console.log(`Top message in queue is match for id ${messageId}`);
+      }
+      queue.splice(0, 1);
+      dequeueResult = true;
+    } else {
+      for (var i = queue.length - 1; i >= 0; i--) {
+        var id = queue[i].id
+        if (debugMessages) {
+          console.log(`Checking message at position ${i} which has id ${messageId}`);
+        }
+        if (id === messageId) {
+          queue.splice(i, 1);
+          dequeueResult = true;
+          break;
+        }
+      }
+    }   
+    
     if (dequeueResult) {
       if (debugMessages) {
-        console.log(`Dequeued message ${id} - QueueSize: ${queue.length}`);
+        console.log(`Dequeued message ${messageId} - QueueSize: ${queue.length}`);
       }
     } else {
-      console.log(`Unable to dequeue message ${id} - QueueSize: ${queue.length}`);
+      console.log(`Unable to dequeue message ${messageId} - QueueSize: ${queue.length}`);
     }
   } else if (messageKey) {
+    if (debugMessages) {
+      console.log(`Try dequeue message with key ${messageKey}`);
+    }
     for (var i = queue.length - 1; i >= 0; i--) {
       var key = queue[i].messageKey;
+      if (debugMessages) {
+        console.log(`Checking message at position ${i} which has key ${key}`);
+      }
       if (key === messageKey) {
         queue.splice(i, 1);
         if (debugMessages) {
-          console.log(`Dequeued message ${id} from key ${messageKey} - QueueSize: ${queue.length}`);
+          console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSize: ${queue.length}`);
         }
       }
     }
@@ -135,17 +158,17 @@ function requeue(id) {
     }
   }
 
-  if (data != null) {
+   if (data != null) {
     if (debugMessages) {
       console.log(`Dequeued message (for requeue) ${id} - QueueSize: ${queue.length}`);
     }
 
     queue.push(data);
 
-    process();
+    delayedProcess(50);
 
     if (debugMessages) {
-      console.log(`Enqueued message (for requeue) ${id} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
+      console.log(`Enqueued message (for requeue) ${id} - ${JSON.stringify(data)} - QueueSize: ${queue.length}`);
     }
   } else {
     console.log(`Unable to dequeue message (for requeue) ${id} - QueueSize: ${queue.length}`);
@@ -168,6 +191,11 @@ function delayedProcess(delay) {
     if (debugMessages) {
       console.log(`prev delay end ${msToEnd}ms`);
     }
+
+    if(msToEnd < 0) {
+      process();
+    }
+
     if (msToEnd > delay) {
       setNewTime = true;
     }
@@ -212,11 +240,11 @@ function process() {
   }
 
   var lastSentAge = Date.now() - lastSent
-  if(lastSentAge < 50)
+  if(lastSentAge < 25)
   {
-    var delay = 50 - lastSentAge;
+    var delay = 25 - lastSentAge;
     if (debugMessages) {
-      console.log(`Less than 50ms since last send, backoff ${delay}ms`);
+      console.log(`Less than 25ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
     return;
@@ -224,14 +252,15 @@ function process() {
 
   if (waitingForId != null) {
     if (lastSent == null || Date.now() - lastSent >= 30000) {
-      console.log("Waiting for receipt for over 30 seconds, resending!");
-      requeue(waitingForId);
+      console.log(`Waiting for receipt (${waitingForId}) for over 30 seconds, resending!`);
+      var requeueId = waitingForId;
       waitingForId = null;
+      requeue(requeueId);
     } else {
-      console.log(`Waiting for a receipt, call process again in 2 seconds`);
+      console.log(`Waiting for a receipt (${waitingForId}) call process again in 2 seconds`);
       delayedProcess(2000);
-      return;
     }
+    return;
   }
 
   const queueItem = queue[0];
@@ -276,14 +305,14 @@ function onMessagingOpen() {
   delayedProcess(50);
 }
 
-function onMessagingClosed(event) {
-  console.log(`Messaging closed. - Code ${event.code}. Message ${event.reason}`);
+function onMessagingClosed() {
+  console.log(`Messaging closed.`);
   waitingForId = null;
   delayedProcess(50);
 }
 
 function onMessagingError(event) {
-  console.error(`Messaging error. - Code ${event.code}. Message ${event.message}`);
+  console.error(`Messaging error. - ${event}.`);
   waitingForId = null;
   delayedProcess(250);
 }
@@ -331,7 +360,7 @@ function onMessage(event) {
     }
     dequeue(id, null);
     waitingForId = null;
-    delayedProcess(500);
+    process();
   }
 }
 

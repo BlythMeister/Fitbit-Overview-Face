@@ -5,6 +5,7 @@ import { weather } from "weather";
 import { msgq } from "./../shared/msgq.js";
 
 let lastWeatherUnit = null;
+let lastSendAllSettings = null;
 
 //Wake every 5 minutes
 console.log("Set companion wake interval to 5 minutes");
@@ -33,7 +34,6 @@ console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
-msgq.send("companion-launch", companion.launchReasons);
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
@@ -41,6 +41,13 @@ settingsStorage.addEventListener("change", (evt) => {
 });
 
 function sendSettingsWithDefaults() {
+  var currentDate = Date.now();
+  var lastSendAllSettingsAge = lastSendAllSettings == null ? 99999999 : currentDate - lastSendAllSettings;
+  if(lastSendAllSettingsAge <= 60000)
+  {
+    return;
+  }
+  lastSendAllSettings = currentDate;
   setDefaultSettingOrSendExisting("distanceUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
   setDefaultSettingOrSendExisting("dateFormat", { values: [{ value: "dd mmmm yyyy", name: "dd mmmm yyyy" }], selected: [11] });
   setDefaultSettingOrSendExisting("timeFormat", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
@@ -144,38 +151,36 @@ function sendWeather(unit, attempt=1) {
     weather
       .getWeatherData({ temperatureUnit: unitKey })
       .then((data) => {
-        try
-        {
-          //console.log(`RawWeather:${JSON.stringify(data)}`);
-          if (data.locations.length == 0) {
-            throw new Error("No locations");
-          }
+        //console.log(`RawWeather:${JSON.stringify(data)}`);
+        if (data.locations.length == 0) {
+          throw new Error("No locations");
+        }
 
-          var location = data.locations[0];
+        var location = data.locations[0];
 
+        var sendData = {
+          unit: data.temperatureUnit,
+          temperature: Math.floor(location.currentWeather.temperature),
+          condition: location.currentWeather.weatherCondition,
+          location: location.name,
+        };
+        //console.log(`Weather:${JSON.stringify(sendData)}`);
+        msgq.send("weather", sendData);       
+      })
+      .catch((ex) => {
+        if(attempt < 3) {
+          console.log(`Retry weather after attempt ${attempt}`);
+          sendWeather(unit, attempt + 1);
+        } else {
+          console.error(ex);
           var sendData = {
-            unit: data.temperatureUnit,
-            temperature: Math.floor(location.currentWeather.temperature),
-            condition: location.currentWeather.weatherCondition,
-            location: location.name,
+            temperature: -999,
+            unit: unitKey,
+            condition: -1,
+            location: "ERROR"
           };
-          //console.log(`Weather:${JSON.stringify(sendData)}`);
           msgq.send("weather", sendData);
-        } catch (ex) {
-          if(attempt < 3) {
-            console.log(`Retry weather after attempt ${attempt}`);
-            sendWeather(unit, attempt + 1);
-          } else {
-            console.error(ex);
-            var sendData = {
-              temperature: -999,
-              unit: unitKey,
-              condition: -1,
-              location: "ERROR"
-            };
-            msgq.send("weather", sendData);
-          }
-        }        
+        }
       });
   } catch (ex) {
     if(attempt < 3) {

@@ -111,7 +111,7 @@ export function fetchWeather() {
     DrawWeather();
   }
 
-  if (weatherPosition != "NONE" && lastRequestAge >= 10000) {
+  if (weatherPosition != "NONE" && lastRequestAge >= 30000) {
     if (currentWeatherData == null || currentWeatherAge >= weatherInterval) {
       try {
         let sendUnit = temperatureUnit;
@@ -129,12 +129,12 @@ export function fetchWeather() {
 }
 
 export function processWeatherData(data) {
+  weatherLastUpdate = Date.now();
+
   if (data.condition === -1) {
     currentWeatherData = null;
-    weatherLastUpdate = null;
   } else {
-    currentWeatherData = data;
-    weatherLastUpdate = Date.now();
+    currentWeatherData = data;    
   }
   DrawWeather();
 }
