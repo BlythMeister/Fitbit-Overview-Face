@@ -15,10 +15,10 @@ let delayedProcessCallAt = null;
 let consecutiveQueueEmpty = 0;
 let messageOpen = false;
 
-enqueue("msgq_alive", {size:null}, 120000);
+enqueue("msgq_alive", {size:null}, 120000, false);
 setInterval(function () {
   try {
-    enqueue("msgq_alive", {size:null}, 120000);
+    enqueue("msgq_alive", {size:null}, 120000, false);
   } catch (e) {
     //Do Nothing
   }
@@ -60,7 +60,7 @@ function CreateUUID() {
 // Enqueue
 //====================================================================================================
 
-function enqueue(messageKey, message, timeout) {
+function enqueue(messageKey, message, timeout, highPriority) {
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
   const timeoutDate = (timeout > 0 ? Date.now() + timeout : null);
@@ -68,8 +68,12 @@ function enqueue(messageKey, message, timeout) {
   const data = { id: id, timeout: timeoutDate, messageKey: messageKey, message: message };
 
   dequeue(null, messageKey);
+  if (highPriority) {
+    queue.unshift(data);
+  } else {
+    queue.push(data);
 
-  queue.push(data);
+  }
 
   if (debugMessages) {
     console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);

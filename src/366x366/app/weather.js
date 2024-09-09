@@ -126,7 +126,7 @@ export function fetchWeather() {
         if (sendUnit == "auto") {
           sendUnit = units.temperature ? units.temperature.charAt(0).toUpperCase() : "C";
         }        
-        msgq.send("weather", { unit: sendUnit }, 60000);
+        msgq.send("weather", { unit: sendUnit }, 60000, false);
       } catch (e) {
         console.error(e);
       }

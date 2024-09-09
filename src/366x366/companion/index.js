@@ -18,7 +18,7 @@ companion.monitorSignificantLocationChanges = true;
 msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-all-settings") {
     sendSettingsWithDefaults();
-    msgq.send(`all-settings-sent`, {}, -1);
+    msgq.send(`all-settings-sent`, {}, -1, false);
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -116,7 +116,7 @@ function setDefaultSettingOrSendExisting(key, value) {
     setSetting(key, value);
   } else {
     console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
-    sendSettingValue(key, existingValue);
+    sendSettingValue(key, existingValue, false);
   }
 }
 
@@ -124,17 +124,17 @@ function setSetting(key, value) {
   let jsonValue = JSON.stringify(value);
   console.log(`Companion Set - key:${key} val:${jsonValue}`);
   settingsStorage.setItem(key, jsonValue);
-  sendSettingValue(key, jsonValue);
+  sendSettingValue(key, jsonValue, true);
 }
 
-function sendSettingValue(key, val) {
+function sendSettingValue(key, val, updatedValue) {
   if (val) {
     var data = {
       key: key,
       value: JSON.parse(val),
     };
 
-    msgq.send(`settingChange:${data.key}`, data, -1);
+    msgq.send(`settingChange:${data.key}`, data, -1, updatedValue);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -165,7 +165,7 @@ function sendWeather(unit, attempt=1) {
           location: location.name,
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData, 60000);       
+        msgq.send("weather", sendData, 60000, false);       
       })
       .catch((ex) => {
         if(attempt < 3) {
@@ -179,7 +179,7 @@ function sendWeather(unit, attempt=1) {
             condition: -1,
             location: "ERROR"
           };
-          msgq.send("weather", sendData, 60000);
+          msgq.send("weather", sendData, 60000, false);
         }
       });
   } catch (ex) {
@@ -194,7 +194,7 @@ function sendWeather(unit, attempt=1) {
         condition: -1,
         location: "ERROR"
       };
-      msgq.send("weather", sendData, 60000);
+      msgq.send("weather", sendData, 60000, false);
     }
   }
 }
