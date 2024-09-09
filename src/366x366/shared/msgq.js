@@ -15,14 +15,14 @@ let delayedProcessCallAt = null;
 let consecutiveQueueEmpty = 0;
 let messageOpen = false;
 
-enqueue("msgq_alive", {size:null}, 120000, false);
+enqueue("msgq_alive", {size:null}, -1, false);
 setInterval(function () {
   try {
-    enqueue("msgq_alive", {size:null}, 120000, false);
+    enqueue("msgq_alive", {size:null}, -1, false);
   } catch (e) {
     //Do Nothing
   }
-}, 120000);
+}, 150000);
 
 //====================================================================================================
 // Helpers
