@@ -113,11 +113,12 @@ export function fetchWeather() {
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
   if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
-    currentWeatherData = null;
+    currentWeatherData.condition = -1;
+    currentWeatherData.location = "Expired";
     DrawWeather();
   }
   
-  if (lastRequestAge >= 300000) {
+  if (lastRequestAge >= 300000 || (currentWeatherData == null && lastRequestAge >= 60000)) {
 
     weatherLastRequest = Date.now();
 
@@ -137,7 +138,7 @@ export function fetchWeather() {
 
 export function processWeatherData(data) {
   var currentDate = Date.now();
-  if (data.condition === -1) {
+  if (currentWeatherData.condition >= 0 && data.condition === -1) {
     var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
     if(currentWeatherAge < weatherInterval * 2) {
       return;
