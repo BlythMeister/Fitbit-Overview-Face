@@ -3,6 +3,9 @@
     "@fitbit/sdk": "~6.1.0",
     "@fitbit/sdk-cli": "^1.7.3"
   },
+  "dependencies": {
+    "fitbit-file-messaging": "^1.3.8"
+  },
   "fitbit": {
     "appUUID": "cdef6b20-1559-44a5-a574-3441154e8ebd",
     "appType": "clockface",
