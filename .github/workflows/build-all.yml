@@ -42,7 +42,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: pr-fitbit-overview-348x250-${{ github.run_number }}.fba
+          name: pr-fitbit-overview-348x250.fba
           path: src/348x250/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-348x250-4x-stable:
@@ -74,7 +74,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-348x250-${{ github.run_number }}.fba
+          name: fitbit-overview-348x250.fba
           path: src/348x250/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-300x300-4x-pr:
@@ -106,7 +106,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: pr-fitbit-overview-300x300-${{ github.run_number }}.fba
+          name: pr-fitbit-overview-300x300.fba
           path: src/300x300/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-300x300-4x-stable:
@@ -138,7 +138,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-300x300-${{ github.run_number }}.fba
+          name: fitbit-overview-300x300.fba
           path: src/300x300/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-6x-pr:
@@ -170,7 +170,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: pr-fitbit-overview-366x366-6X-${{ github.run_number }}.fba
+          name: pr-fitbit-overview-366x366-6X.fba
           path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-6x-stable:
@@ -202,7 +202,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-366x366-6X-${{ github.run_number }}.fba
+          name: fitbit-overview-366x366-6X.fba
           path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-7x-pr:
@@ -234,7 +234,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: pr-fitbit-overview-366x366-7X-${{ github.run_number }}.fba
+          name: pr-fitbit-overview-366x366-7X.fba
           path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   fba-366x366-7x-stable:
@@ -266,7 +266,7 @@ jobs:
       - name: Upload Publish Files
         uses: actions/upload-artifact@v4
         with:
-          name: fitbit-overview-366x366-7X-${{ github.run_number }}.fba
+          name: fitbit-overview-366x366-7X.fba
           path: src/366x366/publish/fitbit-overview.fba
           if-no-files-found: error
   merge:
