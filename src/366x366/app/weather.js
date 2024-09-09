@@ -98,6 +98,7 @@ export function setRefreshInterval(interval) {
 
 export function forceFetchWeather() {
   weatherLastUpdate = null;
+  weatherLastRequest = null;
   fetchWeather();
 }
 
@@ -115,8 +116,8 @@ export function fetchWeather() {
     currentWeatherData = null;
     DrawWeather();
   }
-
-  if (lastRequestAge >= 120000) {
+  
+  if (lastRequestAge >= 300000) {
 
     weatherLastRequest = Date.now();
 
