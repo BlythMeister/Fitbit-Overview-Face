@@ -40,7 +40,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/348x250/4x/pr-fitbit-overview.fba      
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/348x250/publish/**
@@ -72,7 +72,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/348x250/4x/stable-fitbit-overview.fba
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/348x250/publish/**
@@ -104,7 +104,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/300x300/4x/pr-fitbit-overview.fba      
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/300x300/publish/**
@@ -136,7 +136,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/300x300/4x/stable-fitbit-overview.fba
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/300x300/publish/**
@@ -168,7 +168,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/366x366/6x/pr-fitbit-overview.fba      
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
@@ -200,7 +200,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/366x366/6x/stable-fitbit-overview.fba
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
@@ -232,7 +232,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/366x366/7x/pr-fitbit-overview.fba      
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
@@ -264,7 +264,7 @@ jobs:
       - name: Rename & Move fba
         run: mv build/app.fba publish/366x366/7x/stable-fitbit-overview.fba
       - name: Upload Publish Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fitbit-overview-${{ github.run_number }}
           path: src/366x366/publish/**
