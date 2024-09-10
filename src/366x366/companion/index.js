@@ -7,9 +7,9 @@ import { msgq } from "./../shared/msgq.js";
 let lastWeatherUnit = null;
 let lastSendAllSettings = null;
 
-//Wake every 5 minutes
-console.log("Set companion wake interval to 5 minutes");
-companion.wakeInterval = 300000;
+//Wake every 15 minutes
+console.log("Set companion wake interval to 15 minutes");
+companion.wakeInterval = 900000;
 
 // Monitor for significant changes in physical location
 console.log("Enable monitoring of significant location changes");
