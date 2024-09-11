@@ -27,9 +27,10 @@ export const messaging = {
 
     addEventListener: function (event, handler) {
         if (event == "message") {
-            onmessage(handler);
+            onMessageHandlers.push(handler);
+        } else {
+            throw `Unknown event ${event}`;
         }
-        throw `Unknown event ${event}`;
     },
 
     // sends data externally from device to phone or from phone to device via file transfer

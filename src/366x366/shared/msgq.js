@@ -69,7 +69,7 @@ function enqueue(messageKey, message, timeout, highPriority) {
   const id = `${messageKey}#${uuid}`;
   const timeoutDate = (timeout > 0 ? Date.now() + timeout : null);
 
-  const data = { id: id, timeout: timeoutDate, messageKey: messageKey, message: message };
+  const data = { id: id, timeout: timeoutDate, uuid: uuid, messageKey: messageKey, message: message };
 
   dequeue(null, messageKey);
   if (highPriority) {
@@ -313,7 +313,7 @@ function process() {
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
-      messaging.send(queueItem.id, { msgqType: "msgq_message", qSize: queue.length - 1, id: queueItem.id, msgqMessage: queueItem });
+      messaging.send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queue.length - 1), id: queueItem.id, msgqMessage: queueItem });
       waitingForId = queueItem.id;
       lastSent = Date.now();
     } catch (e) {
@@ -329,6 +329,7 @@ function onMessage(event) {
   lastReceived = Date.now();
   const type = event.data.msgqType;
   const id = event.data.id;
+  const uuid = event.data.uuid;
   otherQueueSize = event.data.qSize;
 
   if (debugMessages) {
@@ -353,7 +354,7 @@ function onMessage(event) {
       if (debugMessages) {
         console.log(`Sending receipt for ${id}`);
       }
-      messaging.send(`r_${id}`,{ msgqType: "msgq_receipt", qSize: queue.length - 1, id: id });
+      messaging.send(`r_${uuid}`,{ msgqType: "msgq_receipt", qSize: Math.max(0, queue.length - 1), id: id });
     } catch (e) {
       console.error(e.message);
     }
