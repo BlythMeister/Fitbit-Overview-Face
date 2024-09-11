@@ -25,6 +25,18 @@ msgstr "그래"
 msgid "above-custom"
 msgstr "높은"
 
+msgid "weather-expired"
+msgstr "만료됨"
+
+msgid "weather-unavailable"
+msgstr "없는"
+
+msgid "weather-error"
+msgstr "오류"
+
+msgid "weather-loading"
+msgstr "로드 중"
+
 msgid "month-short-0"
 msgstr "1"
 

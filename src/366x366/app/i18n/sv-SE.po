@@ -25,6 +25,18 @@ msgstr "Okej"
 msgid "above-custom"
 msgstr "Hög"
 
+msgid "weather-expired"
+msgstr "Utgått"
+
+msgid "weather-unavailable"
+msgstr "Inte tillgänglig"
+
+msgid "weather-error"
+msgstr "Fel"
+
+msgid "weather-loading"
+msgstr "Belastning"
+
 msgid "month-short-0"
 msgstr "jan"
 

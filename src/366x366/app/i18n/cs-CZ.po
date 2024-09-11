@@ -25,6 +25,18 @@ msgstr "Ok"
 msgid "above-custom"
 msgstr "Vysoké"
 
+msgid "weather-expired"
+msgstr "Platnost vypršela"
+
+msgid "weather-unavailable"
+msgstr "Není k dispozici"
+
+msgid "weather-error"
+msgstr "Chyba"
+
+msgid "weather-loading"
+msgstr "Načítání"
+
 msgid "month-short-0"
 msgstr "led"
 

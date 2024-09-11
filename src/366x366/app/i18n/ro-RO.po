@@ -25,6 +25,18 @@ msgstr "ok"
 msgid "above-custom"
 msgstr "Înaltă"
 
+msgid "weather-expired"
+msgstr "Expirat"
+
+msgid "weather-unavailable"
+msgstr "Indisponibil"
+
+msgid "weather-error"
+msgstr "Eroare"
+
+msgid "weather-loading"
+msgstr "Încărcare"
+
 msgid "month-short-0"
 msgstr "ian."
 

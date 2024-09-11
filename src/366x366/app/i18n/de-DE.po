@@ -25,6 +25,18 @@ msgstr "Okay"
 msgid "above-custom"
 msgstr "Hoch"
 
+msgid "weather-expired"
+msgstr "Abgelaufen"
+
+msgid "weather-unavailable"
+msgstr "Nicht verfügbar"
+
+msgid "weather-error"
+msgstr "Fehler"
+
+msgid "weather-loading"
+msgstr "Laden"
+
 msgid "month-short-0"
 msgstr "Jan"
 

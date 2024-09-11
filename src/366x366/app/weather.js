@@ -1,5 +1,6 @@
 import * as document from "document";
 import { units } from "user-settings";
+import { gettext } from "i18n";
 import { msgq } from "./../shared/msgq.js";
 
 export let weatherLocationEl = document.getElementById("weather-location");
@@ -113,8 +114,7 @@ export function fetchWeather() {
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
   if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
-    currentWeatherData.condition = -1;
-    currentWeatherData.location = "Expired";
+    currentWeatherData.condition = -2;
     DrawWeather();
   }
 
@@ -152,15 +152,19 @@ export function DrawWeather() {
   if (currentWeatherData == null) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
-    weatherLocationTextEl.text = "----";
+    weatherLocationTextEl.text = gettext("weather-loading");
   } else if (currentWeatherData.condition === -1) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
-    if (currentWeatherData.location == "Weather Service is unavailable") {
-      weatherLocationTextEl.text = "Unavailable";
+    if (currentWeatherData.location.toLower().includes("unavailable")) {
+      weatherLocationTextEl.text = gettext("weather-unavailable");
     } else {
-      weatherLocationTextEl.text = currentWeatherData.location;
+      weatherLocationTextEl.text = gettext("weather-error");
     }
+  } else if (currentWeatherData.condition === -2) {
+    weatherCountEl.text = "----";
+    weatherIconEl.href = "weather_36px.png";
+    weatherLocationTextEl.text = gettext("weather-expired");
   } else {
     if (currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
       weatherIconEl.href = weatherConditions[currentWeatherData.condition];

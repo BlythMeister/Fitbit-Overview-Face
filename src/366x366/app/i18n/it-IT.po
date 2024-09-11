@@ -23,7 +23,19 @@ msgid "custom"
 msgstr "Ok"
 
 msgid "above-custom"
-msgstr "alto"
+msgstr "Alto"
+
+msgid "weather-expired"
+msgstr "Scaduto"
+
+msgid "weather-unavailable"
+msgstr "Non disponibile"
+
+msgid "weather-error"
+msgstr "Errore"
+
+msgid "weather-loading"
+msgstr "Caricamento"
 
 msgid "month-short-0"
 msgstr "gen"

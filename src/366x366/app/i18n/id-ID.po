@@ -25,6 +25,18 @@ msgstr "Oke"
 msgid "above-custom"
 msgstr "Tinggi"
 
+msgid "weather-expired"
+msgstr "Kedaluwarsa"
+
+msgid "weather-unavailable"
+msgstr "Tidak tersedia"
+
+msgid "weather-error"
+msgstr "Kesalahan"
+
+msgid "weather-loading"
+msgstr "Memuat"
+
 msgid "month-short-0"
 msgstr "Jan"
 

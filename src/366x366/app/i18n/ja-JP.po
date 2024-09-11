@@ -25,6 +25,18 @@ msgstr "わかりました"
 msgid "above-custom"
 msgstr "高"
 
+msgid "weather-expired"
+msgstr "期限切れ"
+
+msgid "weather-unavailable"
+msgstr "利用不可"
+
+msgid "weather-error"
+msgstr "エラー"
+
+msgid "weather-loading"
+msgstr "読み込み中"
+
 msgid "month-short-0"
 msgstr "1"
 

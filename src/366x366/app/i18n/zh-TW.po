@@ -25,6 +25,18 @@ msgstr "還行。"
 msgid "above-custom"
 msgstr "高。"
 
+msgid "weather-expired"
+msgstr "已到期"
+
+msgid "weather-unavailable"
+msgstr "不可用"
+
+msgid "weather-error"
+msgstr "錯誤"
+
+msgid "weather-loading"
+msgstr "載入中"
+
 msgid "month-short-0"
 msgstr "一月"
 
