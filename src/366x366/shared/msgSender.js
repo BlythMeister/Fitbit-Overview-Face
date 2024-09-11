@@ -1,26 +1,19 @@
 import { inbox, outbox } from 'file-transfer';
 import { encode } from 'cbor';
 
-const MESSAGE_FILE_NAME = 'messaging08ds3kj4hn25dxa9';
+const MESSAGE_FILE_NAME = 'overview-message';
 
 let debugMessages = false;
-let fileUid = 0;
-
 
 // event handler for messages
-const eventHandlers = {
-    message: [],
-    open: [],
-    close: [],
-    error: []
-}
+const onMessageHandlers = [];
 
 // when incoming data arrives - calls all "onmessage" handlers and passes the data
 function onMessage(payload) {    
     if (debugMessages) {
         console.log(`FM::OnMessage: ${JSON.stringify(payload)}`);
     }
-    for (let handler of eventHandlers.message) {
+    for (let handler of onMessageHandlers) {
         handler(payload)
     }
 }
@@ -36,31 +29,21 @@ export const messaging = {
 
     // *** Setters for manual event handler assignments
     set onmessage(handler) {
-        eventHandlers.message.push(handler);
-    },
-
-    set onopen(handler) {
-        eventHandlers.open.push(handler);
-    },
-
-    set onclose(handler) {
-        eventHandlers.close.push(handler);
-    },
-
-    set onerror(handler) {
-        eventHandlers.error.push(handler);
-    },
+        onMessageHandlers.push(handler);
+    }
     // ***
 
     addEventListener: function (event, handler) {
-        eventHandlers[event].push(handler)
+        if (event == "message") {
+            onmessage(handler);
+        }
+        throw `Unknown event ${event}`;
     },
 
     // simulation of `messaging.peerSocket.send` - sends data externally
     // from device to phone or from phone to device via file transfer
-    send: function (data) {
-        fileUid++;
-        let name = `${MESSAGE_FILE_NAME}.${fileUid}.cbor`;
+    send: function (uuid, data) {
+        let name = `${MESSAGE_FILE_NAME}.${uuid}.cbor`;
         if (debugMessages) {
             console.log(`FM::Send '${name}' : ${JSON.stringify(data)}`);
         }
@@ -192,5 +175,3 @@ if (inbox.pop) { // this is a companion
     init()
 
 }
-
-setTimeout(() => { onOpen(); }, 1)

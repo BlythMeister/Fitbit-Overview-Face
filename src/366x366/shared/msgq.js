@@ -1,4 +1,4 @@
-import { messaging } from "./fitbit-file-messaging.js";
+import { messaging } from "./msgSender.js";
 
 //====================================================================================================
 // Initialize
@@ -15,14 +15,18 @@ let delayedProcessCallAt = null;
 let consecutiveQueueEmpty = 0;
 let messageOpen = false;
 
-enqueue("msgq_alive", {size:null}, -1, false);
 setInterval(function () {
-  try {
-    enqueue("msgq_alive", {size:null}, -1, false);
-  } catch (e) {
-    //Do Nothing
+  var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
+  var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
+  if (lastSentAge > 120000 && lastReceivedAge > 120000)
+  {
+    try {
+      enqueue("msgq_nudge", {}, -1, false);
+    } catch (e) {
+      //Do Nothing
+    }
   }
-}, 150000);
+}, 60000);
 
 //====================================================================================================
 // Helpers
@@ -306,15 +310,10 @@ function process() {
     return;
   } else {
     try {
-      if(queueItem.messageKey == "msgq_alive") {
-        // Update queue length at time of sending
-        // Don't count the msgq_alive message being sent
-        queueItem.message.size = queue.length - 1 
-      }
       if (debugMessages) {
         console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
       }
-      messaging.send({ msgqType: "msgq_message", id: queueItem.id, msgqMessage: queueItem });
+      messaging.send(queueItem.id, { msgqType: "msgq_message", qSize: queue.length - 1, id: queueItem.id, msgqMessage: queueItem });
       waitingForId = queueItem.id;
       lastSent = Date.now();
     } catch (e) {
@@ -326,32 +325,14 @@ function process() {
   }
 }
 
-function onMessagingOpen() {
-  console.log("Messaging opened");
-  messageOpen = true;
-  waitingForId = null;
-  delayedProcess(50);
-}
-
-function onMessagingClosed() {
-  console.log(`Messaging closed.`);
-  messageOpen = false;
-  waitingForId = null;
-  delayedProcess(50);
-}
-
-function onMessagingError(event) {
-  console.error(`Messaging error. - ${event}.`);
-  waitingForId = null;
-  delayedProcess(50);
-}
-
 function onMessage(event) {
   lastReceived = Date.now();
   const type = event.data.msgqType;
   const id = event.data.id;
+  otherQueueSize = event.data.qSize;
+
   if (debugMessages) {
-    console.log(`Got message ${id} - type ${type}`);
+    console.log(`Got message ${id} - type ${type}. - Other QSize: ${otherQueueSize}`);
   }
 
   if (type == "msgq_message") {
@@ -362,24 +343,17 @@ function onMessage(event) {
       console.log(`Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
     
-    if (messageKey == "msgq_alive") {
-      otherQueueSize = message.size;
-      if (debugMessages) {
-        console.log(`Other queue size = ${otherQueueSize}`);
-      }
-    } else {
-      try {
-        msgq.onmessage(messageKey, message);
-      } catch (e) {
-        console.error(e.message);
-      }
+    try {
+      msgq.onmessage(messageKey, message);
+    } catch (e) {
+      console.error(e.message);
     }
 
     try {
       if (debugMessages) {
         console.log(`Sending receipt for ${id}`);
       }
-      messaging.send({ msgqType: "msgq_receipt", id: id });
+      messaging.send(`r_${id}`,{ msgqType: "msgq_receipt", qSize: queue.length - 1, id: id });
     } catch (e) {
       console.error(e.message);
     }
@@ -396,30 +370,6 @@ function onMessage(event) {
 //====================================================================================================
 // Messaging handling
 //====================================================================================================
-
-messaging.addEventListener("open", () => {
-  try {
-    onMessagingOpen();
-  } catch (e) {
-    console.warn(e.message);
-  }
-});
-
-messaging.addEventListener("close", (event) => {
-  try {
-    onMessagingClosed(event);
-  } catch (e) {
-    console.warn(e.message);
-  }
-});
-
-messaging.addEventListener("error", (event) => {
-  try {
-    onMessagingError(event);
-  } catch (e) {
-    console.warn(e.message);
-  }
-});
 
 messaging.addEventListener("message", (event) => {
   try {
