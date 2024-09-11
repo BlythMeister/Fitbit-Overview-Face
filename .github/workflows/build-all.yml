@@ -24,7 +24,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -56,7 +56,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -88,7 +88,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish 
       - name: Delete package-lock.json 
@@ -120,7 +120,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -152,7 +152,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish  
       - name: Delete package-lock.json 
@@ -184,7 +184,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -216,7 +216,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -248,7 +248,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: lts
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
