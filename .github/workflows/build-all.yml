@@ -24,7 +24,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -56,7 +57,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -88,7 +90,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish 
       - name: Delete package-lock.json 
@@ -120,7 +123,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -152,7 +156,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish  
       - name: Delete package-lock.json 
@@ -184,7 +189,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -216,7 +222,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
@@ -248,7 +255,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
         with:
-          node-version: lts
+          node-version: 20.x
+          check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
       - name: Delete package-lock.json 
