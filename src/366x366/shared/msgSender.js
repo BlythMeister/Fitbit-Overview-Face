@@ -18,19 +18,11 @@ function onMessage(payload) {
     }
 }
 
-// on app start calls all "onopen" handlers
-function onOpen() {
-    for (let handler of eventHandlers.open) {
-        handler()
-    }
-}
-
 export const messaging = {
-
     // *** Setters for manual event handler assignments
     set onmessage(handler) {
         onMessageHandlers.push(handler);
-    }
+    },
     // ***
 
     addEventListener: function (event, handler) {
@@ -40,16 +32,14 @@ export const messaging = {
         throw `Unknown event ${event}`;
     },
 
-    // simulation of `messaging.peerSocket.send` - sends data externally
-    // from device to phone or from phone to device via file transfer
+    // sends data externally from device to phone or from phone to device via file transfer
     send: function (uuid, data) {
         let name = `${MESSAGE_FILE_NAME}.${uuid}.cbor`;
         if (debugMessages) {
             console.log(`FM::Send '${name}' : ${JSON.stringify(data)}`);
         }
         outbox.enqueue(name, encode(data));
-    },
-
+    }
 }
 
 const otherFiles = [];
