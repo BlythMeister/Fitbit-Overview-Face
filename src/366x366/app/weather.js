@@ -113,7 +113,9 @@ export function fetchWeather() {
   var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
-  if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
+  if (currentWeatherData == null && lastRequestAge == null) {
+    DrawWeather();
+  } else if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
     currentWeatherData.condition = -2;
     DrawWeather();
   }
@@ -150,21 +152,25 @@ export function processWeatherData(data) {
 
 export function DrawWeather() {
   if (currentWeatherData == null) {
-    weatherCountEl.text = "----";
+    var message = gettext("weather-loading");
+    weatherCountEl.text = `-${message.toLower().substring(0,2)}-`;
     weatherIconEl.href = "weather_36px.png";
-    weatherLocationTextEl.text = gettext("weather-loading");
+    weatherLocationTextEl.text = message;
   } else if (currentWeatherData.condition === -1) {
-    weatherCountEl.text = "----";
-    weatherIconEl.href = "weather_36px.png";
+    var message = ""
     if (currentWeatherData.location.toLower().includes("unavailable")) {
-      weatherLocationTextEl.text = gettext("weather-unavailable");
+      message = gettext("weather-unavailable");
     } else {
-      weatherLocationTextEl.text = gettext("weather-error");
+      message = gettext("weather-error");
     }
-  } else if (currentWeatherData.condition === -2) {
-    weatherCountEl.text = "----";
+    weatherCountEl.text = `-${message.toLower().substring(0,2)}-`;
     weatherIconEl.href = "weather_36px.png";
-    weatherLocationTextEl.text = gettext("weather-expired");
+    weatherLocationTextEl.text = message;
+  } else if (currentWeatherData.condition === -2) {
+    var message = gettext("weather-expired");
+    weatherCountEl.text = `-${message.toLower().substring(0,2)}-`;
+    weatherIconEl.href = "weather_36px.png";
+    weatherLocationTextEl.text = message;
   } else {
     if (currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
       weatherIconEl.href = weatherConditions[currentWeatherData.condition];

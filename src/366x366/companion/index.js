@@ -63,9 +63,9 @@ function sendSettingsWithDefaults() {
   setDefaultSettingOrSendExisting("showDay", true);
   setDefaultSettingOrSendExisting("StatsTL", { values: [{ value: "steps", name: "Steps" }], selected: [4] });
   setDefaultSettingOrSendExisting("StatsBL", { values: [{ value: "distance", name: "Distance" }], selected: [5] });
-  setDefaultSettingOrSendExisting("StatsTM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
-  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
-  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "activeMinutesWeek", name: "Weekly Active Zone Minutes" }], selected: [9] });
+  setDefaultSettingOrSendExisting("StatsTM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
+  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
+  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "WEATHER-LOCATION", name: "Weather Location" }], selected: [12] });
   setDefaultSettingOrSendExisting("StatsTR", { values: [{ value: "elevationGain", name: "Floors" }], selected: [6] });
   setDefaultSettingOrSendExisting("StatsBR", { values: [{ value: "calories", name: "Calories" }], selected: [7] });
   setDefaultSettingOrSendExisting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
