@@ -44,8 +44,7 @@ settingsStorage.addEventListener("change", (evt) => {
 function sendSettingsWithDefaults() {
   var currentDate = Date.now();
   var lastSendAllSettingsAge = lastSendAllSettings == null ? 99999999 : currentDate - lastSendAllSettings;
-  if(lastSendAllSettingsAge <= 60000)
-  {
+  if (lastSendAllSettingsAge <= 60000) {
     return;
   }
   lastSendAllSettings = currentDate;
@@ -141,7 +140,7 @@ function sendSettingValue(key, val, updatedValue) {
   }
 }
 
-function sendWeather(unit, retry=false) {
+function sendWeather(unit, retry = false) {
   let unitKey = "celsius";
   if (unit == "F") {
     unitKey = "fahrenheit";
@@ -166,10 +165,10 @@ function sendWeather(unit, retry=false) {
           location: location.name,
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData, 60000, false);       
+        msgq.send("weather", sendData, 60000, false);
       })
       .catch((ex) => {
-        if(!retry) {
+        if (!retry) {
           console.log(`Retry weather...`);
           sendWeather(unit, true);
         } else {
@@ -178,13 +177,13 @@ function sendWeather(unit, retry=false) {
             temperature: -999,
             unit: unitKey,
             condition: -1,
-            location: ex.message
+            location: ex.message,
           };
           msgq.send("weather", sendData, 60000, false);
         }
       });
   } catch (ex) {
-    if(!retry) {
+    if (!retry) {
       console.log(`Retry weather...`);
       sendWeather(unit, true);
     } else {
@@ -193,7 +192,7 @@ function sendWeather(unit, retry=false) {
         temperature: -999,
         unit: unitKey,
         condition: -1,
-        location: ex.message
+        location: ex.message,
       };
       msgq.send("weather", sendData, 60000, false);
     }

@@ -27,10 +27,10 @@ if (settings.hasSettings()) {
   startingEl.style.display = "none";
 } else {
   setTimeout(() => {
-    if(startingEl.style.display == "inline") {
+    if (startingEl.style.display == "inline") {
       startingEl.style.display = "none";
       console.log(`Hiding loading spinner after 120 seconds if still shown`);
-    }  
+    }
   }, 120000);
 }
 

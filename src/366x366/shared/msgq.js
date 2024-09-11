@@ -18,8 +18,7 @@ let messageOpen = false;
 setInterval(function () {
   var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
-  if (lastSentAge > 120000 && lastReceivedAge > 120000)
-  {
+  if (lastSentAge > 120000 && lastReceivedAge > 120000) {
     try {
       enqueue("msgq_nudge", {}, -1, false);
     } catch (e) {
@@ -67,7 +66,7 @@ function CreateUUID() {
 function enqueue(messageKey, message, timeout, highPriority) {
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
-  const timeoutDate = (timeout > 0 ? Date.now() + timeout : null);
+  const timeoutDate = timeout > 0 ? Date.now() + timeout : null;
 
   const data = { id: id, timeout: timeoutDate, uuid: uuid, messageKey: messageKey, message: message };
 
@@ -76,14 +75,13 @@ function enqueue(messageKey, message, timeout, highPriority) {
     queue.unshift(data);
   } else {
     queue.push(data);
-
   }
 
   if (debugMessages) {
     console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSize: ${queue.length}`);
   }
 
-  delayedProcess(100);  
+  delayedProcess(100);
 }
 
 //====================================================================================================
@@ -91,7 +89,7 @@ function enqueue(messageKey, message, timeout, highPriority) {
 //====================================================================================================
 
 function dequeue(messageId, messageKey) {
-  if(queue.length == 0) {
+  if (queue.length == 0) {
     if (debugMessages) {
       console.log("Dequeue when queue empty, skipping");
     }
@@ -104,7 +102,7 @@ function dequeue(messageId, messageKey) {
     }
 
     var dequeueResult = false;
-    if(queue[0].id == messageId) {
+    if (queue[0].id == messageId) {
       if (debugMessages) {
         console.log(`Top message in queue is match for id ${messageId}`);
       }
@@ -112,15 +110,15 @@ function dequeue(messageId, messageKey) {
       dequeueResult = true;
     } else {
       for (var i = queue.length - 1; i >= 0; i--) {
-        var id = queue[i].id
+        var id = queue[i].id;
         if (id === messageId) {
           queue.splice(i, 1);
           dequeueResult = true;
           break;
         }
       }
-    }   
-    
+    }
+
     if (dequeueResult) {
       if (debugMessages) {
         console.log(`Dequeued message ${messageId} - QueueSize: ${queue.length}`);
@@ -153,7 +151,7 @@ function dequeue(messageId, messageKey) {
 //====================================================================================================
 
 function requeue(messageId) {
-  if(queue.length == 0) {
+  if (queue.length == 0) {
     if (debugMessages) {
       console.log("Requeue when queue empty, skipping");
     }
@@ -168,14 +166,14 @@ function requeue(messageId) {
   }
 
   var data = null;
-  if(queue[0].id == messageId) {
+  if (queue[0].id == messageId) {
     if (debugMessages) {
       console.log(`Top message in queue is match for id ${messageId}`);
     }
     data = queue.splice(0, 1)[0];
   } else {
     for (var i = queue.length - 1; i >= 0; i--) {
-      var id = queue[i].id
+      var id = queue[i].id;
       if (id === messageId) {
         data = queue.splice(i, 1);
         break;
@@ -215,7 +213,7 @@ function delayedProcess(delay) {
       console.log(`prev delay end ${msToEnd}ms`);
     }
 
-    if(msToEnd < 0) {
+    if (msToEnd < 0) {
       process();
     }
 
@@ -247,7 +245,7 @@ function process() {
     delayedProcessCallAt = null;
   }
 
-  if(!messageOpen) {
+  if (!messageOpen) {
     if (debugMessages) {
       console.log("Messaging not open, try process again in 1 sec");
     }
@@ -269,9 +267,8 @@ function process() {
     consecutiveQueueEmpty = 0;
   }
 
-  var lastSentAge = Date.now() - lastSent
-  if(lastSentAge < 50)
-  {
+  var lastSentAge = Date.now() - lastSent;
+  if (lastSentAge < 50) {
     var delay = 50 - lastSentAge;
     if (debugMessages) {
       console.log(`Less than 50ms since last send, backoff ${delay}ms`);
@@ -343,7 +340,7 @@ function onMessage(event) {
     if (debugMessages) {
       console.log(`Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
-    
+
     try {
       msgq.onmessage(messageKey, message);
     } catch (e) {
@@ -354,7 +351,7 @@ function onMessage(event) {
       if (debugMessages) {
         console.log(`Sending receipt for ${id}`);
       }
-      messaging.send(`r_${uuid}`,{ msgqType: "msgq_receipt", qSize: Math.max(0, queue.length - 1), id: id });
+      messaging.send(`r_${uuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queue.length - 1), id: id });
     } catch (e) {
       console.error(e.message);
     }
@@ -393,7 +390,7 @@ const msgq = {
   getOtherQueueSize: GetOtherQueueSize,
   getLastSent: GetLastSent,
   getLastReceived: GetLastReceived,
-  getIsWaitingForResponse: IsWaitingForResponse
+  getIsWaitingForResponse: IsWaitingForResponse,
 };
 
 export { msgq };

@@ -103,7 +103,7 @@ export function forceFetchWeather() {
 }
 
 export function fetchWeather() {
-  if(startingEl.style.display == "inline" || weatherPosition == "NONE") {
+  if (startingEl.style.display == "inline" || weatherPosition == "NONE") {
     // Don't try and get weather when starting or hidden
     return;
   }
@@ -117,9 +117,8 @@ export function fetchWeather() {
     currentWeatherData.location = "Expired";
     DrawWeather();
   }
-  
-  if (lastRequestAge >= 300000 || (currentWeatherData == null && lastRequestAge >= 60000)) {
 
+  if (lastRequestAge >= 300000 || (currentWeatherData == null && lastRequestAge >= 60000)) {
     weatherLastRequest = Date.now();
 
     if (currentWeatherData == null || currentWeatherData.condition === -1 || currentWeatherAge >= weatherInterval) {
@@ -127,20 +126,20 @@ export function fetchWeather() {
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
           sendUnit = units.temperature ? units.temperature.charAt(0).toUpperCase() : "C";
-        }        
+        }
         msgq.send("weather", { unit: sendUnit }, 60000, false);
       } catch (e) {
         console.error(e);
       }
     }
-  }  
+  }
 }
 
 export function processWeatherData(data) {
   var currentDate = Date.now();
   if (currentWeatherData != null && data != null && currentWeatherData.condition >= 0 && data.condition === -1) {
     var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
-    if(currentWeatherAge < weatherInterval * 2) {
+    if (currentWeatherAge < weatherInterval * 2) {
       return;
     }
   }
@@ -157,13 +156,13 @@ export function DrawWeather() {
   } else if (currentWeatherData.condition === -1) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
-    if(currentWeatherData.location == "Weather Service is unavailable"){
+    if (currentWeatherData.location == "Weather Service is unavailable") {
       weatherLocationTextEl.text = "Unavailable";
     } else {
       weatherLocationTextEl.text = currentWeatherData.location;
-    }    
+    }
   } else {
-    if(currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
+    if (currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
       weatherIconEl.href = weatherConditions[currentWeatherData.condition];
     } else {
       weatherIconEl.href = "weather_36px.png";
