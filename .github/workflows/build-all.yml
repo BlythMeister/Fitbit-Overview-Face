@@ -20,11 +20,11 @@ jobs:
         working-directory: src/348x250
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
@@ -53,11 +53,11 @@ jobs:
         working-directory: src/348x250
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
@@ -86,11 +86,11 @@ jobs:
         working-directory: src/300x300
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish 
@@ -119,11 +119,11 @@ jobs:
         working-directory: src/300x300
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
@@ -152,11 +152,11 @@ jobs:
         working-directory: src/366x366
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish  
@@ -185,11 +185,11 @@ jobs:
         working-directory: src/366x366
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
@@ -218,11 +218,11 @@ jobs:
         working-directory: src/366x366
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
@@ -251,11 +251,11 @@ jobs:
         working-directory: src/366x366
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
           check-latest: true
       - name: Create publish directory
         run: mkdir -p publish
