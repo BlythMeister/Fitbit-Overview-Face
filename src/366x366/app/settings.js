@@ -710,7 +710,7 @@ export function loadSettings() {
       }
     }
   } catch (e) {
-    console.error(e.message);
+    console.error(e);
     return null;
   }
 

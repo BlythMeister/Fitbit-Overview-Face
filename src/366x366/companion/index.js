@@ -167,32 +167,32 @@ function sendWeather(unit, retry = false) {
         //console.log(`Weather:${JSON.stringify(sendData)}`);
         msgq.send("weather", sendData, 60000, false);
       })
-      .catch((ex) => {
+      .catch((e) => {
         if (!retry) {
           console.log(`Retry weather...`);
           sendWeather(unit, true);
         } else {
-          console.error(ex);
+          console.error(e);
           var sendData = {
             temperature: -999,
             unit: unitKey,
             condition: -1,
-            location: ex.message,
+            location: e.message,
           };
           msgq.send("weather", sendData, 60000, false);
         }
       });
-  } catch (ex) {
+  } catch (e) {
     if (!retry) {
       console.log(`Retry weather...`);
       sendWeather(unit, true);
     } else {
-      console.error(ex);
+      console.error(e);
       var sendData = {
         temperature: -999,
         unit: unitKey,
         condition: -1,
-        location: ex.message,
+        location: e.message,
       };
       msgq.send("weather", sendData, 60000, false);
     }

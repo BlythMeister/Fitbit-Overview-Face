@@ -13,7 +13,6 @@ let lastReceived = null;
 let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
 let consecutiveQueueEmpty = 0;
-let messageOpen = false;
 
 setInterval(function () {
   var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
@@ -214,7 +213,11 @@ function delayedProcess(delay) {
     }
 
     if (msToEnd < 0) {
+      if (debugMessages) {
+        console.log(`Calling process as delay due in under 0ms`);
+      }
       process();
+      return;
     }
 
     if (msToEnd > delay) {
@@ -243,13 +246,6 @@ function process() {
     clearTimeout(delayedProcessCallTimeout);
     delayedProcessCallTimeout = null;
     delayedProcessCallAt = null;
-  }
-
-  if (!messageOpen) {
-    if (debugMessages) {
-      console.log("Messaging not open, try process again in 1 sec");
-    }
-    delayedProcess(1000);
   }
 
   if (queue.length === 0) {
@@ -285,8 +281,8 @@ function process() {
       requeue(requeueId);
       delayedProcess(50);
     } else {
-      console.log(`Waiting for a receipt (${waitingForId}) call process again in 500ms`);
-      delayedProcess(500);
+      console.log(`Waiting for a receipt (${waitingForId}) call process again in 250ms`);
+      delayedProcess(250);
     }
     return;
   }
@@ -315,7 +311,7 @@ function process() {
       lastSent = Date.now();
     } catch (e) {
       waitingForId = null;
-      console.warn(e.message);
+      console.warn(e);
       console.log(`Send error, call process again in 1 seconds`);
       delayedProcess(1000);
     }
@@ -344,7 +340,7 @@ function onMessage(event) {
     try {
       msgq.onmessage(messageKey, message);
     } catch (e) {
-      console.error(e.message);
+      console.error(e);
     }
 
     try {
@@ -353,7 +349,7 @@ function onMessage(event) {
       }
       messaging.send(`r_${uuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queue.length - 1), id: id });
     } catch (e) {
-      console.error(e.message);
+      console.error(e);
     }
   } else if (type == "msgq_receipt") {
     if (debugMessages) {
@@ -373,7 +369,7 @@ messaging.addEventListener("message", (event) => {
   try {
     onMessage(event);
   } catch (e) {
-    console.warn(e.message);
+    console.warn(e);
   }
 });
 

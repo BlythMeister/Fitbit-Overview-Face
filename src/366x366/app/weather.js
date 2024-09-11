@@ -113,7 +113,7 @@ export function fetchWeather() {
   var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
   var lastRequestAge = weatherLastRequest == null ? 99999999 : currentDate - weatherLastRequest;
 
-  if (currentWeatherData == null && lastRequestAge == null) {
+  if (currentWeatherData == null && lastRequestAge == 99999999 && currentWeatherAge == 99999999) {
     DrawWeather();
   } else if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
     currentWeatherData.condition = -2;
@@ -152,22 +152,22 @@ export function processWeatherData(data) {
 
 export function DrawWeather() {
   if (currentWeatherData == null) {
-    var message = gettext("weather-loading");
-    weatherCountEl.text = `-${message.toLower().substring(0,2)}-`;
+    let message = gettext("weather-loading");
+    weatherCountEl.text = `-${message.toLowerCase().substring(0,2)}-`;
     weatherIconEl.href = "weather_36px.png";
     weatherLocationTextEl.text = message;
   } else if (currentWeatherData.condition === -1) {
-    var message = ""
-    if (currentWeatherData.location.toLower().includes("unavailable")) {
+    let message = ""
+    if (currentWeatherData.location.toLowerCase().includes("unavailable")) {
       message = gettext("weather-unavailable");
     } else {
       message = gettext("weather-error");
     }
-    weatherCountEl.text = `-${message.toLower().substring(0,2)}-`;
+    weatherCountEl.text = `-${message.toLowerCase().substring(0,2)}-`;
     weatherIconEl.href = "weather_36px.png";
     weatherLocationTextEl.text = message;
   } else if (currentWeatherData.condition === -2) {
-    var message = gettext("weather-expired");
+    let message = gettext("weather-expired");
     weatherCountEl.text = `-${message.toLower().substring(0,2)}-`;
     weatherIconEl.href = "weather_36px.png";
     weatherLocationTextEl.text = message;
