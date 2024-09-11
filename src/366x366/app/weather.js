@@ -157,7 +157,11 @@ export function DrawWeather() {
   } else if (currentWeatherData.condition === -1) {
     weatherCountEl.text = "----";
     weatherIconEl.href = "weather_36px.png";
-    weatherLocationTextEl.text = currentWeatherData.location;
+    if(currentWeatherData.location == "Weather Service is unavailable"){
+      weatherLocationTextEl.text = "Unavailable";
+    } else {
+      weatherLocationTextEl.text = currentWeatherData.location;
+    }    
   } else {
     if(currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
       weatherIconEl.href = weatherConditions[currentWeatherData.condition];
