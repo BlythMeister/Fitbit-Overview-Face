@@ -18,7 +18,7 @@ companion.monitorSignificantLocationChanges = true;
 msgq.onmessage = (messageKey, message) => {
   if (messageKey === "send-all-settings") {
     sendSettingsWithDefaults();
-    msgq.send(`all-settings-sent`, {}, -1, false);
+    msgq.send(`all-settings-sent`, {}, false);
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -34,7 +34,7 @@ console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
-msgq.send("companion-launch", companion.launchReasons);
+msgq.send("companion-launch", companion.launchReasons, false);
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
@@ -134,7 +134,7 @@ function sendSettingValue(key, val, updatedValue) {
       value: JSON.parse(val),
     };
 
-    msgq.send(`settingChange:${data.key}`, data, -1, updatedValue);
+    msgq.send(`settingChange:${data.key}`, data, updatedValue);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
@@ -165,7 +165,7 @@ function sendWeather(unit, retry = false) {
           location: location.name,
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData, 60000, false);
+        msgq.send("weather", sendData, true);
       })
       .catch((e) => {
         if (!retry) {
@@ -179,7 +179,7 @@ function sendWeather(unit, retry = false) {
             condition: -1,
             location: e.message,
           };
-          msgq.send("weather", sendData, 60000, false);
+          msgq.send("weather", sendData, true);
         }
       });
   } catch (e) {
@@ -194,7 +194,7 @@ function sendWeather(unit, retry = false) {
         condition: -1,
         location: e.message,
       };
-      msgq.send("weather", sendData, 60000, false);
+      msgq.send("weather", sendData, true);
     }
   }
 }
