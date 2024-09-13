@@ -34,7 +34,6 @@ console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
-msgq.send("companion-launch", companion.launchReasons, false);
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
