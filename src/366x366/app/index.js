@@ -35,7 +35,6 @@ if (settings.hasSettings()) {
 }
 
 msgq.send("send-all-settings", {}, true);
-msgq.send("app-launch", {}, false);
 
 msgq.onmessage = (messageKey, message) => {
   var key = messageKey.split(":")[0];
