@@ -153,15 +153,19 @@ export function DrawWeather() {
   var count = "---";
   var location = "---";
   var icon = "weather_36px.png";
+  var errorCode = 0;
 
   if (currentWeatherData == null) {
     location = gettext("weather-loading");  
   } else if (currentWeatherData.condition === -1 && currentWeatherData.location === "The Weather Service is unavailable") {
     location = gettext("weather-unavailable");
+    errorCode = 1;
   } else if (currentWeatherData.condition === -1) {
     location = gettext("weather-error");
+    errorCide = 2;
   } else if (currentWeatherData.condition === -2) {
     location = gettext("weather-expired");
+    errorCode = 3;
   } else {
     if (currentWeatherData.condition >= 1 && currentWeatherData.condition <= 44) {
       icon = weatherConditions[currentWeatherData.condition];
@@ -170,9 +174,9 @@ export function DrawWeather() {
     location = currentWeatherData.location;
   }
 
-  if(count === "----")
+  if(errorCode > 0)
   {    
-    count = `-${location.substring(0,2).toLowerCase()}-`;  
+    count = `-e${errorCode}-`;  
   }
 
   weatherIconEl.href = icon;
