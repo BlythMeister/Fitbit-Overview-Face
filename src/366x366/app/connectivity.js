@@ -13,6 +13,21 @@ let disconnectedColour = "white";
 let disconnected = true;
 let firstTouch = false;
 
+setInterval(function () {
+  var lastSent = msgq.getLastSent();
+  var lastReceived = msgq.getLastReceived();
+  
+  var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
+  var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
+  if (lastSentAge > 600000 && lastReceivedAge > 600000) {
+    try {
+      msgq.send("connectivity", { }, true);
+    } catch (e) {
+      //Do Nothing
+    }
+  }
+}, 120000);
+
 export function setPhoneIconConnected(colour) {
   connectedColour = colour;
   drawState();
@@ -57,7 +72,7 @@ export function drawState() {
 
   var lastSentAge = lastSent == null ? 99999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 99999999 : Date.now() - lastReceived;
-
+  
   var sentAgeDisplay = lastSentAge / 1000 / 60;
   if (sentAgeDisplay >= 100) {
     lastMsgSentEl.text = `<< 100+`;
