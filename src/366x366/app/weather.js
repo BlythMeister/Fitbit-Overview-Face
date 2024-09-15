@@ -119,7 +119,7 @@ export function fetchWeather() {
     DrawWeather();
   }
 
-  if (lastRequestAge >= 300000 || (currentWeatherData == null && lastRequestAge >= 60000)) {
+  if (lastRequestAge >= 300000) {
     weatherLastRequest = Date.now();
 
     if (currentWeatherData == null || currentWeatherData.condition === -1 || currentWeatherAge >= weatherInterval) {
@@ -162,7 +162,7 @@ export function DrawWeather() {
     errorCode = 1;
   } else if (currentWeatherData.condition === -1) {
     location = gettext("weather-error");
-    errorCide = 2;
+    errorCode = 2;
   } else if (currentWeatherData.condition === -2) {
     location = gettext("weather-expired");
     errorCode = 3;
