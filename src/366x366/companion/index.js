@@ -139,7 +139,7 @@ function sendSettingValue(key, val, updatedValue) {
   }
 }
 
-function sendWeather(unit, retry = false) {
+function sendWeather(unit) {
   let unitKey = "celsius";
   if (unit == "F") {
     unitKey = "fahrenheit";
@@ -167,34 +167,24 @@ function sendWeather(unit, retry = false) {
         msgq.send("weather", sendData, true);
       })
       .catch((e) => {
-        if (!retry) {
-          console.log(`Retry weather...`);
-          sendWeather(unit, true);
-        } else {
-          console.error(e);
-          var sendData = {
-            temperature: -999,
-            unit: unitKey,
-            condition: -1,
-            location: e.message,
-          };
-          msgq.send("weather", sendData, true);
-        }
+        console.error(e);
+        var sendData = {
+          temperature: -999,
+          unit: unitKey,
+          condition: -1,
+          location: e.message,
+        };
+        msgq.send("weather", sendData, true);
       });
   } catch (e) {
-    if (!retry) {
-      console.log(`Retry weather...`);
-      sendWeather(unit, true);
-    } else {
-      console.error(e);
-      var sendData = {
-        temperature: -999,
-        unit: unitKey,
-        condition: -1,
-        location: e.message,
-      };
-      msgq.send("weather", sendData, true);
-    }
+    console.error(e);
+    var sendData = {
+      temperature: -999,
+      unit: unitKey,
+      condition: -1,
+      location: e.message,
+    };
+    msgq.send("weather", sendData, true);
   }
 }
 
