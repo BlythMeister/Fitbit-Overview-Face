@@ -15,18 +15,6 @@ let delayedProcessCallTimeout = null;
 let delayedProcessCallAt = null;
 let consecutiveQueueEmpty = 0;
 
-setInterval(function () {
-  var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
-  var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
-  if (lastSentAge > 600000 && lastReceivedAge > 600000) {
-    try {
-      enqueue("msgq_nudge", {}, -1, false);
-    } catch (e) {
-      //Do Nothing
-    }
-  }
-}, 120000);
-
 //====================================================================================================
 // Helpers
 //====================================================================================================
