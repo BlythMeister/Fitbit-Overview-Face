@@ -424,18 +424,9 @@ function send(uuid, data) {
   });
 }
 
-function forceFileCheck()
-{
-  if (isCompanion) {
-    processCompanionFiles();
-  } else {
-    processDeviceFiles();
-  }
-}
-
 if (isCompanion) {
 
-  let processFiles = async function() {  
+  async function processCompanionFiles() {
     let file;
     while ((file = await inbox.pop())) {
       let searchFileName = file.name.substring(0, file.name.indexOf("."));
@@ -454,10 +445,13 @@ if (isCompanion) {
     }
   }
 
+  inbox.addEventListener("newfile", processCompanionFiles);
+  processCompanionFiles();
+
 } else {
   const { readFileSync } = require("fs");
 
-  let processFiles = function() {
+  function processDeviceFiles() {
     let fileName;
     while (fileName = inbox.nextFile()) {
       let searchFileName = fileName.substring(0, fileName.indexOf("."));
@@ -475,10 +469,10 @@ if (isCompanion) {
       }
     }
   }
-}
 
-inbox.addEventListener("newfile", processFiles);
-processFiles();
+  inbox.addEventListener("newfile", processDeviceFiles);
+  processDeviceFiles();
+}
 
 //====================================================================================================
 // Exports
