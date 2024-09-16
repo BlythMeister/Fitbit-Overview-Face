@@ -5,6 +5,7 @@ import { encode } from "cbor";
 // Initialize
 //====================================================================================================
 
+let debugSentReceive = false;
 let debugMessages = false;
 let debugFileTransferMessages = false;
 let queueHp = [];
@@ -345,7 +346,7 @@ function process() {
   }
 
   try {
-    if (debugMessages) {
+    if (debugSentReceive) {
       console.log(`MQ::Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
     }
     send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
@@ -365,7 +366,7 @@ function onMessage(event) {
   const uuid = event.data.uuid;
   otherQueueSize = event.data.qSize;
 
-  if (debugMessages) {
+  if (debugSentReceive) {
     console.log(`MQ::Got message ${id} - type ${type}. - Other QSize: ${otherQueueSize}`);
   }
 
@@ -384,7 +385,7 @@ function onMessage(event) {
     }
 
     try {
-      if (debugMessages) {
+      if (debugSentReceive) {
         console.log(`MQ::Sending receipt for ${id}`);
       }
       send(`r_${uuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id });
@@ -392,7 +393,7 @@ function onMessage(event) {
       console.error(`MQ::${e}`);
     }
   } else if (type == "msgq_receipt") {
-    if (debugMessages) {
+    if (debugSentReceive) {
       console.log(`MQ::Got receipt for ${id}`);
     }
     dequeue(id, null);
