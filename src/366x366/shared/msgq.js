@@ -1,10 +1,12 @@
-import { messaging } from "./msgSender.js";
+import { inbox, outbox } from "file-transfer";
+import { encode } from "cbor";
 
 //====================================================================================================
 // Initialize
 //====================================================================================================
 
 let debugMessages = false;
+let debugFileTransferMessages = false;
 let queueHp = [];
 let queueLp = [];
 let otherQueueSize = 0;
@@ -65,7 +67,7 @@ function enqueue(messageKey, message, highPriority) {
   }
 
   if (debugMessages) {
-    console.log(`Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+    console.log(`MQ::Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
   }
 
   delayedProcess(100);
@@ -78,20 +80,20 @@ function enqueue(messageKey, message, highPriority) {
 function dequeue(messageId, messageKey) {
   if (queueHp.length == 0 && queueLp.length == 0) {
     if (debugMessages) {
-      console.log("Dequeue when queue empty, skipping");
+      console.log("MQ::Dequeue when queue empty, skipping");
     }
     return;
   }
 
   if (messageId) {
     if (debugMessages) {
-      console.log(`Try dequeue message ${messageId}`);
+      console.log(`MQ::Try dequeue message ${messageId}`);
     }
 
     var dequeueResult = false;
     if (queueHp.length > 0 && queueHp[0].id == messageId) {
       if (debugMessages) {
-        console.log(`Top message in queue is match for id ${messageId}`);
+        console.log(`MQ::Top message in queue is match for id ${messageId}`);
       }
       queueHp.splice(0, 1);
       dequeueResult = true;
@@ -108,7 +110,7 @@ function dequeue(messageId, messageKey) {
     if (!dequeueResult) {
       if (queueLp.length > 0 && queueLp[0].id == messageId) {
         if (debugMessages) {
-          console.log(`Top message in queue is match for id ${messageId}`);
+          console.log(`MQ::Top message in queue is match for id ${messageId}`);
         }
         queueLp.splice(0, 1);
         dequeueResult = true;
@@ -126,21 +128,21 @@ function dequeue(messageId, messageKey) {
 
     if (debugMessages) {
       if (dequeueResult) {
-        console.log(`Dequeued message ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+        console.log(`MQ::Dequeued message ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
       } else {
-        console.warn(`Message not queued with ID ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+        console.warn(`MQ::Message not queued with ID ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
       }
     }
   } else if (messageKey) {
     if (debugMessages) {
-      console.log(`Try dequeue message with key ${messageKey}`);
+      console.log(`MQ::Try dequeue message with key ${messageKey}`);
     }
     for (var i = queueHp.length - 1; i >= 0; i--) {
       var key = queueHp[i].messageKey;
       if (key === messageKey) {
         queueHp.splice(i, 1);
         if (debugMessages) {
-          console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+          console.log(`MQ::Dequeued message ${messageId} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
         }
       }
     }
@@ -149,13 +151,13 @@ function dequeue(messageId, messageKey) {
       if (key === messageKey) {
         queueLp.splice(i, 1);
         if (debugMessages) {
-          console.log(`Dequeued message ${messageId} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+          console.log(`MQ::Dequeued message ${messageId} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
         }
       }
     }
   } else {
     if (debugMessages) {
-      console.log("No ID or MessageKey to dequeue");
+      console.log("MQ::No ID or MessageKey to dequeue");
     }
   }
 }
@@ -170,7 +172,7 @@ function requeue(messageId) {
 
   if (queueHp.length > 0 && queueHp[0].id == messageId) {
     if (debugMessages) {
-      console.log(`Top message in queue is match for id ${messageId}`);
+      console.log(`MQ::Top message in queue is match for id ${messageId}`);
     }
     data = queueHp.splice(0, 1)[0];
   } else {
@@ -187,7 +189,7 @@ function requeue(messageId) {
     isHp = false;
     if (queueLp.length > 0 && queueLp[0].id == messageId) {
       if (debugMessages) {
-        console.log(`Top message in queue is match for id ${messageId}`);
+        console.log(`MQ::Top message in queue is match for id ${messageId}`);
       }
       data = queueLp.splice(0, 1)[0];
     } else {
@@ -203,7 +205,7 @@ function requeue(messageId) {
 
   if (data != null) {
     if (debugMessages) {
-      console.log(`Dequeued message (for requeue) ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+      console.log(`MQ::Dequeued message (for requeue) ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
     }
 
     if (isHp) {
@@ -213,10 +215,10 @@ function requeue(messageId) {
     }
 
     if (debugMessages) {
-      console.log(`Enqueued message (for requeue) ${messageId} - ${JSON.stringify(data)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+      console.log(`MQ::Enqueued message (for requeue) ${messageId} - ${JSON.stringify(data)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
     }
   } else {
-    console.warn(`Message ${messageId} not on queue so not requeued - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+    console.warn(`MQ::Message ${messageId} not on queue so not requeued - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
   }
 }
 
@@ -228,7 +230,7 @@ function delayedProcess(delay) {
   let setNewTime = false;
   if (delayedProcessCallTimeout == null) {
     if (debugMessages) {
-      console.log(`no current delay`);
+      console.log(`MQ::no current delay`);
     }
     setNewTime = true;
   } else {
@@ -236,7 +238,7 @@ function delayedProcess(delay) {
 
     if (msToEnd < 0) {
       if (debugMessages) {
-        console.log(`Calling process as delay due in under 0ms`);
+        console.log(`MQ::Calling process as delay due in under 0ms`);
       }
       process();
       return;
@@ -249,7 +251,7 @@ function delayedProcess(delay) {
 
   if (setNewTime) {
     if (debugMessages) {
-      console.log(`Calling process in ${delay}ms`);
+      console.log(`MQ::Calling process in ${delay}ms`);
     }
 
     if (delayedProcessCallTimeout != null) {
@@ -277,7 +279,7 @@ function process() {
     }
 
     if (debugMessages) {
-      console.log(`Queue empty, call process again in 5 seconds`);
+      console.log(`MQ::Queue empty, call process again in 5 seconds`);
     }
     delayedProcess(5000);
     return;
@@ -289,7 +291,7 @@ function process() {
   if (lastSentAge < 50) {
     var delay = 50 - lastSentAge;
     if (debugMessages) {
-      console.log(`Less than 50ms since last send, backoff ${delay}ms`);
+      console.log(`MQ::Less than 50ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
     return;
@@ -297,14 +299,14 @@ function process() {
 
   if (waitingForId != null) {
     if (lastSent == null || Date.now() - lastSent >= 4000) {
-      console.warn(`Waiting for receipt (${waitingForId}) for over 4 seconds, resending!`);
+      console.warn(`MQ::Waiting for receipt (${waitingForId}) for over 4 seconds, resending!`);
       var requeueId = waitingForId;
       waitingForId = null;
       requeue(requeueId);
       delayedProcess(50);
     } else {
       if (debugMessages) {
-        console.log(`Waiting for a receipt (${waitingForId}) call process again in 250ms`);
+        console.log(`MQ::Waiting for a receipt (${waitingForId}) call process again in 250ms`);
       }
       delayedProcess(250);
     }
@@ -315,7 +317,7 @@ function process() {
   if (queueHp.length > 0) {
     if (queueHp[0] == null) {
       if (debugMessages) {
-        console.log(`Top queue item is null, removing & call process again`);
+        console.log(`MQ::Top queue item is null, removing & call process again`);
       }
       queueHp.splice(0, 1);
       process();
@@ -326,7 +328,7 @@ function process() {
   } else if (queueLp.length > 0) {
     if (queueLp[0] == null) {
       if (debugMessages) {
-        console.log(`Top queue item is null, removing & call process again`);
+        console.log(`MQ::Top queue item is null, removing & call process again`);
       }
       queueLp.splice(0, 1);
       process();
@@ -337,22 +339,21 @@ function process() {
   }
 
   if (queueItem == null) {
-    console.warn(`Queue item is null, call delay process in 1 second`);
+    console.warn(`MQ::Queue item is null, call delay process in 1 second`);
     delayedProcess(1000);
     return;
   }
 
   try {
     if (debugMessages) {
-      console.log(`Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
+      console.log(`MQ::Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
     }
-    messaging.send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: queueItem.id, msgqMessage: queueItem });
+    send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
     waitingForId = queueItem.id;
     lastSent = Date.now();
   } catch (e) {
     waitingForId = null;
-    console.warn(e);
-    console.warn(`Send error, call process again in 1 seconds`);
+    console.warn(`MQ::Send error, call process again in 1 seconds.${e}`);
     delayedProcess(1000);
   }
 }
@@ -365,7 +366,7 @@ function onMessage(event) {
   otherQueueSize = event.data.qSize;
 
   if (debugMessages) {
-    console.log(`Got message ${id} - type ${type}. - Other QSize: ${otherQueueSize}`);
+    console.log(`MQ::Got message ${id} - type ${type}. - Other QSize: ${otherQueueSize}`);
   }
 
   if (type == "msgq_message") {
@@ -373,27 +374,26 @@ function onMessage(event) {
     const message = event.data.msgqMessage.message;
 
     if (debugMessages) {
-      console.log(`Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
+      console.log(`MQ::Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
 
     try {
       msgq.onmessage(messageKey, message);
     } catch (e) {
-      console.error(`Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
-      console.error(e);
+      console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
     }
 
     try {
       if (debugMessages) {
-        console.log(`Sending receipt for ${id}`);
+        console.log(`MQ::Sending receipt for ${id}`);
       }
-      messaging.send(`r_${uuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id });
+      send(`r_${uuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id });
     } catch (e) {
-      console.error(e);
+      console.error(`MQ::${e}`);
     }
   } else if (type == "msgq_receipt") {
     if (debugMessages) {
-      console.log(`Got receipt for ${id}`);
+      console.log(`MQ::Got receipt for ${id}`);
     }
     dequeue(id, null);
     waitingForId = null;
@@ -402,16 +402,76 @@ function onMessage(event) {
 }
 
 //====================================================================================================
-// Messaging handling
+// File transfer
 //====================================================================================================
 
-messaging.addEventListener("message", (event) => {
-  try {
-    onMessage(event);
-  } catch (e) {
-    console.warn(e);
+const MESSAGE_FILE_NAME = "overview-message";
+let isCompanion = inbox.pop;
+
+function send(uuid, data) {
+  let name = `${MESSAGE_FILE_NAME}.${uuid}.cbor`;
+  if (debugFileTransferMessages) {
+    console.log(`FT::Queuing '${name}' : ${JSON.stringify(data)}`);
   }
-});
+  outbox.enqueue(name, encode(data)).then((ft) => {
+    if (debugFileTransferMessages) {
+      console.log(`FT::Queued '${name}'`);
+    }
+  })
+  .catch((e) => {
+    console.error(`FT::Error enqueue. ${e}`);
+  });
+}
+
+if (isCompanion) {
+
+  async function processCompanionFiles() {
+    let file;
+    while ((file = await inbox.pop())) {
+      let searchFileName = file.name.substring(0, file.name.indexOf("."));
+      if (debugFileTransferMessages) {
+        console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
+      }
+
+      if (searchFileName === MESSAGE_FILE_NAME) {
+        const payload = {};
+        payload.data = await file.cbor();        
+        if (debugFileTransferMessages) {
+          console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+        }
+        onMessage(payload);
+      }
+    }
+  }
+
+  inbox.addEventListener("newfile", processCompanionFiles);
+  processCompanionFiles();
+
+} else {
+  const { readFileSync } = require("fs");
+
+  function processDeviceFiles() {
+    let fileName;
+    while (fileName = inbox.nextFile()) {
+      let searchFileName = fileName.substring(0, fileName.indexOf("."));
+      if (debugFileTransferMessages) {
+        console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
+      }
+
+      if (searchFileName === MESSAGE_FILE_NAME) {
+        const payload = {};
+        payload.data = readFileSync(fileName, "cbor");
+        if (debugFileTransferMessages) {
+          console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+        }
+        onMessage(payload);
+      }
+    }
+  }
+
+  inbox.addEventListener("newfile", processDeviceFiles);
+  processDeviceFiles();
+}
 
 //====================================================================================================
 // Exports
@@ -420,7 +480,7 @@ messaging.addEventListener("message", (event) => {
 const msgq = {
   send: enqueue,
   onmessage: (messageKey, message) => {
-    console.error(`Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
+    console.error(`MQ::Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
   },
   getQueueSize: GetQueueSize,
   getOtherQueueSize: GetOtherQueueSize,
