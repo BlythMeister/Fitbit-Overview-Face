@@ -71,7 +71,7 @@ function enqueue(messageKey, message, highPriority) {
     console.log(`MQ::Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
   }
 
-  delayedProcess(100);
+  delayedProcess(250);
 }
 
 //====================================================================================================
@@ -289,10 +289,10 @@ function process() {
   }
 
   var lastSentAge = Date.now() - lastSent;
-  if (lastSentAge < 50) {
-    var delay = 50 - lastSentAge;
+  if (lastSentAge < 100) {
+    var delay = 100 - lastSentAge;
     if (debugMessages) {
-      console.log(`MQ::Less than 50ms since last send, backoff ${delay}ms`);
+      console.log(`MQ::Less than 100ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
     return;
@@ -304,7 +304,7 @@ function process() {
       var requeueId = waitingForId;
       waitingForId = null;
       requeue(requeueId);
-      delayedProcess(50);
+      delayedProcess(250);
     } else {
       if (debugMessages) {
         console.log(`MQ::Waiting for a receipt (${waitingForId}) call process again in 250ms`);
@@ -398,7 +398,7 @@ function onMessage(event) {
     }
     dequeue(id, null);
     waitingForId = null;
-    delayedProcess(100);
+    delayedProcess(250);
   }
 }
 
@@ -424,9 +424,18 @@ function send(uuid, data) {
   });
 }
 
+function forceFileCheck()
+{
+  if (isCompanion) {
+    processCompanionFiles();
+  } else {
+    processDeviceFiles();
+  }
+}
+
 if (isCompanion) {
 
-  async function processCompanionFiles() {
+  let processFiles = async function() {  
     let file;
     while ((file = await inbox.pop())) {
       let searchFileName = file.name.substring(0, file.name.indexOf("."));
@@ -445,13 +454,10 @@ if (isCompanion) {
     }
   }
 
-  inbox.addEventListener("newfile", processCompanionFiles);
-  processCompanionFiles();
-
 } else {
   const { readFileSync } = require("fs");
 
-  function processDeviceFiles() {
+  let processFiles = function() {
     let fileName;
     while (fileName = inbox.nextFile()) {
       let searchFileName = fileName.substring(0, fileName.indexOf("."));
@@ -469,10 +475,10 @@ if (isCompanion) {
       }
     }
   }
-
-  inbox.addEventListener("newfile", processDeviceFiles);
-  processDeviceFiles();
 }
+
+inbox.addEventListener("newfile", processFiles);
+processFiles();
 
 //====================================================================================================
 // Exports
