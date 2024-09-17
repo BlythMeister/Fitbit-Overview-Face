@@ -180,7 +180,7 @@ function requeue(messageId) {
     for (var i = queueHp.length - 1; i >= 0; i--) {
       var id = queueHp[i].id;
       if (id === messageId) {
-        data = queueHp.splice(i, 1);
+        data = queueHp.splice(i, 1)[0];
         break;
       }
     }
@@ -197,7 +197,7 @@ function requeue(messageId) {
       for (var i = queueLp.length - 1; i >= 0; i--) {
         var id = queueLp[i].id;
         if (id === messageId) {
-          data = queueLp.splice(i, 1);
+          data = queueLp.splice(i, 1)[0];
           break;
         }
       }
@@ -208,6 +208,13 @@ function requeue(messageId) {
     if (debugMessages) {
       console.log(`MQ::Dequeued message (for requeue) ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
     }
+
+    var newUuid = CreateUUID();
+    if (debugMessages) {
+      console.log(`MQ::Update UUID. - Old: ${data.uuid} / New: ${newUuid}`);
+    }
+    data.uuid = newUuid
+    data.id = `${data.messageKey}#${newUuid}`;
 
     if (isHp) {
       queueHp.push(data);
@@ -299,11 +306,10 @@ function process() {
   }
 
   if (waitingForId != null) {
-    if (lastSent == null || Date.now() - lastSent >= 4000) {
-      console.warn(`MQ::Waiting for receipt (${waitingForId}) for over 4 seconds, resending!`);
-      var requeueId = waitingForId;
+    if (lastSent == null || Date.now() - lastSent >= 10000) {
+      console.warn(`MQ::Waiting for receipt (${waitingForId}) for over 10 seconds, resending!`);
+      requeue(waitingForId);
       waitingForId = null;
-      requeue(requeueId);
       delayedProcess(250);
     } else {
       if (debugMessages) {
