@@ -72,7 +72,7 @@ function enqueue(messageKey, message, highPriority) {
     console.log(`MQ::Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
   }
 
-  delayedProcess(250);
+  delayedProcess(500);
 }
 
 //====================================================================================================
@@ -142,18 +142,18 @@ function dequeue(messageId, messageKey) {
     for (var i = queueHp.length - 1; i >= 0; i--) {
       var key = queueHp[i].messageKey;
       if (key === messageKey) {
-        queueHp.splice(i, 1);
+        var data = queueHp.splice(i, 1)[0];
         if (debugMessages) {
-          console.log(`MQ::Dequeued message ${messageId} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+          console.log(`MQ::Dequeued message ${data.id} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
         }
       }
     }
     for (var i = queueLp.length - 1; i >= 0; i--) {
       var key = queueLp[i].messageKey;
       if (key === messageKey) {
-        queueLp.splice(i, 1);
+        var data = queueLp.splice(i, 1)[0];
         if (debugMessages) {
-          console.log(`MQ::Dequeued message ${messageId} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
+          console.log(`MQ::Dequeued message ${data.id} from key ${messageKey} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
         }
       }
     }
@@ -214,7 +214,7 @@ function requeue(messageId) {
     if (debugMessages) {
       console.log(`MQ::Update UUID. - Old: ${data.uuid} / New: ${newUuid}`);
     }
-    data.uuid = newUuid
+    data.uuid = newUuid;
     data.id = `${data.messageKey}#${newUuid}`;
 
     if (isHp) {
@@ -297,10 +297,10 @@ function process() {
   }
 
   var lastSentAge = Date.now() - lastSent;
-  if (lastSentAge < 100) {
-    var delay = 100 - lastSentAge;
+  if (lastSentAge < 250) {
+    var delay = 250 - lastSentAge;
     if (debugMessages) {
-      console.log(`MQ::Less than 100ms since last send, backoff ${delay}ms`);
+      console.log(`MQ::Less than 250ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
     return;
@@ -311,12 +311,12 @@ function process() {
       console.warn(`MQ::Waiting for receipt (${waitingForId}) for over 10 seconds, resending!`);
       requeue(waitingForId);
       waitingForId = null;
-      delayedProcess(250);
+      delayedProcess(500);
     } else {
       if (debugMessages) {
-        console.log(`MQ::Waiting for a receipt (${waitingForId}) call process again in 250ms`);
+        console.log(`MQ::Waiting for a receipt (${waitingForId}) call process again in 500ms`);
       }
-      delayedProcess(250);
+      delayedProcess(500);
     }
     return;
   }
@@ -407,7 +407,7 @@ function onMessage(event) {
     }
     dequeue(id, null);
     waitingForId = null;
-    delayedProcess(250);
+    delayedProcess(500);
   }
 }
 
@@ -422,62 +422,87 @@ function send(uuid, data) {
   if (debugFileTransferMessages) {
     console.log(`FT::Queuing '${name}' : ${JSON.stringify(data)}`);
   }
-  outbox.enqueue(name, encode(data)).then((ft) => {
-    if (debugFileTransferMessages) {
-      console.log(`FT::Queued '${name}'`);
-    }
-  })
-  .catch((e) => {
-    console.error(`FT::Error enqueue. ${e}`);
-  });
+  outbox
+    .enqueue(name, encode(data))
+    .then((ft) => {
+      if (debugFileTransferMessages) {
+        console.log(`FT::Queued '${name}'`);
+      }
+    })
+    .catch((e) => {
+      console.error(`FT::Error enqueue. ${e}`);
+    });
 }
 
-function initFileListener(isCompanion){
+async function initFileListener(isCompanion) {
   if (isCompanion) {
     async function processCompanionFiles() {
-      let file;
-      while ((file = await inbox.pop())) {
-        let searchFileName = file.name.substring(0, file.name.indexOf("."));
-        if (debugFileTransferMessages) {
-          console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
-        }
+      try
+      {
+        let file;
+        while ((file = await inbox.pop())) {
+          if (file != null) {
+            let searchFileName = file.name.substring(0, file.name.indexOf("."));
+            if (debugFileTransferMessages) {
+              console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
+            }
 
-        if (searchFileName === MESSAGE_FILE_NAME) {
-          const payload = {};
-          payload.data = await file.cbor();        
-          if (debugFileTransferMessages) {
-            console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+            if (searchFileName === MESSAGE_FILE_NAME) {
+              const payload = {};
+              payload.data = await file.cbor();
+              if (debugFileTransferMessages) {
+                console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+              }
+              onMessage(payload);
+            }
           }
-          onMessage(payload);
         }
+      }
+      catch(e)
+      {
+        console.error(`Error processing files: ${e}`)
       }
     }
 
+    if (debugMessages) {
+      console.log(`FT::Starting companion file listener`);
+    }
     inbox.addEventListener("newfile", processCompanionFiles);
-    processCompanionFiles();
-
+    await processCompanionFiles();
   } else {
     const { readFileSync } = require("fs");
 
     function processDeviceFiles() {
-      let fileName;
-      while (fileName = inbox.nextFile()) {
-        let searchFileName = fileName.substring(0, fileName.indexOf("."));
-        if (debugFileTransferMessages) {
-          console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
-        }
+      try
+      {
+        let fileName;
+        while ((fileName = inbox.nextFile())) {
+          if (fileName != null) {
+            let searchFileName = fileName.substring(0, fileName.indexOf("."));
+            if (debugFileTransferMessages) {
+              console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
+            }
 
-        if (searchFileName === MESSAGE_FILE_NAME) {
-          const payload = {};
-          payload.data = readFileSync(fileName, "cbor");
-          if (debugFileTransferMessages) {
-            console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+            if (searchFileName === MESSAGE_FILE_NAME) {
+              const payload = {};
+              payload.data = readFileSync(fileName, "cbor");
+              if (debugFileTransferMessages) {
+                console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+              }
+              onMessage(payload);
+            }
           }
-          onMessage(payload);
-        }
+        }        
+      }
+      catch(e)
+      {
+        console.error(`Error processing files: ${e}`)
       }
     }
 
+    if (debugMessages) {
+      console.log(`FT::Starting app file listener`);
+    }
     inbox.addEventListener("newfile", processDeviceFiles);
     processDeviceFiles();
   }
@@ -489,14 +514,14 @@ function initFileListener(isCompanion){
 
 const msgq = {
   send: enqueue,
-  addEventListener: function (event, handler) {
+  addEventListener: async function (event, handler) {
     if (event == "message") {
       onMessageHandlers.push(handler);
     } else {
       throw `Unknown event ${event}`;
     }
 
-    initFileListener(inbox.pop);
+    await initFileListener(inbox.pop);
   },
   getQueueSize: GetQueueSize,
   getOtherQueueSize: GetOtherQueueSize,
