@@ -1,6 +1,9 @@
 msgid "installing"
 msgstr "安装中"
 
+msgid "please-wait"
+msgstr "请稍等"
+
 msgid "bmi"
 msgstr "BMI"
 

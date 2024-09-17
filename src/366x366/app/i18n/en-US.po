@@ -1,6 +1,9 @@
 msgid "installing"
 msgstr "Installing"
 
+msgid "please-wait"
+msgstr "Please Wait"
+
 msgid "bmi"
 msgstr "BMI"
 
@@ -38,7 +41,7 @@ msgid "weather-error"
 msgstr "Error"
 
 msgid "weather-loading"
-msgstr "Installing"
+msgstr "Loading"
 
 msgid "month-short-0"
 msgstr "Jan"

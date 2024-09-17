@@ -1,6 +1,9 @@
 msgid "installing"
 msgstr "Installeren"
 
+msgid "please-wait"
+msgstr "Wacht alstublieft"
+
 msgid "bmi"
 msgstr "BMI"
 

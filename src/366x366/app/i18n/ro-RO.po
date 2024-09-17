@@ -1,6 +1,9 @@
 msgid "installing"
 msgstr "Instalare"
 
+msgid "please-wait"
+msgstr "Va rugam asteptati"
+
 msgid "bmi"
 msgstr "IMC"
 

@@ -1,6 +1,9 @@
 msgid "installing"
 msgstr "インストール中"
 
+msgid "please-wait"
+msgstr "お待ちください"
+
 msgid "bmi"
 msgstr "BMI"
 

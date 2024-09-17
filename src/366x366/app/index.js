@@ -19,10 +19,12 @@ console.log(`Application ID: ${appbit.applicationId}`);
 console.log(`Build ID: ${appbit.buildId}`);
 
 let startingEl = document.getElementById("starting");
-let startingTextEl = document.getElementById("starting-text");
+let startingTextTopEl = document.getElementById("starting-text-top");
+let startingTextBottomEl = document.getElementById("starting-text-bottom");
 
 startingEl.style.display = "inline";
-startingTextEl.text = gettext("installing");
+startingTextTopEl.text = gettext("installing");
+startingTextBottomEl.text = gettext("please-wait");
 
 settings.applySettings();
 
