@@ -15,14 +15,14 @@ companion.wakeInterval = 900000;
 console.log("Enable monitoring of significant location changes");
 companion.monitorSignificantLocationChanges = true;
 
-msgq.onmessage = (messageKey, message) => {
+msgq.addEventListener("message", (messageKey, message) => {
   if (messageKey === "send-all-settings") {
     sendSettingsWithDefaults();
     msgq.send(`all-settings-sent`, {}, false);
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
-};
+});
 
 // Listen for the significant location change event
 companion.addEventListener("significantlocationchange", (evt) => {
@@ -34,6 +34,7 @@ console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}
 if (companion.launchReasons.locationChanged) {
   locationChange(true);
 }
+msgq.send("companion-launch", companion.launchReasons, false);
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {

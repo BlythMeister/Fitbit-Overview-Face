@@ -10,6 +10,7 @@ let debugMessages = false;
 let debugFileTransferMessages = false;
 let queueHp = [];
 let queueLp = [];
+let onMessageHandlers = [];
 let otherQueueSize = 0;
 let waitingForId = null;
 let lastSent = null;
@@ -384,10 +385,12 @@ function onMessage(event) {
       console.log(`MQ::Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
 
-    try {
-      msgq.onmessage(messageKey, message);
-    } catch (e) {
-      console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
+    for (let handler of onMessageHandlers) {
+      try {
+        handler(messageKey, message);
+      } catch (e) {
+        console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
+      }
     }
 
     try {
@@ -413,7 +416,6 @@ function onMessage(event) {
 //====================================================================================================
 
 const MESSAGE_FILE_NAME = "overview-message";
-let isCompanion = inbox.pop;
 
 function send(uuid, data) {
   let name = `${MESSAGE_FILE_NAME}.${uuid}.cbor`;
@@ -430,54 +432,55 @@ function send(uuid, data) {
   });
 }
 
-if (isCompanion) {
-
-  async function processCompanionFiles() {
-    let file;
-    while ((file = await inbox.pop())) {
-      let searchFileName = file.name.substring(0, file.name.indexOf("."));
-      if (debugFileTransferMessages) {
-        console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
-      }
-
-      if (searchFileName === MESSAGE_FILE_NAME) {
-        const payload = {};
-        payload.data = await file.cbor();        
+function initFileListener(isCompanion){
+  if (isCompanion) {
+    async function processCompanionFiles() {
+      let file;
+      while ((file = await inbox.pop())) {
+        let searchFileName = file.name.substring(0, file.name.indexOf("."));
         if (debugFileTransferMessages) {
-          console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+          console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
         }
-        onMessage(payload);
+
+        if (searchFileName === MESSAGE_FILE_NAME) {
+          const payload = {};
+          payload.data = await file.cbor();        
+          if (debugFileTransferMessages) {
+            console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+          }
+          onMessage(payload);
+        }
       }
     }
-  }
 
-  inbox.addEventListener("newfile", processCompanionFiles);
-  processCompanionFiles();
+    inbox.addEventListener("newfile", processCompanionFiles);
+    processCompanionFiles();
 
-} else {
-  const { readFileSync } = require("fs");
+  } else {
+    const { readFileSync } = require("fs");
 
-  function processDeviceFiles() {
-    let fileName;
-    while (fileName = inbox.nextFile()) {
-      let searchFileName = fileName.substring(0, fileName.indexOf("."));
-      if (debugFileTransferMessages) {
-        console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
-      }
-
-      if (searchFileName === MESSAGE_FILE_NAME) {
-        const payload = {};
-        payload.data = readFileSync(fileName, "cbor");
+    function processDeviceFiles() {
+      let fileName;
+      while (fileName = inbox.nextFile()) {
+        let searchFileName = fileName.substring(0, fileName.indexOf("."));
         if (debugFileTransferMessages) {
-          console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+          console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
         }
-        onMessage(payload);
+
+        if (searchFileName === MESSAGE_FILE_NAME) {
+          const payload = {};
+          payload.data = readFileSync(fileName, "cbor");
+          if (debugFileTransferMessages) {
+            console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+          }
+          onMessage(payload);
+        }
       }
     }
-  }
 
-  inbox.addEventListener("newfile", processDeviceFiles);
-  processDeviceFiles();
+    inbox.addEventListener("newfile", processDeviceFiles);
+    processDeviceFiles();
+  }
 }
 
 //====================================================================================================
@@ -486,8 +489,14 @@ if (isCompanion) {
 
 const msgq = {
   send: enqueue,
-  onmessage: (messageKey, message) => {
-    console.error(`MQ::Unprocessed msgq key: ${messageKey} - ${JSON.stringify(message)}`);
+  addEventListener: function (event, handler) {
+    if (event == "message") {
+      onMessageHandlers.push(handler);
+    } else {
+      throw `Unknown event ${event}`;
+    }
+
+    initFileListener(inbox.pop);
   },
   getQueueSize: GetQueueSize,
   getOtherQueueSize: GetOtherQueueSize,

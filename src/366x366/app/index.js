@@ -35,8 +35,9 @@ if (settings.hasSettings()) {
 }
 
 msgq.send("send-all-settings", {}, true);
+msgq.send("app-launch", {}, false);
 
-msgq.onmessage = (messageKey, message) => {
+msgq.addEventListener("message", (messageKey, message) => {
   var key = messageKey.split(":")[0];
   if (key === "weather") {
     weather.processWeatherData(message);
@@ -45,7 +46,7 @@ msgq.onmessage = (messageKey, message) => {
   } else if (key === "all-settings-sent") {
     startingEl.style.display = "none";
   }
-};
+});
 
 let prereleaseEl = document.getElementById("pr");
 
