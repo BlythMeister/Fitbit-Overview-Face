@@ -1,5 +1,6 @@
 import * as document from "document";
 import { me as appbit } from "appbit";
+import { gettext } from "i18n";
 
 import { msgq } from "./../shared/msgq.js";
 import * as bm from "./bm.js";
@@ -18,20 +19,15 @@ console.log(`Application ID: ${appbit.applicationId}`);
 console.log(`Build ID: ${appbit.buildId}`);
 
 let startingEl = document.getElementById("starting");
+let startingTextEl = document.getElementById("starting-text");
 
 startingEl.style.display = "inline";
+startingTextEl.text = gettext("installing");
 
 settings.applySettings();
 
 if (settings.hasSettings()) {
   startingEl.style.display = "none";
-} else {
-  setTimeout(() => {
-    if (startingEl.style.display == "inline") {
-      startingEl.style.display = "none";
-      console.log(`Hiding loading spinner after 120 seconds if still shown`);
-    }
-  }, 120000);
 }
 
 msgq.send("send-all-settings", {}, true);

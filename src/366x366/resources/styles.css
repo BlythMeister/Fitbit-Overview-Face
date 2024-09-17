@@ -37,6 +37,17 @@
   display: inline;
 }
 
+#starting-text {
+  font-size: 30;
+  font-family: System-Bold;
+  text-length: 55;
+  text-anchor: middle;
+  x: 50%;
+  y: 50%+140;
+  display: inline;
+  fill: white;
+}
+
 #pr {
   font-size: 20;
   font-family: System-Bold;

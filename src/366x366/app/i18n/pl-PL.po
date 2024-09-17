@@ -1,3 +1,6 @@
+msgid "installing"
+msgstr "Instalowanie"
+
 msgid "bmi"
 msgstr "BMI"
 
