@@ -38,7 +38,7 @@ msgq.send("companion-launch", companion.launchReasons, false);
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
-  sendSettingValue(evt.key, evt.newValue);
+  sendSettingValue(evt.key, evt.newValue, true);
 });
 
 function sendSettingsWithDefaults() {
@@ -113,28 +113,24 @@ function sendSettingsWithDefaults() {
 function setDefaultSettingOrSendExisting(key, value) {
   let existingValue = settingsStorage.getItem(key);
   if (existingValue == null) {
-    setSetting(key, value);
+    let jsonValue = JSON.stringify(value);
+    console.log(`Companion Set - key:${key} val:${jsonValue}`);
+    settingsStorage.setItem(key, jsonValue);
+    sendSettingValue(key, jsonValue, false);
   } else {
     console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
     sendSettingValue(key, existingValue, false);
   }
 }
 
-function setSetting(key, value) {
-  let jsonValue = JSON.stringify(value);
-  console.log(`Companion Set - key:${key} val:${jsonValue}`);
-  settingsStorage.setItem(key, jsonValue);
-  sendSettingValue(key, jsonValue, true);
-}
-
-function sendSettingValue(key, val, updatedValue) {
+function sendSettingValue(key, val, highPriority) {
   if (val) {
     var data = {
       key: key,
       value: JSON.parse(val),
     };
 
-    msgq.send(`settingChange:${data.key}`, data, updatedValue);
+    msgq.send(`settingChange:${data.key}`, data, highPriority);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
