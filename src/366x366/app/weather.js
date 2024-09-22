@@ -65,18 +65,16 @@ weatherConditions[44] = "weather_CloudyWithSnowNight_36px.png";
 
 export function setWeatherPosition(pos) {
   weatherPosition = pos;
-  if (weatherPosition == "NONE") {
+  if (weatherPosition == "NONE" && weatherLocationPosition == "NONE") {
     weatherLastUpdate = null;
   }
-  forceFetchWeather();
 }
 
 export function setWeatherLocationPosition(pos) {
   weatherLocationPosition = pos;
-  if (weatherLocationPosition == "NONE") {
+  if (weatherPosition == "NONE" && weatherLocationPosition == "NONE") {
     weatherLastUpdate = null;
   }
-  forceFetchWeather();
 }
 
 export function setTemperatureUnit(unit) {
@@ -93,17 +91,17 @@ export function setRefreshInterval(interval) {
 
   if (interval != weatherInterval) {
     weatherInterval = interval;
-    forceFetchWeather();
   }
 }
 
 export function forceFetchWeather() {
   weatherLastUpdate = null;
+  weatherLastRequest = null;
   fetchWeather();
 }
 
 export function fetchWeather() {
-  if (startingEl.style.display == "inline" || weatherPosition == "NONE") {
+  if (startingEl.style.display == "inline" || (weatherPosition == "NONE" && weatherLocationPosition == "NONE")) {
     // Don't try and get weather when starting or hidden
     return;
   }
