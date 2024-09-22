@@ -4,12 +4,12 @@ import { weather } from "weather";
 
 import { msgq } from "./../shared/msgq.js";
 
-let lastWeatherUnit = null;
+let lastWeather = null;
 let lastSendAllSettings = null;
 
 //Wake every 15 minutes
-console.log("Set companion wake interval to 15 minutes");
-companion.wakeInterval = 900000;
+console.log("Set companion wake interval to 5 minutes");
+companion.wakeInterval = 300000;
 
 // Monitor for significant changes in physical location
 console.log("Enable monitoring of significant location changes");
@@ -26,13 +26,13 @@ msgq.addEventListener("message", (messageKey, message) => {
 
 // Listen for the significant location change event
 companion.addEventListener("significantlocationchange", (evt) => {
-  locationChange(false);
+  locationChange();
 });
 
 // check launch reason
 console.log(`Companion launch reason: ${JSON.stringify(companion.launchReasons)}`);
 if (companion.launchReasons.locationChanged) {
-  locationChange(true);
+  locationChange();
 }
 msgq.send("companion-launch", companion.launchReasons, false);
 
@@ -44,7 +44,7 @@ settingsStorage.addEventListener("change", (evt) => {
 function sendSettingsWithDefaults() {
   var currentDate = Date.now();
   var lastSendAllSettingsAge = lastSendAllSettings == null ? 99999999 : currentDate - lastSendAllSettings;
-  if (lastSendAllSettingsAge <= 60000) {
+  if (lastSendAllSettingsAge <= 300000) {
     return;
   }
   lastSendAllSettings = currentDate;
@@ -145,8 +145,14 @@ function sendWeather(unit) {
   if (unit == "F") {
     unitKey = "fahrenheit";
   }
-  lastWeatherUnit = unit;
 
+  if (lastWeather != null && lastWeather.condition >= 0 && (new Date() - lastWeather.date) < 300000) {
+    console.warn("Weather requested again within 5 minutes, returning old weather")
+    msgq.send("weather", lastWeather, true);
+    return
+  }
+
+  console.log("Trying to get weather as last weather no good")
   try {
     weather
       .getWeatherData({ temperatureUnit: unitKey })
@@ -158,39 +164,42 @@ function sendWeather(unit) {
 
         var location = data.locations[0];
 
-        var sendData = {
+        lastWeather = {
           unit: data.temperatureUnit,
           temperature: Math.floor(location.currentWeather.temperature),
           condition: location.currentWeather.weatherCondition,
           location: location.name,
+          date: new Date()
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", sendData, true);
+        msgq.send("weather", lastWeather, true);
       })
       .catch((e) => {
         console.error(e);
-        var sendData = {
+        lastWeather = {
           temperature: -999,
           unit: unitKey,
           condition: -1,
           location: e.message,
+          date: new Date()
         };
-        msgq.send("weather", sendData, true);
+        msgq.send("weather", lastWeather, true);
       });
   } catch (e) {
     console.error(e);
-    var sendData = {
+    lastWeather = {
       temperature: -999,
       unit: unitKey,
       condition: -1,
       location: e.message,
+      date: new Date()
     };
-    msgq.send("weather", sendData, true);
+    msgq.send("weather", lastWeather, true);
   }
 }
 
-function locationChange(initial) {
-  if (lastWeatherUnit != null) {
-    sendWeather(lastWeatherUnit);
+function locationChange() {
+  if (lastWeather != null && lastWeather.unit != null) {
+    sendWeather(lastWeather.unit.substring(0,1).toUpperCase());
   }
 }

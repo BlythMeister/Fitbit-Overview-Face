@@ -392,7 +392,7 @@ function onMessage(event) {
       console.log(`MQ::Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
 
-    if (new Date() - event.data.qTime > 900000) {
+    if (event.data.qTime != null && new Date() - event.data.qTime > 900000) {
       console.warn(`MQ::Message ${id} queued over 15 minutes ago will not process`);
     } else {
       for (let handler of onMessageHandlers) {
