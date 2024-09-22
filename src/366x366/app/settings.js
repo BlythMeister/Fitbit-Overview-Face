@@ -673,7 +673,6 @@ export function onsettingschange(data) {
   }
   settings = data;
   applySettings();
-  saveSettings();
   time.drawTime(new Date());
 }
 
