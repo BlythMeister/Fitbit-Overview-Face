@@ -448,30 +448,32 @@ function send(uuid, data) {
 async function initFileListener(isCompanion) {
   if (isCompanion) {
     async function processCompanionFiles() {
-      try
-      {
+      try {
         let file;
         while ((file = await inbox.pop())) {
-          if (file != null) {
-            let searchFileName = file.name.substring(0, file.name.indexOf("."));
-            if (debugFileTransferMessages) {
-              console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
-            }
-
-            if (searchFileName === MESSAGE_FILE_NAME) {
-              const payload = {};
-              payload.data = await file.cbor();
+          try {
+            if (file != null) {
+              let searchFileName = file.name.substring(0, file.name.indexOf("."));
               if (debugFileTransferMessages) {
-                console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+                console.log(`FT::Inbox Pop file '${file.name}' search: ${searchFileName}`);
               }
-              onMessage(payload);
+
+              if (searchFileName === MESSAGE_FILE_NAME) {
+                const payload = {};
+                payload.data = await file.cbor();
+                if (debugFileTransferMessages) {
+                  console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+                }
+
+                onMessage(payload);
+              }
             }
+          } catch (e) {
+            console.error(`Error processing file: ${e}`);
           }
         }
-      }
-      catch(e)
-      {
-        console.error(`Error processing files: ${e}`)
+      } catch (e) {
+        console.error(`Error processing files: ${e}`);
       }
     }
 
@@ -484,30 +486,31 @@ async function initFileListener(isCompanion) {
     const { readFileSync } = require("fs");
 
     function processDeviceFiles() {
-      try
-      {
+      try {
         let fileName;
         while ((fileName = inbox.nextFile())) {
-          if (fileName != null) {
-            let searchFileName = fileName.substring(0, fileName.indexOf("."));
-            if (debugFileTransferMessages) {
-              console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
-            }
-
-            if (searchFileName === MESSAGE_FILE_NAME) {
-              const payload = {};
-              payload.data = readFileSync(fileName, "cbor");
+          try {
+            if (fileName != null) {
+              let searchFileName = fileName.substring(0, fileName.indexOf("."));
               if (debugFileTransferMessages) {
-                console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+                console.log(`FT::Inbox Pop file '${fileName}' search: ${searchFileName}`);
               }
-              onMessage(payload);
+
+              if (searchFileName === MESSAGE_FILE_NAME) {
+                const payload = {};
+                payload.data = readFileSync(fileName, "cbor");
+                if (debugFileTransferMessages) {
+                  console.log(`FT::Call On Message: ${JSON.stringify(payload)}`);
+                }
+                onMessage(payload);
+              }
             }
+          } catch (e) {
+            console.error(`Error processing file: ${e}`);
           }
-        }        
-      }
-      catch(e)
-      {
-        console.error(`Error processing files: ${e}`)
+        }
+      } catch (e) {
+        console.error(`Error processing files: ${e}`);
       }
     }
 
