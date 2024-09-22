@@ -59,7 +59,7 @@ function enqueue(messageKey, message, highPriority) {
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
 
-  const data = { id: id, uuid: uuid, messageKey: messageKey, message: message, qDate: new Date() };
+  const data = { id: id, uuid: uuid, messageKey: messageKey, message: message, qTime: new Date() };
 
   dequeue(null, messageKey);
   if (highPriority) {
@@ -352,7 +352,7 @@ function process() {
     return;
   }
 
-  if (Date.now() - queueItem.qDate >= 900000) {
+  if (Date.now() - queueItem.qTime >= 900000) {
     console.warn(`MQ::Queue item {queueItem.id} is over 15 minutes old, abandoning`);
     dequeue(queueItem.id, null);
     delayedProcess(1000);
@@ -363,7 +363,7 @@ function process() {
     if (debugSentReceive) {
       console.log(`MQ::Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
     }
-    send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
+    send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), qTime: queueItem.qTime, id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
     waitingForId = queueItem.id;
     lastSent = Date.now();
   } catch (e) {
@@ -392,11 +392,15 @@ function onMessage(event) {
       console.log(`MQ::Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
 
-    for (let handler of onMessageHandlers) {
-      try {
-        handler(messageKey, message);
-      } catch (e) {
-        console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
+    if (new Date() - event.data.qTime > 900000) {
+      console.warn(`MQ::Message ${id} queued over 15 minutes ago will not process`);
+    } else {
+      for (let handler of onMessageHandlers) {
+        try {
+          handler(messageKey, message);
+        } catch (e) {
+          console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
+        }
       }
     }
 
