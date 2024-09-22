@@ -59,7 +59,7 @@ function enqueue(messageKey, message, highPriority) {
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
 
-  const data = { id: id, uuid: uuid, messageKey: messageKey, message: message };
+  const data = { id: id, uuid: uuid, messageKey: messageKey, message: message, qDate: new Date() };
 
   dequeue(null, messageKey);
   if (highPriority) {
@@ -348,6 +348,13 @@ function process() {
 
   if (queueItem == null) {
     console.warn(`MQ::Queue item is null, call delay process in 1 second`);
+    delayedProcess(1000);
+    return;
+  }
+
+  if (Date.now() - queueItem.qDate >= 900000) {
+    console.warn(`MQ::Queue item {queueItem.id} is over 15 minutes old, abandoning`);
+    dequeue(queueItem.id, null);
     delayedProcess(1000);
     return;
   }
