@@ -43,6 +43,7 @@ msgq.addEventListener("message", (messageKey, message) => {
     settings.settingUpdate(message);
   } else if (key === "all-settings-sent") {
     startingEl.style.display = "none";
+    settings.saveSettings();
   }
 });
 
