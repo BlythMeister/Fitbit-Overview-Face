@@ -5,7 +5,7 @@ import { weather } from "weather";
 import { msgq } from "./../shared/msgq.js";
 
 let lastWeather = null;
-let lastSendAllSettings = null;
+let settingsKeys = [];
 
 //Wake every 15 minutes
 console.log("Set companion wake interval to 5 minutes");
@@ -17,8 +17,8 @@ companion.monitorSignificantLocationChanges = true;
 
 msgq.addEventListener("message", (messageKey, message) => {
   if (messageKey === "send-all-settings") {
-    sendSettingsWithDefaults();
-    msgq.send(`all-settings-sent`, {}, false);
+    setDefaultSettings();
+    sendAllSettings();
   } else if (messageKey === "weather") {
     sendWeather(message.unit);
   }
@@ -35,105 +35,113 @@ if (companion.launchReasons.locationChanged) {
   locationChange();
 }
 msgq.send("companion-launch", companion.launchReasons, false);
+setDefaultSettings();
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
-  sendSettingValue(evt.key, evt.newValue, true);
+  sendSettingValue(evt.key, evt.newValue);
 });
 
-function sendSettingsWithDefaults() {
-  var currentDate = Date.now();
-  var lastSendAllSettingsAge = lastSendAllSettings == null ? 99999999 : currentDate - lastSendAllSettings;
-  if (lastSendAllSettingsAge <= 300000) {
-    return;
-  }
-  lastSendAllSettings = currentDate;
-  setDefaultSettingOrSendExisting("distanceUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
-  setDefaultSettingOrSendExisting("dateFormat", { values: [{ value: "dd mmmm yyyy", name: "dd mmmm yyyy" }], selected: [11] });
-  setDefaultSettingOrSendExisting("timeFormat", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
-  setDefaultSettingOrSendExisting("showHeartRate", true);
-  setDefaultSettingOrSendExisting("isHeartbeatAnimation", true);
-  setDefaultSettingOrSendExisting("heartRateZoneVis", true);
-  setDefaultSettingOrSendExisting("showTime", true);
-  setDefaultSettingOrSendExisting("isAmPm", true);
-  setDefaultSettingOrSendExisting("showSeconds", true);
-  setDefaultSettingOrSendExisting("showLeadingZero", true);
-  setDefaultSettingOrSendExisting("flashDots", true);
-  setDefaultSettingOrSendExisting("showDate", true);
-  setDefaultSettingOrSendExisting("showDay", true);
-  setDefaultSettingOrSendExisting("StatsTL", { values: [{ value: "steps", name: "Steps" }], selected: [4] });
-  setDefaultSettingOrSendExisting("StatsBL", { values: [{ value: "distance", name: "Distance" }], selected: [5] });
-  setDefaultSettingOrSendExisting("StatsTM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
-  setDefaultSettingOrSendExisting("StatsMM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
-  setDefaultSettingOrSendExisting("StatsBM", { values: [{ value: "WEATHER-LOCATION", name: "Weather Location" }], selected: [12] });
-  setDefaultSettingOrSendExisting("StatsTR", { values: [{ value: "elevationGain", name: "Floors" }], selected: [6] });
-  setDefaultSettingOrSendExisting("StatsBR", { values: [{ value: "calories", name: "Calories" }], selected: [7] });
-  setDefaultSettingOrSendExisting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
-  setDefaultSettingOrSendExisting("showBatteryPercent", true);
-  setDefaultSettingOrSendExisting("showBatteryBar", true);
-  setDefaultSettingOrSendExisting("showPhoneStatus", true);
-  setDefaultSettingOrSendExisting("showMsgQSize", false);
-  setDefaultSettingOrSendExisting("showLastMsg", false);
-  setDefaultSettingOrSendExisting("torchEnabled", true);
-  setDefaultSettingOrSendExisting("torchAutoOff", { values: [{ value: "15", name: "15 Seconds" }], selected: [4] });
-  setDefaultSettingOrSendExisting("torchOverlay", true);
-  setDefaultSettingOrSendExisting("timeColour", "white");
-  setDefaultSettingOrSendExisting("dateColour", "white");
-  setDefaultSettingOrSendExisting("stepsColour", "darkorange");
-  setDefaultSettingOrSendExisting("distanceColour", "green");
-  setDefaultSettingOrSendExisting("elevationGainColour", "darkviolet");
-  setDefaultSettingOrSendExisting("caloriesColour", "deeppink");
-  setDefaultSettingOrSendExisting("activeMinutesColour", "deepskyblue");
-  setDefaultSettingOrSendExisting("activeMinutesWeekColour", "gold");
-  setDefaultSettingOrSendExisting("batteryStatColour", "lime");
-  setDefaultSettingOrSendExisting("heartColour", "crimson");
-  setDefaultSettingOrSendExisting("heartRateColour", "white");
-  setDefaultSettingOrSendExisting("bmColour", "gold");
-  setDefaultSettingOrSendExisting("bmiColour", "gold");
-  setDefaultSettingOrSendExisting("bmrColour", "gold");
-  setDefaultSettingOrSendExisting("phoneStatusDisconnected", "red");
-  setDefaultSettingOrSendExisting("phoneStatusConnected", "black");
-  setDefaultSettingOrSendExisting("progressBackgroundColour", "dimgray");
-  setDefaultSettingOrSendExisting("batteryIcon0Colour", "red");
-  setDefaultSettingOrSendExisting("batteryIcon25Colour", "darkorange");
-  setDefaultSettingOrSendExisting("batteryIcon50Colour", "gold");
-  setDefaultSettingOrSendExisting("batteryIcon75Colour", "lime");
-  setDefaultSettingOrSendExisting("battery0Colour", "red");
-  setDefaultSettingOrSendExisting("battery25Colour", "darkorange");
-  setDefaultSettingOrSendExisting("battery50Colour", "gold");
-  setDefaultSettingOrSendExisting("battery75Colour", "lime");
-  setDefaultSettingOrSendExisting("batteryBackgroundColour", "dimgray");
-  setDefaultSettingOrSendExisting("backgroundColour", "black");
-  setDefaultSettingOrSendExisting("weatherColour", "tan");
-  setDefaultSettingOrSendExisting("weatherLocationColour", "tan");
-  setDefaultSettingOrSendExisting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [2] });
-  setDefaultSettingOrSendExisting("weatherTemperatureUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
+function setDefaultSettings() {
+  setDefaultSetting("distanceUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
+  setDefaultSetting("dateFormat", { values: [{ value: "dd mmmm yyyy", name: "dd mmmm yyyy" }], selected: [11] });
+  setDefaultSetting("timeFormat", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
+  setDefaultSetting("showHeartRate", true);
+  setDefaultSetting("isHeartbeatAnimation", true);
+  setDefaultSetting("heartRateZoneVis", true);
+  setDefaultSetting("showTime", true);
+  setDefaultSetting("isAmPm", true);
+  setDefaultSetting("showSeconds", true);
+  setDefaultSetting("showLeadingZero", true);
+  setDefaultSetting("flashDots", true);
+  setDefaultSetting("showDate", true);
+  setDefaultSetting("showDay", true);
+  setDefaultSetting("StatsTL", { values: [{ value: "steps", name: "Steps" }], selected: [4] });
+  setDefaultSetting("StatsBL", { values: [{ value: "distance", name: "Distance" }], selected: [5] });
+  setDefaultSetting("StatsTM", { values: [{ value: "activeMinutes", name: "Active Zone Minutes" }], selected: [8] });
+  setDefaultSetting("StatsMM", { values: [{ value: "WEATHER", name: "Weather" }], selected: [11] });
+  setDefaultSetting("StatsBM", { values: [{ value: "WEATHER-LOCATION", name: "Weather Location" }], selected: [12] });
+  setDefaultSetting("StatsTR", { values: [{ value: "elevationGain", name: "Floors" }], selected: [6] });
+  setDefaultSetting("StatsBR", { values: [{ value: "calories", name: "Calories" }], selected: [7] });
+  setDefaultSetting("progressBars", { values: [{ value: "ring", name: "Ring" }], selected: [3] });
+  setDefaultSetting("showBatteryPercent", true);
+  setDefaultSetting("showBatteryBar", true);
+  setDefaultSetting("showPhoneStatus", true);
+  setDefaultSetting("showMsgQSize", false);
+  setDefaultSetting("showLastMsg", false);
+  setDefaultSetting("torchEnabled", true);
+  setDefaultSetting("torchAutoOff", { values: [{ value: "15", name: "15 Seconds" }], selected: [4] });
+  setDefaultSetting("torchOverlay", true);
+  setDefaultSetting("timeColour", "white");
+  setDefaultSetting("dateColour", "white");
+  setDefaultSetting("stepsColour", "darkorange");
+  setDefaultSetting("distanceColour", "green");
+  setDefaultSetting("elevationGainColour", "darkviolet");
+  setDefaultSetting("caloriesColour", "deeppink");
+  setDefaultSetting("activeMinutesColour", "deepskyblue");
+  setDefaultSetting("activeMinutesWeekColour", "gold");
+  setDefaultSetting("batteryStatColour", "lime");
+  setDefaultSetting("heartColour", "crimson");
+  setDefaultSetting("heartRateColour", "white");
+  setDefaultSetting("bmColour", "gold");
+  setDefaultSetting("bmiColour", "gold");
+  setDefaultSetting("bmrColour", "gold");
+  setDefaultSetting("phoneStatusDisconnected", "red");
+  setDefaultSetting("phoneStatusConnected", "black");
+  setDefaultSetting("progressBackgroundColour", "dimgray");
+  setDefaultSetting("batteryIcon0Colour", "red");
+  setDefaultSetting("batteryIcon25Colour", "darkorange");
+  setDefaultSetting("batteryIcon50Colour", "gold");
+  setDefaultSetting("batteryIcon75Colour", "lime");
+  setDefaultSetting("battery0Colour", "red");
+  setDefaultSetting("battery25Colour", "darkorange");
+  setDefaultSetting("battery50Colour", "gold");
+  setDefaultSetting("battery75Colour", "lime");
+  setDefaultSetting("batteryBackgroundColour", "dimgray");
+  setDefaultSetting("backgroundColour", "black");
+  setDefaultSetting("weatherColour", "tan");
+  setDefaultSetting("weatherLocationColour", "tan");
+  setDefaultSetting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [2] });
+  setDefaultSetting("weatherTemperatureUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
 }
 
-function setDefaultSettingOrSendExisting(key, value) {
+function setDefaultSetting(key, value) {
+  settingsKeys.push(key);
   let existingValue = settingsStorage.getItem(key);
   if (existingValue == null) {
     let jsonValue = JSON.stringify(value);
     console.log(`Companion Set - key:${key} val:${jsonValue}`);
     settingsStorage.setItem(key, jsonValue);
-    sendSettingValue(key, jsonValue, false);
-  } else {
-    console.log(`Companion Existing Setting - key:${key} existingValue:${existingValue}`);
-    sendSettingValue(key, existingValue, false);
   }
 }
 
-function sendSettingValue(key, val, highPriority) {
+function sendSettingValue(key, val) {
   if (val) {
     var data = {
       key: key,
       value: JSON.parse(val),
     };
 
-    msgq.send(`settingChange:${data.key}`, data, highPriority);
+    msgq.send(`settingChange:${data.key}`, data, true);
   } else {
     console.log(`value was null, not sending ${key}`);
   }
+}
+
+function sendAllSettings() {
+  var data = [];
+  for (let index = 0; index < settingsKeys.length; index++) {
+    const key = settingsKeys[index];
+    const value = settingsStorage.getItem(key);
+    if (value) {
+      data.push({
+        key: key,
+        value: JSON.parse(value),
+      });
+    }
+  }
+
+  msgq.send(`all-settings`, data, false);
 }
 
 function sendWeather(unit) {
@@ -142,13 +150,13 @@ function sendWeather(unit) {
     unitKey = "fahrenheit";
   }
 
-  if (lastWeather != null && lastWeather.condition >= 0 && (new Date() - lastWeather.date) < 300000) {
-    console.warn("Weather requested again within 5 minutes, returning old weather")
+  if (lastWeather != null && lastWeather.condition >= 0 && new Date() - lastWeather.date < 300000) {
+    console.warn("Weather requested again within 5 minutes, returning old weather");
     msgq.send("weather", lastWeather, true);
-    return
+    return;
   }
 
-  console.log("Trying to get weather as last weather no good")
+  console.log("Trying to get weather as last weather no good");
   try {
     weather
       .getWeatherData({ temperatureUnit: unitKey })
@@ -165,7 +173,7 @@ function sendWeather(unit) {
           temperature: Math.floor(location.currentWeather.temperature),
           condition: location.currentWeather.weatherCondition,
           location: location.name,
-          date: new Date()
+          date: new Date(),
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
         msgq.send("weather", lastWeather, true);
@@ -177,7 +185,7 @@ function sendWeather(unit) {
           unit: unitKey,
           condition: -1,
           location: e.message,
-          date: new Date()
+          date: new Date(),
         };
         msgq.send("weather", lastWeather, true);
       });
@@ -188,7 +196,7 @@ function sendWeather(unit) {
       unit: unitKey,
       condition: -1,
       location: e.message,
-      date: new Date()
+      date: new Date(),
     };
     msgq.send("weather", lastWeather, true);
   }
@@ -196,6 +204,6 @@ function sendWeather(unit) {
 
 function locationChange() {
   if (lastWeather != null && lastWeather.unit != null) {
-    sendWeather(lastWeather.unit.substring(0,1).toUpperCase());
+    sendWeather(lastWeather.unit.substring(0, 1).toUpperCase());
   }
 }

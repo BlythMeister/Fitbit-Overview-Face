@@ -32,10 +32,10 @@ if (settings.hasSettings()) {
   startingEl.style.display = "none";
 } else {
   setTimeout(() => {
-    if(startingEl.style.display == "inline") {
+    if (startingEl.style.display == "inline") {
       startingEl.style.display = "none";
       console.warn(`Hiding loading spinner after 4 minutes if still shown`);
-    }  
+    }
   }, 240000);
 }
 
@@ -48,7 +48,13 @@ msgq.addEventListener("message", (messageKey, message) => {
     weather.processWeatherData(message);
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
-  } else if (key === "all-settings-sent") {
+  } else if (key === "all-settings") {
+    console.log(`all settings: ${JSON.stringify(message)}`);
+    for (let index = 0; index < message.length; index++) {
+      const element = message[index];
+      console.log(`setting ${index}: ${JSON.stringify(element)}`);
+      settings.settingUpdate(element);
+    }
     startingEl.style.display = "none";
     settings.saveSettings();
   }
