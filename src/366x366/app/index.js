@@ -49,10 +49,8 @@ msgq.addEventListener("message", (messageKey, message) => {
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
   } else if (key === "all-settings") {
-    console.log(`all settings: ${JSON.stringify(message)}`);
     for (let index = 0; index < message.length; index++) {
       const element = message[index];
-      console.log(`setting ${index}: ${JSON.stringify(element)}`);
       settings.settingUpdate(element);
     }
     startingEl.style.display = "none";

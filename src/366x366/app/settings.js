@@ -667,7 +667,7 @@ export function setStatsLocation(element, location, centre = false) {
   }
 }
 
-export function onsettingschange(data) {
+export function onSettingsChange(data) {
   if (!data) {
     return;
   }
@@ -691,11 +691,8 @@ export function settingUpdate(message) {
   if (settings[message.key] != newValue) {
     console.log(`Setting update - key:${message.key} value:${newValue}`);
     settings[message.key] = newValue;
-  } else {
-    return;
-  }
-
-  onsettingschange(settings);
+    onSettingsChange(settings);
+  }   
 }
 
 appbit.addEventListener("unload", saveSettings);
