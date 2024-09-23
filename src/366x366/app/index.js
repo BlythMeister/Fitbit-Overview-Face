@@ -39,9 +39,6 @@ if (settings.hasSettings()) {
   }, 120000);
 }
 
-msgq.send("send-all-settings", {}, true);
-msgq.send("app-launch", {}, false);
-
 msgq.addEventListener("message", (messageKey, message) => {
   var key = messageKey.split(":")[0];
   if (key === "weather") {
@@ -69,3 +66,6 @@ if (appbit.applicationId == "6d80c169-94c5-4105-b9dc-98df99b798cd") {
 } else {
   prereleaseEl.style.display = "none";
 }
+
+msgq.send("send-all-settings", {}, true);
+msgq.send("app-launch", {}, false);
