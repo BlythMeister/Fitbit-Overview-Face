@@ -30,6 +30,13 @@ settings.applySettings();
 
 if (settings.hasSettings()) {
   startingEl.style.display = "none";
+} else {
+  setTimeout(() => {
+    if(startingEl.style.display == "inline") {
+      startingEl.style.display = "none";
+      console.warn(`Hiding loading spinner after 4 minutes if still shown`);
+    }  
+  }, 240000);
 }
 
 msgq.send("send-all-settings", {}, true);
