@@ -297,10 +297,10 @@ function process() {
   }
 
   var lastSentAge = Date.now() - lastSent;
-  if (lastSentAge < 250) {
-    var delay = 250 - lastSentAge;
+  if (lastSentAge < 500) {
+    var delay = 500 - lastSentAge;
     if (debugMessages) {
-      console.log(`MQ::Less than 250ms since last send, backoff ${delay}ms`);
+      console.log(`MQ::Less than 500ms since last send, backoff ${delay}ms`);
     }
     delayedProcess(delay);
     return;
@@ -311,12 +311,12 @@ function process() {
       console.warn(`MQ::Waiting for receipt (${waitingForId}) for over 10 seconds, resending!`);
       requeue(waitingForId);
       waitingForId = null;
-      delayedProcess(500);
+      delayedProcess(1000);
     } else {
       if (debugMessages) {
-        console.log(`MQ::Waiting for a receipt (${waitingForId}) call process again in 500ms`);
+        console.log(`MQ::Waiting for a receipt (${waitingForId}) call process again in 1 second`);
       }
-      delayedProcess(500);
+      delayedProcess(1000);
     }
     return;
   }
@@ -352,8 +352,8 @@ function process() {
     return;
   }
 
-  if (Date.now() - queueItem.qTime >= 900000) {
-    console.warn(`MQ::Queue item {queueItem.id} is over 15 minutes old, abandoning`);
+  if (Date.now() - queueItem.qTime >= 1200000) {
+    console.warn(`MQ::Queue item {queueItem.id} is over 20 minutes old, abandoning`);
     dequeue(queueItem.id, null);
     delayedProcess(1000);
     return;
@@ -368,8 +368,8 @@ function process() {
     lastSent = Date.now();
   } catch (e) {
     waitingForId = null;
-    console.warn(`MQ::Send error, call process again in 1 seconds.${e}`);
-    delayedProcess(1000);
+    console.warn(`MQ::Send error, call process again in 2 seconds.${e}`);
+    delayedProcess(2000);
   }
 }
 
@@ -392,8 +392,8 @@ function onMessage(event) {
       console.log(`MQ::Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
 
-    if (event.data.qTime != null && new Date() - event.data.qTime > 900000) {
-      console.warn(`MQ::Message ${id} queued over 15 minutes ago will not process`);
+    if (event.data.qTime != null && new Date() - event.data.qTime > 1200000) {
+      console.warn(`MQ::Message ${id} queued over 20 minutes ago will not process`);
     } else {
       for (let handler of onMessageHandlers) {
         try {
@@ -418,7 +418,7 @@ function onMessage(event) {
     }
     dequeue(id, null);
     waitingForId = null;
-    delayedProcess(500);
+    delayedProcess(1000);
   }
 }
 
