@@ -10,7 +10,7 @@ let debugMessages = false;
 let debugFileTransferMessages = false;
 let queueHp = [];
 let queueLp = [];
-let onMessageHandlers = [];
+let onMessageHandler = null;
 let otherQueueSize = 0;
 let waitingForId = null;
 let lastSent = null;
@@ -405,12 +405,10 @@ function onMessage(event) {
     if (event.data.qTime != null && new Date() - event.data.qTime > 1200000) {
       console.warn(`MQ::Message ${id} queued over 20 minutes ago will not process`);
     } else {
-      for (let handler of onMessageHandlers) {
-        try {
-          handler(messageKey, message);
-        } catch (e) {
-          console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
-        }
+      try {
+        onMessageHandler(messageKey, message);
+      } catch (e) {
+        console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
       }
     }  
   } else if (type == "msgq_receipt") {
@@ -526,17 +524,18 @@ async function initFileListener(isCompanion) {
 //====================================================================================================
 // Exports
 //====================================================================================================
-
+const initCalled = false;
 const msgq = {
   send: enqueue,
-  addEventListener: async function (event, handler) {
-    if (event == "message") {
-      onMessageHandlers.push(handler);
-    } else {
-      throw `Unknown event ${event}`;
+  onMessage: function (handler) {
+    onMessageHandler = handler;
+    if (!initCalled) {
+      initCalled = true;
+      initFileListener(inbox.pop)
+      .catch((e) => {
+        console.error(`MSGQ::Init error. ${e}`);
+      });
     }
-
-    await initFileListener(inbox.pop);
   },
   getQueueSize: GetQueueSize,
   getOtherQueueSize: GetOtherQueueSize,
