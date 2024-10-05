@@ -531,7 +531,7 @@ const msgq = {
     if (event == "message") {
       onMessageHandler = handler;
     } else {
-      throw `Unknown event ${event}`;handler) {
+      throw `Unknown event ${event}`;
     }
       
     if (!initCalled) {
