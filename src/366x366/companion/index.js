@@ -15,7 +15,7 @@ companion.wakeInterval = 300000;
 console.log("Enable monitoring of significant location changes");
 companion.monitorSignificantLocationChanges = true;
 
-msgq.onMessage((messageKey, message) => {
+msgq.addEventListener("message", (messageKey, message) => {
   if (messageKey === "send-all-settings") {
     setDefaultSettings();
     sendAllSettings();
