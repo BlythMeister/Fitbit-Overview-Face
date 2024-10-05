@@ -524,11 +524,16 @@ async function initFileListener(isCompanion) {
 //====================================================================================================
 // Exports
 //====================================================================================================
-const initCalled = false;
+let initCalled = false;
 const msgq = {
   send: enqueue,
-  onMessage: function (handler) {
-    onMessageHandler = handler;
+  addEventListener: function (event, handler) {
+    if (event == "message") {
+      onMessageHandler = handler;
+    } else {
+      throw `Unknown event ${event}`;handler) {
+    }
+      
     if (!initCalled) {
       initCalled = true;
       initFileListener(inbox.pop)
