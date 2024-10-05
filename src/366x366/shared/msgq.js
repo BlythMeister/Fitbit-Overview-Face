@@ -328,7 +328,7 @@ function process() {
         console.log(`MQ::Top queue item is null, removing & call process again`);
       }
       queueHp.splice(0, 1);
-      process();
+      delayedProcess(1000);
       return;
     } else {
       queueItem = queueHp[0];
@@ -339,7 +339,7 @@ function process() {
         console.log(`MQ::Top queue item is null, removing & call process again`);
       }
       queueLp.splice(0, 1);
-      process();
+      delayedProcess(1000);
       return;
     } else {
       queueItem = queueLp[0];
@@ -363,9 +363,9 @@ function process() {
     if (debugSentReceive) {
       console.log(`MQ::Sending message ${queueItem.id} - ${queueItem.messageKey} - ${JSON.stringify(queueItem.message)}`);
     }
-    send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), qTime: queueItem.qTime, id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
     waitingForId = queueItem.id;
     lastSent = Date.now();
+    send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), qTime: queueItem.qTime, id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
   } catch (e) {
     waitingForId = null;
     console.warn(`MQ::Send error, call process again in 2 seconds.${e}`);
@@ -392,6 +392,16 @@ function onMessage(event) {
       console.log(`MQ::Message content ${id} - ${messageKey} -> ${JSON.stringify(message)}`);
     }
 
+    try {
+      if (debugSentReceive) {
+        console.log(`MQ::Sending receipt for ${id}`);
+      }
+      const ruuid = CreateUUID();
+      send(`r_${ruuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id, uuid: ruuid });
+    } catch (e) {
+      console.error(`MQ::${e}`);
+    }
+
     if (event.data.qTime != null && new Date() - event.data.qTime > 1200000) {
       console.warn(`MQ::Message ${id} queued over 20 minutes ago will not process`);
     } else {
@@ -402,16 +412,7 @@ function onMessage(event) {
           console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
         }
       }
-    }
-
-    try {
-      if (debugSentReceive) {
-        console.log(`MQ::Sending receipt for ${id}`);
-      }
-      send(`r_${uuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id });
-    } catch (e) {
-      console.error(`MQ::${e}`);
-    }
+    }  
   } else if (type == "msgq_receipt") {
     if (debugSentReceive) {
       console.log(`MQ::Got receipt for ${id}`);
@@ -426,7 +427,7 @@ function onMessage(event) {
 // File transfer
 //====================================================================================================
 
-const MESSAGE_FILE_NAME = "overview-message";
+const MESSAGE_FILE_NAME = "omsgq";
 
 function send(uuid, data) {
   let name = `${MESSAGE_FILE_NAME}.${uuid}.cbor`;
