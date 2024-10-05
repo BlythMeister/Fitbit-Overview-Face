@@ -39,7 +39,7 @@ if (settings.hasSettings()) {
   }, 120000);
 }
 
-msgq.onMessage((messageKey, message) => {
+msgq.addEventListener("message", (messageKey, message) => {
   var key = messageKey.split(":")[0];
   if (key === "weather") {
     weather.processWeatherData(message);
