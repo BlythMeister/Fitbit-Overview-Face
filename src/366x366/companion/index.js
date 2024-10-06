@@ -130,6 +130,7 @@ function sendSettingValue(key, val) {
 
 function sendAllSettings() {
   var data = [];
+  var counter = 0;
   for (let index = 0; index < settingsKeys.length; index++) {
     const key = settingsKeys[index];
     const value = settingsStorage.getItem(key);
@@ -138,10 +139,16 @@ function sendAllSettings() {
         key: key,
         value: JSON.parse(value),
       });
+      counter++;
     }
   }
-
-  msgq.send(`all-settings`, data, false);
+  
+  while(data.length > 0) {
+    let dataChunk = data.splice(0,5);
+    msgq.send(`settingsChunk`, dataChunk, false);
+  }
+  
+  msgq.send(`settingsComplete`, {count:counter}, false);
 }
 
 function sendWeather(unit) {
