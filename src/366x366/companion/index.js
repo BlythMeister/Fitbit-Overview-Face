@@ -142,10 +142,12 @@ function sendAllSettings() {
       counter++;
     }
   }
-  
+
+  var chunkCounter = 0;
   while(data.length > 0) {
+    chunkCounter++;
     const dataChunk = data.splice(0, Math.min(5, data.lengh));
-    msgq.send(`settingsChunk`, dataChunk, false);
+    msgq.send(`settingsChunk:${chunkCounter}`, dataChunk, false);
   }
   
   msgq.send(`settingsComplete`, {count:counter}, false);
