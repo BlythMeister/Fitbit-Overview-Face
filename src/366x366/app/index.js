@@ -45,18 +45,14 @@ msgq.addEventListener("message", (messageKey, message) => {
         const element = message.data[index];
         try {
           settings.settingUpdate(element);
-          if (index == message.data.length - 1) {
-            settings.applySettings();
-          }
         } catch (e) {
           console.error(e);
         }
       }
 
       if (message.chunk == message.totalChunks) {
-        startingEl.style.display = "none";
         settings.applySettings();
-        settings.saveSettings();
+        startingEl.style.display = "none";
       } else {
         var percent = Math.round((message.chunk / message.totalChunks) * 100);
         startingTextTopEl.text = `${gettext("installing")} - ${percent}%`;

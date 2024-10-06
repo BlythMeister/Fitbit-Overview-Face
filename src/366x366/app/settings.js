@@ -44,6 +44,8 @@ export function applySettings() {
       }
     }
 
+    saveSettings();
+
     if (settings.hasOwnProperty("distanceUnit") && settings["distanceUnit"]) {
       activity.distanceUnitSet(settings["distanceUnit"]);
     } else {
