@@ -144,7 +144,7 @@ function sendAllSettings() {
   }
   
   while(data.length > 0) {
-    let dataChunk = data.splice(0,5);
+    const dataChunk = data.splice(0, Math.min(5, data.lengh));
     msgq.send(`settingsChunk`, dataChunk, false);
   }
   
