@@ -30,13 +30,6 @@ settings.applySettings();
 
 if (settings.hasSettings()) {
   startingEl.style.display = "none";
-} else {
-  setTimeout(() => {
-    if (startingEl.style.display == "inline") {
-      startingEl.style.display = "none";
-      console.warn(`Hiding loading spinner after 2 minutes if still shown`);
-    }
-  }, 120000);
 }
 
 msgq.addEventListener("message", (messageKey, message) => {
