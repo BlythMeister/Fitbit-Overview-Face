@@ -45,11 +45,12 @@ msgq.addEventListener("message", (messageKey, message) => {
     weather.processWeatherData(message);
   } else if (key === "settingChange") {
     settings.settingUpdate(message);
-  } else if (key === "all-settings") {
+  } else if (key === "settingsChunk") {
     for (let index = 0; index < message.length; index++) {
       const element = message[index];
       settings.settingUpdate(element);
     }
+  } else if (key === "settingsComplete") {
     startingEl.style.display = "none";
     settings.saveSettings();
   }
