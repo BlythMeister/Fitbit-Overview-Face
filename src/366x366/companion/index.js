@@ -143,14 +143,14 @@ function sendAllSettings() {
     }
   }
 
-  var chunkCounter = 0;
+  var chunks = [];
   while(data.length > 0) {
-    chunkCounter++;
-    const dataChunk = data.splice(0, Math.min(15, data.length));
-    msgq.send(`settingsChunk:${chunkCounter}`, dataChunk, false);
+    chunks.push(data.splice(0, Math.min(15, data.length)));
   }
-  
-  msgq.send(`settingsComplete`, {count:counter}, false);
+
+  for (let index = 0; index < chunks.length; index++) {
+    msgq.send(`settingsChunk:${index + 1}`, {chunk:index + 1, totalChunks: chunks.length, data: chunks[index]}, false);
+  }
 }
 
 function sendWeather(unit) {

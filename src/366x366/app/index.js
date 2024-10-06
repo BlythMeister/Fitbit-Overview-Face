@@ -23,7 +23,7 @@ let startingTextTopEl = document.getElementById("starting-text-top");
 let startingTextBottomEl = document.getElementById("starting-text-bottom");
 
 startingEl.style.display = "inline";
-startingTextTopEl.text = gettext("installing");
+startingTextTopEl.text = `${gettext("installing")} - 0%`;
 startingTextBottomEl.text = gettext("please-wait");
 
 settings.applySettings();
@@ -41,15 +41,20 @@ msgq.addEventListener("message", (messageKey, message) => {
     } else if (key === "settingChange") {
       settings.settingUpdate(message);
     } else if (key === "settingsChunk") {
-      for (let index = 0; index < message.length; index++) {
-        const element = message[index];
+      for (let index = 0; index < message.data.length; index++) {
+        const element = message.data[index];
         settings.settingUpdate(element);
       }
-    } else if (key === "settingsComplete") {
-      startingEl.style.display = "none";
-      settings.saveSettings();
-    } else {
-      console.error(`Unknown key: ${key}`);
+
+      if(message.chunk == message.totalChunks) {
+        startingEl.style.display = "none";
+        settings.saveSettings();
+      } 
+      else 
+      {
+        var percent = Math.round((message.chunk/message.totalChunks) * 100)
+        startingTextTopEl.text = `${gettext("installing")} - ${percent}%`;
+      }
     }
   }
   catch (e) {
