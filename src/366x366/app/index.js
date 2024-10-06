@@ -40,20 +40,28 @@ if (settings.hasSettings()) {
 }
 
 msgq.addEventListener("message", (messageKey, message) => {
-  var key = messageKey.split(":")[0];
-  if (key === "weather") {
-    weather.processWeatherData(message);
-  } else if (key === "settingChange") {
-    settings.settingUpdate(message);
-  } else if (key === "settingsChunk") {
-    for (let index = 0; index < message.length; index++) {
-      const element = message[index];
-      settings.settingUpdate(element);
+  try
+  {
+    var key = messageKey.split(":")[0];
+    if (key === "weather") {
+      weather.processWeatherData(message);
+    } else if (key === "settingChange") {
+      settings.settingUpdate(message);
+    } else if (key === "settingsChunk") {
+      for (let index = 0; index < message.length; index++) {
+        const element = message[index];
+        settings.settingUpdate(element);
+      }
+    } else if (key === "settingsComplete") {
+      startingEl.style.display = "none";
+      settings.saveSettings();
+    } else {
+      console.error(`Unknown key: ${key}`);
     }
-  } else if (key === "settingsComplete") {
-    startingEl.style.display = "none";
-    settings.saveSettings();
   }
+  catch (e) {
+    console.error(e);
+  }  
 });
 
 let prereleaseEl = document.getElementById("pr");
