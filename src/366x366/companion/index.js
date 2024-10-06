@@ -144,12 +144,12 @@ function sendAllSettings() {
   }
 
   var chunks = [];
-  while(data.length > 0) {
+  while (data.length > 0) {
     chunks.push(data.splice(0, Math.min(15, data.length)));
   }
 
   for (let index = 0; index < chunks.length; index++) {
-    msgq.send(`settingsChunk:${index + 1}`, {chunk:index + 1, totalChunks: chunks.length, data: chunks[index]}, false);
+    msgq.send(`settingsChunk:${index + 1}`, { chunk: index + 1, totalChunks: chunks.length, data: chunks[index] }, false);
   }
 }
 

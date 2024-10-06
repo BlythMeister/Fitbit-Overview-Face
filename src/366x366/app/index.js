@@ -33,33 +33,38 @@ if (settings.hasSettings()) {
 }
 
 msgq.addEventListener("message", (messageKey, message) => {
-  try
-  {
+  try {
     var key = messageKey.split(":")[0];
     if (key === "weather") {
       weather.processWeatherData(message);
     } else if (key === "settingChange") {
       settings.settingUpdate(message);
+      settings.applySettings();
     } else if (key === "settingsChunk") {
       for (let index = 0; index < message.data.length; index++) {
         const element = message.data[index];
-        settings.settingUpdate(element);
+        try {
+          settings.settingUpdate(element);
+          if (index == message.data.length - 1) {
+            settings.applySettings();
+          }
+        } catch (e) {
+          console.error(e);
+        }
       }
 
-      if(message.chunk == message.totalChunks) {
+      if (message.chunk == message.totalChunks) {
         startingEl.style.display = "none";
+        settings.applySettings();
         settings.saveSettings();
-      } 
-      else 
-      {
-        var percent = Math.round((message.chunk/message.totalChunks) * 100)
+      } else {
+        var percent = Math.round((message.chunk / message.totalChunks) * 100);
         startingTextTopEl.text = `${gettext("installing")} - ${percent}%`;
       }
     }
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
-  }  
+  }
 });
 
 let prereleaseEl = document.getElementById("pr");
