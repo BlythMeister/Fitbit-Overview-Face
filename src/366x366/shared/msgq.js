@@ -56,6 +56,10 @@ function CreateUUID() {
 //====================================================================================================
 
 function enqueue(messageKey, message, highPriority) {
+  if(queueHp.length + queueLp.length >= 99) {
+    throw "Queue too big";
+  }
+
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
 

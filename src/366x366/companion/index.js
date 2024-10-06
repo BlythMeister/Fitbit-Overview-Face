@@ -146,7 +146,7 @@ function sendAllSettings() {
   var chunkCounter = 0;
   while(data.length > 0) {
     chunkCounter++;
-    const dataChunk = data.splice(0, Math.min(5, data.lengh));
+    const dataChunk = data.splice(0, Math.min(10, data.length));
     msgq.send(`settingsChunk:${chunkCounter}`, dataChunk, false);
   }
   
