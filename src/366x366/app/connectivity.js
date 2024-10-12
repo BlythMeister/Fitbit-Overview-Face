@@ -19,7 +19,7 @@ setInterval(function () {
   
   var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
-  if (lastSentAge > 120000 && lastReceivedAge > 120000) {
+  if (lastSentAge > 150000 && lastReceivedAge > 150000) {
     try {
       msgq.send("connectivity", { }, true);
     } catch (e) {
@@ -92,7 +92,7 @@ export function drawState() {
     queueSizeEl.text += " / W";
   }
 
-  if (lastReceivedAge >= 900000) {
+  if (lastReceivedAge >= 1800000) {
     disconnected = true;
     phoneIconEl.style.fill = disconnectedColour;
     queueSizeEl.style.fill = disconnectedColour;
