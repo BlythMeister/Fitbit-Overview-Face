@@ -19,7 +19,7 @@ setInterval(function () {
   
   var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
-  if (lastSentAge > 600000 && lastReceivedAge > 600000) {
+  if (lastSentAge > 120000 && lastReceivedAge > 120000) {
     try {
       msgq.send("connectivity", { }, true);
     } catch (e) {
