@@ -5,6 +5,7 @@ import { weather } from "weather";
 import { msgq } from "./../shared/msgq.js";
 
 let lastWeather = null;
+let lastWeatherUnit = null;
 let settingsKeys = [];
 
 //Wake every 15 minutes
@@ -154,10 +155,11 @@ function sendAllSettings() {
 }
 
 function sendWeather(unit) {
-  let unitKey = "celsius";
+  unitKey = "celsius"; 
   if (unit == "F") {
     unitKey = "fahrenheit";
   }
+  lastWeatherUnit = unit;
 
   if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey && new Date() - lastWeather.date < 600000) {
     console.warn("Weather requested again within 10 minutes, returning old weather");
@@ -165,6 +167,7 @@ function sendWeather(unit) {
     return;
   }
 
+  lastWeather = null;
   console.log("Trying to get weather as last weather no good");
   try {
     weather
@@ -189,30 +192,31 @@ function sendWeather(unit) {
       })
       .catch((e) => {
         console.error(e);
-        lastWeather = {
+        var errorWeather = {
           temperature: -999,
           unit: unitKey,
           condition: -1,
           location: e.message,
           date: new Date(),
         };
-        msgq.send("weather", lastWeather, true);
+        msgq.send("weather", errorWeather, true);
       });
   } catch (e) {
     console.error(e);
-    lastWeather = {
+    var errorWeather = {
       temperature: -999,
       unit: unitKey,
       condition: -1,
       location: e.message,
       date: new Date(),
     };
-    msgq.send("weather", lastWeather, true);
+    msgq.send("weather", errorWeather, true);
   }
 }
 
 function locationChange() {
-  if (lastWeather != null && lastWeather.unit != null) {
-    sendWeather(lastWeather.unit.substring(0, 1).toUpperCase());
+  if (lastWeatherUnit != null) {
+    lastWeather = null;
+    sendWeather(lastWeatherUnit);
   }
 }
