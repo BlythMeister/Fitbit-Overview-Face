@@ -76,7 +76,7 @@ function enqueue(messageKey, message, highPriority) {
     console.log(`MQ::Enqueued message ${id} - ${messageKey} - ${JSON.stringify(message)} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
   }
 
-  delayedProcess(500);
+  delayedProcess(1000);
 }
 
 //====================================================================================================
@@ -242,16 +242,8 @@ function delayedProcess(delay) {
   } else {
     let msToEnd = delayedProcessCallAt - new Date().getTime();
 
-    if (msToEnd < 0) {
-      if (debugMessages) {
-        console.log(`MQ::Calling process as delay due in under 0ms`);
-      }
-      process();
-      return;
-    }
-
     if (msToEnd > delay) {
-      setNewTime = true;
+        setNewTime = true;
     }
   }
 
