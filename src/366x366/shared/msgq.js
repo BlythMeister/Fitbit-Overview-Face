@@ -214,6 +214,13 @@ function requeue(messageId) {
       console.log(`MQ::Dequeued message (for requeue) ${messageId} - QueueSizeHp: ${queueHp.length}/QueueSizeLp: ${queueLp.length}`);
     }
 
+    var newUuid = CreateUUID();
+    if (debugMessages) {
+      console.log(`MQ::Update UUID. - Old: ${data.uuid} / New: ${newUuid}`);
+    }
+    data.uuid = newUuid;
+    data.id = `${data.messageKey}#${newUuid}`;
+
     if (isHp) {
       queueHp.push(data);
     } else {
