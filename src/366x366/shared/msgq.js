@@ -423,8 +423,8 @@ function onMessage(event) {
 
 const MESSAGE_FILE_NAME = "omsgq";
 
-function send(uuid, data) {
-  let name = `${MESSAGE_FILE_NAME}.${uuid}.cbor`;
+function send(key, data) {
+  let name = `${MESSAGE_FILE_NAME}.${key.replace(":", "_")}.cbor`;
   if (debugFileTransferMessages) {
     console.log(`FT::Queuing '${name}' : ${JSON.stringify(data)}`);
   }

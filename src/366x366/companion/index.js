@@ -155,7 +155,7 @@ function sendAllSettings() {
 }
 
 function sendWeather(unit) {
-  unitKey = "celsius"; 
+  let unitKey = "celsius"; 
   if (unit == "F") {
     unitKey = "fahrenheit";
   }
