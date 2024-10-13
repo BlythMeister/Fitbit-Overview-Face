@@ -101,7 +101,7 @@ function setDefaultSettings() {
   setDefaultSetting("backgroundColour", "black");
   setDefaultSetting("weatherColour", "tan");
   setDefaultSetting("weatherLocationColour", "tan");
-  setDefaultSetting("weatherRefreshInterval", { values: [{ value: "1800000", name: "30 minutes" }], selected: [2] });
+  setDefaultSetting("weatherRefreshInterval", { values: [{ value: "900000", name: "15 minutes" }], selected: [0] });
   setDefaultSetting("weatherTemperatureUnit", { values: [{ value: "auto", name: "Automatic (Use Fitbit Setting)" }], selected: [0] });
 }
 
@@ -159,8 +159,8 @@ function sendWeather(unit) {
     unitKey = "fahrenheit";
   }
 
-  if (lastWeather != null && lastWeather.condition >= 0 && new Date() - lastWeather.date < 300000) {
-    console.warn("Weather requested again within 5 minutes, returning old weather");
+  if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey && new Date() - lastWeather.date < 600000) {
+    console.warn("Weather requested again within 10 minutes, returning old weather");
     msgq.send("weather", lastWeather, true);
     return;
   }
