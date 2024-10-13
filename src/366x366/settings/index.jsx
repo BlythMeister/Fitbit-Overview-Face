@@ -238,7 +238,6 @@ function mySettings(props) {
   ];
 
   let weatherRefresh = [
-    { value: "600000", name: "10 minutes" },
     { value: "900000", name: "15 minutes" },
     { value: "1800000", name: "30 minutes" },
     { value: "3600000", name: "60 minutes" },
