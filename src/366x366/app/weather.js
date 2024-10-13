@@ -12,7 +12,7 @@ export let startingEl = document.getElementById("starting");
 export let weatherPosition = "NONE";
 export let weatherLocationPosition = "NONE";
 export let temperatureUnit = "C";
-export let weatherInterval = 60000;
+export let weatherInterval = 900000;
 export let weatherLastUpdate = null;
 export let weatherLastRequest = null;
 export let currentWeatherData = null;
@@ -85,8 +85,8 @@ export function setTemperatureUnit(unit) {
 }
 
 export function setRefreshInterval(interval) {
-  if (interval < 60000) {
-    interval = 60000;
+  if (interval < 900000) {
+    interval = 900000;
   }
 
   if (interval != weatherInterval) {
@@ -112,7 +112,7 @@ export function fetchWeather() {
 
   if (currentWeatherData == null) {
     DrawWeather();
-  } else if (currentWeatherData != null && currentWeatherAge >= weatherInterval * 2) {
+  } else if (currentWeatherAge >= weatherInterval * 2) {
     currentWeatherData.condition = -2;
     DrawWeather();
   }
@@ -120,7 +120,7 @@ export function fetchWeather() {
   if (lastRequestAge >= 300000) {
     weatherLastRequest = Date.now();
 
-    if (currentWeatherData == null || currentWeatherData.condition === -1 || currentWeatherAge >= weatherInterval) {
+    if (currentWeatherData == null || currentWeatherData.condition < 0 || currentWeatherAge >= weatherInterval) {
       try {
         let sendUnit = temperatureUnit;
         if (sendUnit == "auto") {
