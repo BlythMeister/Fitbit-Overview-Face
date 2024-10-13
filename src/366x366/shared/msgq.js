@@ -354,7 +354,7 @@ function process() {
     }
     waitingForId = queueItem.id;
     lastSent = Date.now();
-    send(`m_${queueItem.uuid}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), qTime: queueItem.qTime, id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
+    send(`m_${queueItem.messageKey}`, { msgqType: "msgq_message", qSize: Math.max(0, queueHp.length + queueLp.length - 1), qTime: queueItem.qTime, id: queueItem.id, uuid: queueItem.uuid, msgqMessage: queueItem });
   } catch (e) {
     waitingForId = null;
     console.warn(`MQ::Send error, call process again in 2 seconds.${e}`);
@@ -386,7 +386,7 @@ function onMessage(event) {
         console.log(`MQ::Sending receipt for ${id}`);
       }
       const ruuid = CreateUUID();
-      send(`r_${ruuid}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id, uuid: ruuid });
+      send(`r_${messageKey}`, { msgqType: "msgq_receipt", qSize: Math.max(0, queueHp.length + queueLp.length - 1), id: id, uuid: ruuid });
     } catch (e) {
       console.error(`MQ::${e}`);
     }
