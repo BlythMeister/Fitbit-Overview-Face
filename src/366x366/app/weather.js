@@ -136,7 +136,7 @@ export function fetchWeather() {
 
 export function processWeatherData(data) {
   var currentDate = Date.now();
-  if (currentWeatherData != null && data != null && currentWeatherData.condition >= 0 && data.condition === -1) {
+  if (currentWeatherData != null && data != null && currentWeatherData.condition >= 0 && data.condition < 0) {
     var currentWeatherAge = weatherLastUpdate == null ? 99999999 : currentDate - weatherLastUpdate;
     if (currentWeatherAge < weatherInterval * 2) {
       return;
