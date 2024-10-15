@@ -159,16 +159,14 @@ function sendWeather(unit) {
   }
 
   localStorage.setItem("lastWeatherUnit", unit);
+  
   let lastWeatherJson = localStorage.getItem("lastWeather");
-  let lastWeather = null;
   if(lastWeatherJson != null) {
-    lastWeather = JSON.parse(lastWeatherJson)
+    let lastWeather = JSON.parse(lastWeatherJson)
     console.log(`lastWeather: ${lastWeatherJson}`)
-  }
-
-  if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey) {
     let lastWeatherAge = new Date() - new Date(lastWeather.date);
-    if (lastWeatherAge < 600000) {
+    
+    if (lastWeather.condition >= 0 && lastWeather.unit == unitKey && lastWeatherAge < 600000) {
       console.warn(`Weather requested again within 10 minutes (${lastWeatherAge}ms), returning old weather`);
       msgq.send("weather", lastWeather, true);
       return;
@@ -207,6 +205,7 @@ function sendWeather(unit) {
           location: e.message,
           date: new Date(),
         };
+        localStorage.setItem("lastWeather", null);r
         msgq.send("weather", errorWeather, true);
       });
   } catch (e) {
@@ -218,6 +217,7 @@ function sendWeather(unit) {
       location: e.message,
       date: new Date(),
     };
+    localStorage.setItem("lastWeather", null);
     msgq.send("weather", errorWeather, true);
   }
 }
