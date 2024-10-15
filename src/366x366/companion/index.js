@@ -158,9 +158,9 @@ function sendWeather(unit) {
     unitKey = "fahrenheit";
   }
 
-  localStorage.setItem("lastWeatherUnit", unitKey);
-  
   try { 
+    localStorage.setItem("lastWeatherUnit", unitKey);
+    
     let lastWeatherJson = localStorage.getItem("lastWeather");
     if(lastWeatherJson != null) {
       let lastWeather = JSON.parse(lastWeatherJson)
