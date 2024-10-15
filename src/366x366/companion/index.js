@@ -197,8 +197,8 @@ function sendWeather(unit) {
           date: new Date(),
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        settingsStorage.setItem("weatherCache", JSON.stringify(weatherData));
         msgq.send("weather", weatherData, true);
+        settingsStorage.setItem("weatherCache", JSON.stringify(weatherData));
       })
       .catch((e) => {
         console.error(e);
@@ -209,8 +209,8 @@ function sendWeather(unit) {
           location: e.message,
           date: new Date(),
         };
-        settingsStorage.setItem("weatherCache", null);
         msgq.send("weather", errorWeather, true);
+        settingsStorage.removeItem("weatherCache");
       });
   } catch (e) {
     console.error(e);
@@ -221,8 +221,8 @@ function sendWeather(unit) {
       location: e.message,
       date: new Date(),
     };
-    settingsStorage.setItem("weatherCache", null);
     msgq.send("weather", errorWeather, true);
+    settingsStorage.removeItem("weatherCache");
   }
 }
 
@@ -230,7 +230,7 @@ function locationChange() {
   try {
     let lastWeather = settingsStorage.getItem("weatherCache");
     if (lastWeather) {
-      settingsStorage.setItem("weatherCache", null);
+      settingsStorage.removeItem("weatherCache");
       sendWeather(lastWeather.unit);
     }
   } catch (e) {
