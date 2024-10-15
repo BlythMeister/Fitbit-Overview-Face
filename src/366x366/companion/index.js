@@ -1,5 +1,4 @@
 import { settingsStorage } from "settings";
-import { localStorage } from "local-storage";
 import { me as companion } from "companion";
 import { weather } from "weather";
 
@@ -159,9 +158,9 @@ function sendWeather(unit) {
   }
 
   try {
-    localStorage.setItem("lastWeatherUnit", unitKey);
+    settingsStorage.setItem("lastWeatherUnit", unitKey);
 
-    let lastWeatherJson = localStorage.getItem("lastWeather");
+    let lastWeatherJson = settingsStorage.getItem("lastWeather");
     if (lastWeatherJson != null) {
       let lastWeather = JSON.parse(lastWeatherJson);
       //console.log(`lastWeather: ${lastWeatherJson}`);
@@ -197,7 +196,7 @@ function sendWeather(unit) {
           date: new Date(),
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        localStorage.setItem("lastWeather", JSON.stringify(weatherData));
+        settingsStorage.setItem("lastWeather", JSON.stringify(weatherData));
         msgq.send("weather", weatherData, true);
       })
       .catch((e) => {
@@ -209,7 +208,7 @@ function sendWeather(unit) {
           location: e.message,
           date: new Date(),
         };
-        localStorage.setItem("lastWeather", null);
+        settingsStorage.setItem("lastWeather", null);
         msgq.send("weather", errorWeather, true);
       });
   } catch (e) {
@@ -221,16 +220,16 @@ function sendWeather(unit) {
       location: e.message,
       date: new Date(),
     };
-    localStorage.setItem("lastWeather", null);
+    settingsStorage.setItem("lastWeather", null);
     msgq.send("weather", errorWeather, true);
   }
 }
 
 function locationChange() {
   try {
-    let lastWeatherUnit = localStorage.getItem("lastWeatherUnit");
+    let lastWeatherUnit = settingsStorage.getItem("lastWeatherUnit");
     if (lastWeatherUnit != null) {
-      localStorage.setItem("lastWeather", null);
+      settingsStorage.setItem("lastWeather", null);
       sendWeather(lastWeatherUnit);
     }
   } catch (e) {
