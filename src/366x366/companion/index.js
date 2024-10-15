@@ -37,7 +37,10 @@ setDefaultSettings();
 
 // Settings have been changed
 settingsStorage.addEventListener("change", (evt) => {
-  sendSettingValue(evt.key, evt.newValue);
+  if(evt.key != "weatherCache")
+  {
+    sendSettingValue(evt.key, evt.newValue);
+  } 
 });
 
 function setDefaultSettings() {
@@ -153,15 +156,13 @@ function sendAllSettings() {
 
 function sendWeather(unit) {
   let unitKey = "celsius";
-  if (unit == "F") {
+  if (unit == "F" || unit == "fahrenheit") {
     unitKey = "fahrenheit";
   }
 
   try {
-    settingsStorage.setItem("lastWeatherUnit", unitKey);
-
-    let lastWeatherJson = settingsStorage.getItem("lastWeather");
-    if (lastWeatherJson != null) {
+    let lastWeatherJson = settingsStorage.getItem("weatherCache");
+    if (lastWeatherJson) {
       let lastWeather = JSON.parse(lastWeatherJson);
       //console.log(`lastWeather: ${lastWeatherJson}`);
       let lastWeatherAge = new Date() - new Date(lastWeather.date);
@@ -196,7 +197,7 @@ function sendWeather(unit) {
           date: new Date(),
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        settingsStorage.setItem("lastWeather", JSON.stringify(weatherData));
+        settingsStorage.setItem("weatherCache", JSON.stringify(weatherData));
         msgq.send("weather", weatherData, true);
       })
       .catch((e) => {
@@ -208,7 +209,7 @@ function sendWeather(unit) {
           location: e.message,
           date: new Date(),
         };
-        settingsStorage.setItem("lastWeather", null);
+        settingsStorage.setItem("weatherCache", null);
         msgq.send("weather", errorWeather, true);
       });
   } catch (e) {
@@ -220,17 +221,17 @@ function sendWeather(unit) {
       location: e.message,
       date: new Date(),
     };
-    settingsStorage.setItem("lastWeather", null);
+    settingsStorage.setItem("weatherCache", null);
     msgq.send("weather", errorWeather, true);
   }
 }
 
 function locationChange() {
   try {
-    let lastWeatherUnit = settingsStorage.getItem("lastWeatherUnit");
-    if (lastWeatherUnit != null) {
-      settingsStorage.setItem("lastWeather", null);
-      sendWeather(lastWeatherUnit);
+    let lastWeather = settingsStorage.getItem("weatherCache");
+    if (lastWeather) {
+      settingsStorage.setItem("weatherCache", null);
+      sendWeather(lastWeather.unit);
     }
   } catch (e) {
     console.error(e);
