@@ -16,12 +16,12 @@ let firstTouch = false;
 setInterval(function () {
   var lastSent = msgq.getLastSent();
   var lastReceived = msgq.getLastReceived();
-  
+
   var lastSentAge = lastSent == null ? 999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 999999 : Date.now() - lastReceived;
   if (lastSentAge > 150000 && lastReceivedAge > 150000) {
     try {
-      msgq.send("connectivity", { }, true);
+      msgq.send("connectivity", {}, true);
     } catch (e) {
       //Do Nothing
     }
@@ -72,7 +72,7 @@ export function drawState() {
 
   var lastSentAge = lastSent == null ? 99999999 : Date.now() - lastSent;
   var lastReceivedAge = lastReceived == null ? 99999999 : Date.now() - lastReceived;
-  
+
   var sentAgeDisplay = lastSentAge / 1000 / 60;
   if (sentAgeDisplay >= 100) {
     lastMsgSentEl.text = `<< 100+`;

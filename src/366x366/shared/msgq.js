@@ -56,15 +56,14 @@ function CreateUUID() {
 //====================================================================================================
 
 function enqueue(messageKey, message, highPriority) {
-  if(queueHp.length + queueLp.length >= 99) {
+  if (queueHp.length + queueLp.length >= 99) {
     throw "Queue too big";
   }
 
   const uuid = CreateUUID();
   const id = `${messageKey}#${uuid}`;
 
-  const data = { id: id, uuid: uuid, messageKey: messageKey, message: message
-               };
+  const data = { id: id, uuid: uuid, messageKey: messageKey, message: message };
 
   dequeue(null, messageKey);
   if (highPriority) {
@@ -251,7 +250,7 @@ function delayedProcess(delay) {
     let msToEnd = delayedProcessCallAt - new Date().getTime();
 
     if (msToEnd > delay) {
-        setNewTime = true;
+      setNewTime = true;
     }
   }
 
@@ -391,10 +390,10 @@ function onMessage(event) {
     }
 
     try {
-     onMessageHandler(messageKey, message);
+      onMessageHandler(messageKey, message);
     } catch (e) {
       console.error(`MQ::Error handling ${id} - ${messageKey} -> ${JSON.stringify(message)}. ${e}`);
-    }  
+    }
   } else if (type == "msgq_receipt") {
     if (debugSentReceive) {
       console.log(`MQ::Got receipt for ${id}`);
@@ -519,11 +518,10 @@ const msgq = {
     } else {
       throw `Unknown event ${event}`;
     }
-      
+
     if (!initCalled) {
       initCalled = true;
-      initFileListener(inbox.pop)
-      .catch((e) => {
+      initFileListener(inbox.pop).catch((e) => {
         console.error(`MSGQ::Init error. ${e}`);
       });
     }

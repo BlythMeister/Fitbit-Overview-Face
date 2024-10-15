@@ -154,7 +154,7 @@ export function DrawWeather() {
   var errorCode = 0;
 
   if (currentWeatherData == null) {
-    location = gettext("weather-loading");  
+    location = gettext("weather-loading");
   } else if (currentWeatherData.condition === -1 && currentWeatherData.location === "The Weather Service is unavailable") {
     location = gettext("weather-unavailable");
     errorCode = 1;
@@ -172,9 +172,8 @@ export function DrawWeather() {
     location = currentWeatherData.location;
   }
 
-  if(errorCode > 0)
-  {    
-    count = `-e${errorCode}-`;  
+  if (errorCode > 0) {
+    count = `-e${errorCode}-`;
   }
 
   weatherIconEl.href = icon;
