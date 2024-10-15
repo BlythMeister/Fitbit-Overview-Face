@@ -1,11 +1,9 @@
 import { settingsStorage } from "settings";
+import { localStorage } from "local-storage";
 import { me as companion } from "companion";
 import { weather } from "weather";
 
 import { msgq } from "./../shared/msgq.js";
-
-let lastWeather = null;
-let lastWeatherUnit = null;
 let settingsKeys = [];
 
 //Wake every 15 minutes
@@ -159,15 +157,22 @@ function sendWeather(unit) {
   if (unit == "F") {
     unitKey = "fahrenheit";
   }
-  lastWeatherUnit = unit;
 
-  if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey && new Date() - lastWeather.date < 600000) {
-    console.warn("Weather requested again within 10 minutes, returning old weather");
+  localStorage.setItem("lastWeatherUnit", unit);
+  let lastWeatherJson = localStorage.getItem("lastWeather");
+  let lastWeather = null;
+  if(lastWeatherJson != null) {
+    lastWeather = JSON.parse(lastWeatherJson)
+    console.log(`lastWeather: ${lastWeatherJson}`)
+  }
+
+  let lastWeatherAge = new Date() - new Date(lastWeather.date);
+  if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey && lastWeatherAge < 600000) {
+    console.warn(`Weather requested again within 10 minutes (${lastWeatherAge}ms), returning old weather`);
     msgq.send("weather", lastWeather, true);
     return;
   }
 
-  lastWeather = null;
   console.log("Trying to get weather as last weather no good");
   try {
     weather
@@ -180,7 +185,7 @@ function sendWeather(unit) {
 
         var location = data.locations[0];
 
-        lastWeather = {
+        let weatherData = {
           unit: data.temperatureUnit,
           temperature: Math.floor(location.currentWeather.temperature),
           condition: location.currentWeather.weatherCondition,
@@ -188,7 +193,8 @@ function sendWeather(unit) {
           date: new Date(),
         };
         //console.log(`Weather:${JSON.stringify(sendData)}`);
-        msgq.send("weather", lastWeather, true);
+        localStorage.setItem("lastWeather", JSON.stringify(weatherData));
+        msgq.send("weather", weatherData, true);
       })
       .catch((e) => {
         console.error(e);
@@ -215,8 +221,9 @@ function sendWeather(unit) {
 }
 
 function locationChange() {
+  let lastWeatherUnit = localStorage.getItem("lastWeatherUnit");
   if (lastWeatherUnit != null) {
-    lastWeather = null;
+    localStorage.setItem("lastWeather", null);
     sendWeather(lastWeatherUnit);
   }
 }
