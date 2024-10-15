@@ -164,7 +164,7 @@ function sendWeather(unit) {
     let lastWeatherJson = localStorage.getItem("lastWeather");
     if (lastWeatherJson != null) {
       let lastWeather = JSON.parse(lastWeatherJson);
-      console.log(`lastWeather: ${lastWeatherJson}`);
+      //console.log(`lastWeather: ${lastWeatherJson}`);
       let lastWeatherAge = new Date() - new Date(lastWeather.date);
 
       if (lastWeather.condition >= 0 && lastWeather.unit == unitKey && lastWeatherAge < 600000) {
