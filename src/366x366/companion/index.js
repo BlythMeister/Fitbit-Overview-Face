@@ -166,11 +166,13 @@ function sendWeather(unit) {
     console.log(`lastWeather: ${lastWeatherJson}`)
   }
 
-  let lastWeatherAge = new Date() - new Date(lastWeather.date);
-  if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey && lastWeatherAge < 600000) {
-    console.warn(`Weather requested again within 10 minutes (${lastWeatherAge}ms), returning old weather`);
-    msgq.send("weather", lastWeather, true);
-    return;
+  if (lastWeather != null && lastWeather.condition >= 0 && lastWeather.unit == unitKey) {
+    let lastWeatherAge = new Date() - new Date(lastWeather.date);
+    if (lastWeatherAge < 600000) {
+      console.warn(`Weather requested again within 10 minutes (${lastWeatherAge}ms), returning old weather`);
+      msgq.send("weather", lastWeather, true);
+      return;
+    }
   }
 
   console.log("Trying to get weather as last weather no good");
