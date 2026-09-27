@@ -133,7 +133,7 @@ body {
     border-top: 1px solid grey;
 }
 
-.fab {
+.fa-brands {
     padding-top: 6px;
     font-size: 18px;
     width: 30px;
@@ -144,7 +144,7 @@ body {
     vertical-align: middle;
 }
 
-.far {
+.fa-regular {
     padding-top: 6px;
     font-size: 18px;
     width: 30px;
@@ -155,7 +155,7 @@ body {
     vertical-align: middle;
 }
 
-.fas {
+.fa-solid {
     padding-top: 6px;
     font-size: 18px;
     width: 30px;
@@ -166,37 +166,37 @@ body {
     vertical-align: middle;
 }
 
-a.fab:hover {
+a.fa-brands:hover {
     opacity: 0.7;
     text-decoration: none;
 }
 
-a.fas:hover {
+a.fa-solid:hover {
     opacity: 0.7;
     text-decoration: none;
 }
 
-a.far:hover {
+a.fa-regular:hover {
     opacity: 0.7;
     text-decoration: none;
 }
 
-.fab.fa-twitter {
-    background: #1DA1F2;
-    color: #FFFFFF;
-}
-
-.fab.fa-github {
+.fa-brands.fa-x-twitter {
     background: #000000;
     color: #FFFFFF;
 }
 
-.far.fa-envelope {
+.fa-brands.fa-github {
     background: #000000;
     color: #FFFFFF;
 }
 
-.fas.fa-cloud-download-alt {
+.fa-regular.fa-envelope {
+    background: #000000;
+    color: #FFFFFF;
+}
+
+.fa-solid.fa-cloud-arrow-down {
     background: #000000;
     color: #FFFFFF;
 }
